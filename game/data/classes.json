@@ -1,0 +1,82 @@
+[
+  {
+    "id": "C01",
+    "name": "ทหารหม้อน้ำ",
+    "starter_skill": "S01",
+    "VIT": 12,
+    "STR": 8,
+    "INT": 5,
+    "AGI": 5,
+    "trait": "เริ่มทุกไฟต์ด้วยbarrier20",
+    "attributes": {
+      "VIT": 12,
+      "STR": 8,
+      "INT": 5,
+      "AGI": 5
+    }
+  },
+  {
+    "id": "C02",
+    "name": "มือปืนรางเหล็ก",
+    "starter_skill": "S03",
+    "VIT": 8,
+    "STR": 7,
+    "INT": 6,
+    "AGI": 9,
+    "trait": "โจมตีMarkedเพิ่ม10%",
+    "attributes": {
+      "VIT": 8,
+      "STR": 7,
+      "INT": 6,
+      "AGI": 9
+    }
+  },
+  {
+    "id": "C03",
+    "name": "วิศวกรอาร์ก",
+    "starter_skill": "S04",
+    "VIT": 8,
+    "STR": 5,
+    "INT": 12,
+    "AGI": 5,
+    "trait": "FPcostทุกสกิลลด1ขั้นต่ำ1",
+    "attributes": {
+      "VIT": 8,
+      "STR": 5,
+      "INT": 12,
+      "AGI": 5
+    }
+  },
+  {
+    "id": "C04",
+    "name": "หมอสนามเขม่า",
+    "starter_skill": "S09",
+    "VIT": 10,
+    "STR": 5,
+    "INT": 10,
+    "AGI": 5,
+    "trait": "การฮีลเพิ่ม20%",
+    "attributes": {
+      "VIT": 10,
+      "STR": 5,
+      "INT": 10,
+      "AGI": 5
+    }
+  },
+  {
+    "id": "C05",
+    "name": "นักชีวกลเอเธอร์",
+    "starter_skill": "S20",
+    "VIT": 9,
+    "STR": 6,
+    "INT": 9,
+    "AGI": 6,
+    "trait": "Wet/Corrodedที่ตนใส่คงอยู่อีก1turn",
+    "attributes": {
+      "VIT": 9,
+      "STR": 6,
+      "INT": 9,
+      "AGI": 6
+    }
+  }
+]

@@ -1,0 +1,86 @@
+ConstantPool "select", "humanhit", "_root", "playSound", "subject", "swordtype", "sword", "gotoAndStop", "Helmet", "head", "shieldtype", "shield", "BodyParts", "i", "_parent", "Suit"
+Push "select", "humanhit", 2
+RandomNumber
+Add2
+SetVariable
+Push "select"
+GetVariable
+Push 1, "_root"
+GetVariable
+Push "playSound"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "subject"
+GetVariable
+Push "swordtype"
+Add2
+GetMember
+Push 1, "sword"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "subject"
+GetVariable
+Push "Helmet"
+Add2
+GetMember
+Push 1, "head"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "subject"
+GetVariable
+Push "shieldtype"
+Add2
+GetMember
+Push 1, "shield"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "subject"
+GetVariable
+Push "BodyParts"
+Add2
+GetMember
+Enumerate2
+loc012a:StoreRegister 0
+Push null
+Equals2
+If loc0181
+Push "i", register0
+SetVariable
+Push "_root"
+GetVariable
+Push "subject"
+GetVariable
+Push "BodyParts"
+Add2
+GetMember
+Push "i"
+GetVariable
+GetMember
+SetTarget2
+Push "_root"
+GetVariable
+Push "_parent"
+GetVariable
+Push "subject"
+GetMember
+Push "Suit"
+Add2
+GetMember
+GotoFrame2 false, false
+SetTarget ""
+Jump loc012a
+loc0181:

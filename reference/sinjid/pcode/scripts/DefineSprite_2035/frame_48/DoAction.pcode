@@ -1,0 +1,28 @@
+ConstantPool "_root", "eded", "playerturn", "midfight", "blackout", "play"
+Stop
+Push "_root"
+GetVariable
+Push "eded", false
+SetMember
+Push "_root"
+GetVariable
+Push "playerturn", "_root"
+GetVariable
+Push "playerturn"
+GetMember
+If loc0064
+Push true
+Jump loc0069
+loc0064:Push false
+loc0069:SetMember
+Push "_root"
+GetVariable
+Push "midfight", false
+SetMember
+Push 0.0, "_root"
+GetVariable
+Push "blackout"
+GetMember
+Push "play"
+CallMethod
+Pop

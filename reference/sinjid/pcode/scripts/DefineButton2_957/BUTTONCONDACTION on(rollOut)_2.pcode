@@ -1,0 +1,4 @@
+Push "_root"
+GetVariable
+Push "slotnum", undefined
+SetMember

@@ -1,0 +1,1 @@
+Separate SWF callback instrumentation was attempted. Exactly one root DoAction changed, but Ruffle ExternalInterface calls returned null. No runtime claim relies on this attempt. Temporary SWF and HTML removed; original SWF unchanged.

@@ -1,0 +1,6 @@
+Push "speak", "I love you. *hic*"
+SetVariable
+Push "persontype", "Drinker"
+SetVariable
+Push "objectnum", 1
+SetVariable

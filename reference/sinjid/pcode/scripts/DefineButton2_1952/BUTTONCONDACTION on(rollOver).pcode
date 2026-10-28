@@ -1,0 +1,26 @@
+ConstantPool "skilllabel", "_root", "Skill", "manareq", "manacostv", "Mana Cost: ", "manacostv2"
+Push "skilllabel", 17
+SetVariable
+Push "_root"
+GetVariable
+Push "Skill"
+GetMember
+Push "skilllabel"
+GetVariable
+GetMember
+Push 0.0
+Greater
+Not
+If loc009e
+Push "manareq", 70
+SetVariable
+Push "_root"
+GetVariable
+Push "manacostv", "Mana Cost: "
+SetMember
+Push "_root"
+GetVariable
+Push "manacostv2", "manareq"
+GetVariable
+SetMember
+loc009e:

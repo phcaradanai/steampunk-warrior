@@ -1,0 +1,7 @@
+Push "objectnum", 2
+SetVariable
+Push "JapTable", 1, "this"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop

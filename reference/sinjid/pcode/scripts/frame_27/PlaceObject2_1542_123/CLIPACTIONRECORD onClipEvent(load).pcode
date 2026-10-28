@@ -1,0 +1,8 @@
+Push "speak1", "I\'ve been studying herbs here. If you bring me white leaves, I can make medicine out of it for you."
+SetVariable
+Push "speak2", "Ah! You found some white leaves! Here\'s your medicine."
+SetVariable
+Push "persontype", "Lady"
+SetVariable
+Push "objectnum", 7
+SetVariable

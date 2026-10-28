@@ -1,0 +1,39 @@
+ConstantPool "counter", "dmg2", "dmg", "_root", "thing", "bar2", "_width", "shdpts", "shdptsmax", "widthkeep"
+Push "counter"
+GetVariable
+Push "dmg2", "dmg"
+GetVariable
+SetMember
+Push "_root"
+GetVariable
+Push "thing"
+GetVariable
+Push "bar2"
+Add2
+GetMember
+Push "_width", "_root"
+GetVariable
+Push "thing"
+GetVariable
+Push "shdpts"
+Add2
+GetMember
+Push "_root"
+GetVariable
+Push "thing"
+GetVariable
+Push "shdptsmax"
+Add2
+GetMember
+Divide
+Push "_root"
+GetVariable
+Push "thing"
+GetVariable
+Push "bar2"
+Add2
+GetMember
+Push "widthkeep"
+GetMember
+Multiply
+SetMember

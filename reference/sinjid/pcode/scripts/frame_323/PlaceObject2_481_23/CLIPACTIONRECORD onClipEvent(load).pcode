@@ -1,0 +1,5 @@
+Push "FadeIn", 1, "this"
+GetVariable
+Push "gotoAndPlay"
+CallMethod
+Pop

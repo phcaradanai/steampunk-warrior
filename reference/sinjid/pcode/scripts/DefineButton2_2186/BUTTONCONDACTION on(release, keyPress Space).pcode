@@ -1,0 +1,23 @@
+ConstantPool "_root", "manab", "manamaxb", "engb", "engmaxb", "lifeb", "lifemaxb"
+Push "_root"
+GetVariable
+Push "manab", "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "engb", "_root"
+GetVariable
+Push "engmaxb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "lifeb", "_root"
+GetVariable
+Push "lifemaxb"
+GetMember
+SetMember
+NextFrame

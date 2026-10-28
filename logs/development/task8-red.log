@@ -1,0 +1,5 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: skill tooltip preview must use same cost and rank math as resolver
+FAIL: InputSettings must preserve reachable controls and preferences
+Results: 198 passed, 2 failed

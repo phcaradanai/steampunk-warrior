@@ -1,0 +1,16 @@
+ConstantPool "this", "_width", "_root", "expb", "expmaxb", "widthkeep"
+Push "this"
+GetVariable
+Push "_width", "_root"
+GetVariable
+Push "expb"
+GetMember
+Push "_root"
+GetVariable
+Push "expmaxb"
+GetMember
+Divide
+Push "widthkeep"
+GetVariable
+Multiply
+SetMember

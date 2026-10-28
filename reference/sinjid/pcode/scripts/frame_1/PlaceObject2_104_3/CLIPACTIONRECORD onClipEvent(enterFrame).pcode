@@ -1,0 +1,14 @@
+ConstantPool "_this", "_root", "getBytesLoaded", "getBytesTotal"
+Push "_this"
+GetVariable
+Push 8f, 112.2, 0.0, "_root"
+GetVariable
+Push "getBytesLoaded"
+CallMethod
+Push 0.0, "_root"
+GetVariable
+Push "getBytesTotal"
+CallMethod
+Divide
+Multiply
+SetProperty

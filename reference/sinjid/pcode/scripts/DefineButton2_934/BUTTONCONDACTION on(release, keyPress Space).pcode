@@ -1,0 +1,8 @@
+Push "_root"
+GetVariable
+Push "pause", false
+SetMember
+Push "this"
+GetVariable
+Push "_visible", false
+SetMember

@@ -1,0 +1,10 @@
+ConstantPool "this", "_visible", "swapDepths"
+Push "this"
+GetVariable
+Push "_visible", false
+SetMember
+Push 942600, 1, "this"
+GetVariable
+Push "swapDepths"
+CallMethod
+Pop

@@ -1,0 +1,109 @@
+ConstantPool "pricegain", "itemlist", "Head Gear", "Shield", "Suit", "Weapon", "itemcheck", "i", "_root", "item", "itempick", "sellprice", "valuework", "Math", "round"
+Push "pricegain", 1.3
+SetVariable
+Push "itemlist", "Head Gear", "Shield", "Suit", "Weapon", 4
+InitArray
+SetVariable
+Push "itemcheck", false
+SetVariable
+Push "itemlist"
+GetVariable
+Enumerate2
+loc00a6:StoreRegister 0
+Push null
+Equals2
+If loc00ff
+Push "i", register0
+SetVariable
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+GetMember
+Push 1
+GetMember
+Push "itemlist"
+GetVariable
+Push "i"
+GetVariable
+GetMember
+Equals2
+Not
+If loc00fa
+Push "itemcheck", true
+SetVariable
+loc00fa:Jump loc00a6
+loc00ff:Push "itemcheck"
+GetVariable
+Push true
+Equals2
+Not
+If loc01ed
+Push "sellprice", 0.0
+SetVariable
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+GetMember
+Push 1
+GetMember
+Push "Suit"
+Equals2
+Not
+If loc0164
+Push "pricegain", "pricegain"
+GetVariable
+Push 1.8
+Multiply
+SetVariable
+loc0164:Push "valuework", 0.0
+SetVariable
+Push "i", 2
+SetVariable
+loc017e:Push "i"
+GetVariable
+Push 13
+Less2
+Not
+If loc01d3
+Push "valuework", "valuework"
+GetVariable
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+GetMember
+Push "i"
+GetVariable
+GetMember
+Push "pricegain"
+GetVariable
+Multiply
+Add2
+SetVariable
+Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc017e
+loc01d3:Push "sellprice", "valuework"
+GetVariable
+Push 1, "Math"
+GetVariable
+Push "round"
+CallMethod
+SetVariable
+loc01ed:

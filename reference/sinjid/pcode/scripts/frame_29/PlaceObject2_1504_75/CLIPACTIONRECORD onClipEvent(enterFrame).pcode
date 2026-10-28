@@ -1,0 +1,21 @@
+ConstantPool "_root", "grid", "char", "stepper", "this", "hitTest", "yellow", "gotoAndPlay"
+Push "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "stepper"
+GetMember
+Push 1, "this"
+GetVariable
+Push "hitTest"
+CallMethod
+Not
+If loc0080
+Push "yellow", 1, "this"
+GetVariable
+Push "gotoAndPlay"
+CallMethod
+Pop
+loc0080:

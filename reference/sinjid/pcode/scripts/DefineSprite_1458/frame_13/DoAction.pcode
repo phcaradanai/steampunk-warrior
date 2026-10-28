@@ -1,0 +1,27 @@
+ConstantPool "_root", "skill", "i", "skillx"
+Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Enumerate2
+loc0027:StoreRegister 0
+Push null
+Equals2
+If loc0065
+Push "i", register0
+SetVariable
+Push "_root"
+GetVariable
+Push "skillx", "i"
+GetVariable
+Add2
+Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Push "i"
+GetVariable
+GetMember
+SetMember
+Jump loc0027
+loc0065:

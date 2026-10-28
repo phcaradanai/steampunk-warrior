@@ -1,0 +1,6 @@
+Push "speak", "These people shouldn\'t be drinking. It disrupts the chi and derranges the positive ions formations of their bodies. Not to mention the disturbances within the feng chui."
+SetVariable
+Push "persontype", "Ninja"
+SetVariable
+Push "objectnum", 6
+SetVariable

@@ -1,0 +1,31 @@
+ConstantPool "_root", "itemstats", "Shadow Katana", "Shadow Spirit", "Shadow Armour", "Shadow Band", "Shadow Wrist"
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 20, "Shadow Katana"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 21, "Shadow Spirit"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 22, "Shadow Armour"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 23, "Shadow Band"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 24, "Shadow Wrist"
+SetMember

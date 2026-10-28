@@ -1,0 +1,46 @@
+{
+  "status": "passed",
+  "authority": "Planning consistency only; not product/runtime/balance validation",
+  "counts": {
+    "classes": 5,
+    "skills": 22,
+    "bosses": 6,
+    "rooms": 12,
+    "equipment": 62,
+    "training": 4
+  },
+  "tasks": 10,
+  "encounters": 36,
+  "checks": [
+    "unique IDs",
+    "skill prerequisites",
+    "room connectivity",
+    "equipment acquisition references",
+    "CSV/JSON parity",
+    "local links",
+    "ten development tasks",
+    "no Godot project created"
+  ],
+  "files": [
+    {
+      "path": "docs/superpowers/specs/2026-10-27-steampunk-warrior-expanded-design.md",
+      "sha256": "e26ec64d7a52f266aaa5a1587848181b93140b74bf70f6b3c1a8b7f6e640223e"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-27-steampunk-warrior.md",
+      "sha256": "c3c752fbfbefc342ce4af46741eea2d05a9ad3c88c70713d1d6901f0cbc4dd62"
+    },
+    {
+      "path": "docs/design/steampunk-content-plan.md",
+      "sha256": "00b1938e120a22377ef146d528c334cf91a3928a115f9e7489f4f73384a53310"
+    },
+    {
+      "path": "docs/design/steampunk-content-plan.json",
+      "sha256": "d8fa2b5e777d8ec0cfd8ec5bfad79fcc38f17d9cfd8ab5cf150c4ab1aa25c4ee"
+    },
+    {
+      "path": "docs/design/steampunk-equipment-plan.csv",
+      "sha256": "ddb114c656d3d8b78613c41ccb3b9df9128e18ed2bc4bf3f36cdb81ea9217727"
+    }
+  ]
+}

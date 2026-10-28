@@ -1,0 +1,5 @@
+onClipEvent(load){
+   speak = "The training room can be dangerous, if you are not careful. End the training if your life or energy starts running low. You will still recieve the EXP you earned.";
+   persontype = "Dark Ninja";
+   objectnum = 1;
+}

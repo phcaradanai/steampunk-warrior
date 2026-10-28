@@ -1,0 +1,20 @@
+ConstantPool "_root", "subject", "shieldtype", "shield", "gotoAndStop", "life", "Heal"
+Push "_root"
+GetVariable
+Push "subject"
+GetVariable
+Push "shieldtype"
+Add2
+GetMember
+Push 1, "shield"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "life", "subject"
+GetVariable
+Push 95, 3, "_root"
+GetVariable
+Push "Heal"
+CallMethod
+Pop

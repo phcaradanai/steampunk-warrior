@@ -1,0 +1,222 @@
+[
+  {
+    "id": "R01",
+    "name": "โรงซ่อมสนิมแดง",
+    "beat": "safe",
+    "purpose": "พัก เซฟ ฝึก และเลือกอาชีพ",
+    "exits": [
+      {
+        "to": "R02",
+        "requires": ""
+      }
+    ],
+    "fast_travel": true,
+    "palette": "hub",
+    "hazard": ""
+  },
+  {
+    "id": "R02",
+    "name": "ตลาดใต้สะพาน",
+    "beat": "safe",
+    "purpose": "ร้านค้าและข่าวสาร เปิดทางน้ำ",
+    "exits": [
+      {
+        "to": "R01",
+        "requires": ""
+      },
+      {
+        "to": "R03",
+        "requires": ""
+      }
+    ],
+    "fast_travel": false,
+    "palette": "hub",
+    "hazard": ""
+  },
+  {
+    "id": "R03",
+    "name": "คลองหมอกพิษ",
+    "beat": "teach",
+    "purpose": "สอนเปียกกับไฟฟ้าและช่วยคนงาน",
+    "exits": [
+      {
+        "to": "R02",
+        "requires": ""
+      },
+      {
+        "to": "R04",
+        "requires": ""
+      }
+    ],
+    "fast_travel": false,
+    "palette": "canal",
+    "hazard": "Wet"
+  },
+  {
+    "id": "R04",
+    "name": "ประตูระบายน้ำ",
+    "beat": "test",
+    "purpose": "วาล์วลดอันตรายและบอสB01",
+    "exits": [
+      {
+        "to": "R03",
+        "requires": ""
+      },
+      {
+        "to": "R05",
+        "requires": "B01"
+      }
+    ],
+    "fast_travel": false,
+    "palette": "canal",
+    "hazard": "Wet"
+  },
+  {
+    "id": "R05",
+    "name": "สถานีรถไฟร้าง",
+    "beat": "rest",
+    "purpose": "บทคุยฝ่ายต่าง ๆ และทางลัดกลับฐาน",
+    "exits": [
+      {
+        "to": "R04",
+        "requires": ""
+      },
+      {
+        "to": "R06",
+        "requires": ""
+      }
+    ],
+    "fast_travel": true,
+    "palette": "rail",
+    "hazard": ""
+  },
+  {
+    "id": "R06",
+    "name": "ลานรถหุ้มเกราะ",
+    "beat": "test",
+    "purpose": "ทดสอบเจาะโล่กับคู่ศัตรู บอสB02",
+    "exits": [
+      {
+        "to": "R05",
+        "requires": ""
+      },
+      {
+        "to": "R07",
+        "requires": "B02"
+      }
+    ],
+    "fast_travel": false,
+    "palette": "rail",
+    "hazard": ""
+  },
+  {
+    "id": "R07",
+    "name": "เรือนกระจกเอเธอร์",
+    "beat": "teach",
+    "purpose": "สอนสารกลายพันธุ์และเก็บหลักฐาน",
+    "exits": [
+      {
+        "to": "R06",
+        "requires": ""
+      },
+      {
+        "to": "R08",
+        "requires": ""
+      }
+    ],
+    "fast_travel": true,
+    "palette": "garden",
+    "hazard": "Corroded"
+  },
+  {
+    "id": "R08",
+    "name": "ห้องเพาะพันธุ์",
+    "beat": "test",
+    "purpose": "กิ่งทางเลือกช่วยนักวิจัย บอสB03",
+    "exits": [
+      {
+        "to": "R07",
+        "requires": ""
+      },
+      {
+        "to": "R09",
+        "requires": "B03"
+      }
+    ],
+    "fast_travel": false,
+    "palette": "garden",
+    "hazard": "Corroded"
+  },
+  {
+    "id": "R09",
+    "name": "อุโมงค์ถ่านหิน",
+    "beat": "teach",
+    "purpose": "สอนแรงดันและลำดับเทิร์น",
+    "exits": [
+      {
+        "to": "R08",
+        "requires": ""
+      },
+      {
+        "to": "R10",
+        "requires": ""
+      }
+    ],
+    "fast_travel": true,
+    "palette": "coal",
+    "hazard": "Heated"
+  },
+  {
+    "id": "R10",
+    "name": "โรงหล่อแขนกล",
+    "beat": "test",
+    "purpose": "ความร้อนสลับรอบและบอสB04",
+    "exits": [
+      {
+        "to": "R09",
+        "requires": ""
+      },
+      {
+        "to": "R11",
+        "requires": "B04"
+      }
+    ],
+    "fast_travel": false,
+    "palette": "foundry",
+    "hazard": "Heated"
+  },
+  {
+    "id": "R11",
+    "name": "หอจดหมายเหตุเมือง",
+    "beat": "decision",
+    "purpose": "ห้องใหม่ มีหลักฐานเปลี่ยนคำสั่งปฏิกรณ์ บอสB05",
+    "exits": [
+      {
+        "to": "R10",
+        "requires": ""
+      },
+      {
+        "to": "R12",
+        "requires": "B05"
+      }
+    ],
+    "fast_travel": true,
+    "palette": "archive",
+    "hazard": ""
+  },
+  {
+    "id": "R12",
+    "name": "หัวใจปฏิกรณ์",
+    "beat": "climax",
+    "purpose": "พักเตือนก่อนล็อกประตูชั่วคราวและบอสB06",
+    "exits": [
+      {
+        "to": "R11",
+        "requires": ""
+      }
+    ],
+    "fast_travel": false,
+    "palette": "reactor",
+    "hazard": ""
+  }
+]

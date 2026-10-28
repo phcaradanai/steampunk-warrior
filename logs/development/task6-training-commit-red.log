@@ -1,0 +1,4 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: training settles earnedXP without leaking practice HP or loaner FP
+Results: 8 passed, 1 failed

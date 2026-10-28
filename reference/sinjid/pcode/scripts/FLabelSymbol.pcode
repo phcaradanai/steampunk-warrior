@@ -1,0 +1,246 @@
+ConstantPool "_global", "FLabelClass", "this", "hostComponent", "_parent", "controller", "customTextStyle", "textStyle", "TextFormat", "enable", "prototype", "MovieClip", "FLabelSymbol", "Object", "registerClass", "setLabel", "val", "styleTable", "embedFonts", "value", "labelField", "setNewTextFormat", "text", "label", "_height", "textHeight", "setSize", "_width", "width", "setEnabled", "tmpColor", "textDisabled", "textColor", "setColor", "getLabel", "col"
+Push "_global"
+GetVariable
+Push "FLabelClass"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "hostComponent"
+GetMember
+Push undefined
+Equals2
+Not
+If loc01cc
+Push "this"
+GetVariable
+Push "hostComponent", "this"
+GetVariable
+Push "_parent"
+GetMember
+Push "controller"
+GetMember
+Push undefined
+Equals2
+If loc01bf
+Push "this"
+GetVariable
+Push "_parent"
+GetMember
+Push "controller"
+GetMember
+Jump loc01cb
+loc01bf:Push "this"
+GetVariable
+Push "_parent"
+GetMember
+loc01cb:SetMember
+loc01cc:Push "this"
+GetVariable
+Push "customTextStyle"
+GetMember
+Push undefined
+Equals2
+Not
+If loc0247
+Push "this"
+GetVariable
+Push "hostComponent"
+GetMember
+Push "textStyle"
+GetMember
+Push undefined
+Equals2
+Not
+If loc021e
+Push "this"
+GetVariable
+Push "hostComponent"
+GetMember
+Push "textStyle", 0.0, "TextFormat"
+NewObject
+SetMember
+loc021e:Push "this"
+GetVariable
+Push "textStyle", "this"
+GetVariable
+Push "hostComponent"
+GetMember
+Push "textStyle"
+GetMember
+SetMember
+Push "this"
+GetVariable
+Push "enable", true
+SetMember
+}
+loc0247:SetMember
+Push "FLabelClass"
+GetVariable
+Push "prototype", 0.0, "MovieClip"
+NewObject
+SetMember
+Push "FLabelClass"
+GetVariable
+Push "FLabelSymbol", 2, "Object"
+GetVariable
+Push "registerClass"
+CallMethod
+Pop
+Push "FLabelClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setLabel"
+DefineFunction "", 1, "label"  {
+Push "val", "this"
+GetVariable
+Push "hostComponent"
+GetMember
+Push "styleTable"
+GetMember
+Push "embedFonts"
+GetMember
+Push "value"
+GetMember
+DefineLocal
+Push "val"
+GetVariable
+Push undefined
+Equals2
+Not
+Not
+If loc02e1
+Push "this"
+GetVariable
+Push "labelField"
+GetMember
+Push "embedFonts", "val"
+GetVariable
+SetMember
+loc02e1:Push "this"
+GetVariable
+Push "textStyle"
+GetMember
+Push 1, "this"
+GetVariable
+Push "labelField"
+GetMember
+Push "setNewTextFormat"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "labelField"
+GetMember
+Push "text", "label"
+GetVariable
+SetMember
+Push "this"
+GetVariable
+Push "labelField"
+GetMember
+Push "_height", "this"
+GetVariable
+Push "labelField"
+GetMember
+Push "textHeight"
+GetMember
+Push 2
+Add2
+SetMember
+}
+SetMember
+Push "FLabelClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setSize"
+DefineFunction "", 1, "width"  {
+Push "this"
+GetVariable
+Push "labelField"
+GetMember
+Push "_width", "width"
+GetVariable
+SetMember
+}
+SetMember
+Push "FLabelClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setEnabled"
+DefineFunction "", 1, "enable"  {
+Push "this"
+GetVariable
+Push "enable", "enable"
+GetVariable
+SetMember
+Push "tmpColor", "this"
+GetVariable
+Push "hostComponent"
+GetMember
+Push "styleTable"
+GetMember
+Push "enable"
+GetVariable
+If loc03d2
+Push "textDisabled"
+Jump loc03d7
+loc03d2:Push "textColor"
+loc03d7:GetMember
+Push "value"
+GetMember
+DefineLocal
+Push "tmpColor"
+GetVariable
+Push undefined
+Equals2
+Not
+If loc0417
+Push "tmpColor", "enable"
+GetVariable
+If loc040a
+Push 8947848
+Jump loc0416
+loc040a:Push 0.0
+loc0416:SetVariable
+loc0417:Push "tmpColor"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "setColor"
+CallMethod
+Pop
+}
+SetMember
+Push "FLabelClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "getLabel"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "labelField"
+GetMember
+Push "text"
+GetMember
+Return
+}
+SetMember
+Push "FLabelClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setColor"
+DefineFunction "", 1, "col"  {
+Push "this"
+GetVariable
+Push "labelField"
+GetMember
+Push "textColor", "col"
+GetVariable
+SetMember
+}
+SetMember

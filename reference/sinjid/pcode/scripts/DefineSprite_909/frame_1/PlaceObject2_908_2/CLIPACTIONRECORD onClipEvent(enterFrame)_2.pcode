@@ -1,0 +1,72 @@
+ConstantPool "_root", "pause", "Key", "isDown", "this", "movement", "play"
+Push "_root"
+GetVariable
+Push "pause"
+GetMember
+Push false
+Equals2
+Not
+If loc014a
+Push 37, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+PushDuplicate
+If loc007a
+Pop
+Push 38, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+loc007a:PushDuplicate
+If loc0097
+Pop
+Push 40, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+loc0097:PushDuplicate
+If loc00b4
+Pop
+Push 39, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+loc00b4:PushDuplicate
+If loc00d1
+Pop
+Push 65, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+loc00d1:PushDuplicate
+If loc00ee
+Pop
+Push 83, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+loc00ee:PushDuplicate
+If loc010b
+Pop
+Push 68, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+loc010b:PushDuplicate
+If loc0128
+Pop
+Push 87, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+loc0128:Not
+If loc014a
+Push 0.0, "this"
+GetVariable
+Push "movement"
+GetMember
+Push "play"
+CallMethod
+Pop
+loc014a:

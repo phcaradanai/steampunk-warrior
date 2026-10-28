@@ -1,0 +1,34 @@
+ConstantPool "_root", "gold", "manapots", "manapotmc", "gotoAndPlay"
+Push "_root"
+GetVariable
+Push "gold"
+GetMember
+Push 15
+Less2
+Not
+Not
+If loc009e
+Push "_root"
+GetVariable
+Push "gold", "_root"
+GetVariable
+Push "gold"
+GetMember
+Push 15
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "manapots", "_root"
+GetVariable
+Push "manapots"
+GetMember
+Push 1
+Add2
+SetMember
+Push 2, 1, "manapotmc"
+GetVariable
+Push "gotoAndPlay"
+CallMethod
+Pop
+loc009e:

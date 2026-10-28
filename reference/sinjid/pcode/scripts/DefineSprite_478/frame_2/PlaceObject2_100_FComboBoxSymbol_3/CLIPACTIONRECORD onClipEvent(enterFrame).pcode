@@ -1,0 +1,21 @@
+ConstantPool "_root", "qualityset", "lastSelected", "qset2", "this", "Data", ""
+Push "_root"
+GetVariable
+Push "qualityset", "lastSelected"
+GetVariable
+SetMember
+Push "_root"
+GetVariable
+Push "qset2", "this"
+GetVariable
+Push "Data"
+GetMember
+Push "lastSelected"
+GetVariable
+GetMember
+SetMember
+Push "", 19, "_root"
+GetVariable
+Push "qset2"
+GetMember
+SetProperty

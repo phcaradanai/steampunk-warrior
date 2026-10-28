@@ -1,0 +1,40 @@
+ConstantPool "_root", "skill", "d1", "-", "% of enemy life", "d2"
+Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 14
+GetMember
+Push 0.0
+Equals2
+Not
+If loc005e
+Push "d1", "-"
+SetVariable
+Jump loc008b
+loc005e:Push "d1", 10, "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 14
+GetMember
+Push 2
+Multiply
+Add2
+Push "% of enemy life"
+Add2
+SetVariable
+loc008b:Push "d2", 10, "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 14
+GetMember
+Push 1
+Add2
+Push 2
+Multiply
+Add2
+Push "% of enemy life"
+Add2
+SetVariable

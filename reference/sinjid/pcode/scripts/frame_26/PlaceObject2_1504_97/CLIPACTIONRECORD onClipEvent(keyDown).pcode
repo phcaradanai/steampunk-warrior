@@ -1,0 +1,47 @@
+ConstantPool "_root", "grid", "char", "stepper", "this", "hitTest", "spacedown", "Key", "isDown", "clearstage", "up", "NewStage", "change", "gotoAndPlay"
+Push "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "stepper"
+GetMember
+Push 1, "this"
+GetVariable
+Push "hitTest"
+CallMethod
+PushDuplicate
+Not
+If loc00a7
+Pop
+Push "spacedown"
+GetVariable
+Push true
+Equals2
+Not
+loc00a7:Not
+If loc0119
+Push 32, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+Not
+If loc0119
+Push "spacedown", true
+SetVariable
+Push "_root"
+GetVariable
+Push "clearstage", true
+SetMember
+Push 9.5, 10.5, "up", 3, "_root"
+GetVariable
+Push "NewStage"
+CallMethod
+Pop
+Push "change", 1, "this"
+GetVariable
+Push "gotoAndPlay"
+CallMethod
+Pop
+loc0119:

@@ -1,0 +1,1 @@
+_root[dmgtype + "Damage"](_root[mcname + "phydmg"] * 1.5,_root[mcname + "magdmg"],false,_root[mcname + "shddmg"],_root[mcname + "str"],_root[mcname + "speed"] + 3,random(_root[mcname + "phydmg"] / 3));

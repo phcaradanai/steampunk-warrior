@@ -1,0 +1,6 @@
+Push "persontype", "Vendor"
+SetVariable
+Push "inventorytype", "Items_2"
+SetVariable
+Push "objectnum", 6
+SetVariable

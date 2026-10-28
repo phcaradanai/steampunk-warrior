@@ -1,0 +1,5 @@
+onClipEvent(load){
+   speak = "This is the arena entrance. If you are hurt, the man in the white robes will heal you for a cheap price. If you want to save, talk to the old man with the stick.";
+   persontype = "Student";
+   objectnum = 2;
+}

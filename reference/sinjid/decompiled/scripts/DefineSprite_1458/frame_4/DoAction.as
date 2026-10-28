@@ -1,0 +1,9 @@
+_root.itemstats[20] = "Rust Blade";
+_root.itemstats[21] = "Katana";
+_root.itemstats[22] = "Shield Breaker";
+_root.itemstats[23] = "Blaze Edge";
+_root.itemstats[24] = "Wooden Rod";
+_root.itemstats[25] = "Metal Guard";
+_root.itemstats[26] = "Double Blade";
+_root.itemstats[27] = "Claw Blade";
+_root.itemstats[28] = "Golden Rod";

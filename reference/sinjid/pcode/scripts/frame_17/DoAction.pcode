@@ -1,0 +1,2583 @@
+ConstantPool "_root", "whotoheal", "healtype", "healpoints", "max", "counter", "dmg", "gotoAndPlay", "i", "itemstats", "None", "Searched", "item", "ask", "ia", "Array", "k0", "", "push", "k1", "k2", "rand", "length", "droppedstuff", "didget", "itemsign", "_visible", "gold", "cost", "itemget", "playSound", "got", "no", "itemarray", "Specail Skill", "Bonus Mana", "Bonus Life", "Speed", "Shield Hit Points", "Shield Magic/Elem. Defence", "Shield Phys. Defence", "Magic/Elemental Defence", "Physical Defence", "Extra Shield Damage", "Magic/Elemental Damage", "Physical Damage", "inventory", "explainbox", "statname", "stat", "itempick", "slotnum", "Food", "Drink", "Energy Points", "Life Points", "Mana Points", "name", "itemtype", "strneed", "explain", "itmnum", "statsputin", "itmx", "itmskl", "itmstr", "itmlif", "itmspd", "itmspts", "itmsmdef", "itmspdef", "itmmdef", "itmpdef", "itmsdmg", "itmmdmg", "itmpdmg", "itmtyp", "name1", "a", "name2", "b", "playermove", "turnnum", "spdturn", "enemy2speed", "enemy1speed", "hero2speed", "hero1speed", "order", "sort", "reverse", "j", "enemy", "speed", "hero", "spdran1", "atkspd", "spdran2", "enemytarget", "nomiss", "shdpts", "shddmg", "phydmg", "shdphydef", "Math", "ceil", "magdmg", "shdmagdef", "strdmg", "dmgtoshd", "round", "ran", "blockdmg", "blockbreak", "gotoAndStop", "block", "totaldmg", "phydef", "magdef", "hit", "life", "die", "miss", "herotarget", "save_stage", "currentstage", "save_x", "grid", "char", "_x", "save_y", "_y", "clearstage", "clearscene", "need", "phydmgb", "label", "magdmgb", "shddmgb", "phydefb", "magdefb", "shdphydefb", "shdmagdefb", "shdptsb", "speedb", "lifemaxb", "manamaxb", "manab", "itemskill", "chardir", "charposx", "charposy", "game", "x", "y", "charything", "rows", "columns", "cell", "_", "type", "move", "Dream", "Object"
+DefineFunction "Heal", 3, "healpoints" , "whotoheal" , "healtype"  {
+Push "_root"
+GetVariable
+Push "whotoheal"
+GetVariable
+Push "healtype"
+GetVariable
+Add2
+Push "_root"
+GetVariable
+Push "whotoheal"
+GetVariable
+Push "healtype"
+GetVariable
+Add2
+GetMember
+Push "healpoints"
+GetVariable
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "whotoheal"
+GetVariable
+Push "healtype"
+GetVariable
+Add2
+GetMember
+Push "_root"
+GetVariable
+Push "whotoheal"
+GetVariable
+Push "healtype"
+GetVariable
+Add2
+Push "max"
+Add2
+GetMember
+Greater
+Not
+If loc05e0
+Push "_root"
+GetVariable
+Push "whotoheal"
+GetVariable
+Push "healtype"
+GetVariable
+Add2
+Push "_root"
+GetVariable
+Push "whotoheal"
+GetVariable
+Push "healtype"
+GetVariable
+Add2
+Push "max"
+Add2
+GetMember
+SetMember
+loc05e0:Push "_root"
+GetVariable
+Push "whotoheal"
+GetVariable
+Push "counter"
+Add2
+GetMember
+Push "dmg", "healpoints"
+GetVariable
+SetMember
+Push "healtype"
+GetVariable
+Push 1, "_root"
+GetVariable
+Push "whotoheal"
+GetVariable
+Push "counter"
+Add2
+GetMember
+Push "gotoAndPlay"
+CallMethod
+Pop
+}
+DefineFunction "SearchNone", 0 {
+Push "i", 4
+SetVariable
+loc063e:Push "i"
+GetVariable
+Push 12
+Less2
+Not
+If loc06b3
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "i"
+GetVariable
+Push 1
+InitArray
+GetMember
+Push "None"
+Equals2
+PushDuplicate
+Not
+If loc0690
+Pop
+Push "_root"
+GetVariable
+Push "Searched"
+GetMember
+Push true
+Equals2
+Not
+loc0690:Not
+If loc06a4
+Push "_root"
+GetVariable
+Push "Searched", true
+SetMember
+loc06a4:Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc063e
+}
+loc06b3:DefineFunction "SearchItem", 2, "item" , "ask"  {
+Push "i", 0.0
+SetVariable
+loc06dd:Push "i"
+GetVariable
+Push 12
+Less2
+Not
+If loc078b
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "i"
+GetVariable
+Push 1
+InitArray
+GetMember
+Push "item"
+GetVariable
+Equals2
+PushDuplicate
+Not
+If loc0730
+Pop
+Push "_root"
+GetVariable
+Push "Searched"
+GetMember
+Push true
+Equals2
+Not
+loc0730:Not
+If loc077c
+Push "_root"
+GetVariable
+Push "Searched", true
+SetMember
+Push "ask", true
+StoreRegister 0
+SetVariable
+Push register0
+Not
+If loc077c
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "i"
+GetVariable
+Push 1
+InitArray
+Push "None"
+SetMember
+loc077c:Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc06dd
+}
+loc078b:DefineFunction "ItemRand", 3, "k0" , "k1" , "k2"  {
+Push "ia", 0.0, "Array"
+NewObject
+SetVariable
+Push "k0"
+GetVariable
+Push ""
+Equals2
+Not
+Not
+If loc07e1
+Push "k0"
+GetVariable
+Push 1, "ia"
+GetVariable
+Push "push"
+CallMethod
+Pop
+loc07e1:Push "k1"
+GetVariable
+Push ""
+Equals2
+Not
+Not
+If loc080c
+Push "k1"
+GetVariable
+Push 1, "ia"
+GetVariable
+Push "push"
+CallMethod
+Pop
+loc080c:Push "k2"
+GetVariable
+Push ""
+Equals2
+Not
+Not
+If loc0837
+Push "k2"
+GetVariable
+Push 1, "ia"
+GetVariable
+Push "push"
+CallMethod
+Pop
+loc0837:Push "rand", "ia"
+GetVariable
+Push "length"
+GetMember
+RandomNumber
+SetVariable
+Push "droppedstuff", "ia"
+GetVariable
+Push "rand"
+GetVariable
+GetMember
+SetVariable
+Push "droppedstuff"
+GetVariable
+Trace
+}
+DefineFunction "GetItemDrop", 1, "item"  {
+Push "didget", false
+SetVariable
+Push "i", 4
+SetVariable
+loc0889:Push "i"
+GetVariable
+Push 12
+Less2
+Not
+If loc0921
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "i"
+GetVariable
+Push 1
+InitArray
+GetMember
+Push "None"
+Equals2
+PushDuplicate
+Not
+If loc08d4
+Pop
+Push "didget"
+GetVariable
+Push false
+Equals2
+loc08d4:Not
+If loc0912
+Push "itemsign"
+GetVariable
+Push "_visible", true
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "i"
+GetVariable
+Push 1
+InitArray
+Push "item"
+GetVariable
+SetMember
+Push "didget", true
+SetVariable
+loc0912:Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc0889
+}
+loc0921:DefineFunction "GetItem", 2, "item" , "cost"  {
+Push "_root"
+GetVariable
+Push "gold"
+GetMember
+Push "cost"
+GetVariable
+Less2
+Not
+Not
+If loc0a5d
+Push "didget", false
+SetVariable
+Push "i", 4
+SetVariable
+loc0967:Push "i"
+GetVariable
+Push 12
+Less2
+Not
+If loc0a5d
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "i"
+GetVariable
+Push 1
+InitArray
+GetMember
+Push "None"
+Equals2
+PushDuplicate
+Not
+If loc09b2
+Pop
+Push "didget"
+GetVariable
+Push false
+Equals2
+loc09b2:Not
+If loc0a25
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "i"
+GetVariable
+Push 1
+InitArray
+Push "item"
+GetVariable
+SetMember
+Push "itemget", 1, "_root"
+GetVariable
+Push "playSound"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "gold", "_root"
+GetVariable
+Push "gold"
+GetMember
+Push "cost"
+GetVariable
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "got", true
+SetMember
+Push "didget", true
+SetVariable
+Jump loc0a4e
+loc0a25:Push "i"
+GetVariable
+Push 11
+Equals2
+Not
+If loc0a4e
+Push "no", 1, "_root"
+GetVariable
+Push "playSound"
+CallMethod
+Pop
+loc0a4e:Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc0967
+}
+loc0a5d:DefineFunction "ExplainItem", 0 {
+Push "_root"
+GetVariable
+Push "itemarray", "Specail Skill", "Bonus Mana", "Bonus Life", "Speed", "Shield Hit Points", "Shield Magic/Elem. Defence", "Shield Phys. Defence", "Magic/Elemental Defence", "Physical Defence", "Extra Shield Damage", "Magic/Elemental Damage", "Physical Damage", "", "", 14
+InitArray
+SetMember
+Push "i", 0.0
+SetVariable
+loc0aad:Push "i"
+GetVariable
+Push 4
+Less2
+Not
+If loc0b13
+Push "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "explainbox"
+GetMember
+Push "statname", "i"
+GetVariable
+Add2
+Push ""
+SetMember
+Push "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "explainbox"
+GetMember
+Push "stat", "i"
+GetVariable
+Add2
+Push ""
+SetMember
+Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc0aad
+loc0b13:Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+Push "None"
+Equals2
+PushDuplicate
+Not
+If loc0b4d
+Pop
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "_root"
+GetVariable
+Push "slotnum"
+GetMember
+GetMember
+Push "None"
+Equals2
+Not
+loc0b4d:Not
+If loc0e55
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "_root"
+GetVariable
+Push "slotnum"
+GetMember
+GetMember
+GetMember
+Push 1
+GetMember
+Push "Food"
+Equals2
+PushDuplicate
+If loc0bc4
+Pop
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "_root"
+GetVariable
+Push "slotnum"
+GetMember
+GetMember
+GetMember
+Push 1
+GetMember
+Push "Drink"
+Equals2
+loc0bc4:Not
+If loc0c0f
+Push "_root"
+GetVariable
+Push "itemarray"
+GetMember
+Push 2, "Energy Points"
+SetMember
+Push "_root"
+GetVariable
+Push "itemarray"
+GetMember
+Push 3, "Life Points"
+SetMember
+Push "_root"
+GetVariable
+Push "itemarray"
+GetMember
+Push 4, "Mana Points"
+SetMember
+loc0c0f:Push "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "explainbox"
+GetMember
+Push "name", "_root"
+GetVariable
+Push "item"
+GetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "_root"
+GetVariable
+Push "slotnum"
+GetMember
+GetMember
+GetMember
+Push 0.0
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "explainbox"
+GetMember
+Push "itemtype", "_root"
+GetVariable
+Push "item"
+GetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "_root"
+GetVariable
+Push "slotnum"
+GetMember
+GetMember
+GetMember
+Push 1
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "explainbox"
+GetMember
+Push "strneed", "_root"
+GetVariable
+Push "item"
+GetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "_root"
+GetVariable
+Push "slotnum"
+GetMember
+GetMember
+GetMember
+Push 14
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "explainbox"
+GetMember
+Push "explain", "_root"
+GetVariable
+Push "item"
+GetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "_root"
+GetVariable
+Push "slotnum"
+GetMember
+GetMember
+GetMember
+Push 15
+GetMember
+SetMember
+Push "itmnum", 0.0
+SetVariable
+Push "i", 2
+SetVariable
+loc0d3d:Push "i"
+GetVariable
+Push 14
+Less2
+Not
+If loc0e3b
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "_root"
+GetVariable
+Push "slotnum"
+GetMember
+GetMember
+GetMember
+Push "i"
+GetVariable
+GetMember
+Push 0.0
+Equals2
+Not
+PushDuplicate
+Not
+If loc0da4
+Pop
+Push "itmnum"
+GetVariable
+Push 4
+Less2
+loc0da4:Not
+If loc0e2c
+Push "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "explainbox"
+GetMember
+Push "statname", "itmnum"
+GetVariable
+Add2
+Push "_root"
+GetVariable
+Push "itemarray"
+GetMember
+Push "i"
+GetVariable
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "explainbox"
+GetMember
+Push "stat", "itmnum"
+GetVariable
+Add2
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "_root"
+GetVariable
+Push "slotnum"
+GetMember
+GetMember
+GetMember
+Push "i"
+GetVariable
+GetMember
+SetMember
+Push "itmnum", "itmnum"
+GetVariable
+Increment
+SetVariable
+loc0e2c:Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc0d3d
+loc0e3b:Push "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "explainbox"
+GetMember
+Push "_visible", true
+SetMember
+}
+loc0e55:DefineFunction "AddItem", 16, "name" , "itmtyp" , "itmpdmg" , "itmmdmg" , "itmsdmg" , "itmpdef" , "itmmdef" , "itmspdef" , "itmsmdef" , "itmspts" , "itmspd" , "itmlif" , "itmstr" , "itmskl" , "strneed" , "itmx"  {
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "name"
+GetVariable
+Push 0.0, "Array"
+NewObject
+SetMember
+Push "statsputin", "itmx"
+GetVariable
+Push "strneed"
+GetVariable
+Push "itmskl"
+GetVariable
+Push "itmstr"
+GetVariable
+Push "itmlif"
+GetVariable
+Push "itmspd"
+GetVariable
+Push "itmspts"
+GetVariable
+Push "itmsmdef"
+GetVariable
+Push "itmspdef"
+GetVariable
+Push "itmmdef"
+GetVariable
+Push "itmpdef"
+GetVariable
+Push "itmsdmg"
+GetVariable
+Push "itmmdmg"
+GetVariable
+Push "itmpdmg"
+GetVariable
+Push "itmtyp"
+GetVariable
+Push "name"
+GetVariable
+Push 16
+InitArray
+SetVariable
+Push "i", 0.0
+SetVariable
+loc0f78:Push "i"
+GetVariable
+Push 16
+Less2
+Not
+If loc0fc3
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "name"
+GetVariable
+GetMember
+Push "i"
+GetVariable
+Push "statsputin"
+GetVariable
+Push "i"
+GetVariable
+GetMember
+SetMember
+Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc0f78
+}
+loc0fc3:DefineFunction "order", 2, "a" , "b"  {
+Push "name1", "a"
+GetVariable
+DefineLocal
+Push "name2", "b"
+GetVariable
+DefineLocal
+Push "name1"
+GetVariable
+Push "name2"
+GetVariable
+Less2
+Not
+If loc1002
+Push -1
+Return
+loc1002:Push "name1"
+GetVariable
+Push "name2"
+GetVariable
+Greater
+Not
+If loc101e
+Push 1
+Return
+}
+loc101e:DefineFunction "speedorder", 0 {
+Push "_root"
+GetVariable
+Push "playermove", 0.0, "Array"
+NewObject
+SetMember
+Push "_root"
+GetVariable
+Push "turnnum", 0.0
+SetMember
+Push "spdturn", 0.0, "Array"
+NewObject
+SetVariable
+Push "spdturn", "_root"
+GetVariable
+Push "enemy2speed"
+GetMember
+Push "_root"
+GetVariable
+Push "enemy1speed"
+GetMember
+Push "_root"
+GetVariable
+Push "hero2speed"
+GetMember
+Push "_root"
+GetVariable
+Push "hero1speed"
+GetMember
+Push 4
+InitArray
+SetVariable
+Push "_root"
+GetVariable
+Push "order"
+GetMember
+Push 1, "spdturn"
+GetVariable
+Push "sort"
+CallMethod
+Pop
+Push 0.0, "spdturn"
+GetVariable
+Push "reverse"
+CallMethod
+Pop
+Push "i", 0.0
+SetVariable
+loc10ee:Push "i"
+GetVariable
+Push 4
+Less2
+Not
+If loc1352
+Push "j", 1
+SetVariable
+loc110e:Push "j"
+GetVariable
+Push 3
+Less2
+Not
+If loc1343
+Push "_root"
+GetVariable
+Push "spdturn"
+GetMember
+Push "i"
+GetVariable
+GetMember
+Push "_root"
+GetVariable
+Push "enemy", "j"
+GetVariable
+Push 1
+InitArray
+Add2
+Push "speed"
+Add2
+GetMember
+Equals2
+PushDuplicate
+Not
+If loc118e
+Pop
+Push "_root"
+GetVariable
+Push "playermove"
+GetMember
+Push "i"
+GetVariable
+Push 1
+Subtract
+GetMember
+Push "enemy", "j"
+GetVariable
+Push 1
+InitArray
+Add2
+Equals2
+Not
+loc118e:PushDuplicate
+Not
+If loc11c6
+Pop
+Push "_root"
+GetVariable
+Push "playermove"
+GetMember
+Push "i"
+GetVariable
+Push 2
+Subtract
+GetMember
+Push "enemy", "j"
+GetVariable
+Push 1
+InitArray
+Add2
+Equals2
+Not
+loc11c6:PushDuplicate
+Not
+If loc11fe
+Pop
+Push "_root"
+GetVariable
+Push "playermove"
+GetMember
+Push "i"
+GetVariable
+Push 3
+Subtract
+GetMember
+Push "enemy", "j"
+GetVariable
+Push 1
+InitArray
+Add2
+Equals2
+Not
+loc11fe:Not
+If loc122e
+Push "_root"
+GetVariable
+Push "playermove"
+GetMember
+Push "i"
+GetVariable
+Push "enemy", "j"
+GetVariable
+Push 1
+InitArray
+Add2
+SetMember
+Jump loc1334
+loc122e:Push "_root"
+GetVariable
+Push "spdturn"
+GetMember
+Push "i"
+GetVariable
+GetMember
+Push "_root"
+GetVariable
+Push "hero", "j"
+GetVariable
+Push 1
+InitArray
+Add2
+Push "speed"
+Add2
+GetMember
+Equals2
+PushDuplicate
+Not
+If loc1299
+Pop
+Push "_root"
+GetVariable
+Push "playermove"
+GetMember
+Push "i"
+GetVariable
+Push 1
+Subtract
+GetMember
+Push "hero", "j"
+GetVariable
+Push 1
+InitArray
+Add2
+Equals2
+Not
+loc1299:PushDuplicate
+Not
+If loc12d1
+Pop
+Push "_root"
+GetVariable
+Push "playermove"
+GetMember
+Push "i"
+GetVariable
+Push 2
+Subtract
+GetMember
+Push "hero", "j"
+GetVariable
+Push 1
+InitArray
+Add2
+Equals2
+Not
+loc12d1:PushDuplicate
+Not
+If loc1309
+Pop
+Push "_root"
+GetVariable
+Push "playermove"
+GetMember
+Push "i"
+GetVariable
+Push 3
+Subtract
+GetMember
+Push "hero", "j"
+GetVariable
+Push 1
+InitArray
+Add2
+Equals2
+Not
+loc1309:Not
+If loc1334
+Push "_root"
+GetVariable
+Push "playermove"
+GetMember
+Push "i"
+GetVariable
+Push "hero", "j"
+GetVariable
+Push 1
+InitArray
+Add2
+SetMember
+loc1334:Push "j", "j"
+GetVariable
+Increment
+SetVariable
+Jump loc110e
+loc1343:Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc10ee
+}
+loc1352:DefineFunction "enemyDamage", 7, "magdmg" , "phydmg" , "nomiss" , "dmgtoshd" , "strdmg" , "atkspd" , "ran"  {
+Push "spdran1", "atkspd"
+GetVariable
+Push 2
+Divide
+RandomNumber
+Push "atkspd"
+GetVariable
+Push 2
+Divide
+Add2
+SetVariable
+Push "spdran2", "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "speed"
+Add2
+GetMember
+Push 2
+Divide
+RandomNumber
+SetVariable
+Push "nomiss"
+GetVariable
+Push true
+Equals2
+Not
+If loc13fb
+Push "spdran2", -1
+SetVariable
+loc13fb:Push "spdran2"
+GetVariable
+Push "spdran1"
+GetVariable
+Less2
+Not
+If loc1846
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "shdpts"
+Add2
+GetMember
+Push 0.0
+Greater
+Not
+If loc1648
+Push "shddmg", "phydmg"
+GetVariable
+Push "phydmg"
+GetVariable
+Push 100
+Divide
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "shdphydef"
+Add2
+GetMember
+Multiply
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+Subtract
+Push "magdmg"
+GetVariable
+Add2
+Push "magdmg"
+GetVariable
+Push 100
+Divide
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "shdmagdef"
+Add2
+GetMember
+Multiply
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+Subtract
+Push "strdmg"
+GetVariable
+Add2
+Push "strdmg"
+GetVariable
+Push 100
+Divide
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "shdphydef"
+Add2
+GetMember
+Multiply
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+Subtract
+Push "dmgtoshd"
+GetVariable
+Add2
+Push 1, "Math"
+GetVariable
+Push "round"
+CallMethod
+Push "ran"
+GetVariable
+Add2
+SetVariable
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "counter"
+Add2
+GetMember
+Push "dmg", "shddmg"
+GetVariable
+SetMember
+Push "blockdmg", 1, "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "counter"
+Add2
+GetMember
+Push "gotoAndPlay"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "shdpts"
+Add2
+GetMember
+Push "shddmg"
+GetVariable
+Subtract
+Push 0.0
+Greater
+Not
+Not
+If loc15e9
+Push "blockbreak", 1, "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "shdpts"
+Add2
+Push 0.0
+SetMember
+Jump loc1643
+loc15e9:Push "block", 1, "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "shdpts"
+Add2
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "shdpts"
+Add2
+GetMember
+Push "shddmg"
+GetVariable
+Subtract
+SetMember
+loc1643:Jump loc1841
+loc1648:Push "totaldmg", "phydmg"
+GetVariable
+Push "phydmg"
+GetVariable
+Push 100
+Divide
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "phydef"
+Add2
+GetMember
+Multiply
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+Subtract
+Push "magdmg"
+GetVariable
+Add2
+Push "magdmg"
+GetVariable
+Push 100
+Divide
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "magdef"
+Add2
+GetMember
+Multiply
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+Subtract
+Push "strdmg"
+GetVariable
+Add2
+Push "strdmg"
+GetVariable
+Push 100
+Divide
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "phydef"
+Add2
+GetMember
+Multiply
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+Subtract
+Push 1, "Math"
+GetVariable
+Push "round"
+CallMethod
+Push "ran"
+GetVariable
+Add2
+SetVariable
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "counter"
+Add2
+GetMember
+Push "dmg", "totaldmg"
+GetVariable
+SetMember
+Push 2, 1, "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "counter"
+Add2
+GetMember
+Push "gotoAndPlay"
+CallMethod
+Pop
+Push "hit", 1, "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "life"
+Add2
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "life"
+Add2
+GetMember
+Push "totaldmg"
+GetVariable
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "life"
+Add2
+GetMember
+Push 0.0
+Greater
+Not
+Not
+If loc1841
+Push "die", 1, "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "life"
+Add2
+Push 0.0
+SetMember
+loc1841:Jump loc18b2
+loc1846:Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "counter"
+Add2
+GetMember
+Push "dmg", "miss"
+SetMember
+Push 2, 1, "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+Push "counter"
+Add2
+GetMember
+Push "gotoAndPlay"
+CallMethod
+Pop
+Push "miss", 1, "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "enemytarget"
+GetMember
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+}
+loc18b2:DefineFunction "heroDamage", 7, "magdmg" , "phydmg" , "nomiss" , "dmgtoshd" , "strdmg" , "atkspd" , "ran"  {
+Push "spdran1", "atkspd"
+GetVariable
+Push 2
+Divide
+RandomNumber
+Push "atkspd"
+GetVariable
+Push 2
+Divide
+Add2
+SetVariable
+Push "spdran2", "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "speed"
+Add2
+GetMember
+Push 2
+Divide
+RandomNumber
+SetVariable
+Push "nomiss"
+GetVariable
+Push true
+Equals2
+Not
+If loc195a
+Push "spdran2", -1
+SetVariable
+loc195a:Push "spdran2"
+GetVariable
+Push "spdran1"
+GetVariable
+Less2
+Not
+If loc1da5
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "shdpts"
+Add2
+GetMember
+Push 0.0
+Greater
+Not
+If loc1ba7
+Push "shddmg", "phydmg"
+GetVariable
+Push "phydmg"
+GetVariable
+Push 100
+Divide
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "shdphydef"
+Add2
+GetMember
+Multiply
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+Subtract
+Push "magdmg"
+GetVariable
+Add2
+Push "magdmg"
+GetVariable
+Push 100
+Divide
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "shdmagdef"
+Add2
+GetMember
+Multiply
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+Subtract
+Push "strdmg"
+GetVariable
+Add2
+Push "strdmg"
+GetVariable
+Push 100
+Divide
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "shdphydef"
+Add2
+GetMember
+Multiply
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+Subtract
+Push "dmgtoshd"
+GetVariable
+Add2
+Push 1, "Math"
+GetVariable
+Push "round"
+CallMethod
+Push "ran"
+GetVariable
+Add2
+SetVariable
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "counter"
+Add2
+GetMember
+Push "dmg", "shddmg"
+GetVariable
+SetMember
+Push "blockdmg", 1, "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "counter"
+Add2
+GetMember
+Push "gotoAndPlay"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "shdpts"
+Add2
+GetMember
+Push "shddmg"
+GetVariable
+Subtract
+Push 0.0
+Greater
+Not
+Not
+If loc1b48
+Push "blockbreak", 1, "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "shdpts"
+Add2
+Push 0.0
+SetMember
+Jump loc1ba2
+loc1b48:Push "block", 1, "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "shdpts"
+Add2
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "shdpts"
+Add2
+GetMember
+Push "shddmg"
+GetVariable
+Subtract
+SetMember
+loc1ba2:Jump loc1da0
+loc1ba7:Push "totaldmg", "phydmg"
+GetVariable
+Push "phydmg"
+GetVariable
+Push 100
+Divide
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "phydef"
+Add2
+GetMember
+Multiply
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+Subtract
+Push "magdmg"
+GetVariable
+Add2
+Push "magdmg"
+GetVariable
+Push 100
+Divide
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "magdef"
+Add2
+GetMember
+Multiply
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+Subtract
+Push "strdmg"
+GetVariable
+Add2
+Push "strdmg"
+GetVariable
+Push 100
+Divide
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "phydef"
+Add2
+GetMember
+Multiply
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+Subtract
+Push 1, "Math"
+GetVariable
+Push "round"
+CallMethod
+Push "ran"
+GetVariable
+Add2
+SetVariable
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "counter"
+Add2
+GetMember
+Push "dmg", "totaldmg"
+GetVariable
+SetMember
+Push 2, 1, "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "counter"
+Add2
+GetMember
+Push "gotoAndPlay"
+CallMethod
+Pop
+Push "hit", 1, "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "life"
+Add2
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "life"
+Add2
+GetMember
+Push "totaldmg"
+GetVariable
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "life"
+Add2
+GetMember
+Push 0.0
+Greater
+Not
+Not
+If loc1da0
+Push "die", 1, "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "life"
+Add2
+Push 0.0
+SetMember
+loc1da0:Jump loc1e11
+loc1da5:Push "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "counter"
+Add2
+GetMember
+Push "dmg", "miss"
+SetMember
+Push 2, 1, "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+Push "counter"
+Add2
+GetMember
+Push "gotoAndPlay"
+CallMethod
+Pop
+Push "miss", 1, "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "herotarget"
+GetMember
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+}
+loc1e11:DefineFunction "EnemyMeet", 0 {
+Push "_root"
+GetVariable
+Push "save_stage", "_root"
+GetVariable
+Push "currentstage"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "save_x", "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "_x"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "save_y", "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "_y"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "clearstage", true
+SetMember
+Push "_root"
+GetVariable
+Push "clearscene", true
+SetMember
+}
+DefineFunction "RemoveItem", 2, "label" , "need"  {
+Push "_root"
+GetVariable
+Push "need"
+GetVariable
+Push "None"
+SetMember
+Push "_root"
+GetVariable
+Push "phydmgb", "_root"
+GetVariable
+Push "phydmgb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 2
+GetMember
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "magdmgb", "_root"
+GetVariable
+Push "magdmgb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 3
+GetMember
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "shddmgb", "_root"
+GetVariable
+Push "shddmgb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 4
+GetMember
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "phydefb", "_root"
+GetVariable
+Push "phydefb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 5
+GetMember
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "magdefb", "_root"
+GetVariable
+Push "magdefb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 6
+GetMember
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "shdphydefb", "_root"
+GetVariable
+Push "shdphydefb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 7
+GetMember
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "shdmagdefb", "_root"
+GetVariable
+Push "shdmagdefb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 8
+GetMember
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "shdptsb", "_root"
+GetVariable
+Push "shdptsb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 9
+GetMember
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "speedb", "_root"
+GetVariable
+Push "speedb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 10
+GetMember
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "lifemaxb", "_root"
+GetVariable
+Push "lifemaxb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 11
+GetMember
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "manamaxb", "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 12
+GetMember
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "manab", "_root"
+GetVariable
+Push "manab"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 12
+GetMember
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "manab"
+GetMember
+Push 0.0
+Less2
+Not
+If loc2150
+Push "_root"
+GetVariable
+Push "manab", 0.0
+SetMember
+loc2150:Push "_root"
+GetVariable
+Push "itemskill", "None"
+SetMember
+}
+DefineFunction "EquipItem", 2, "label" , "need"  {
+Push "_root"
+GetVariable
+Push "need"
+GetVariable
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 0.0
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "phydmgb", "_root"
+GetVariable
+Push "phydmgb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 2
+GetMember
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "magdmgb", "_root"
+GetVariable
+Push "magdmgb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 3
+GetMember
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "shddmgb", "_root"
+GetVariable
+Push "shddmgb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 4
+GetMember
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "phydefb", "_root"
+GetVariable
+Push "phydefb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 5
+GetMember
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "magdefb", "_root"
+GetVariable
+Push "magdefb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 6
+GetMember
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "shdphydefb", "_root"
+GetVariable
+Push "shdphydefb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 7
+GetMember
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "shdmagdefb", "_root"
+GetVariable
+Push "shdmagdefb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 8
+GetMember
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "shdptsb", "_root"
+GetVariable
+Push "shdptsb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 9
+GetMember
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "speedb", "_root"
+GetVariable
+Push "speedb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 10
+GetMember
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "lifemaxb", "_root"
+GetVariable
+Push "lifemaxb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 11
+GetMember
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "manamaxb", "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 12
+GetMember
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "manab", "_root"
+GetVariable
+Push "manab"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 12
+GetMember
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "manab"
+GetMember
+Push "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+Greater
+Not
+If loc2433
+Push "_root"
+GetVariable
+Push "manab", "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+SetMember
+loc2433:Push "_root"
+GetVariable
+Push "itemskill", "_root"
+GetVariable
+Push "item"
+GetMember
+Push "label"
+GetVariable
+GetMember
+Push 13
+GetMember
+SetMember
+}
+DefineFunction "NewStage", 3, "chardir" , "charposx" , "charposy"  {
+Push "chardir"
+GetVariable
+Push 1, "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "_x", "charposx"
+GetVariable
+Push 30
+Multiply
+Push 15
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "_y", "charposy"
+GetVariable
+Push 30
+Multiply
+Push 15
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "game"
+GetMember
+Push "char"
+GetMember
+Push "x", "charposx"
+GetVariable
+Push 30
+Multiply
+Push 15
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "game"
+GetMember
+Push "char"
+GetMember
+Push "y", "charposy"
+GetVariable
+Push 30
+Multiply
+Push 15
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "charything", "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "_y"
+GetMember
+SetMember
+Push "j", 1
+DefineLocal
+loc2586:Push "j"
+GetVariable
+Push "game"
+GetVariable
+Push "rows"
+GetMember
+Greater
+Not
+Not
+If loc2614
+Push "i", 1
+DefineLocal
+loc25ab:Push "i"
+GetVariable
+Push "game"
+GetVariable
+Push "columns"
+GetMember
+Greater
+Not
+Not
+If loc2605
+Push "name", "cell", "i"
+GetVariable
+Add2
+Push "_"
+Add2
+Push "j"
+GetVariable
+Add2
+DefineLocal
+Push "game"
+GetVariable
+Push "name"
+GetVariable
+GetMember
+Push "type", 1
+SetMember
+Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc25ab
+loc2605:Push "j", "j"
+GetVariable
+Increment
+SetVariable
+Jump loc2586
+}
+loc2614:DefineFunction "Fight", 1, "move"  {
+Push "move"
+GetVariable
+Push 1, "_root"
+GetVariable
+Push "_root"
+GetVariable
+Push "playermove"
+GetMember
+Push "_root"
+GetVariable
+Push "turnnum"
+GetMember
+GetMember
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+}
+Push "Dream", 1, "_root"
+GetVariable
+Push "playSound"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "item", 0.0, "Object"
+NewObject
+SetMember

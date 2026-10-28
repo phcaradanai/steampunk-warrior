@@ -1,0 +1,178 @@
+kind,id,name,source,status,evidence
+classes,C01,ทหารหม้อน้ำ,catalog,implemented,test_campaign: five earned builds
+classes,C02,มือปืนรางเหล็ก,catalog,implemented,test_campaign: five earned builds
+classes,C03,วิศวกรอาร์ก,catalog,implemented,test_campaign: five earned builds
+classes,C04,หมอสนามเขม่า,catalog,implemented,test_campaign: five earned builds
+classes,C05,นักชีวกลเอเธอร์,catalog,implemented,test_campaign: five earned builds
+skills,S01,แทงเฟือง,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S02,ฟันต่อเนื่อง,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S03,ยิงหมุด,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S04,ประกายอาร์ก,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S05,กระสุนกระจาย,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S06,ลูกโซ่ไฟฟ้า,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S07,ค้อนทะลวง,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S08,ระเบิดหมอก,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S09,ปิดบาดแผล,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S10,ฉีดกระตุ้น,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S11,กางสนามโล่,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S12,โดรนช่าง,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S13,ยิงจุดอ่อน,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S14,เผาไหม้แรงสูง,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S15,ปลดประจุ,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S16,จู่โจมฉุกเฉิน,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S17,เสริมโครงร่าง,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S18,สายส่งทองแดง,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S19,รีเฟล็กซ์ช่าง,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S20,สายควบแน่น,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S21,ตรึงชีวภาพ,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+skills,S22,ระบายย้อนเฟส,catalog,implemented,test_ui_state: every node/rank; test_combat: active effects
+items,W01,มีดช่าง,shop:R02,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W02,กระบองวาล์ว,shop:R02,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W03,ปืนหมุด,shop:R02,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W04,ดาบเฟือง,shop:R02,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W05,ค้อนลูกสูบ,shop:R02,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W06,หอกท่อทองแดง,shop:R02,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W07,ประแจไฟฟ้า,shop:R05,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W08,ปืนคาร์ไบน์,shop:R05,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W09,เลื่อยไอน้ำ,shop:R05,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W10,หอกขดลวด,shop:R05,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W11,ปืนกรด,shop:R05,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W12,ทวนรางเหล็ก,shop:R07,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W13,ค้อนสนามแม่เหล็ก,shop:R07,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W14,ดาบเขม่าดำ,shop:R07,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W15,ปืนแพทย์แรงดัน,shop:R07,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W16,กรงเล็บกล,shop:R07,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W17,ขวานโรงหล่อ,shop:R09,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W18,ปืนอาร์ก,shop:R09,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W19,เคียวรากแก้ว,shop:R09,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W20,หอกควบแน่น,shop:R09,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W21,ดาบจดหมายเหตุ,shop:R09,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W22,ปืนคอนเดนเซอร์,shop:R11,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W23,ค้อนราชินี,shop:R11,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W24,ดาบหัวใจเมือง,shop:R11,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W25,คทาชีวกล,quest:Q05,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,W26,ปืนย้อนเฟส,boss:B06,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,D01,ฝาท่อ,shop:R02,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,D02,โล่แผ่นเหล็ก,shop:R02,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,D03,โล่ทองเหลือง,shop:R02,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,D04,โล่รถไฟ,shop:R02,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,D05,โล่ขดลวด,shop:R05,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,D06,โล่กรองพิษ,shop:R05,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,D07,โล่ลูกสูบ,shop:R05,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,D08,โล่ไอน้ำ,shop:R07,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,D09,โล่เรือนกระจก,shop:R07,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,D10,โล่ฉนวน,shop:R07,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,D11,โล่คนงาน,shop:R07,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,D12,โล่สะท้อนอาร์ก,shop:R09,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,D13,โล่รากแก้ว,shop:R09,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,D14,โล่เตาหลอม,shop:R09,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,D15,โล่จดหมายเหตุ,shop:R11,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,D16,โล่ปฏิกรณ์,shop:R11,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,D17,โล่ชีวภาพ,shop:R11,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,H01,แว่นช่าง,shop:R02,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,H02,หมวกคนงาน,shop:R02,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,H03,หน้ากากกรองควัน,shop:R05,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,H04,แว่นยิงไกล,shop:R05,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,H05,หมวกขดลวด,shop:R07,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,H06,หน้ากากหมอ,shop:R07,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,H07,หมวกตรวจเอเธอร์,shop:R09,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,H08,หมวกโรงหล่อ,shop:R09,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,H09,กระบังบันทึก,shop:R11,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,H10,หมวกแกนเมือง,shop:R11,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,A01,เสื้อช่าง,shop:R02,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,A02,เสื้อเกราะคนงาน,shop:R02,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,A03,เสื้อรางเหล็ก,shop:R05,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,A04,ชุดฉนวนอาร์ก,shop:R05,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,A05,ชุดแพทย์สนาม,shop:R07,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,A06,ชุดกรองพิษ,shop:R07,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,A07,เกราะโรงหล่อ,shop:R09,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,A08,เกราะหัวใจเมือง,shop:R09,implemented,test_acquisition: source transaction + equip + visible stats/icon
+items,A09,ชุดชีวกล,quest:Q08,implemented,test_acquisition: source transaction + equip + visible stats/icon
+enemies,N01,หนูกัดท่อ,catalog,implemented,test_campaign real resolver; capture_content native portraits
+enemies,N02,หมาควัน,catalog,implemented,test_campaign real resolver; capture_content native portraits
+enemies,N03,ค้างคาวเอเธอร์,catalog,implemented,test_campaign real resolver; capture_content native portraits
+enemies,N04,ตะขาบทองแดง,catalog,implemented,test_campaign real resolver; capture_content native portraits
+enemies,N05,ด้วงเกราะ,catalog,implemented,test_campaign real resolver; capture_content native portraits
+enemies,N06,แมงมุมแก้ว,catalog,implemented,test_campaign real resolver; capture_content native portraits
+enemies,N07,หมูป่าถ่านหิน,catalog,implemented,test_campaign real resolver; capture_content native portraits
+enemies,N08,นกกระสาไอกรด,catalog,implemented,test_campaign real resolver; capture_content native portraits
+enemies,N09,หมาป่ารากไม้,catalog,implemented,test_campaign real resolver; capture_content native portraits
+enemies,N10,ยามกระบอง,catalog,implemented,test_campaign real resolver; capture_content native portraits
+enemies,N11,มือปืนราง,catalog,implemented,test_campaign real resolver; capture_content native portraits
+enemies,N12,ทหารโล่,catalog,implemented,test_campaign real resolver; capture_content native portraits
+enemies,N13,พลวางระเบิด,catalog,implemented,test_campaign real resolver; capture_content native portraits
+enemies,N14,ช่างซ่อมศัตรู,catalog,implemented,test_campaign real resolver; capture_content native portraits
+enemies,N15,เจ้าหน้าที่อาร์ก,catalog,implemented,test_campaign real resolver; capture_content native portraits
+enemies,N16,มือสังหารควัน,catalog,implemented,test_campaign real resolver; capture_content native portraits
+enemies,N17,นักลักลอบยา,catalog,implemented,test_campaign real resolver; capture_content native portraits
+enemies,N18,นักวิจัยติดอาวุธ,catalog,implemented,test_campaign real resolver; capture_content native portraits
+enemies,N19,ทหารเกราะหนัก,catalog,implemented,test_campaign real resolver; capture_content native portraits
+enemies,B01,จระเข้หม้อน้ำ,R04,implemented,test_campaign real resolver; capture_content native portraits
+enemies,B02,ผู้คุมขบวนเหล็ก,R06,implemented,test_campaign real resolver; capture_content native portraits
+enemies,B03,กวางรากแก้ว,R08,implemented,test_campaign real resolver; capture_content native portraits
+enemies,B04,นายช่างเตาหลอม,R10,implemented,test_campaign real resolver; capture_content native portraits
+enemies,B05,ผู้เก็บความทรงจำ,R11,implemented,test_campaign real resolver; capture_content native portraits
+enemies,B06,ราชินีเอเธอร์,R12,implemented,test_campaign real resolver; capture_content native portraits
+rooms,R01,โรงซ่อมสนิมแดง,catalog,implemented,test_layouts: reachability+96px primary route; native capture_content
+rooms,R02,ตลาดใต้สะพาน,catalog,implemented,test_layouts: reachability+96px primary route; native capture_content
+rooms,R03,คลองหมอกพิษ,catalog,implemented,test_layouts: reachability+96px primary route; native capture_content
+rooms,R04,ประตูระบายน้ำ,catalog,implemented,test_layouts: reachability+96px primary route; native capture_content
+rooms,R05,สถานีรถไฟร้าง,catalog,implemented,test_layouts: reachability+96px primary route; native capture_content
+rooms,R06,ลานรถหุ้มเกราะ,catalog,implemented,test_layouts: reachability+96px primary route; native capture_content
+rooms,R07,เรือนกระจกเอเธอร์,catalog,implemented,test_layouts: reachability+96px primary route; native capture_content
+rooms,R08,ห้องเพาะพันธุ์,catalog,implemented,test_layouts: reachability+96px primary route; native capture_content
+rooms,R09,อุโมงค์ถ่านหิน,catalog,implemented,test_layouts: reachability+96px primary route; native capture_content
+rooms,R10,โรงหล่อแขนกล,catalog,implemented,test_layouts: reachability+96px primary route; native capture_content
+rooms,R11,หอจดหมายเหตุเมือง,catalog,implemented,test_layouts: reachability+96px primary route; native capture_content
+rooms,R12,หัวใจปฏิกรณ์,catalog,implemented,test_layouts: reachability+96px primary route; native capture_content
+encounters,E01,หนูกัดท่อ,R03,implemented,test_campaign: earned first clears
+encounters,E02,หมาควัน,R03,implemented,test_campaign: earned first clears
+encounters,E03,ค้างคาวเอเธอร์ และพวก,R03,implemented,test_campaign: earned first clears
+encounters,E04,ค้างคาวเอเธอร์,R04,implemented,test_campaign: earned first clears
+encounters,E05,ตะขาบทองแดง,R04,implemented,test_campaign: earned first clears
+encounters,E06,จระเข้หม้อน้ำ,R04,implemented,test_campaign: earned first clears
+encounters,E07,ด้วงเกราะ และพวก,R05,implemented,test_campaign: earned first clears
+encounters,E08,แมงมุมแก้ว,R05,implemented,test_campaign: earned first clears
+encounters,E09,หมูป่าถ่านหิน,R05,implemented,test_campaign: earned first clears
+encounters,E10,หมูป่าถ่านหิน และพวก,R06,implemented,test_campaign: earned first clears
+encounters,E11,นกกระสาไอกรด,R06,implemented,test_campaign: earned first clears
+encounters,E12,หมาป่ารากไม้,R06,implemented,test_campaign: earned first clears
+encounters,E13,ผู้คุมขบวนเหล็ก,R06,implemented,test_campaign: earned first clears
+encounters,E14,หมาป่ารากไม้ และพวก,R07,implemented,test_campaign: earned first clears
+encounters,E15,ยามกระบอง,R07,implemented,test_campaign: earned first clears
+encounters,E16,มือปืนราง,R07,implemented,test_campaign: earned first clears
+encounters,E17,มือปืนราง และพวก,R08,implemented,test_campaign: earned first clears
+encounters,E18,ทหารโล่,R08,implemented,test_campaign: earned first clears
+encounters,E19,พลวางระเบิด,R08,implemented,test_campaign: earned first clears
+encounters,E20,กวางรากแก้ว,R08,implemented,test_campaign: earned first clears
+encounters,E21,พลวางระเบิด และพวก,R09,implemented,test_campaign: earned first clears
+encounters,E22,ช่างซ่อมศัตรู,R09,implemented,test_campaign: earned first clears
+encounters,E23,เจ้าหน้าที่อาร์ก,R09,implemented,test_campaign: earned first clears
+encounters,E24,เจ้าหน้าที่อาร์ก และพวก,R10,implemented,test_campaign: earned first clears
+encounters,E25,มือสังหารควัน,R10,implemented,test_campaign: earned first clears
+encounters,E26,นักลักลอบยา,R10,implemented,test_campaign: earned first clears
+encounters,E27,นายช่างเตาหลอม,R10,implemented,test_campaign: earned first clears
+encounters,E28,นักลักลอบยา และพวก,R11,implemented,test_campaign: earned first clears
+encounters,E29,นักวิจัยติดอาวุธ,R11,implemented,test_campaign: earned first clears
+encounters,E30,ทหารเกราะหนัก,R11,implemented,test_campaign: earned first clears
+encounters,E31,ผู้เก็บความทรงจำ,R11,implemented,test_campaign: earned first clears
+encounters,E32,ทหารเกราะหนัก และพวก,R12,implemented,test_campaign: earned first clears
+encounters,E33,หนูกัดท่อ,R12,implemented,test_campaign: earned first clears
+encounters,E34,หมาควัน,R12,implemented,test_campaign: earned first clears
+encounters,E35,ค้างคาวเอเธอร์ และพวก,R12,implemented,test_campaign: earned first clears
+encounters,E36,ราชินีเอเธอร์,R12,implemented,test_campaign: earned first clears
+training,T01,ช่างฝึกหัด,catalog,implemented,test_controller basic; test_acquisition advanced actual actions
+training,T02,ผู้ชำนาญ,catalog,implemented,test_controller basic; test_acquisition advanced actual actions
+training,T03,วิศวกรสนาม,catalog,implemented,test_controller basic; test_acquisition advanced actual actions
+training,T04,วิกฤตหม้อน้ำ,catalog,implemented,test_controller basic; test_acquisition advanced actual actions
+quests,Q01,น้ำให้คนงาน,story,implemented,test_story + five earned campaign branches
+quests,Q02,ยาของผู้คุม,story,implemented,test_story + five earned campaign branches
+quests,Q03,พยานขบวนรถ,story,implemented,test_story + five earned campaign branches
+quests,Q04,ตัวอย่างที่ยังมีชีวิต,story,implemented,test_story + five earned campaign branches
+quests,Q05,เครื่องมือของมีรา,story,implemented,test_story + five earned campaign branches
+quests,Q06,คืนชื่อผู้สูญหาย,story,implemented,test_story + five earned campaign branches
+quests,Q07,สัญญาแรงงาน,story,implemented,test_story + five earned campaign branches
+quests,Q08,คำสั่งที่ถูกลบ,story,implemented,test_story + five earned campaign branches
+endings,Shutdown,รุ่งเช้าที่ไร้ควัน,story,implemented,test_story + five earned campaign branches
+endings,Seize,ผู้ถือกุญแจเมือง,story,implemented,test_story + five earned campaign branches
+endings,Cure,ลมหายใจใหม่,story,implemented,test_story + five earned campaign branches

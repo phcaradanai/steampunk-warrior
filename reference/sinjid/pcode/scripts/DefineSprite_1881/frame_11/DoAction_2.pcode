@@ -1,0 +1,34 @@
+ConstantPool "life", "subject", "_root", "lifemax", "skill", "Math", "round", "Heal"
+Push "life", "subject"
+GetVariable
+Push "_root"
+GetVariable
+Push "subject"
+GetVariable
+Push 1
+InitArray
+Push "lifemax"
+Add2
+GetMember
+Push 100
+Divide
+Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 12
+GetMember
+Push 12
+Multiply
+Push 13
+Add2
+Multiply
+Push 1, "Math"
+GetVariable
+Push "round"
+CallMethod
+Push 3, "_root"
+GetVariable
+Push "Heal"
+CallMethod
+Pop

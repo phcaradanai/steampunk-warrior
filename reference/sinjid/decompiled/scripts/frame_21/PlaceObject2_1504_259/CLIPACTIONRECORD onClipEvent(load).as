@@ -1,0 +1,3 @@
+onClipEvent(load){
+   speak = "Once you have completed all 20 levels in the human gateway, come here to exit the arena. The other two portals are optional.";
+}

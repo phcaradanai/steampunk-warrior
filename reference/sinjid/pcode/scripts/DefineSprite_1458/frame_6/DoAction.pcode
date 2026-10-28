@@ -1,0 +1,43 @@
+ConstantPool "_root", "itemstats", "Fusion Edge", "Demon Skin", "Demon Rags", "Ki Band", "Focus Armour", "Energy Wrist", "Blade Shield"
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 20, "Fusion Edge"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 21, "Demon Skin"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 22, "Demon Rags"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 23, "Ki Band"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 24, "Focus Armour"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 25, "Energy Wrist"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 26, "Blade Shield"
+SetMember

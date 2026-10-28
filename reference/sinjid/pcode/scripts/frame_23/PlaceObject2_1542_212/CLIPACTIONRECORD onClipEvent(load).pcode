@@ -1,0 +1,6 @@
+Push "speak", "If you find this portal too hard, go train in the training room upstairs."
+SetVariable
+Push "persontype", "Guard"
+SetVariable
+Push "objectnum", 0.0
+SetVariable

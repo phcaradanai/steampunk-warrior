@@ -1,0 +1,37 @@
+ConstantPool "_root", "Helmet", "head", "gotoAndStop", "BodyParts", "i", "Suit"
+Push "_root"
+GetVariable
+Push "Helmet"
+GetMember
+Push 1, "head"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "BodyParts"
+GetMember
+Enumerate2
+loc005f:StoreRegister 0
+Push null
+Equals2
+If loc00a2
+Push "i", register0
+SetVariable
+Push "_root"
+GetVariable
+Push "BodyParts"
+GetMember
+Push "i"
+GetVariable
+GetMember
+SetTarget2
+Push "_root"
+GetVariable
+Push "Suit"
+GetMember
+GotoFrame2 false, false
+SetTarget ""
+Jump loc005f
+loc00a2:

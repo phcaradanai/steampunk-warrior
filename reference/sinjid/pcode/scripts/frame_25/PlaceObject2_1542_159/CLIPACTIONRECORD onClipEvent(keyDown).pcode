@@ -1,0 +1,87 @@
+ConstantPool "_root", "grid", "char", "this", "person", "hitTest", "Key", "isDown", "pause", "talking", "clearstage", "TalkBox", "SpeakerText", "Axel-san", "TalkText", "speak", "_visible", "gotoAndPlay"
+Push "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push 1, "this"
+GetVariable
+Push "person"
+GetMember
+Push "hitTest"
+CallMethod
+Not
+If loc019e
+Push 32, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+PushDuplicate
+Not
+If loc00ed
+Pop
+Push "_root"
+GetVariable
+Push "pause"
+GetMember
+Push false
+Equals2
+loc00ed:PushDuplicate
+Not
+If loc0108
+Pop
+Push "_root"
+GetVariable
+Push "talking"
+GetMember
+Push true
+Equals2
+Not
+loc0108:PushDuplicate
+Not
+If loc0122
+Pop
+Push "_root"
+GetVariable
+Push "clearstage"
+GetMember
+Push false
+Equals2
+loc0122:Not
+If loc019e
+Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "SpeakerText", "Axel-san"
+SetMember
+Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "TalkText", "speak"
+GetVariable
+SetMember
+Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "_visible", true
+SetMember
+Push "_root"
+GetVariable
+Push "pause", true
+SetMember
+Push "_root"
+GetVariable
+Push "talking", true
+SetMember
+Push 1, 1, "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "gotoAndPlay"
+CallMethod
+Pop
+loc019e:

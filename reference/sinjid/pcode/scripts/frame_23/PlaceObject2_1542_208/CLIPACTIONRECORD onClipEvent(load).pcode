@@ -1,0 +1,6 @@
+Push "speak", "Step into the portal to fight a human enemy. Make sure you are ready before each battle. Check your potions, equipment, and energy."
+SetVariable
+Push "persontype", "Apprentice"
+SetVariable
+Push "objectnum", 1
+SetVariable

@@ -1,0 +1,8 @@
+Push "selectionUnfocused", "highlight_mc3"
+GetVariable
+Push 2, "component"
+GetVariable
+Push "registerSkinElement"
+CallMethod
+Pop
+Stop

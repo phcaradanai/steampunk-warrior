@@ -1,0 +1,36 @@
+{
+  "executable": "/Applications/DBeaver.app/Contents/Eclipse/jre/Contents/Home/bin/java",
+  "arguments": [
+    "-Djava.awt.headless=true",
+    "-jar",
+    "/private/tmp/sinjid-ffdec/ffdec.jar",
+    "-onerror",
+    "abort",
+    "-format",
+    "script:pcode",
+    "-export",
+    "script",
+    "/Users/Projects/Steampunk-warrior/reference/sinjid/pcode",
+    "/Users/Projects/Steampunk-warrior/reference/sinjid/original.swf"
+  ],
+  "working_directory": "/Users/Projects/Steampunk-warrior",
+  "timeout_ms": 60000,
+  "idle_timeout_ms": 30000,
+  "terminal": {
+    "columns": 120,
+    "rows": 30,
+    "scrollback": 1500
+  },
+  "limits": {
+    "output_bytes": 1000000,
+    "files": 3000,
+    "file_bytes": 1000000,
+    "processes": 100,
+    "filesystem_depth": 12
+  },
+  "filesystem_observation_paths": [
+    "/Users/Projects/Steampunk-warrior/reference/sinjid/original.swf",
+    "/Users/Projects/Steampunk-warrior/reference/sinjid/pcode"
+  ],
+  "finalization_ms": 2000
+}

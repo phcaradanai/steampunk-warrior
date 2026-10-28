@@ -1,0 +1,118 @@
+ConstantPool "expup", "goldup", "engcost", "enemy1bodyparts", "Array", "feet2", "feet1", "feetleg2", "feetleg1", "leg2", "leg1", "handarm2", "handarm1", "arm2", "arm1", "body", "enemy1suit", "Ronin", "enemy2suit", "Shaman", "enemy2av", "enemy1av", "fightav1", "gotoAndStop", "fightav2", "enemy1helmet", "enemy1swordtype", "Katana", "enemy1shieldtypeb", "None", "enemy1shieldtype", "enemy1speed", "enemy1lifemax", "enemy1life", "enemy1shddmg", "enemy1phydmg", "enemy1magdmg", "enemy1shdptsmax", "enemy1shdpts", "enemy1magdef", "enemy1phydef", "enemy1shdmagdef", "enemy1shdphydef", "enemy1str", "enemy2bodyparts", "enemy2helmet", "enemy2swordtype", "Wooden Rod", "enemy2shieldtypeb", "enemy2shieldtype", "enemy2speed", "enemy2lifemax", "enemy2life", "enemy2shddmg", "enemy2phydmg", "enemy2magdmg", "enemy2shdptsmax", "enemy2shdpts", "enemy2magdef", "enemy2phydef", "enemy2shdmagdef", "enemy2shdphydef", "enemy2str"
+Stop
+Push "expup", 500
+SetVariable
+Push "goldup", 320
+SetVariable
+Push "engcost", 35
+SetVariable
+Push "enemy1bodyparts", 0.0, "Array"
+NewObject
+SetVariable
+Push "enemy1bodyparts", "feet2", "feet1", "feetleg2", "feetleg1", "leg2", "leg1", "handarm2", "handarm1", "arm2", "arm1", "body", 11
+InitArray
+SetVariable
+Push "enemy1suit", "Ronin"
+SetVariable
+Push "enemy2suit", "Shaman"
+SetVariable
+Push "enemy2av", "enemy2suit"
+GetVariable
+SetVariable
+Push "enemy1av", "enemy1suit"
+GetVariable
+SetVariable
+Push "enemy1av"
+GetVariable
+Push 1, "fightav1"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "enemy2av"
+GetVariable
+Push 1, "fightav2"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "enemy1helmet", "enemy1suit"
+GetVariable
+SetVariable
+Push "enemy1swordtype", "Katana"
+SetVariable
+Push "enemy1shieldtypeb", "None"
+SetVariable
+Push "enemy1shieldtype", "enemy1shieldtypeb"
+GetVariable
+SetVariable
+Push "enemy1speed", 20
+SetVariable
+Push "enemy1lifemax", 1000
+SetVariable
+Push "enemy1life", "enemy1lifemax"
+GetVariable
+SetVariable
+Push "enemy1shddmg", 10
+SetVariable
+Push "enemy1phydmg", 10
+SetVariable
+Push "enemy1magdmg", 11
+SetVariable
+Push "enemy1shdptsmax", 1
+SetVariable
+Push "enemy1shdpts", 0.0
+SetVariable
+Push "enemy1magdef", 40
+SetVariable
+Push "enemy1phydef", 40
+SetVariable
+Push "enemy1shdmagdef", 0.0
+SetVariable
+Push "enemy1shdphydef", 0.0
+SetVariable
+Push "enemy1str", 0.0
+SetVariable
+Push "enemy2bodyparts", 0.0, "Array"
+NewObject
+SetVariable
+Push "enemy2bodyparts", "feet2", "feet1", "feetleg2", "feetleg1", "leg2", "leg1", "handarm2", "handarm1", "arm2", "arm1", "body", 11
+InitArray
+SetVariable
+Push "enemy2helmet", "enemy2suit"
+GetVariable
+SetVariable
+Push "enemy2swordtype", "Wooden Rod"
+SetVariable
+Push "enemy2shieldtypeb", "None"
+SetVariable
+Push "enemy2shieldtype", "enemy2shieldtypeb"
+GetVariable
+SetVariable
+Push "enemy2speed", 20
+SetVariable
+Push "enemy2lifemax", 1000
+SetVariable
+Push "enemy2life", "enemy2lifemax"
+GetVariable
+SetVariable
+Push "enemy2shddmg", 8
+SetVariable
+Push "enemy2phydmg", 9
+SetVariable
+Push "enemy2magdmg", 8
+SetVariable
+Push "enemy2shdptsmax", 1
+SetVariable
+Push "enemy2shdpts", 0.0
+SetVariable
+Push "enemy2magdef", 50
+SetVariable
+Push "enemy2phydef", 20
+SetVariable
+Push "enemy2shdmagdef", 0.0
+SetVariable
+Push "enemy2shdphydef", 0.0
+SetVariable
+Push "enemy2str", 0.0
+SetVariable

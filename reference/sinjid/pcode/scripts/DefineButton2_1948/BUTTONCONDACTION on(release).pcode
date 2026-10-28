@@ -1,0 +1,110 @@
+ConstantPool "_root", "midfight", "playermove", "turnnum", "hero1", "Skill", "skilllabel", "hero1mana", "manareq", "Weapon", "None", "enemy1life", "enemy2life", "Fight"
+Push "_root"
+GetVariable
+Push "midfight"
+GetMember
+Push false
+Equals2
+PushDuplicate
+Not
+If loc00b1
+Pop
+Push "_root"
+GetVariable
+Push "playermove"
+GetMember
+Push "_root"
+GetVariable
+Push "turnnum"
+GetMember
+GetMember
+Push "hero1"
+Equals2
+loc00b1:PushDuplicate
+Not
+If loc00d9
+Pop
+Push "_root"
+GetVariable
+Push "Skill"
+GetMember
+Push "skilllabel"
+GetVariable
+GetMember
+Push 0.0
+Greater
+loc00d9:PushDuplicate
+Not
+If loc00f5
+Pop
+Push "_root"
+GetVariable
+Push "hero1mana"
+GetMember
+Push "manareq"
+GetVariable
+Less2
+Not
+loc00f5:PushDuplicate
+Not
+If loc0110
+Pop
+Push "_root"
+GetVariable
+Push "Weapon"
+GetMember
+Push "None"
+Equals2
+Not
+loc0110:PushDuplicate
+Not
+If loc013e
+Pop
+Push "_root"
+GetVariable
+Push "enemy1life"
+GetMember
+Push "_root"
+GetVariable
+Push "enemy2life"
+GetMember
+Add2
+Push 0.0
+Greater
+loc013e:Not
+If loc01bc
+Push "Skill", "skilllabel"
+GetVariable
+Add2
+Push 1
+InitArray
+Push 1, "_root"
+GetVariable
+Push "Fight"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "midfight", true
+SetMember
+Push "_root"
+GetVariable
+Push "turnnum", "_root"
+GetVariable
+Push "turnnum"
+GetMember
+Increment
+SetMember
+Push "_root"
+GetVariable
+Push "turnnum"
+GetMember
+Push 4
+Equals2
+Not
+If loc01bc
+Push "_root"
+GetVariable
+Push "turnnum", 0.0
+SetMember
+loc01bc:

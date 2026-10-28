@@ -1,0 +1,465 @@
+{
+  "authority": "FFdec static shell export; not REA Evidence and not runtime observation",
+  "swf_sha256": "e258423f2a5887ff236a67eb6eaf674a8d573a5cdb721c20b79c831da4d9e008",
+  "skills": [
+    {
+      "index": 0,
+      "name": "Stab",
+      "type": "offensive",
+      "rank_cap": 10,
+      "rank_point_cost": 1,
+      "mana_display": 15,
+      "battle_button": "reference/sinjid/decompiled/scripts/DefineButton2_1941/BUTTONCONDACTION on(release).as",
+      "battle_release": "on(release){\n   if(_root.midfight == false && _root.playermove[_root.turnnum] == \"hero1\" && _root.Skill[skilllabel] > 0 && _root.hero1mana >= manareq && _root.Weapon != \"None\" && _root.enemy1life + _root.enemy2life > 0)\n   {\n      _root.hero1mana -= manareq;\n      _root.Fight([\"Skill\" + skilllabel]);\n      _root.midfight = true;\n      _root.turnnum++;\n      if(_root.turnnum == 4)\n      {\n         _root.turnnum = 0;\n      }\n   }\n}\n",
+      "mana_is_subtracted_in_button": true,
+      "level_min": 1,
+      "prerequisites": [],
+      "learn_button": "reference/sinjid/decompiled/scripts/DefineButton2_2208/BUTTONCONDACTION on(release).as",
+      "learn_guard": "   if(_root.skill[skilllabel] < 10 && _root.skillpts > 0)",
+      "effect_sprite": 1836,
+      "effect_sources": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1836/frame_33/DoAction.as",
+          "code": "_root[dmgtype + \"Damage\"](_root[mcname + \"phydmg\"] + _root.skill[10] * 5 + _root.skill[0] * 4,_root[mcname + \"magdmg\"],false,_root[mcname + \"shddmg\"],_root[mcname + \"str\"],_root[mcname + \"speed\"],random(_root[mcname + \"phydmg\"] / 3) + random(10));\n"
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "name": "Shurikens",
+      "type": "offensive",
+      "rank_cap": 10,
+      "rank_point_cost": 1,
+      "mana_display": 20,
+      "battle_button": "reference/sinjid/decompiled/scripts/DefineButton2_1940/BUTTONCONDACTION on(release).as",
+      "battle_release": "on(release){\n   if(_root.midfight == false && _root.playermove[_root.turnnum] == \"hero1\" && _root.Skill[skilllabel] > 0 && _root.hero1mana >= manareq && _root.Weapon != \"None\" && _root.enemy1life + _root.enemy2life > 0)\n   {\n      _root.hero1mana -= manareq;\n      _root.Fight([\"Skill\" + skilllabel]);\n      _root.midfight = true;\n      _root.turnnum++;\n      if(_root.turnnum == 4)\n      {\n         _root.turnnum = 0;\n      }\n   }\n}\n",
+      "mana_is_subtracted_in_button": true,
+      "level_min": 1,
+      "prerequisites": [],
+      "learn_button": "reference/sinjid/decompiled/scripts/DefineButton2_2207/BUTTONCONDACTION on(release).as",
+      "learn_guard": "   if(_root.skill[skilllabel] < 10 && _root.skillpts > 0)",
+      "effect_sprite": 1862,
+      "effect_sources": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1862/frame_18/DoAction.as",
+          "code": "_root.savetarget = _root.herotarget;\nif(_root.enemy1life > 0)\n{\n   _root.herotarget = \"enemy1\";\n   _root[dmgtype + \"Damage\"](0,_root[mcname + \"magdmg\"] + (15 + _root.skill[1] * 7) + _root.skill[8] * 7,false,0,0,_root[mcname + \"speed\"],random(_root[mcname + \"phydmg\"] / 3) + random(5));\n}\nif(_root.enemy2life > 0)\n{\n   _root.herotarget = \"enemy2\";\n   _root[dmgtype + \"Damage\"](0,_root[mcname + \"magdmg\"] + (15 + _root.skill[1] * 7) + _root.skill[8] * 7,false,_root[mcname + \"shddmg\"],_root[mcname + \"str\"],_root[mcname + \"speed\"],random(_root[mcname + \"phydmg\"] / 3) + random(5));\n}\n_root.herotarget = _root.savetarget;\n"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "name": "Double Strike",
+      "type": "offensive",
+      "rank_cap": 10,
+      "rank_point_cost": 1,
+      "mana_display": 20,
+      "battle_button": "reference/sinjid/decompiled/scripts/DefineButton2_1942/BUTTONCONDACTION on(release).as",
+      "battle_release": "on(release){\n   if(_root.midfight == false && _root.playermove[_root.turnnum] == \"hero1\" && _root.Skill[skilllabel] > 0 && _root.hero1mana >= manareq && _root.Weapon != \"None\" && _root.enemy1life + _root.enemy2life > 0)\n   {\n      _root.hero1mana -= manareq;\n      _root.Fight([\"Skill\" + skilllabel]);\n      _root.midfight = true;\n      _root.turnnum++;\n      if(_root.turnnum == 4)\n      {\n         _root.turnnum = 0;\n      }\n   }\n}\n",
+      "mana_is_subtracted_in_button": true,
+      "level_min": 1,
+      "prerequisites": [
+        0
+      ],
+      "learn_button": "reference/sinjid/decompiled/scripts/DefineButton2_2209/BUTTONCONDACTION on(release).as",
+      "learn_guard": "   if(_root.skill[skilllabel] < 10 && _root.skillpts > 0 && _root.skill[0] != 0)",
+      "effect_sprite": 1843,
+      "effect_sources": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1843/frame_26/DoAction.as",
+          "code": "_root[dmgtype + \"Damage\"](_root[mcname + \"phydmg\"] / 100 * (52 + 8 * _root.skill[2]) + _root.skill[10] * 5,_root[mcname + \"magdmg\"] / 100 * (52 + 8 * _root.skill[2]),false,_root[mcname + \"shddmg\"] / 100 * (62 + 8 * _root.skill[1]),_root[mcname + \"str\"] / 100 * (52 + 8 * _root.skill[2]),_root[mcname + \"speed\"],random(_root[mcname + \"phydmg\"] / 3));\n"
+        },
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1843/frame_38/DoAction.as",
+          "code": "if(_root[_root.herotarget + \"life\"] > 0)\n{\n   _root[dmgtype + \"Damage\"](_root[mcname + \"phydmg\"] / 100 * (52 + 8 * _root.skill[2]) + _root.skill[10] * 5,_root[mcname + \"magdmg\"] / 100 * (52 + 8 * _root.skill[2]),false,_root[mcname + \"shddmg\"] / 100 * (62 + 8 * _root.skill[1]),_root[mcname + \"str\"] / 100 * (52 + 8 * _root.skill[2]),_root[mcname + \"speed\"],random(_root[mcname + \"phydmg\"] / 3));\n}\n"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "name": "Speed Strike",
+      "type": "offensive",
+      "rank_cap": 10,
+      "rank_point_cost": 1,
+      "mana_display": 20,
+      "battle_button": "reference/sinjid/decompiled/scripts/DefineButton2_1943/BUTTONCONDACTION on(release).as",
+      "battle_release": "on(release){\n   if(_root.midfight == false && _root.playermove[_root.turnnum] == \"hero1\" && _root.Skill[skilllabel] > 0 && _root.hero1mana >= manareq && _root.Weapon != \"None\" && _root.enemy1life + _root.enemy2life > 0)\n   {\n      _root.hero1mana -= manareq;\n      _root.Fight([\"Skill\" + skilllabel]);\n      _root.midfight = true;\n      _root.turnnum++;\n      if(_root.turnnum == 4)\n      {\n         _root.turnnum = 0;\n      }\n   }\n}\n",
+      "mana_is_subtracted_in_button": true,
+      "level_min": 1,
+      "prerequisites": [
+        0
+      ],
+      "learn_button": "reference/sinjid/decompiled/scripts/DefineButton2_2210/BUTTONCONDACTION on(release).as",
+      "learn_guard": "   if(_root.skill[skilllabel] < 10 && _root.skillpts > 0 && _root.skill[0] != 0)",
+      "effect_sprite": 1845,
+      "effect_sources": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1845/frame_23/DoAction.as",
+          "code": "_root[dmgtype + \"Damage\"](_root[mcname + \"phydmg\"] + _root.skill[3] * 0.6 * _root.hero1speed + _root.skill[10] * 5,_root[mcname + \"magdmg\"],true,_root[mcname + \"shddmg\"],_root[mcname + \"str\"],_root[mcname + \"speed\"] + 7,random(_root[mcname + \"phydmg\"] / 3) + random(5));\n"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "name": "Energy Shot",
+      "type": "offensive",
+      "rank_cap": 10,
+      "rank_point_cost": 1,
+      "mana_display": 25,
+      "battle_button": "reference/sinjid/decompiled/scripts/DefineButton2_1944/BUTTONCONDACTION on(release).as",
+      "battle_release": "on(release){\n   if(_root.midfight == false && _root.playermove[_root.turnnum] == \"hero1\" && _root.Skill[skilllabel] > 0 && _root.hero1mana >= manareq && _root.Weapon != \"None\" && _root.enemy1life + _root.enemy2life > 0)\n   {\n      _root.hero1mana -= manareq;\n      _root.Fight([\"Skill\" + skilllabel]);\n      _root.midfight = true;\n      _root.turnnum++;\n      if(_root.turnnum == 4)\n      {\n         _root.turnnum = 0;\n      }\n   }\n}\n",
+      "mana_is_subtracted_in_button": true,
+      "level_min": 1,
+      "prerequisites": [
+        1
+      ],
+      "learn_button": "reference/sinjid/decompiled/scripts/DefineButton2_2211/BUTTONCONDACTION on(release).as",
+      "learn_guard": "   if(_root.skill[skilllabel] < 10 && _root.skillpts > 0 && _root.skill[1] != 0)",
+      "effect_sprite": 1878,
+      "effect_sources": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1878/frame_25/DoAction.as",
+          "code": "_root[dmgtype + \"Damage\"](0,_root[mcname + \"magdmg\"] + 40 + 9 * _root.skill[4] + _root.skill[8] * 7,false,0,0,_root[mcname + \"speed\"] + 5,random(_root[mcname + \"phydmg\"] / 3));\n"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "name": "Blast Fire",
+      "type": "offensive",
+      "rank_cap": 10,
+      "rank_point_cost": 1,
+      "mana_display": 25,
+      "battle_button": "reference/sinjid/decompiled/scripts/DefineButton2_1945/BUTTONCONDACTION on(release).as",
+      "battle_release": "on(release){\n   if(_root.midfight == false && _root.playermove[_root.turnnum] == \"hero1\" && _root.Skill[skilllabel] > 0 && _root.hero1mana >= manareq && _root.Weapon != \"None\" && _root.enemy1life + _root.enemy2life > 0)\n   {\n      _root.hero1mana -= manareq;\n      _root.Fight([\"Skill\" + skilllabel]);\n      _root.midfight = true;\n      _root.turnnum++;\n      if(_root.turnnum == 4)\n      {\n         _root.turnnum = 0;\n      }\n   }\n}\n",
+      "mana_is_subtracted_in_button": true,
+      "level_min": 1,
+      "prerequisites": [
+        1
+      ],
+      "learn_button": "reference/sinjid/decompiled/scripts/DefineButton2_2212/BUTTONCONDACTION on(release).as",
+      "learn_guard": "   if(_root.skill[skilllabel] < 10 && _root.skillpts > 0 && _root.skill[1] != 0)",
+      "effect_sprite": 1880,
+      "effect_sources": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1880/frame_17/DoAction.as",
+          "code": "_root.savetarget = _root.herotarget;\nif(_root.enemy1life > 0)\n{\n   _root.herotarget = \"enemy1\";\n   _root[dmgtype + \"Damage\"](0,_root[mcname + \"magdmg\"] + 7 + 5 * _root.skill[5] + _root.skill[8] * 7,false,0,0,_root[mcname + \"speed\"] + 5,random(_root[mcname + \"phydmg\"] / 3) + random(5));\n}\nif(_root.enemy2life > 0)\n{\n   _root.herotarget = \"enemy2\";\n   _root[dmgtype + \"Damage\"](0,_root[mcname + \"magdmg\"] + 7 + 5 * _root.skill[5] + _root.skill[8] * 7,false,0,0,_root[mcname + \"speed\"] + 5,random(_root[mcname + \"phydmg\"] / 3) + random(5));\n}\n_root.herotarget = _root.savetarget;\n"
+        },
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1880/frame_26/DoAction.as",
+          "code": "_root.savetarget = _root.herotarget;\nif(_root.enemy1life > 0)\n{\n   _root.herotarget = \"enemy1\";\n   _root[dmgtype + \"Damage\"](0,_root[mcname + \"magdmg\"] + 7 + 5 * _root.skill[5] + _root.skill[8] * 7,false,0,0,_root[mcname + \"speed\"] + 5,random(_root[mcname + \"phydmg\"] / 3) + random(5));\n}\nif(_root.enemy2life > 0)\n{\n   _root.herotarget = \"enemy2\";\n   _root[dmgtype + \"Damage\"](0,_root[mcname + \"magdmg\"] + 7 + 5 * _root.skill[5] + _root.skill[8] * 7,false,0,0,_root[mcname + \"speed\"] + 5,random(_root[mcname + \"phydmg\"] / 3) + random(5));\n}\n_root.herotarget = _root.savetarget;\n"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "name": "Vertical Strike",
+      "type": "offensive",
+      "rank_cap": 10,
+      "rank_point_cost": 1,
+      "mana_display": 20,
+      "battle_button": "reference/sinjid/decompiled/scripts/DefineButton2_1946/BUTTONCONDACTION on(release).as",
+      "battle_release": "on(release){\n   if(_root.midfight == false && _root.playermove[_root.turnnum] == \"hero1\" && _root.Skill[skilllabel] > 0 && _root.hero1mana >= manareq && _root.Weapon != \"None\" && _root.enemy1life + _root.enemy2life > 0)\n   {\n      _root.hero1mana -= manareq;\n      _root.Fight([\"Skill\" + skilllabel]);\n      _root.midfight = true;\n      _root.turnnum++;\n      if(_root.turnnum == 4)\n      {\n         _root.turnnum = 0;\n      }\n   }\n}\n",
+      "mana_is_subtracted_in_button": true,
+      "level_min": 1,
+      "prerequisites": [
+        2
+      ],
+      "learn_button": "reference/sinjid/decompiled/scripts/DefineButton2_2213/BUTTONCONDACTION on(release).as",
+      "learn_guard": "   if(_root.skill[skilllabel] < 10 && _root.skillpts > 0 && _root.level >= levelreq && _root.skill[2] != 0)",
+      "effect_sprite": 1847,
+      "effect_sources": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1847/frame_49/DoAction.as",
+          "code": "_root[dmgtype + \"Damage\"](_root[mcname + \"phydmg\"] + _root.skill[10] * 5,_root[mcname + \"magdmg\"],false,_root[mcname + \"shddmg\"],_root[mcname + \"str\"] * (1 + 0.8 * _root.skill[6]),_root[mcname + \"speed\"] - 2,random(_root[mcname + \"phydmg\"] / 3) + random(5));\n"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "name": "Shadow Blend",
+      "type": "passive",
+      "rank_cap": 10,
+      "rank_point_cost": 1,
+      "level_min": 1,
+      "prerequisites": [
+        3
+      ],
+      "learn_button": "reference/sinjid/decompiled/scripts/DefineButton2_2224/BUTTONCONDACTION on(release).as",
+      "learn_guard": "   if(_root.skill[skilllabel] < 10 && _root.skillpts > 0 && _root.level >= levelreq && _root.skill[3] != 0)",
+      "effect_sources": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1993/frame_1/DoAction.as",
+          "line": 10,
+          "code": "_root.hero1speed = _root.speedb + _root.skill[7] * 2;"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "name": "Energy Field",
+      "type": "passive",
+      "rank_cap": 10,
+      "rank_point_cost": 1,
+      "level_min": 1,
+      "prerequisites": [
+        4
+      ],
+      "learn_button": "reference/sinjid/decompiled/scripts/DefineButton2_2223/BUTTONCONDACTION on(release).as",
+      "learn_guard": "   if(_root.skill[skilllabel] < 10 && _root.skillpts > 0 && _root.level >= levelreq && _root.skill[4] != 0)",
+      "effect": "Adds 7*rank to second damage-function argument for skills1,4,5,15,16."
+    },
+    {
+      "index": 9,
+      "name": "Charge",
+      "type": "support",
+      "rank_cap": 10,
+      "rank_point_cost": 1,
+      "mana_display": 0,
+      "battle_button": "reference/sinjid/decompiled/scripts/DefineButton2_1951/BUTTONCONDACTION on(release).as",
+      "battle_release": "on(release){\n   if(_root.midfight == false && _root.playermove[_root.turnnum] == \"hero1\" && _root.Skill[skilllabel] > 0 && _root.hero1mana >= manareq && _root.Weapon != \"None\" && _root.enemy1life + _root.enemy2life > 0)\n   {\n      _root.hero1mana -= manareq;\n      _root.Fight([\"Skill\" + skilllabel]);\n      _root.midfight = true;\n      _root.turnnum++;\n      if(_root.turnnum == 4)\n      {\n         _root.turnnum = 0;\n      }\n   }\n}\n",
+      "mana_is_subtracted_in_button": true,
+      "level_min": 1,
+      "prerequisites": [
+        4
+      ],
+      "learn_button": "reference/sinjid/decompiled/scripts/DefineButton2_2218/BUTTONCONDACTION on(release).as",
+      "learn_guard": "   if(_root.skill[skilllabel] < 10 && _root.skillpts > 0 && _root.level >= levelreq && _root.skill[4] != 0)",
+      "effect_sprite": 1882,
+      "effect_sources": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1882/frame_11/DoAction_2.as",
+          "code": "_root.Heal(Math.round(_root.skill[9] * 25),subject,\"mana\");\n"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "name": "Inner Strength",
+      "type": "passive",
+      "rank_cap": 10,
+      "rank_point_cost": 1,
+      "level_min": 5,
+      "prerequisites": [
+        6
+      ],
+      "learn_button": "reference/sinjid/decompiled/scripts/DefineButton2_2225/BUTTONCONDACTION on(release).as",
+      "learn_guard": "   if(_root.skill[skilllabel] < 10 && _root.skillpts > 0 && _root.level >= levelreq && _root.skill[6] != 0)",
+      "effect": "Adds 5*rank to first damage-function argument for basic Attack and skills0,2,3,6,13,14,17."
+    },
+    {
+      "index": 11,
+      "name": "Mana Bomb",
+      "type": "offensive",
+      "rank_cap": 10,
+      "rank_point_cost": 1,
+      "mana_display": 1,
+      "battle_button": "reference/sinjid/decompiled/scripts/DefineButton2_1948/BUTTONCONDACTION on(release).as",
+      "battle_release": "on(release){\n   if(_root.midfight == false && _root.playermove[_root.turnnum] == \"hero1\" && _root.Skill[skilllabel] > 0 && _root.hero1mana >= manareq && _root.Weapon != \"None\" && _root.enemy1life + _root.enemy2life > 0)\n   {\n      _root.Fight([\"Skill\" + skilllabel]);\n      _root.midfight = true;\n      _root.turnnum++;\n      if(_root.turnnum == 4)\n      {\n         _root.turnnum = 0;\n      }\n   }\n}\n",
+      "mana_is_subtracted_in_button": false,
+      "level_min": 5,
+      "prerequisites": [
+        8
+      ],
+      "learn_button": "reference/sinjid/decompiled/scripts/DefineButton2_2215/BUTTONCONDACTION on(release).as",
+      "learn_guard": "   if(_root.skill[skilllabel] < 10 && _root.skillpts > 0 && _root.level >= levelreq && _root.skill[8] != 0)",
+      "effect_sprite": 1885,
+      "effect_sources": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1885/frame_27/DoAction.as",
+          "code": "_root[dmgtype + \"Damage\"](0,_root[subject + \"mana\"] * (0.7 + 0.8 * _root.skill[11]),false,0,0,_root[mcname + \"speed\"],random(_root[mcname + \"phydmg\"] / 3) + random(5));\n_root.hero1mana = 0;\n"
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "name": "Heal",
+      "type": "support",
+      "rank_cap": 10,
+      "rank_point_cost": 1,
+      "mana_display": 15,
+      "battle_button": "reference/sinjid/decompiled/scripts/DefineButton2_1949/BUTTONCONDACTION on(release).as",
+      "battle_release": "on(release){\n   if(_root.midfight == false && _root.playermove[_root.turnnum] == \"hero1\" && _root.Skill[skilllabel] > 0 && _root.hero1mana >= manareq && _root.Weapon != \"None\" && _root.enemy1life + _root.enemy2life > 0)\n   {\n      _root.hero1mana -= manareq;\n      _root.Fight([\"Skill\" + skilllabel]);\n      _root.midfight = true;\n      _root.turnnum++;\n      if(_root.turnnum == 4)\n      {\n         _root.turnnum = 0;\n      }\n   }\n}\n",
+      "mana_is_subtracted_in_button": true,
+      "level_min": 5,
+      "prerequisites": [
+        9
+      ],
+      "learn_button": "reference/sinjid/decompiled/scripts/DefineButton2_2216/BUTTONCONDACTION on(release).as",
+      "learn_guard": "   if(_root.skill[skilllabel] < 10 && _root.skillpts > 0 && _root.level >= levelreq && _root.skill[9] != 0)",
+      "effect_sprite": 1881,
+      "effect_sources": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1881/frame_11/DoAction_2.as",
+          "code": "_root.Heal(Math.round(_root[[subject] + \"lifemax\"] / 100 * (_root.skill[12] * 12 + 13)),subject,\"life\");\n"
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "name": "Avenger",
+      "type": "offensive",
+      "rank_cap": 10,
+      "rank_point_cost": 1,
+      "mana_display": 25,
+      "battle_button": "reference/sinjid/decompiled/scripts/DefineButton2_1950/BUTTONCONDACTION on(release).as",
+      "battle_release": "on(release){\n   if(_root.midfight == false && _root.playermove[_root.turnnum] == \"hero1\" && _root.Skill[skilllabel] > 0 && _root.hero1mana >= manareq && _root.Weapon != \"None\" && _root.enemy1life + _root.enemy2life > 0)\n   {\n      _root.hero1mana -= manareq;\n      _root.Fight([\"Skill\" + skilllabel]);\n      _root.midfight = true;\n      _root.turnnum++;\n      if(_root.turnnum == 4)\n      {\n         _root.turnnum = 0;\n      }\n   }\n}\n",
+      "mana_is_subtracted_in_button": true,
+      "level_min": 10,
+      "prerequisites": [
+        10
+      ],
+      "learn_button": "reference/sinjid/decompiled/scripts/DefineButton2_2217/BUTTONCONDACTION on(release).as",
+      "learn_guard": "   if(_root.skill[skilllabel] < 10 && _root.skillpts > 0 && _root.level >= levelreq && _root.skill[10] != 0)",
+      "effect_sprite": 1848,
+      "effect_sources": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1848/frame_35/DoAction.as",
+          "code": "_root[dmgtype + \"Damage\"](_root[mcname + \"phydmg\"] + _root.skill[10] * 5 + (_root.skill[13] + 1) * (_root[mcname + \"lifemax\"] - _root[mcname + \"life\"]),_root[mcname + \"magdmg\"],false,_root[mcname + \"shddmg\"],_root[mcname + \"str\"],_root[mcname + \"speed\"],random(_root[mcname + \"phydmg\"] / 3) + random(10));\n"
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "name": "Split",
+      "type": "offensive",
+      "rank_cap": 10,
+      "rank_point_cost": 1,
+      "mana_display": 25,
+      "battle_button": "reference/sinjid/decompiled/scripts/DefineButton2_1953/BUTTONCONDACTION on(release).as",
+      "battle_release": "on(release){\n   if(_root.midfight == false && _root.playermove[_root.turnnum] == \"hero1\" && _root.Skill[skilllabel] > 0 && _root.hero1mana >= manareq && _root.Weapon != \"None\" && _root.enemy1life + _root.enemy2life > 0)\n   {\n      _root.hero1mana -= manareq;\n      _root.Fight([\"Skill\" + skilllabel]);\n      _root.midfight = true;\n      _root.turnnum++;\n      if(_root.turnnum == 4)\n      {\n         _root.turnnum = 0;\n      }\n   }\n}\n",
+      "mana_is_subtracted_in_button": true,
+      "level_min": 10,
+      "prerequisites": [
+        10
+      ],
+      "learn_button": "reference/sinjid/decompiled/scripts/DefineButton2_2220/BUTTONCONDACTION on(release).as",
+      "learn_guard": "   if(_root.skill[skilllabel] < 10 && _root.skillpts > 0 && _root.level >= levelreq && _root.skill[10] != 0)",
+      "effect_sprite": 1851,
+      "effect_sources": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1851/frame_66/DoAction.as",
+          "code": "_root[dmgtype + \"Damage\"](_root[mcname + \"phydmg\"] + _root.skill[10] * 5 + _root[_root.herotarget + \"life\"] / 100 * (10 + 2 * _root.skill[14]),_root[mcname + \"magdmg\"],false,_root[mcname + \"shddmg\"],_root[mcname + \"str\"],_root[mcname + \"speed\"],random(_root[mcname + \"phydmg\"] / 3) + random(10));\n"
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "name": "Shadow Strike",
+      "type": "offensive",
+      "rank_cap": 10,
+      "rank_point_cost": 1,
+      "mana_display": 40,
+      "battle_button": "reference/sinjid/decompiled/scripts/DefineButton2_1954/BUTTONCONDACTION on(release).as",
+      "battle_release": "on(release){\n   if(_root.midfight == false && _root.playermove[_root.turnnum] == \"hero1\" && _root.Skill[skilllabel] > 0 && _root.hero1mana >= manareq && _root.Weapon != \"None\" && _root.enemy1life + _root.enemy2life > 0)\n   {\n      _root.hero1mana -= manareq;\n      _root.Fight([\"Skill\" + skilllabel]);\n      _root.midfight = true;\n      _root.turnnum++;\n      if(_root.turnnum == 4)\n      {\n         _root.turnnum = 0;\n      }\n   }\n}\n",
+      "mana_is_subtracted_in_button": true,
+      "level_min": 10,
+      "prerequisites": [
+        7,
+        11
+      ],
+      "learn_button": "reference/sinjid/decompiled/scripts/DefineButton2_2221/BUTTONCONDACTION on(release).as",
+      "learn_guard": "   if(_root.skill[skilllabel] < 10 && _root.skillpts > 0 && _root.level >= levelreq && _root.skill[7] != 0 && _root.skill[11] != 0)",
+      "effect_sprite": 1887,
+      "effect_sources": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1887/frame_24/DoAction.as",
+          "code": "_root[dmgtype + \"Damage\"](0,_root[mcname + \"magdmg\"] + (60 + _root.skill[1] * 25) + _root.skill[8] * 7,true,0,0,_root[mcname + \"speed\"],random(_root[mcname + \"phydmg\"] / 3) + random(5));\n"
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "name": "Annihilate",
+      "type": "offensive",
+      "rank_cap": 10,
+      "rank_point_cost": 1,
+      "mana_display": 60,
+      "battle_button": "reference/sinjid/decompiled/scripts/DefineButton2_1955/BUTTONCONDACTION on(release).as",
+      "battle_release": "on(release){\n   if(_root.midfight == false && _root.playermove[_root.turnnum] == \"hero1\" && _root.Skill[skilllabel] > 0 && _root.hero1mana >= manareq && _root.Weapon != \"None\" && _root.enemy1life + _root.enemy2life > 0)\n   {\n      _root.hero1mana -= manareq;\n      _root.Fight([\"Skill\" + skilllabel]);\n      _root.midfight = true;\n      _root.turnnum++;\n      if(_root.turnnum == 4)\n      {\n         _root.turnnum = 0;\n      }\n   }\n}\n",
+      "mana_is_subtracted_in_button": true,
+      "level_min": 10,
+      "prerequisites": [
+        5,
+        12
+      ],
+      "learn_button": "reference/sinjid/decompiled/scripts/DefineButton2_2222/BUTTONCONDACTION on(release).as",
+      "learn_guard": "   if(_root.skill[skilllabel] < 10 && _root.skillpts > 0 && _root.level >= levelreq && _root.skill[5] != 0 && _root.skill[12] != 0)",
+      "effect_sprite": 1896,
+      "effect_sources": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1896/frame_16/DoAction.as",
+          "code": "_root[dmgtype + \"Damage\"](0,_root[mcname + \"magdmg\"] + 15 + _root.skill[1] * 7 + _root.skill[8] * 7,false,0,0,_root[mcname + \"speed\"],random(_root[mcname + \"phydmg\"] / 3) + random(5));\n"
+        },
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1896/frame_25/DoAction.as",
+          "code": "if(_root[_root.herotarget + \"life\"] > 0)\n{\n   _root[dmgtype + \"Damage\"](0,_root[mcname + \"magdmg\"] + 15 + _root.skill[1] * 7 + _root.skill[8] * 7,false,0,0,_root[mcname + \"speed\"],random(_root[mcname + \"phydmg\"] / 3) + random(5));\n}\n"
+        },
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1896/frame_36/DoAction.as",
+          "code": "if(_root[_root.herotarget + \"life\"] > 0)\n{\n   _root[dmgtype + \"Damage\"](0,_root[mcname + \"magdmg\"] + 15 + _root.skill[1] * 7 + _root.skill[8] * 7,false,0,0,_root[mcname + \"speed\"],random(_root[mcname + \"phydmg\"] / 3) + random(5));\n}\n"
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "name": "Execution",
+      "type": "offensive",
+      "rank_cap": 10,
+      "rank_point_cost": 1,
+      "mana_display": 70,
+      "battle_button": "reference/sinjid/decompiled/scripts/DefineButton2_1952/BUTTONCONDACTION on(release).as",
+      "battle_release": "on(release){\n   if(_root.midfight == false && _root.playermove[_root.turnnum] == \"hero1\" && _root.Skill[skilllabel] > 0 && _root.hero1mana >= manareq && _root.Weapon != \"None\" && _root.enemy1life + _root.enemy2life > 0)\n   {\n      _root.hero1mana -= manareq;\n      _root.Fight([\"Skill\" + skilllabel]);\n      _root.midfight = true;\n      _root.turnnum++;\n      if(_root.turnnum == 4)\n      {\n         _root.turnnum = 0;\n      }\n   }\n}\n",
+      "mana_is_subtracted_in_button": true,
+      "level_min": 15,
+      "prerequisites": [
+        13,
+        14
+      ],
+      "learn_button": "reference/sinjid/decompiled/scripts/DefineButton2_2219/BUTTONCONDACTION on(release).as",
+      "learn_guard": "   if(_root.skill[skilllabel] < 10 && _root.skillpts > 0 && _root.level >= levelreq && _root.skill[13] != 0 && _root.skill[14] != 0)",
+      "effect_sprite": 1849,
+      "effect_sources": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1849/frame_28/DoAction.as",
+          "code": "_root[dmgtype + \"Damage\"](_root[mcname + \"phydmg\"] / 100 * (60 + 5 * _root.skill[17]) + _root.skill[10] * 5,_root[mcname + \"magdmg\"],false,_root[mcname + \"shddmg\"],_root[mcname + \"str\"],_root[mcname + \"speed\"],random(_root[mcname + \"phydmg\"] / 3) + random(10));\n"
+        },
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1849/frame_38/DoAction.as",
+          "code": "if(_root[_root.herotarget + \"life\"] > 0)\n{\n   _root[dmgtype + \"Damage\"](_root[mcname + \"phydmg\"] / 100 * (60 + 5 * _root.skill[17]) + _root.skill[10] * 5,_root[mcname + \"magdmg\"],false,_root[mcname + \"shddmg\"],_root[mcname + \"str\"],_root[mcname + \"speed\"],random(_root[mcname + \"phydmg\"] / 3) + random(10));\n}\n"
+        },
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1849/frame_44/DoAction.as",
+          "code": "if(_root[_root.herotarget + \"life\"] > 0)\n{\n   _root[dmgtype + \"Damage\"](_root[mcname + \"phydmg\"] / 100 * (60 + 5 * _root.skill[17]) + _root.skill[10] * 5,_root[mcname + \"magdmg\"],false,_root[mcname + \"shddmg\"],_root[mcname + \"str\"],_root[mcname + \"speed\"],random(_root[mcname + \"phydmg\"] / 3) + random(10));\n}\n"
+        },
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1849/frame_49/DoAction.as",
+          "code": "if(_root[_root.herotarget + \"life\"] > 0)\n{\n   _root[dmgtype + \"Damage\"](_root[mcname + \"phydmg\"] / 100 * (60 + 5 * _root.skill[17]) + _root.skill[10] * 5,_root[mcname + \"magdmg\"],false,_root[mcname + \"shddmg\"],_root[mcname + \"str\"],_root[mcname + \"speed\"],random(_root[mcname + \"phydmg\"] / 3) + random(10));\n}\n"
+        }
+      ]
+    },
+    {
+      "index": 18,
+      "name": "Shadow Replicate",
+      "type": "support",
+      "rank_cap": 10,
+      "rank_point_cost": 1,
+      "mana_display": 100,
+      "battle_button": "reference/sinjid/decompiled/scripts/DefineButton2_1947/BUTTONCONDACTION on(release).as",
+      "battle_release": "on(release){\n   if(_root.midfight == false && _root.playermove[_root.turnnum] == \"hero1\" && _root.hero1mana >= manareq && _root.Weapon != \"None\" && _root.enemy1life + _root.enemy2life > 0 && _root.Skill[skilllabel] > 0)\n   {\n      _root.hero1mana -= manareq;\n      _root.Fight([\"Skill\" + skilllabel]);\n      _root.midfight = true;\n      _root.turnnum++;\n      if(_root.turnnum == 4)\n      {\n         _root.turnnum = 0;\n      }\n   }\n}\n",
+      "mana_is_subtracted_in_button": true,
+      "level_min": 15,
+      "prerequisites": [
+        15
+      ],
+      "learn_button": "reference/sinjid/decompiled/scripts/DefineButton2_2214/BUTTONCONDACTION on(release).as",
+      "learn_guard": "   if(_root.skill[skilllabel] < 10 && _root.skillpts > 0 && _root.level >= levelreq && _root.skill[15] != 0)",
+      "effect_sprite": 1898,
+      "effect_sources": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1898/frame_14/DoAction.as",
+          "code": "_root.hero2lifemax = 70 + 30 * _root.skill[18];\n_root.hero2phydmg = 13 + 12 * _root.skill[18];\n_root.hero2magdmg = 13 + 12 * _root.skill[18];\n_root.hero2speed = _root.hero1speed + 4 * _root.skill[18];\n_root.hero2life = _root.hero2lifemax;\n_root.hero2bar._width = _root.hero2life / _root.hero2lifemax * _root.hero2bar.widthkeep;\n"
+        }
+      ]
+    }
+  ]
+}

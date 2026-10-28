@@ -1,0 +1,8 @@
+ConstantPool "item", "Meal_0", "objectnum", "inventorytype"
+Push "item", "Meal_0"
+SetVariable
+Push "objectnum", 0.0
+SetVariable
+Push "inventorytype", "item"
+GetVariable
+SetVariable

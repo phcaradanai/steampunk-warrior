@@ -1,0 +1,234 @@
+ConstantPool "_root", "item", "itempick", "None", "inventory", "explainbox", "_visible", "Suit", "itemstats", "slotnum", "RemoveItem", "slot", "gotoAndStop", "itemhold", "itemmouse", "strb", "EquipItem", "no", "playSound"
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+GetMember
+Push 1
+GetMember
+Push "None"
+Equals2
+Not
+If loc01c6
+Push "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "explainbox"
+GetMember
+Push "_visible", false
+SetMember
+Push "Suit", "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "_root"
+GetVariable
+Push "slotnum"
+GetMember
+GetMember
+Push 2, "_root"
+GetVariable
+Push "RemoveItem"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+Push 1, "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "slot", "_root"
+GetVariable
+Push "slotnum"
+GetMember
+Add2
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "itemhold", "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "_root"
+GetVariable
+Push "slotnum"
+GetMember
+GetMember
+SetVariable
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "_root"
+GetVariable
+Push "slotnum"
+GetMember
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "itempick", "itemhold"
+GetVariable
+SetMember
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+Push 1, "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "itemmouse"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Jump loc0367
+loc01c6:Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+GetMember
+Push 1
+GetMember
+Push "Suit"
+Equals2
+PushDuplicate
+Not
+If loc0226
+Pop
+Push "_root"
+GetVariable
+Push "strb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+GetMember
+Push 14
+GetMember
+Less2
+Not
+loc0226:Not
+If loc0353
+Push "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "explainbox"
+GetMember
+Push "_visible", false
+SetMember
+Push "Suit", "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "_root"
+GetVariable
+Push "slotnum"
+GetMember
+GetMember
+Push 2, "_root"
+GetVariable
+Push "RemoveItem"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+Push 1, "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "slot", "_root"
+GetVariable
+Push "slotnum"
+GetMember
+Add2
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "itemhold", "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "_root"
+GetVariable
+Push "slotnum"
+GetMember
+GetMember
+SetVariable
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "_root"
+GetVariable
+Push "slotnum"
+GetMember
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "itempick", "itemhold"
+GetVariable
+SetMember
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+Push 1, "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "itemmouse"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "Suit", "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "_root"
+GetVariable
+Push "slotnum"
+GetMember
+GetMember
+Push 2, "_root"
+GetVariable
+Push "EquipItem"
+CallMethod
+Pop
+Jump loc0367
+loc0353:Push "no", 1, "_root"
+GetVariable
+Push "playSound"
+CallMethod
+Pop
+loc0367:

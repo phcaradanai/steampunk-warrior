@@ -1,0 +1,13 @@
+Push "_root"
+GetVariable
+Push "enemy2life"
+GetMember
+Push 0.0
+Equals2
+Not
+If loc0048
+Push "this"
+GetVariable
+Push "_visible", false
+SetMember
+loc0048:

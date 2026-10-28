@@ -1,0 +1,5 @@
+Push "user", "user_profile", 1, "SharedObject"
+GetVariable
+Push "getLocal"
+CallMethod
+SetVariable

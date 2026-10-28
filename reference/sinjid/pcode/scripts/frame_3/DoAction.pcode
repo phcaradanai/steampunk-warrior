@@ -1,0 +1,16 @@
+DefineFunction "playSound", 1, "name"  {
+Push "soundon"
+GetVariable
+Push "On"
+Equals2
+Not
+If loc005f
+Push "name"
+GetVariable
+Push 1, "soundfx"
+GetVariable
+Push "gotoAndPlay"
+CallMethod
+Pop
+}
+loc005f:Stop

@@ -1,0 +1,4 @@
+Push "speak", "You must have completed the Human Gateway to enter."
+SetVariable
+Push "stagelabel", "Arena10"
+SetVariable

@@ -1,0 +1,4 @@
+Push "_targetInstanceName", ""
+SetVariable
+Push "horizontal", false
+SetVariable

@@ -1,0 +1,69 @@
+ConstantPool "", "Metal Shield", "ItemRand", "enemy2lifemax", "enemy2life", "expup", "goldup", "engcost", "enemy1bodyparts", "Array", "feet2", "feet1", "feetleg2", "feetleg1", "leg2", "leg1", "handarm2", "handarm1", "arm2", "arm1", "body", "enemy1suit", "Mountain Naga", "enemy1av", "fightav1", "gotoAndStop", "enemy1helmet", "enemy1shieldtypeb", "enemy1shieldtype", "enemy1speed", "enemy1lifemax", "enemy1life", "enemy1shddmg", "enemy1phydmg", "enemy1magdmg", "enemy1shdptsmax", "enemy1shdpts", "enemy1magdef", "enemy1phydef", "enemy1shdmagdef", "enemy1shdphydef", "enemy1str"
+Stop
+Push "", "", "", "Metal Shield", 4, "ItemRand"
+CallFunction
+Pop
+Push "enemy2lifemax", 0.0
+SetVariable
+Push "enemy2life", "enemy2lifemax"
+GetVariable
+SetVariable
+Push "expup", 200
+SetVariable
+Push "goldup", 265
+SetVariable
+Push "engcost", 30
+SetVariable
+Push "enemy1bodyparts", 0.0, "Array"
+NewObject
+SetVariable
+Push "enemy1bodyparts", "feet2", "feet1", "feetleg2", "feetleg1", "leg2", "leg1", "handarm2", "handarm1", "arm2", "arm1", "body", 11
+InitArray
+SetVariable
+Push "enemy1suit", "Mountain Naga"
+SetVariable
+Push "enemy1av", "Mountain Naga"
+SetVariable
+Push "enemy1av"
+GetVariable
+Push 1, "fightav1"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "enemy1helmet", "enemy1suit"
+GetVariable
+SetVariable
+Push "enemy1shieldtypeb", "Metal Shield"
+SetVariable
+Push "enemy1shieldtype", "enemy1shieldtypeb"
+GetVariable
+SetVariable
+Push "enemy1speed", 22
+SetVariable
+Push "enemy1lifemax", 1100
+SetVariable
+Push "enemy1life", "enemy1lifemax"
+GetVariable
+SetVariable
+Push "enemy1shddmg", 30
+SetVariable
+Push "enemy1phydmg", 25
+SetVariable
+Push "enemy1magdmg", 4
+SetVariable
+Push "enemy1shdptsmax", 400
+SetVariable
+Push "enemy1shdpts", "enemy1shdptsmax"
+GetVariable
+SetVariable
+Push "enemy1magdef", 40
+SetVariable
+Push "enemy1phydef", 40
+SetVariable
+Push "enemy1shdmagdef", 20
+SetVariable
+Push "enemy1shdphydef", 20
+SetVariable
+Push "enemy1str", 0.0
+SetVariable

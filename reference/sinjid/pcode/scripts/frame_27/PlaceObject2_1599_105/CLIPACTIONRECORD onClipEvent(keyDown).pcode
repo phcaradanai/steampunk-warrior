@@ -1,0 +1,108 @@
+ConstantPool "_root", "grid", "char", "this", "itemthing", "hitTest", "Key", "isDown", "pause", "talking", "clearstage", "meet", "movement", "gotoAndStop", "inventorytype", "inventory", "_visible", "hold"
+Push "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push 1, "this"
+GetVariable
+Push "itemthing"
+GetMember
+Push "hitTest"
+CallMethod
+Not
+If loc01d6
+Push 32, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+PushDuplicate
+Not
+If loc00ef
+Pop
+Push "_root"
+GetVariable
+Push "pause"
+GetMember
+Push false
+Equals2
+loc00ef:PushDuplicate
+Not
+If loc010a
+Pop
+Push "_root"
+GetVariable
+Push "talking"
+GetMember
+Push true
+Equals2
+Not
+loc010a:PushDuplicate
+Not
+If loc0124
+Pop
+Push "_root"
+GetVariable
+Push "clearstage"
+GetMember
+Push false
+Equals2
+loc0124:PushDuplicate
+Not
+If loc013e
+Pop
+Push "_root"
+GetVariable
+Push "meet"
+GetMember
+Push false
+Equals2
+loc013e:PushDuplicate
+Not
+If loc0159
+Pop
+Push "_root"
+GetVariable
+Push "talking"
+GetMember
+Push true
+Equals2
+Not
+loc0159:Not
+If loc01d6
+Push 1, 1, "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "movement"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "inventorytype"
+GetVariable
+Push 1, "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "_visible", true
+SetMember
+Push "_root"
+GetVariable
+Push "pause", true
+SetMember
+Push "_root"
+GetVariable
+Push "hold", true
+SetMember
+loc01d6:

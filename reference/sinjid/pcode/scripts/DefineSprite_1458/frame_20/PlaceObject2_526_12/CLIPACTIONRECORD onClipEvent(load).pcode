@@ -1,0 +1,21 @@
+ConstantPool "widthkeep", "this", "_width", "_root", "lifeb", "lifemaxb"
+Push "widthkeep", "this"
+GetVariable
+Push "_width"
+GetMember
+SetVariable
+Push "this"
+GetVariable
+Push "_width", "_root"
+GetVariable
+Push "lifeb"
+GetMember
+Push "_root"
+GetVariable
+Push "lifemaxb"
+GetMember
+Divide
+Push "widthkeep"
+GetVariable
+Multiply
+SetMember

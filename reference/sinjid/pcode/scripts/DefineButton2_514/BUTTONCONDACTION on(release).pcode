@@ -1,0 +1,50 @@
+ConstantPool "ninjaav", "Sinjid_B", "skill", "classtype", "Balanced", "classname", "_root", "manamaxb", "manab", "lifeb", "lifemaxb", "speedb", "strb", "phydmgb", "magdmgb", "phydefb", "magdefb"
+Push "ninjaav", "Sinjid_B"
+SetVariable
+Push "skill"
+GetVariable
+Push 1, 1
+SetMember
+Push "classtype", "Balanced"
+SetVariable
+Push "classname", "_root"
+GetVariable
+Push "classtype"
+GetVariable
+GetMember
+Push 4
+GetMember
+SetVariable
+Push "manamaxb", 75
+SetVariable
+Push "manab", 75
+SetVariable
+Push "lifeb", 75
+SetVariable
+Push "lifemaxb", 75
+SetVariable
+Push "speedb", 15
+SetVariable
+Push "strb", 15
+SetVariable
+Push "phydmgb", "phydmgb"
+GetVariable
+Push 3
+Add2
+SetVariable
+Push "magdmgb", "magdmgb"
+GetVariable
+Push 2
+Add2
+SetVariable
+Push "phydefb", "phydefb"
+GetVariable
+Push 3
+Add2
+SetVariable
+Push "magdefb", "magdefb"
+GetVariable
+Push 2
+Add2
+SetVariable
+Play

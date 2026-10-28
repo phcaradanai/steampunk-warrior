@@ -1,0 +1,927 @@
+ConstantPool "tilelock", "x", "mx", "game", "spacing", "Math", "ceil", "y", "my", "cell", "_", "ob", "game.", ".type = 2", "type", "numberOfTypes", "clip", "tile", "gotoAndStop", "char", "dir", "right", "tempx", "radius", "speed", "tempy", "cellx", "celly", "tempCell", "_x", "left", "up", "_y", "charything", "down", "path", "swapDepths", "startx", "start_x", "starty", "start_y", "_width", "j", "rows", "i", "columns", "name", "depth", "attachMovie", "_root", "grid", "onEnterFrame", "pause", "engb", "Key", "isDown", "movechar", "onMouseDown", "", "hitTest", "_ymouse", "_xmouse", "gameClicked", "buildGrid", "initializeChar"
+DefineFunction "gameClicked", 2, "mx" , "my"  {
+Push "tilelock"
+GetVariable
+Push false
+Equals2
+Not
+If loc02ee
+Push "x", "mx"
+GetVariable
+Push "game"
+GetVariable
+Push "spacing"
+GetMember
+Divide
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+DefineLocal
+Push "y", "my"
+GetVariable
+Push "game"
+GetVariable
+Push "spacing"
+GetMember
+Divide
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+DefineLocal
+Push "cell", "cell", "x"
+GetVariable
+Add2
+Push "_"
+Add2
+Push "y"
+GetVariable
+Add2
+DefineLocal
+Push "ob", "game"
+GetVariable
+Push "cell"
+GetVariable
+GetMember
+DefineLocal
+Push "game.", "cell", "cell", "x"
+GetVariable
+Add2
+Push "_"
+Add2
+Push "y"
+GetVariable
+Add2
+StoreRegister 0
+SetVariable
+Push register0
+Add2
+Push ".type = 2"
+Add2
+Trace
+Push "ob"
+GetVariable
+Push "type"
+GetMember
+Push "game"
+GetVariable
+Push "numberOfTypes"
+GetMember
+Less2
+Not
+If loc02b3
+Push "ob"
+GetVariable
+Push "type", "ob"
+GetVariable
+Push "type"
+GetMember
+Increment
+SetMember
+Jump loc02c4
+loc02b3:Push "ob"
+GetVariable
+Push "type", 1
+SetMember
+loc02c4:Push "ob"
+GetVariable
+Push "type"
+GetMember
+Push 1, "ob"
+GetVariable
+Push "clip"
+GetMember
+Push "tile"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+}
+loc02ee:DefineFunction "movechar", 1, "dir"  {
+Push "ob", "game"
+GetVariable
+Push "char"
+GetMember
+SetVariable
+Push "dir"
+GetVariable
+Push "right"
+Equals2
+Not
+If loc042c
+Push "tempx", "ob"
+GetVariable
+Push "x"
+GetMember
+Push "ob"
+GetVariable
+Push "radius"
+GetMember
+Add2
+Push "game"
+GetVariable
+Push "speed"
+GetMember
+Add2
+DefineLocal
+Push "tempy", "ob"
+GetVariable
+Push "y"
+GetMember
+DefineLocal
+Push "cellx", "tempx"
+GetVariable
+Push "game"
+GetVariable
+Push "spacing"
+GetMember
+Divide
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+DefineLocal
+Push "celly", "tempy"
+GetVariable
+Push "game"
+GetVariable
+Push "spacing"
+GetMember
+Divide
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+DefineLocal
+Push "tempCell", "game"
+GetVariable
+Push "cell", "cellx"
+GetVariable
+Add2
+Push "_"
+Add2
+Push "celly"
+GetVariable
+Add2
+GetMember
+DefineLocal
+Push "tempCell"
+GetVariable
+Push "type"
+GetMember
+Push 1
+Equals2
+Not
+Not
+If loc03ea
+Push undefined
+Return
+loc03ea:Push "ob"
+GetVariable
+Push "x", "ob"
+GetVariable
+Push "x"
+GetMember
+Push "game"
+GetVariable
+Push "speed"
+GetMember
+Add2
+SetMember
+Push "ob"
+GetVariable
+Push "clip"
+GetMember
+Push "_x", "ob"
+GetVariable
+Push "x"
+GetMember
+SetMember
+Jump loc0796
+loc042c:Push "dir"
+GetVariable
+Push "left"
+Equals2
+Not
+If loc0547
+Push "tempx", "ob"
+GetVariable
+Push "x"
+GetMember
+Push "ob"
+GetVariable
+Push "radius"
+GetMember
+Subtract
+Push "game"
+GetVariable
+Push "speed"
+GetMember
+Subtract
+DefineLocal
+Push "tempy", "ob"
+GetVariable
+Push "y"
+GetMember
+DefineLocal
+Push "cellx", "tempx"
+GetVariable
+Push "game"
+GetVariable
+Push "spacing"
+GetMember
+Divide
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+DefineLocal
+Push "celly", "tempy"
+GetVariable
+Push "game"
+GetVariable
+Push "spacing"
+GetMember
+Divide
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+DefineLocal
+Push "tempCell", "game"
+GetVariable
+Push "cell", "cellx"
+GetVariable
+Add2
+Push "_"
+Add2
+Push "celly"
+GetVariable
+Add2
+GetMember
+DefineLocal
+Push "tempCell"
+GetVariable
+Push "type"
+GetMember
+Push 1
+Equals2
+Not
+Not
+If loc0505
+Push undefined
+Return
+loc0505:Push "ob"
+GetVariable
+Push "x", "ob"
+GetVariable
+Push "x"
+GetMember
+Push "game"
+GetVariable
+Push "speed"
+GetMember
+Subtract
+SetMember
+Push "ob"
+GetVariable
+Push "clip"
+GetMember
+Push "_x", "ob"
+GetVariable
+Push "x"
+GetMember
+SetMember
+Jump loc0796
+loc0547:Push "dir"
+GetVariable
+Push "up"
+Equals2
+Not
+If loc0671
+Push "tempx", "ob"
+GetVariable
+Push "x"
+GetMember
+DefineLocal
+Push "tempy", "ob"
+GetVariable
+Push "y"
+GetMember
+Push "ob"
+GetVariable
+Push "radius"
+GetMember
+Subtract
+Push "game"
+GetVariable
+Push "speed"
+GetMember
+Subtract
+DefineLocal
+Push "cellx", "tempx"
+GetVariable
+Push "game"
+GetVariable
+Push "spacing"
+GetMember
+Divide
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+DefineLocal
+Push "celly", "tempy"
+GetVariable
+Push "game"
+GetVariable
+Push "spacing"
+GetMember
+Divide
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+DefineLocal
+Push "tempCell", "game"
+GetVariable
+Push "cell", "cellx"
+GetVariable
+Add2
+Push "_"
+Add2
+Push "celly"
+GetVariable
+Add2
+GetMember
+DefineLocal
+Push "tempCell"
+GetVariable
+Push "type"
+GetMember
+Push 1
+Equals2
+Not
+Not
+If loc0620
+Push undefined
+Return
+loc0620:Push "ob"
+GetVariable
+Push "y", "ob"
+GetVariable
+Push "y"
+GetMember
+Push "game"
+GetVariable
+Push "speed"
+GetMember
+Subtract
+SetMember
+Push "ob"
+GetVariable
+Push "clip"
+GetMember
+Push "_y", "ob"
+GetVariable
+Push "y"
+GetMember
+SetMember
+Push "charything", "ob"
+GetVariable
+Push "y"
+GetMember
+SetVariable
+Jump loc0796
+loc0671:Push "dir"
+GetVariable
+Push "down"
+Equals2
+Not
+If loc0796
+Push "tempx", "ob"
+GetVariable
+Push "x"
+GetMember
+DefineLocal
+Push "tempy", "ob"
+GetVariable
+Push "y"
+GetMember
+Push "ob"
+GetVariable
+Push "radius"
+GetMember
+Add2
+Push "game"
+GetVariable
+Push "speed"
+GetMember
+Add2
+DefineLocal
+Push "cellx", "tempx"
+GetVariable
+Push "game"
+GetVariable
+Push "spacing"
+GetMember
+Divide
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+DefineLocal
+Push "celly", "tempy"
+GetVariable
+Push "game"
+GetVariable
+Push "spacing"
+GetMember
+Divide
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+DefineLocal
+Push "tempCell", "game"
+GetVariable
+Push "cell", "cellx"
+GetVariable
+Add2
+Push "_"
+Add2
+Push "celly"
+GetVariable
+Add2
+GetMember
+DefineLocal
+Push "tempCell"
+GetVariable
+Push "type"
+GetMember
+Push 1
+Equals2
+Not
+Not
+If loc074a
+Push undefined
+Return
+loc074a:Push "ob"
+GetVariable
+Push "y", "ob"
+GetVariable
+Push "y"
+GetMember
+Push "game"
+GetVariable
+Push "speed"
+GetMember
+Add2
+SetMember
+Push "ob"
+GetVariable
+Push "clip"
+GetMember
+Push "_y", "ob"
+GetVariable
+Push "y"
+GetMember
+SetMember
+Push "charything", "ob"
+GetVariable
+Push "y"
+GetMember
+SetVariable
+}
+loc0796:DefineFunction "initializeChar", 2, "start_x" , "start_y"  {
+Push "game"
+GetVariable
+Push "speed", 5.25
+SetMember
+Push 10200, 1, "game"
+GetVariable
+Push "path"
+GetMember
+Push "char"
+GetMember
+Push "swapDepths"
+CallMethod
+Pop
+Push "game"
+GetVariable
+Push "char", "startx", "start_x"
+GetVariable
+Push "starty", "start_y"
+GetVariable
+Push "clip", "game"
+GetVariable
+Push "path"
+GetMember
+Push "char"
+GetMember
+Push 3
+InitObject
+SetMember
+Push "x", "game"
+GetVariable
+Push "char"
+GetMember
+Push "startx"
+GetMember
+Push 1
+Subtract
+Push "game"
+GetVariable
+Push "spacing"
+GetMember
+Multiply
+Push "game"
+GetVariable
+Push "spacing"
+GetMember
+Push 2
+Divide
+Add2
+DefineLocal
+Push "y", "game"
+GetVariable
+Push "char"
+GetMember
+Push "starty"
+GetMember
+Push 1
+Subtract
+Push "game"
+GetVariable
+Push "spacing"
+GetMember
+Multiply
+Push "game"
+GetVariable
+Push "spacing"
+GetMember
+Push 2
+Divide
+Add2
+DefineLocal
+Push "game"
+GetVariable
+Push "char"
+GetMember
+Push "clip"
+GetMember
+Push "_x", "x"
+GetVariable
+SetMember
+Push "game"
+GetVariable
+Push "char"
+GetMember
+Push "clip"
+GetMember
+Push "_y", "y"
+GetVariable
+SetMember
+Push "game"
+GetVariable
+Push "char"
+GetMember
+Push "x", "x"
+GetVariable
+SetMember
+Push "game"
+GetVariable
+Push "char"
+GetMember
+Push "y", "y"
+GetVariable
+SetMember
+Push "game"
+GetVariable
+Push "char"
+GetMember
+Push "radius", "game"
+GetVariable
+Push "char"
+GetMember
+Push "clip"
+GetMember
+Push "_width"
+GetMember
+Push 3
+Divide
+SetMember
+}
+DefineFunction "buildGrid", 0 {
+Push "j", 1
+DefineLocal
+loc0958:Push "j"
+GetVariable
+Push "game"
+GetVariable
+Push "rows"
+GetMember
+Greater
+Not
+Not
+If loc0ad6
+Push "i", 1
+DefineLocal
+loc097d:Push "i"
+GetVariable
+Push "game"
+GetVariable
+Push "columns"
+GetMember
+Greater
+Not
+Not
+If loc0ac7
+Push "name", "cell", "i"
+GetVariable
+Add2
+Push "_"
+Add2
+Push "j"
+GetVariable
+Add2
+DefineLocal
+Push "x", "i"
+GetVariable
+Push 1
+Subtract
+Push "game"
+GetVariable
+Push "spacing"
+GetMember
+Multiply
+DefineLocal
+Push "y", "j"
+GetVariable
+Push 1
+Subtract
+Push "game"
+GetVariable
+Push "spacing"
+GetMember
+Multiply
+DefineLocal
+Push "type", 1
+DefineLocal
+Push "game"
+GetVariable
+Push "depth", "game"
+GetVariable
+Push "depth"
+GetMember
+Increment
+StoreRegister 0
+SetMember
+Push register0, "name"
+GetVariable
+Push "cell", 3, "game"
+GetVariable
+Push "path"
+GetMember
+Push "attachMovie"
+CallMethod
+Pop
+Push "game"
+GetVariable
+Push "path"
+GetMember
+Push "name"
+GetVariable
+GetMember
+Push "_x", "x"
+GetVariable
+SetMember
+Push "game"
+GetVariable
+Push "path"
+GetMember
+Push "name"
+GetVariable
+GetMember
+Push "_y", "y"
+GetVariable
+SetMember
+Push "game"
+GetVariable
+Push "name"
+GetVariable
+Push "x", "i"
+GetVariable
+Push "y", "j"
+GetVariable
+Push "name", "name"
+GetVariable
+Push "type", "type"
+GetVariable
+Push "clip", "game"
+GetVariable
+Push "path"
+GetMember
+Push "name"
+GetVariable
+GetMember
+Push 5
+InitObject
+SetMember
+Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc097d
+loc0ac7:Push "j", "j"
+GetVariable
+Increment
+SetVariable
+Jump loc0958
+}
+loc0ad6:Push "game", 0.0
+InitObject
+SetVariable
+Push "game"
+GetVariable
+Push "columns", 20
+SetMember
+Push "game"
+GetVariable
+Push "rows", 11
+SetMember
+Push "game"
+GetVariable
+Push "spacing", 30
+SetMember
+Push "game"
+GetVariable
+Push "depth", 1020
+SetMember
+Push "game"
+GetVariable
+Push "path", "_root"
+GetVariable
+Push "grid"
+GetMember
+SetMember
+Push "game"
+GetVariable
+Push "numberOfTypes", 2
+SetMember
+Push "_root"
+GetVariable
+Push "onEnterFrame"
+DefineFunction "", 0 {
+Push "pause"
+GetVariable
+Push false
+Equals2
+Not
+If loc0ce1
+Push "_root"
+GetVariable
+Push "engb"
+GetMember
+Push 0.0
+Greater
+Not
+If loc0baa
+Push "game"
+GetVariable
+Push "speed", 6
+SetMember
+Jump loc0bbb
+loc0baa:Push "game"
+GetVariable
+Push "speed", 4
+SetMember
+loc0bbb:Push 39, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+PushDuplicate
+If loc0bee
+Pop
+Push 68, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+loc0bee:Not
+If loc0c07
+Push "right", 1, "movechar"
+CallFunction
+Pop
+Jump loc0c4e
+loc0c07:Push 37, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+PushDuplicate
+If loc0c3a
+Pop
+Push 65, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+loc0c3a:Not
+If loc0c4e
+Push "left", 1, "movechar"
+CallFunction
+Pop
+loc0c4e:Push 38, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+PushDuplicate
+If loc0c81
+Pop
+Push 87, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+loc0c81:Not
+If loc0c9a
+Push "up", 1, "movechar"
+CallFunction
+Pop
+Jump loc0ce1
+loc0c9a:Push 40, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+PushDuplicate
+If loc0ccd
+Pop
+Push 83, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+loc0ccd:Not
+If loc0ce1
+Push "down", 1, "movechar"
+CallFunction
+Pop
+}
+loc0ce1:SetMember
+Push "_root"
+GetVariable
+Push "onMouseDown"
+DefineFunction "", 0 {
+Push 16, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+Not
+If loc0d86
+Push "mx", "", 20
+GetProperty
+DefineLocal
+Push "my", "", 21
+GetProperty
+DefineLocal
+Push "my"
+GetVariable
+Push "mx"
+GetVariable
+Push 2, "game"
+GetVariable
+Push "path"
+GetMember
+Push "hitTest"
+CallMethod
+Not
+If loc0d86
+Push "game"
+GetVariable
+Push "path"
+GetMember
+Push "_ymouse"
+GetMember
+Push "game"
+GetVariable
+Push "path"
+GetMember
+Push "_xmouse"
+GetMember
+Push 2, "gameClicked"
+CallFunction
+Pop
+}
+loc0d86:SetMember
+Push 0.0, "buildGrid"
+CallFunction
+Pop
+Push 7, 10.5, 2, "initializeChar"
+CallFunction
+Pop
+Push "charything", "game"
+GetVariable
+Push "char"
+GetMember
+Push "clip"
+GetMember
+Push "_y"
+GetMember
+SetVariable

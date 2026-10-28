@@ -1,0 +1,20 @@
+ConstantPool "_root", "clearstage", "cleargrid", "TalkBox", "inventory", "objectives", "blackout"
+StopSounds
+Push "_root"
+GetVariable
+Push "clearstage", true
+SetMember
+Push "_root"
+GetVariable
+Push "cleargrid", true
+SetMember
+Push "TalkBox"
+RemoveSprite
+Push "inventory"
+RemoveSprite
+Push "objectives"
+RemoveSprite
+Push "blackout"
+RemoveSprite
+GotoFrame 16
+Play

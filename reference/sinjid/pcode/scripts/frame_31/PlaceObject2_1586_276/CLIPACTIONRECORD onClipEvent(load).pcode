@@ -1,0 +1,5 @@
+Push 239000, 1, "this"
+GetVariable
+Push "swapDepths"
+CallMethod
+Pop

@@ -1,0 +1,16 @@
+ConstantPool "_root", "mcname", "speed", "dmgtype", "Damage"
+Push 0.0, "_root"
+GetVariable
+Push "mcname"
+GetVariable
+Push "speed"
+Add2
+GetMember
+Push 0.0, 0.0, true, 0.0, 25, 7, "_root"
+GetVariable
+Push "dmgtype"
+GetVariable
+Push "Damage"
+Add2
+CallMethod
+Pop

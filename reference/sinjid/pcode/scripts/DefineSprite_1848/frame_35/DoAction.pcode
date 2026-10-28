@@ -1,0 +1,91 @@
+ConstantPool "_root", "mcname", "phydmg", "speed", "str", "shddmg", "magdmg", "skill", "lifemax", "life", "dmgtype", "Damage"
+Push "_root"
+GetVariable
+Push "mcname"
+GetVariable
+Push "phydmg"
+Add2
+GetMember
+Push 3
+Divide
+RandomNumber
+Push 10
+RandomNumber
+Add2
+Push "_root"
+GetVariable
+Push "mcname"
+GetVariable
+Push "speed"
+Add2
+GetMember
+Push "_root"
+GetVariable
+Push "mcname"
+GetVariable
+Push "str"
+Add2
+GetMember
+Push "_root"
+GetVariable
+Push "mcname"
+GetVariable
+Push "shddmg"
+Add2
+GetMember
+Push false, "_root"
+GetVariable
+Push "mcname"
+GetVariable
+Push "magdmg"
+Add2
+GetMember
+Push "_root"
+GetVariable
+Push "mcname"
+GetVariable
+Push "phydmg"
+Add2
+GetMember
+Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 10
+GetMember
+Push 5
+Multiply
+Add2
+Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 13
+GetMember
+Push 1
+Add2
+Push "_root"
+GetVariable
+Push "mcname"
+GetVariable
+Push "lifemax"
+Add2
+GetMember
+Push "_root"
+GetVariable
+Push "mcname"
+GetVariable
+Push "life"
+Add2
+GetMember
+Subtract
+Multiply
+Add2
+Push 7, "_root"
+GetVariable
+Push "dmgtype"
+GetVariable
+Push "Damage"
+Add2
+CallMethod
+Pop

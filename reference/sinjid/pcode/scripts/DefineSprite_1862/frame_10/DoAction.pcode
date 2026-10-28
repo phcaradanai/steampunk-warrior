@@ -1,0 +1,5 @@
+Push "miss", 1, "_root"
+GetVariable
+Push "playSound"
+CallMethod
+Pop

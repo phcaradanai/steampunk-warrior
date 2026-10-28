@@ -1,0 +1,11 @@
+ConstantPool "blanki", "this", "gotoAndStop", "swapDepths"
+Push "blanki", 1, "this"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+Push 1000000, 1, "this"
+GetVariable
+Push "swapDepths"
+CallMethod
+Pop

@@ -1,0 +1,65 @@
+ConstantPool "_root", "itempick", "None", "gold", "cost", "inventory", "explainbox", "_visible", "itemstats", "slotnum", "itemmouse", "gotoAndStop"
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+Push "None"
+Equals2
+PushDuplicate
+Not
+If loc0097
+Pop
+Push "_root"
+GetVariable
+Push "gold"
+GetMember
+Push "cost"
+GetVariable
+Less2
+Not
+loc0097:Not
+If loc011f
+Push "_root"
+GetVariable
+Push "gold", "_root"
+GetVariable
+Push "gold"
+GetMember
+Push "cost"
+GetVariable
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "explainbox"
+GetMember
+Push "_visible", false
+SetMember
+Push "_root"
+GetVariable
+Push "itempick", "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "_root"
+GetVariable
+Push "slotnum"
+GetMember
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+Push 1, "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "itemmouse"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+loc011f:

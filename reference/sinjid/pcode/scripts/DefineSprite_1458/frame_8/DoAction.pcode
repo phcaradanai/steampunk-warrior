@@ -1,0 +1,43 @@
+ConstantPool "_root", "itemstats", "Golden Blade", "Ion Bo", "Guard Blade", "Golden Armour", "Golden Band", "The Guardian", "Voodoo Shield"
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 20, "Golden Blade"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 21, "Ion Bo"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 22, "Guard Blade"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 23, "Golden Armour"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 24, "Golden Band"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 25, "The Guardian"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 26, "Voodoo Shield"
+SetMember

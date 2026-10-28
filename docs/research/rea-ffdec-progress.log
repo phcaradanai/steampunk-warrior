@@ -1,0 +1,2 @@
+{"rea_progress":{"phase":"prepare","completed":0,"total":null,"message":"elapsed_ms=0 frames=0 samples=0 interactions=0","sequence":1}}
+{"rea_progress":{"phase":"cleanup","completed":0,"total":null,"message":"elapsed_ms=120418 frames=0 samples=0 interactions=0 disposition=failed owned_process_group=unverified terminal_renderer=unverified temporary_root=unverified","terminal":true,"sequence":2}}

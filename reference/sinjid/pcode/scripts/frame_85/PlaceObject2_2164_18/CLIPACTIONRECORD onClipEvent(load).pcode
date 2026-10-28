@@ -1,0 +1,222 @@
+ConstantPool "_root", "goldup", "gold", "expup", "expb", "expmaxb", "statpts", "skillpts", "lifemaxb", "manamaxb", "engmaxb", "level", "i", "strb", "speedb", "bonusplus", "_visible", "levelup", "gotoAndStop"
+DefineFunction "goldUP", 0 {
+Push "_root"
+GetVariable
+Push "goldup"
+GetMember
+Push 0.0
+Greater
+Not
+If loc00e9
+Push "_root"
+GetVariable
+Push "goldup", "_root"
+GetVariable
+Push "goldup"
+GetMember
+Decrement
+SetMember
+Push "_root"
+GetVariable
+Push "gold", "_root"
+GetVariable
+Push "gold"
+GetMember
+Increment
+SetMember
+}
+loc00e9:DefineFunction "expUP", 0 {
+Push "_root"
+GetVariable
+Push "expup"
+GetMember
+Push 0.0
+Greater
+Not
+If loc0357
+Push "_root"
+GetVariable
+Push "expup", "_root"
+GetVariable
+Push "expup"
+GetMember
+Decrement
+SetMember
+Push "_root"
+GetVariable
+Push "expb", "_root"
+GetVariable
+Push "expb"
+GetMember
+Increment
+SetMember
+Push "_root"
+GetVariable
+Push "expb"
+GetMember
+Push "_root"
+GetVariable
+Push "expmaxb"
+GetMember
+Equals2
+Not
+If loc0357
+Push "_root"
+GetVariable
+Push "statpts", "_root"
+GetVariable
+Push "statpts"
+GetMember
+Increment
+SetMember
+Push "_root"
+GetVariable
+Push "skillpts", "_root"
+GetVariable
+Push "skillpts"
+GetMember
+Increment
+SetMember
+Push "_root"
+GetVariable
+Push "lifemaxb", "_root"
+GetVariable
+Push "lifemaxb"
+GetMember
+Push 5
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "manamaxb", "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+Push 5
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "engmaxb", "_root"
+GetVariable
+Push "engmaxb"
+GetMember
+Push 3
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "level", "_root"
+GetVariable
+Push "level"
+GetMember
+Increment
+SetMember
+Push "i", 1
+SetVariable
+loc0207:Push "i"
+GetVariable
+Push 20
+Less2
+Not
+If loc02b3
+Push "_root"
+GetVariable
+Push "level"
+GetMember
+Push 5
+Divide
+Push "i"
+GetVariable
+Equals2
+Not
+If loc02a4
+Push "_root"
+GetVariable
+Push "strb", "_root"
+GetVariable
+Push "strb"
+GetMember
+Push 2
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "speedb", "_root"
+GetVariable
+Push "speedb"
+GetMember
+Push 2
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "skillpts", "_root"
+GetVariable
+Push "skillpts"
+GetMember
+Increment
+SetMember
+Push "_root"
+GetVariable
+Push "bonusplus"
+GetMember
+Push "_visible", true
+SetMember
+loc02a4:Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc0207
+loc02b3:Push "_root"
+GetVariable
+Push "expb", 0.0
+SetMember
+Push "_root"
+GetVariable
+Push "expmaxb", 50, "_root"
+GetVariable
+Push "level"
+GetMember
+Multiply
+SetMember
+Push "_root"
+GetVariable
+Push "expb", "_root"
+GetVariable
+Push "expb"
+GetMember
+Push "_root"
+GetVariable
+Push "expup"
+GetMember
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "expb"
+GetMember
+Push "_root"
+GetVariable
+Push "expmaxb"
+GetMember
+Less2
+Not
+Not
+If loc0343
+Push "_root"
+GetVariable
+Push "expb", "_root"
+GetVariable
+Push "expmaxb"
+GetMember
+Push 1
+Subtract
+SetMember
+loc0343:Push "levelup", 1, "_root"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+}
+loc0357:

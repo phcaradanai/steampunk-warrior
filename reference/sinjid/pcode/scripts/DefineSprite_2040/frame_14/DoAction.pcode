@@ -1,0 +1,21 @@
+ConstantPool "_root", "subject", "shieldtype", "shield", "gotoAndStop", "stand", "mcname"
+Push "_root"
+GetVariable
+Push "subject"
+GetVariable
+Push "shieldtype"
+Add2
+GetMember
+Push 1, "shield"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "stand", 1, "_root"
+GetVariable
+Push "mcname"
+GetVariable
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop

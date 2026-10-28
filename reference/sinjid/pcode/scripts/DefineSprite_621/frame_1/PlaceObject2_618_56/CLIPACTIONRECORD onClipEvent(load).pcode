@@ -1,0 +1,9 @@
+Push "_root"
+GetVariable
+Push "ninjaav"
+GetMember
+Push 1, "this"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop

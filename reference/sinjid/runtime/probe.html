@@ -1,0 +1,6 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Sinjid instrumented probe — controlled tests</title>
+<style>body{margin:0;background:#242424;color:#ddd;font:14px sans-serif}#game{width:600px;height:470px}ruffle-player{display:block;width:600px;height:470px}p{margin:4px}</style>
+<div id="game"></div><script>window.RufflePlayer={config:{autoplay:"on",unmuteOverlay:"hidden",logLevel:"info",allowNetworking:"all"}};</script>
+<script src="audio-observer.js"></script><script src="ruffle/ruffle.js"></script><script>
+window.addEventListener('load',()=>{let player=window.RufflePlayer.newest().createPlayer();player.id='sinjid';window.reaHistory=[];player.ruffle().addFSCommandHandler((command,args)=>{if(command==='rea'){window.reaState=Object.fromEntries(new URLSearchParams(args));window.reaHistory.push(window.reaState);if(window.reaHistory.length>200)window.reaHistory.shift();console.log('REA_STATE '+args);}});document.querySelector('#game').append(player);player.ruffle().load({url:'../probe.swf',allowScriptAccess:true});});
+</script></html>

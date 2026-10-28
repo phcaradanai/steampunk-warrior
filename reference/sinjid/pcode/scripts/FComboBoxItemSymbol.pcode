@@ -1,0 +1,60 @@
+ConstantPool "this", "init", "FComboBoxItemClass", "prototype", "FSelectableItemClass", "FComboBoxItemSymbol", "Object", "registerClass", "setSize", "h", "w", "super", "highlight_mc", "onRollOver", "controller", "itemNum", "selectionHandler"
+DefineFunction "FComboBoxItemClass", 0 {
+Push 0.0, "this"
+GetVariable
+Push "init"
+CallMethod
+Pop
+}
+Push "FComboBoxItemClass"
+GetVariable
+Push "prototype", 0.0, "FSelectableItemClass"
+NewObject
+SetMember
+Push "FComboBoxItemClass"
+GetVariable
+Push "FComboBoxItemSymbol", 2, "Object"
+GetVariable
+Push "registerClass"
+CallMethod
+Pop
+Push "FComboBoxItemClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setSize"
+DefineFunction "", 2, "w" , "h"  {
+Push "h"
+GetVariable
+Push "w"
+GetVariable
+Push 2, "super"
+GetVariable
+Push "setSize"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "highlight_mc"
+GetMember
+Push "onRollOver"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "controller"
+GetMember
+Push "itemNum"
+GetMember
+Push 1, "this"
+GetVariable
+Push "controller"
+GetMember
+Push "controller"
+GetMember
+Push "selectionHandler"
+CallMethod
+Pop
+}
+SetMember
+}
+SetMember

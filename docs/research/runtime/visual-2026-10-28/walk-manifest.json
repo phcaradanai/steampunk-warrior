@@ -1,0 +1,42 @@
+{
+  "phase": "walk",
+  "authority": "Original unmodified SWF in Ruffle; ordinary input; screenshot intervals include capture overhead",
+  "original_sha256": "e258423f2a5887ff236a67eb6eaf674a8d573a5cdb721c20b79c831da4d9e008",
+  "records": [
+    {
+      "name": "walk-0",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/walk-0.png",
+      "at": 1793176486133
+    },
+    {
+      "name": "walk-1",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/walk-1.png",
+      "at": 1793176486295
+    },
+    {
+      "name": "walk-2",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/walk-2.png",
+      "at": 1793176486458
+    },
+    {
+      "name": "walk-3",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/walk-3.png",
+      "at": 1793176486629
+    },
+    {
+      "name": "walk-4",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/walk-4.png",
+      "at": 1793176486796
+    },
+    {
+      "name": "walk-5",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/walk-5.png",
+      "at": 1793176486961
+    },
+    {
+      "name": "stop",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/stop.png",
+      "at": 1793176487044
+    }
+  ]
+}

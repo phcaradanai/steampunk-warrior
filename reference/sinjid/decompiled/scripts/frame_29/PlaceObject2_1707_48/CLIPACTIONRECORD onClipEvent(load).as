@@ -1,0 +1,4 @@
+onClipEvent(load){
+   speak = "Training Room - Step inside and choose your type of training. Hit the target to gain EXP. When the target\'s shield breaks, you will gain an EXP bonus.";
+   persontype = "Posted Note";
+}

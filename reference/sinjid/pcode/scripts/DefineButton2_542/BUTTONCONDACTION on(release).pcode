@@ -1,0 +1,59 @@
+ConstantPool "_root", "meet", "talking", "pause", "Skills", "inventory", "gotoAndStop", "grid", "char", "movement", "_visible"
+Push "_root"
+GetVariable
+Push "meet"
+GetMember
+Push false
+Equals2
+PushDuplicate
+Not
+If loc0084
+Pop
+Push "_root"
+GetVariable
+Push "talking"
+GetMember
+Push true
+Equals2
+Not
+loc0084:PushDuplicate
+Not
+If loc009e
+Pop
+Push "_root"
+GetVariable
+Push "pause"
+GetMember
+Push false
+Equals2
+loc009e:Not
+If loc0109
+Push "Skills", 1, "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push 1, 1, "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "movement"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "_visible", true
+SetMember
+Push "_root"
+GetVariable
+Push "pause", true
+SetMember
+loc0109:

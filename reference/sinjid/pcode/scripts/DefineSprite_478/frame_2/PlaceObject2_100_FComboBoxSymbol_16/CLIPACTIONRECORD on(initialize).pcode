@@ -1,0 +1,29 @@
+ConstantPool "editable", "labels", "On", "Off", "data", "rowCount", "changeHandler", ""
+Push "editable", false
+SetVariable
+Push "labels", 0.0
+InitArray
+SetVariable
+Push "labels"
+GetVariable
+Push 0.0, "On"
+SetMember
+Push "labels"
+GetVariable
+Push 1, "Off"
+SetMember
+Push "data", 0.0
+InitArray
+SetVariable
+Push "data"
+GetVariable
+Push 0.0, "On"
+SetMember
+Push "data"
+GetVariable
+Push 1, "Off"
+SetMember
+Push "rowCount", 3
+SetVariable
+Push "changeHandler", ""
+SetVariable

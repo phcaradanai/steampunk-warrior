@@ -1,0 +1,19 @@
+ConstantPool "_root", "EnemyMeet", "pause", "cleargrid", "find", "gotoAndStop"
+Push 0.0, "_root"
+GetVariable
+Push "EnemyMeet"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "pause", false
+SetMember
+Push "_root"
+GetVariable
+Push "cleargrid", true
+SetMember
+Push "find", 1, "_root"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop

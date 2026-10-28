@@ -1,0 +1,39 @@
+ConstantPool "_root", "statpts", "conbut", "_visible", "manamaxb", "classtype"
+Push "_root"
+GetVariable
+Push "statpts"
+GetMember
+Push 0.0
+Greater
+Not
+If loc00ab
+Push "_root"
+GetVariable
+Push "conbut"
+GetMember
+Push "_visible", true
+SetMember
+Push "_root"
+GetVariable
+Push "statpts", "_root"
+GetVariable
+Push "statpts"
+GetMember
+Decrement
+SetMember
+Push "_root"
+GetVariable
+Push "manamaxb", "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+Push "_root"
+GetVariable
+Push "classtype"
+GetVariable
+GetMember
+Push 1
+GetMember
+Add2
+SetMember
+loc00ab:

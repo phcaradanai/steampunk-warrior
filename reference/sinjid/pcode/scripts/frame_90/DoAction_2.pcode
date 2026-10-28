@@ -1,0 +1,13 @@
+ConstantPool "_root", "conbut", "_visible", "Over", "playSound"
+Push "_root"
+GetVariable
+Push "conbut"
+GetMember
+Push "_visible", false
+SetMember
+StopSounds
+Push "Over", 1, "_root"
+GetVariable
+Push "playSound"
+CallMethod
+Pop

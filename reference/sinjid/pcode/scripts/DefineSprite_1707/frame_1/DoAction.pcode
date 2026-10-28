@@ -1,0 +1,8 @@
+Push "persontype"
+GetVariable
+Push 1, "person"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+Stop

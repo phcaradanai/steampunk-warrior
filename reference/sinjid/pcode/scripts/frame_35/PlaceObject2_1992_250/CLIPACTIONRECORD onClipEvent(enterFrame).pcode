@@ -1,0 +1,19 @@
+ConstantPool "_root", "enemy1life", "this", "_visible"
+Push "_root"
+GetVariable
+Push "enemy1life"
+GetMember
+Push 0.0
+Equals2
+Not
+If loc0056
+Push "this"
+GetVariable
+Push "_visible", true
+SetMember
+Jump loc0064
+loc0056:Push "this"
+GetVariable
+Push "_visible", false
+SetMember
+loc0064:

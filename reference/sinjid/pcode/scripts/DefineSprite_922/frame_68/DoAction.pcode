@@ -1,0 +1,42 @@
+ConstantPool "_root", "meet", "midfight", "cleargrid", "label", "gotoAndPlay", "prevsound", "Battle", "playSound"
+Push "_root"
+GetVariable
+Push "meet", false
+SetMember
+Push "_root"
+GetVariable
+Push "midfight", false
+SetMember
+Push "_root"
+GetVariable
+Push "cleargrid", false
+SetMember
+Push "label"
+GetVariable
+Push 1, "_root"
+GetVariable
+Push "gotoAndPlay"
+CallMethod
+Pop
+StopSounds
+Push "prevsound"
+GetVariable
+Push 3
+Less2
+Not
+If loc00b7
+Push "prevsound", "prevsound"
+GetVariable
+Increment
+SetVariable
+Jump loc00c2
+loc00b7:Push "prevsound", 1
+SetVariable
+loc00c2:Push "Battle", "prevsound"
+GetVariable
+Add2
+Push 1, "_root"
+GetVariable
+Push "playSound"
+CallMethod
+Pop

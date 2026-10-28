@@ -1,0 +1,18 @@
+ConstantPool "_root", "midfight", "herotarget", "enemy1", "enemytarget", "hero1", "speedorder"
+Push "_root"
+GetVariable
+Push "midfight", false
+SetMember
+Push "_root"
+GetVariable
+Push "herotarget", "enemy1"
+SetMember
+Push "_root"
+GetVariable
+Push "enemytarget", "hero1"
+SetMember
+Push 0.0, "_root"
+GetVariable
+Push "speedorder"
+CallMethod
+Pop

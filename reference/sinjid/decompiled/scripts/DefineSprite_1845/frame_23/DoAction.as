@@ -1,0 +1,1 @@
+_root[dmgtype + "Damage"](_root[mcname + "phydmg"] + _root.skill[3] * 0.6 * _root.hero1speed + _root.skill[10] * 5,_root[mcname + "magdmg"],true,_root[mcname + "shddmg"],_root[mcname + "str"],_root[mcname + "speed"] + 7,random(_root[mcname + "phydmg"] / 3) + random(5));

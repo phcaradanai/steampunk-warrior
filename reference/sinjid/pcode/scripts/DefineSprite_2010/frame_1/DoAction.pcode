@@ -1,0 +1,17 @@
+ConstantPool "hero", "mcname", "mcname2", "subject", "subject2", "dmgtype", "dmgtype2"
+Push "hero"
+GetVariable
+Push "mcname", "mcname2"
+GetVariable
+SetMember
+Push "hero"
+GetVariable
+Push "subject", "subject2"
+GetVariable
+SetMember
+Push "hero"
+GetVariable
+Push "dmgtype", "dmgtype2"
+GetVariable
+SetMember
+Stop

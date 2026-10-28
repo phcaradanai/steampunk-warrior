@@ -1,0 +1,125 @@
+ConstantPool "_root", "engb", "lifeb", "manab", "walkmenu", "manabar", "_width", "manamaxb", "widthkeep", "lifebar", "lifemaxb", "engbar", "engmaxb"
+Push "_root"
+GetVariable
+Push "engb"
+GetMember
+Push 0.0
+Greater
+Not
+If loc00a1
+Push "_root"
+GetVariable
+Push "engb", "_root"
+GetVariable
+Push "engb"
+GetMember
+Decrement
+SetMember
+Jump loc0103
+loc00a1:Push "_root"
+GetVariable
+Push "lifeb"
+GetMember
+Push 1
+Greater
+Not
+If loc0103
+Push "_root"
+GetVariable
+Push "lifeb", "_root"
+GetVariable
+Push "lifeb"
+GetMember
+Decrement
+SetMember
+Push "_root"
+GetVariable
+Push "manab"
+GetMember
+Push 1
+Greater
+Not
+If loc0103
+Push "_root"
+GetVariable
+Push "manab", "_root"
+GetVariable
+Push "manab"
+GetMember
+Decrement
+SetMember
+loc0103:Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "manabar"
+GetMember
+Push "_width", "_root"
+GetVariable
+Push "manab"
+GetMember
+Push "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+Divide
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "manabar"
+GetMember
+Push "widthkeep"
+GetMember
+Multiply
+SetMember
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "lifebar"
+GetMember
+Push "_width", "_root"
+GetVariable
+Push "lifeb"
+GetMember
+Push "_root"
+GetVariable
+Push "lifemaxb"
+GetMember
+Divide
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "lifebar"
+GetMember
+Push "widthkeep"
+GetMember
+Multiply
+SetMember
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "engbar"
+GetMember
+Push "_width", "_root"
+GetVariable
+Push "engb"
+GetMember
+Push "_root"
+GetVariable
+Push "engmaxb"
+GetMember
+Divide
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "engbar"
+GetMember
+Push "widthkeep"
+GetMember
+Multiply
+SetMember

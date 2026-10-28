@@ -1,0 +1,7 @@
+Push "mana", "subject"
+GetVariable
+Push 80, 3, "_root"
+GetVariable
+Push "Heal"
+CallMethod
+Pop

@@ -1,0 +1,7 @@
+Push "this"
+GetVariable
+With {
+Push "vase1", 1, "gotoAndStop"
+CallFunction
+Pop
+}

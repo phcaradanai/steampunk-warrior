@@ -1,0 +1,18 @@
+ConstantPool "_root", "pause", "clearstage", "reload", "gotoAndStop"
+Push "_root"
+GetVariable
+Push "pause", false
+SetMember
+Push "_root"
+GetVariable
+Push "clearstage", false
+SetMember
+Push "_root"
+GetVariable
+Push "reload", true
+SetMember
+Push "reload", 1, "_root"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop

@@ -1,0 +1,7 @@
+Push "Glass0", 1, "this"
+GetVariable
+Push "mealpic"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop

@@ -1,0 +1,6 @@
+Push "defeat", 1, "_root"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+Stop

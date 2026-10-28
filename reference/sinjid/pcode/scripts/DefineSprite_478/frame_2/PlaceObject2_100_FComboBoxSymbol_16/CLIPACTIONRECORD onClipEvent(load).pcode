@@ -1,0 +1,24 @@
+ConstantPool "_root", "soundset", "this", "setSelectedIndex", "soundon", "Off", "played"
+Push "_root"
+GetVariable
+Push "soundset"
+GetMember
+Push 1, "this"
+GetVariable
+Push "setSelectedIndex"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "soundon"
+GetMember
+Push "Off"
+Equals2
+Not
+If loc0080
+Push "played", false
+SetVariable
+Jump loc0088
+loc0080:Push "played", true
+SetVariable
+loc0088:

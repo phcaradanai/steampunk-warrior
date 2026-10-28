@@ -1,0 +1,302 @@
+ConstantPool "droppedstuff", "None", "Balanced", "Warrior", "Spellcaster", "Spell Caster", "Shadow", "Shadow Ninja", "prevsound", "_root", "playername", "Sinjid", "user", "user_profile", "SharedObject", "getLocal", "portal2", "Array", "portal1", "portal3", "rests", "i", "HUMAN", "MONSTER", "DARK", "portalstages", "Desert", "Grass", "Coast", "Snow", "portallevel", "pause", "itemlog", "skill", "BodyParts", "feet2", "feet1", "feetleg2", "feetleg1", "leg2", "leg1", "handarm2", "handarm1", "arm2", "arm1", "body", "itemstats", "area", "Arena", "Helmet", "Suit", "Weapon", "Iron Knife", "level", "gold", "Shield", "statpts", "lifepots", "manapots", "manamaxb", "manab", "speedb", "strb", "lifemaxb", "lifeb", "engmaxb", "engb", "expmaxb", "expb", "phydmgb", "magdmgb", "phydefb", "magdefb", "shddmgb", "shdphydefb", "shdmagdefb", "shdptsb", "skillpts", "moon_q", "item", "iron Knife", "itempick"
+Stop
+Push "droppedstuff", "None"
+SetVariable
+Push "Balanced", "Balanced", 2, 2, 10, 10, 5
+InitArray
+SetVariable
+Push "Warrior", "Warrior", 1, 3, 5, 15, 5
+InitArray
+SetVariable
+Push "Spellcaster", "Spell Caster", 2, 1, 15, 10, 5
+InitArray
+SetVariable
+Push "Shadow", "Shadow Ninja", 3, 1, 10, 10, 5
+InitArray
+SetVariable
+Push "prevsound", 0.0
+SetVariable
+Push "_root"
+GetVariable
+Push "playername", "Sinjid"
+SetMember
+Push "user", "user_profile", 1, "SharedObject"
+GetVariable
+Push "getLocal"
+CallMethod
+SetVariable
+Push "portal2", 0.0, "Array"
+NewObject
+SetVariable
+Push "portal1", 0.0, "Array"
+NewObject
+SetVariable
+Push "portal3", 0.0, "Array"
+NewObject
+SetVariable
+Push "rests", 10
+SetVariable
+Push "i", 1
+SetVariable
+loc0392:Push "i"
+GetVariable
+Push 21
+Less2
+Not
+If loc03cc
+Push "portal1"
+GetVariable
+Push "i"
+GetVariable
+Push "HUMAN", "i"
+GetVariable
+Add2
+SetMember
+Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc0392
+loc03cc:Push "i", 1
+SetVariable
+loc03d7:Push "i"
+GetVariable
+Push 21
+Less2
+Not
+If loc0411
+Push "portal2"
+GetVariable
+Push "i"
+GetVariable
+Push "MONSTER", "i"
+GetVariable
+Add2
+SetMember
+Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc03d7
+loc0411:Push "i", 1
+SetVariable
+loc041c:Push "i"
+GetVariable
+Push 21
+Less2
+Not
+If loc0456
+Push "portal3"
+GetVariable
+Push "i"
+GetVariable
+Push "DARK", "i"
+GetVariable
+Add2
+SetMember
+Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc041c
+loc0456:Push "portalstages", "Desert", "Grass", "Coast", "Snow", 4
+InitArray
+SetVariable
+Push "portallevel", 0.0, "Array"
+NewObject
+SetVariable
+Push "portallevel", 0.0, 0.0, 0.0, 3
+InitArray
+SetVariable
+Push "i", 0.0
+SetVariable
+loc04b2:Push "i"
+GetVariable
+Push 3
+Less2
+Not
+If loc04f1
+Push "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push "i"
+GetVariable
+Push 1
+SetMember
+Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc04b2
+loc04f1:Push "pause", false
+SetVariable
+Push "itemlog", 0.0, "Array"
+NewObject
+SetVariable
+Push "i", 0.0
+SetVariable
+loc051a:Push "i"
+GetVariable
+Push 30
+Less2
+Not
+If loc0556
+Push "_root"
+GetVariable
+Push "itemlog"
+GetMember
+Push "i"
+GetVariable
+Push false
+SetMember
+Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc051a
+loc0556:Push "_root"
+GetVariable
+Push "skill", 0.0, "Array"
+NewObject
+SetMember
+Push "i", 0.0
+SetVariable
+loc057d:Push "i"
+GetVariable
+Push 20
+Less2
+Not
+If loc05c0
+Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Push "i"
+GetVariable
+Push 0.0
+SetMember
+Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc057d
+loc05c0:Push "BodyParts", 0.0, "Array"
+NewObject
+SetVariable
+Push "BodyParts", "feet2", "feet1", "feetleg2", "feetleg1", "leg2", "leg1", "handarm2", "handarm1", "arm2", "arm1", "body", 11
+InitArray
+SetVariable
+Push "_root"
+GetVariable
+Push "itemstats", 0.0, "Array"
+NewObject
+SetMember
+Push "i", 0.0
+SetVariable
+loc061b:Push "i"
+GetVariable
+Push 28
+Less2
+Not
+If loc0657
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "i"
+GetVariable
+Push "None"
+SetMember
+Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc061b
+loc0657:Push "area", "Arena"
+SetVariable
+Push "Helmet", "None"
+SetVariable
+Push "Suit", "None"
+SetVariable
+Push "Weapon", "Iron Knife"
+SetVariable
+Push "level", 1
+SetVariable
+Push "gold", 75
+SetVariable
+Push "Shield", "None"
+SetVariable
+Push "statpts", 0.0
+SetVariable
+Push "lifepots", 5
+SetVariable
+Push "manapots", 5
+SetVariable
+Push "manamaxb", 75
+SetVariable
+Push "manab", 75
+SetVariable
+Push "speedb", 15
+SetVariable
+Push "strb", 15
+SetVariable
+Push "lifemaxb", 75
+SetVariable
+Push "lifeb", 75
+SetVariable
+Push "engmaxb", 50
+SetVariable
+Push "engb", "engmaxb"
+GetVariable
+SetVariable
+Push "expmaxb", 50
+SetVariable
+Push "expb", 0.0
+SetVariable
+Push "phydmgb", 0.0
+SetVariable
+Push "magdmgb", 0.0
+SetVariable
+Push "phydefb", 0.0
+SetVariable
+Push "magdefb", 0.0
+SetVariable
+Push "shddmgb", 0.0
+SetVariable
+Push "shdphydefb", 0.0
+SetVariable
+Push "shdmagdefb", 0.0
+SetVariable
+Push "shdptsb", 0.0
+SetVariable
+Push "skillpts", 0.0
+SetVariable
+Push "moon_q", false
+SetVariable
+Push "_root"
+GetVariable
+Push "phydmgb", "_root"
+GetVariable
+Push "phydmgb"
+GetMember
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "iron Knife"
+GetMember
+Push 2
+GetMember
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "itempick", "None"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 0.0, "Iron Knife"
+SetMember

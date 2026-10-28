@@ -1,0 +1,27 @@
+ConstantPool "_root", "level", "skill", "this", "_visible"
+Push "_root"
+GetVariable
+Push "level"
+GetMember
+Push 15
+Less2
+Not
+PushDuplicate
+Not
+If loc0065
+Pop
+Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 15
+GetMember
+Push 0.0
+Greater
+loc0065:Not
+If loc0079
+Push "this"
+GetVariable
+Push "_visible", false
+SetMember
+loc0079:

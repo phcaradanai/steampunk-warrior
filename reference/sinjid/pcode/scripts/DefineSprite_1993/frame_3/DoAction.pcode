@@ -1,0 +1,60 @@
+ConstantPool "setthing", "enemy2", "enemy1", "hero2", "hero1", "i", "_root", "bar2", "_width", "shdpts", "shdptsmax", "widthkeep"
+Push "setthing", "enemy2", "enemy1", "hero2", "hero1", 4
+InitArray
+SetVariable
+Push "setthing"
+GetVariable
+Enumerate2
+loc0072:StoreRegister 0
+Push null
+Equals2
+If loc0100
+Push "i", register0
+SetVariable
+Push "_root"
+GetVariable
+Push "setthing"
+GetVariable
+Push "i"
+GetVariable
+GetMember
+Push "bar2"
+Add2
+GetMember
+Push "_width", "_root"
+GetVariable
+Push "setthing"
+GetVariable
+Push "i"
+GetVariable
+GetMember
+Push "shdpts"
+Add2
+GetMember
+Push "_root"
+GetVariable
+Push "setthing"
+GetVariable
+Push "i"
+GetVariable
+GetMember
+Push "shdptsmax"
+Add2
+GetMember
+Divide
+Push "_root"
+GetVariable
+Push "setthing"
+GetVariable
+Push "i"
+GetVariable
+GetMember
+Push "bar2"
+Add2
+GetMember
+Push "widthkeep"
+GetMember
+Multiply
+SetMember
+Jump loc0072
+loc0100:

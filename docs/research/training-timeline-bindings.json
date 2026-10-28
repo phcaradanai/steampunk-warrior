@@ -1,0 +1,229 @@
+{
+  "authority": "direct SWF tag decoding; static, not REA/runtime",
+  "original_sha256": "e258423f2a5887ff236a67eb6eaf674a8d573a5cdb721c20b79c831da4d9e008",
+  "training_avatar_2124": {
+    "labels": [
+      {
+        "frame": 1,
+        "label": "stand",
+        "uncompressed_tag_offset": 2319047
+      },
+      {
+        "frame": 2,
+        "label": "attack",
+        "uncompressed_tag_offset": 2319204
+      },
+      {
+        "frame": 3,
+        "label": "ice",
+        "uncompressed_tag_offset": 2319356
+      },
+      {
+        "frame": 4,
+        "label": "fire",
+        "uncompressed_tag_offset": 2319505
+      },
+      {
+        "frame": 5,
+        "label": "hit",
+        "uncompressed_tag_offset": 2319655
+      },
+      {
+        "frame": 6,
+        "label": "die",
+        "uncompressed_tag_offset": 2319804
+      },
+      {
+        "frame": 7,
+        "label": "miss",
+        "uncompressed_tag_offset": 2319953
+      },
+      {
+        "frame": 8,
+        "label": "block",
+        "uncompressed_tag_offset": 2320103
+      },
+      {
+        "frame": 9,
+        "label": "blockbreak",
+        "uncompressed_tag_offset": 2320254
+      },
+      {
+        "frame": 10,
+        "label": "none",
+        "uncompressed_tag_offset": 2320410
+      },
+      {
+        "frame": 11,
+        "label": "heal",
+        "uncompressed_tag_offset": 2320560
+      }
+    ],
+    "placements": [
+      {
+        "frame": 1,
+        "depth": 1,
+        "character": 2101,
+        "uncompressed_tag_offset": 2319059
+      },
+      {
+        "frame": 1,
+        "depth": 2,
+        "character": 2103,
+        "name": "hero",
+        "uncompressed_tag_offset": 2319067
+      },
+      {
+        "frame": 2,
+        "depth": 2,
+        "character": 2104,
+        "name": "hero",
+        "uncompressed_tag_offset": 2319217
+      },
+      {
+        "frame": 3,
+        "depth": 2,
+        "character": 2105,
+        "name": "hero",
+        "uncompressed_tag_offset": 2319366
+      },
+      {
+        "frame": 4,
+        "depth": 2,
+        "character": 2106,
+        "name": "hero",
+        "uncompressed_tag_offset": 2319516
+      },
+      {
+        "frame": 5,
+        "depth": 2,
+        "character": 2107,
+        "name": "hero",
+        "uncompressed_tag_offset": 2319665
+      },
+      {
+        "frame": 6,
+        "depth": 2,
+        "character": 2108,
+        "name": "hero",
+        "uncompressed_tag_offset": 2319814
+      },
+      {
+        "frame": 7,
+        "depth": 2,
+        "character": 2109,
+        "name": "hero",
+        "uncompressed_tag_offset": 2319964
+      },
+      {
+        "frame": 8,
+        "depth": 2,
+        "character": 2115,
+        "name": "hero",
+        "uncompressed_tag_offset": 2320115
+      },
+      {
+        "frame": 9,
+        "depth": 2,
+        "character": 2120,
+        "name": "hero",
+        "uncompressed_tag_offset": 2320271
+      },
+      {
+        "frame": 10,
+        "depth": 2,
+        "character": 2122,
+        "name": "hero",
+        "uncompressed_tag_offset": 2320421
+      },
+      {
+        "frame": 11,
+        "depth": 2,
+        "character": 2123,
+        "name": "hero",
+        "uncompressed_tag_offset": 2320571
+      }
+    ]
+  },
+  "root_frame_79": {
+    "203": {
+      "character": 1914,
+      "frame": 35,
+      "name": "enemy1counter"
+    },
+    "207": {
+      "character": 1914,
+      "frame": 35,
+      "name": "enemy2counter"
+    },
+    "252": {
+      "character": 1993,
+      "frame": 35,
+      "name": "blackout"
+    },
+    "29": {
+      "character": 2061,
+      "frame": 49,
+      "name": "enemy2"
+    },
+    "32": {
+      "character": 2124,
+      "frame": 79,
+      "name": "enemy1"
+    }
+  },
+  "root_frame_80": {
+    "203": {
+      "character": 1914,
+      "frame": 35,
+      "name": "enemy1counter"
+    },
+    "207": {
+      "character": 1914,
+      "frame": 35,
+      "name": "enemy2counter"
+    },
+    "252": {
+      "character": 1993,
+      "frame": 35,
+      "name": "blackout"
+    },
+    "29": {
+      "character": 2061,
+      "frame": 49,
+      "name": "enemy2"
+    },
+    "32": {
+      "character": 2124,
+      "frame": 80,
+      "name": "enemy1"
+    }
+  },
+  "root_frame_81": {
+    "203": {
+      "character": 1914,
+      "frame": 35,
+      "name": "enemy1counter"
+    },
+    "207": {
+      "character": 1914,
+      "frame": 35,
+      "name": "enemy2counter"
+    },
+    "252": {
+      "character": 1993,
+      "frame": 35,
+      "name": "blackout"
+    },
+    "29": {
+      "character": 2061,
+      "frame": 49,
+      "name": "enemy2"
+    },
+    "32": {
+      "character": 2124,
+      "frame": 81,
+      "name": "enemy1"
+    }
+  }
+}

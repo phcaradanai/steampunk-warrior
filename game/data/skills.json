@@ -1,0 +1,432 @@
+[
+  {
+    "id": "S01",
+    "name": "แทงเฟือง",
+    "kind": "active",
+    "target": "enemy",
+    "fp_cost": 5,
+    "pressure_delta": 8,
+    "effect": "1.25ATK physical;shielddamage x1.5",
+    "required_level": 1,
+    "parents": [],
+    "rank_cap": 10,
+    "effects": {
+      "power": 1.25,
+      "damage_type": "physical",
+      "shield_multiplier": 1.5
+    },
+    "description_th": "โจมตีเดี่ยว ทำความเสียหายต่อโล่เพิ่ม50%"
+  },
+  {
+    "id": "S02",
+    "name": "ฟันต่อเนื่อง",
+    "kind": "active",
+    "target": "enemy",
+    "fp_cost": 8,
+    "pressure_delta": 12,
+    "effect": "2 hits x0.70ATK physical",
+    "required_level": 5,
+    "parents": [
+      "S01"
+    ],
+    "rank_cap": 10,
+    "effects": {
+      "power": 0.7,
+      "hits": 2,
+      "damage_type": "physical"
+    },
+    "description_th": "โจมตีสองครั้ง ถ้าโล่แตกจากครั้งแรก ครั้งถัดไปถึงร่างกายได้"
+  },
+  {
+    "id": "S03",
+    "name": "ยิงหมุด",
+    "kind": "active",
+    "target": "enemy",
+    "fp_cost": 5,
+    "pressure_delta": 6,
+    "effect": "1.10ATK physical + Marked2",
+    "required_level": 1,
+    "parents": [],
+    "rank_cap": 10,
+    "effects": {
+      "power": 1.1,
+      "damage_type": "physical",
+      "status": "Marked",
+      "duration": 2
+    },
+    "description_th": "ยิงเป้าหมายพร้อมทำเครื่องหมายเพื่อเตรียมท่าต่อเนื่อง"
+  },
+  {
+    "id": "S04",
+    "name": "ประกายอาร์ก",
+    "kind": "active",
+    "target": "enemy",
+    "fp_cost": 6,
+    "pressure_delta": 10,
+    "effect": "1.25TECH electric",
+    "required_level": 1,
+    "parents": [],
+    "rank_cap": 10,
+    "effects": {
+      "power": 1.25,
+      "damage_type": "electric"
+    },
+    "description_th": "ปล่อยไฟฟ้าใส่เป้าหมาย เปียกทำให้รับไฟฟ้าแรงขึ้น"
+  },
+  {
+    "id": "S05",
+    "name": "กระสุนกระจาย",
+    "kind": "active",
+    "target": "all_enemies",
+    "fp_cost": 10,
+    "pressure_delta": 14,
+    "effect": "0.85ATK physical each",
+    "required_level": 5,
+    "parents": [
+      "S03"
+    ],
+    "rank_cap": 10,
+    "effects": {
+      "power": 0.85,
+      "damage_type": "physical"
+    },
+    "description_th": "ยิงกระจายใส่ศัตรูทุกตัว"
+  },
+  {
+    "id": "S06",
+    "name": "ลูกโซ่ไฟฟ้า",
+    "kind": "active",
+    "target": "all_enemies",
+    "fp_cost": 12,
+    "pressure_delta": 16,
+    "effect": "0.95TECH electric each",
+    "required_level": 10,
+    "parents": [
+      "S04"
+    ],
+    "rank_cap": 10,
+    "effects": {
+      "power": 0.95,
+      "damage_type": "electric"
+    },
+    "description_th": "ปล่อยไฟฟ้าผ่านศัตรูทุกตัว"
+  },
+  {
+    "id": "S07",
+    "name": "ค้อนทะลวง",
+    "kind": "active",
+    "target": "enemy",
+    "fp_cost": 12,
+    "pressure_delta": 18,
+    "effect": "1.80ATK physical ignores50%armor",
+    "required_level": 10,
+    "parents": [
+      "S01",
+      "S02"
+    ],
+    "rank_cap": 10,
+    "effects": {
+      "power": 1.8,
+      "damage_type": "physical",
+      "armor_ignore": 0.5
+    },
+    "description_th": "กระแทกเดี่ยวโดยไม่นับเกราะกายภาพครึ่งหนึ่ง"
+  },
+  {
+    "id": "S08",
+    "name": "ระเบิดหมอก",
+    "kind": "active",
+    "target": "all_enemies",
+    "fp_cost": 10,
+    "pressure_delta": 12,
+    "effect": "0.70TECH chemical + Corroded2",
+    "required_level": 5,
+    "parents": [
+      "S04"
+    ],
+    "rank_cap": 10,
+    "effects": {
+      "power": 0.7,
+      "damage_type": "chemical",
+      "status": "Corroded",
+      "duration": 2
+    },
+    "description_th": "ปล่อยหมอกกรดใส่ทุกตัว ทำให้เกราะผุ"
+  },
+  {
+    "id": "S09",
+    "name": "ปิดบาดแผล",
+    "kind": "active",
+    "target": "self",
+    "fp_cost": 8,
+    "pressure_delta": 0,
+    "effect": "heal 1.30TECH",
+    "required_level": 1,
+    "parents": [],
+    "rank_cap": 10,
+    "effects": {
+      "heal": 1.3
+    },
+    "description_th": "ฟื้น HP ของตน ถูกหยุดได้ด้วยสถานะปิดการฟื้นฟู"
+  },
+  {
+    "id": "S10",
+    "name": "ฉีดกระตุ้น",
+    "kind": "active",
+    "target": "self",
+    "fp_cost": 8,
+    "pressure_delta": 5,
+    "effect": "initiative+20 for2turns",
+    "required_level": 5,
+    "parents": [
+      "S09"
+    ],
+    "rank_cap": 10,
+    "effects": {
+      "status": "Haste",
+      "duration": 2
+    },
+    "description_th": "เร่งลำดับเทิร์นของตน ไม่มีเทิร์นแถมในรอบเดียวกัน"
+  },
+  {
+    "id": "S11",
+    "name": "กางสนามโล่",
+    "kind": "active",
+    "target": "self",
+    "fp_cost": 10,
+    "pressure_delta": 10,
+    "effect": "barrier 1.50TECH",
+    "required_level": 5,
+    "parents": [
+      "S09"
+    ],
+    "rank_cap": 10,
+    "effects": {
+      "barrier": 1.5
+    },
+    "description_th": "สร้างโล่รับแรงกระแทกก่อนถึงร่างกาย"
+  },
+  {
+    "id": "S12",
+    "name": "โดรนช่าง",
+    "kind": "active",
+    "target": "summon",
+    "fp_cost": 16,
+    "pressure_delta": 20,
+    "effect": "one drone 3turns;0.50TECH hit afterowner",
+    "required_level": 10,
+    "parents": [
+      "S04",
+      "S11"
+    ],
+    "rank_cap": 10,
+    "effects": {
+      "summon": true,
+      "drone_power": 0.5,
+      "drone_actions": 3
+    },
+    "description_th": "เรียกโดรนยิงตามหลัง3คำสั่งของเจ้าของ ไม่กินเทิร์นแยก"
+  },
+  {
+    "id": "S13",
+    "name": "ยิงจุดอ่อน",
+    "kind": "active",
+    "target": "enemy",
+    "fp_cost": 14,
+    "pressure_delta": 18,
+    "effect": "1.50ATK;Marked target x1.5 then consume",
+    "required_level": 10,
+    "parents": [
+      "S03",
+      "S05"
+    ],
+    "rank_cap": 10,
+    "effects": {
+      "power": 1.5,
+      "damage_type": "physical",
+      "marked_multiplier": 1.5
+    },
+    "description_th": "ยิงเป้าหมายที่มีเครื่องหมายแรงขึ้น50% แล้วใช้เครื่องหมายนั้น"
+  },
+  {
+    "id": "S14",
+    "name": "เผาไหม้แรงสูง",
+    "kind": "active",
+    "target": "enemy",
+    "fp_cost": 14,
+    "pressure_delta": 22,
+    "effect": "1.60TECH thermal + Heated2",
+    "required_level": 10,
+    "parents": [
+      "S04",
+      "S08"
+    ],
+    "rank_cap": 10,
+    "effects": {
+      "power": 1.6,
+      "damage_type": "thermal",
+      "status": "Heated",
+      "duration": 2
+    },
+    "description_th": "โจมตีความร้อน ทำให้เสียHPเมื่อจบเทิร์น"
+  },
+  {
+    "id": "S15",
+    "name": "ปลดประจุ",
+    "kind": "active",
+    "target": "enemy",
+    "fp_cost": 18,
+    "pressure_delta": 25,
+    "effect": "2.10TECH electric;Wet adds Staggered1",
+    "required_level": 15,
+    "parents": [
+      "S06",
+      "S14"
+    ],
+    "rank_cap": 10,
+    "effects": {
+      "power": 2.1,
+      "damage_type": "electric",
+      "stagger_wet": true
+    },
+    "description_th": "ปลดประจุแรงสูง ถ้าเป้าเปียกจะเสียจังหวะหนึ่งเทิร์น"
+  },
+  {
+    "id": "S16",
+    "name": "จู่โจมฉุกเฉิน",
+    "kind": "active",
+    "target": "enemy",
+    "fp_cost": 12,
+    "pressure_delta": 15,
+    "effect": "1.50ATK;HP<=35% x1.5",
+    "required_level": 10,
+    "parents": [
+      "S02",
+      "S10"
+    ],
+    "rank_cap": 10,
+    "effects": {
+      "power": 1.5,
+      "damage_type": "physical",
+      "low_hp_multiplier": 1.5
+    },
+    "description_th": "โจมตีฉุกเฉิน แรงขึ้น50%เมื่อHPไม่เกิน35%"
+  },
+  {
+    "id": "S17",
+    "name": "เสริมโครงร่าง",
+    "kind": "passive",
+    "target": "self",
+    "fp_cost": 0,
+    "pressure_delta": 0,
+    "effect": "maxHP+2% perrank",
+    "required_level": 1,
+    "parents": [],
+    "rank_cap": 10,
+    "effects": {
+      "passive": "max_hp",
+      "per_rank": 0.02
+    },
+    "description_th": "ติดตัว เพิ่มHPสูงสุด2%ต่อระดับ"
+  },
+  {
+    "id": "S18",
+    "name": "สายส่งทองแดง",
+    "kind": "passive",
+    "target": "self",
+    "fp_cost": 0,
+    "pressure_delta": 0,
+    "effect": "maxFP+2% perrank",
+    "required_level": 5,
+    "parents": [
+      "S04"
+    ],
+    "rank_cap": 10,
+    "effects": {
+      "passive": "max_fp",
+      "per_rank": 0.02
+    },
+    "description_th": "ติดตัว เพิ่มFPสูงสุด2%ต่อระดับ"
+  },
+  {
+    "id": "S19",
+    "name": "รีเฟล็กซ์ช่าง",
+    "kind": "passive",
+    "target": "self",
+    "fp_cost": 0,
+    "pressure_delta": 0,
+    "effect": "initiative+1 perrank",
+    "required_level": 5,
+    "parents": [
+      "S03"
+    ],
+    "rank_cap": 10,
+    "effects": {
+      "passive": "initiative",
+      "per_rank": 1
+    },
+    "description_th": "ติดตัว เพิ่มค่าลำดับเทิร์น1ต่อระดับ"
+  },
+  {
+    "id": "S20",
+    "name": "สายควบแน่น",
+    "kind": "active",
+    "target": "all_enemies",
+    "fp_cost": 8,
+    "pressure_delta": 6,
+    "effect": "0.50TECH chemical + Wet2",
+    "required_level": 1,
+    "parents": [],
+    "rank_cap": 10,
+    "effects": {
+      "power": 0.5,
+      "damage_type": "chemical",
+      "status": "Wet",
+      "duration": 2
+    },
+    "description_th": "พ่นละอองเปียกใส่ทุกตัวเพื่อเปิดคอมโบไฟฟ้า"
+  },
+  {
+    "id": "S21",
+    "name": "ตรึงชีวภาพ",
+    "kind": "active",
+    "target": "enemy",
+    "fp_cost": 12,
+    "pressure_delta": 10,
+    "effect": "1.00TECH chemical + Sealed2",
+    "required_level": 10,
+    "parents": [
+      "S09",
+      "S20"
+    ],
+    "rank_cap": 10,
+    "effects": {
+      "power": 1.0,
+      "damage_type": "chemical",
+      "status": "Sealed",
+      "duration": 2
+    },
+    "description_th": "โจมตีเคมีและปิดการฟื้นฟูของเป้าหมาย"
+  },
+  {
+    "id": "S22",
+    "name": "ระบายย้อนเฟส",
+    "kind": "active",
+    "target": "self",
+    "fp_cost": 10,
+    "pressure_delta": -40,
+    "effect": "removeHeated;barrier0.50TECH;cooldown2",
+    "required_level": 15,
+    "parents": [
+      "S11",
+      "S20"
+    ],
+    "rank_cap": 10,
+    "effects": {
+      "barrier": 0.5,
+      "remove_status": "Heated",
+      "cooldown": 2
+    },
+    "description_th": "ลดแรงดัน40 ล้างความร้อนและสร้างโล่เล็กน้อย"
+  }
+]

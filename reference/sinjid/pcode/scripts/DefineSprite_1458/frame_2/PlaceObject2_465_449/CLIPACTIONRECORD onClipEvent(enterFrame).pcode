@@ -1,0 +1,3 @@
+Push 0.0, 1, "this"
+GetVariable
+StartDrag

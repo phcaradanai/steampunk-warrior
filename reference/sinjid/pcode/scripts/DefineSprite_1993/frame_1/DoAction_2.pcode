@@ -1,0 +1,169 @@
+ConstantPool "_root", "hero2bodyparts", "Array", "feet2", "feet1", "feetleg2", "feetleg1", "leg2", "leg1", "handarm2", "handarm1", "arm2", "arm1", "body", "hero2suit", "Shadow", "hero2helmet", "hero2swordtype", "hero2shieldtype", "hero2speed", "speedb", "hero2str", "strb", "hero2manamax", "manamaxb", "hero2mana", "manab", "hero2lifemax", "hero2life", "hero2bar", "_width", "widthkeep", "hero2shddmg", "shddmgb", "hero2phydmg", "phydmgb", "hero2magdmg", "magdmgb", "shdptsb", "hero2shdptsmax", "hero2shdpts", "hero2phydef", "phydefb", "hero2magdef", "magdefb", "hero2shdmagdef", "shdphydefb", "hero2shdphydef", "shdmagdefb"
+Push "_root"
+GetVariable
+Push "hero2bodyparts", 0.0, "Array"
+NewObject
+SetMember
+Push "_root"
+GetVariable
+Push "hero2bodyparts", "feet2", "feet1", "feetleg2", "feetleg1", "leg2", "leg1", "handarm2", "handarm1", "arm2", "arm1", "body", 11
+InitArray
+SetMember
+Push "_root"
+GetVariable
+Push "hero2suit", "Shadow"
+SetMember
+Push "_root"
+GetVariable
+Push "hero2helmet", "_root"
+GetVariable
+Push "hero2suit"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero2swordtype", "_root"
+GetVariable
+Push "hero2suit"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero2shieldtype", "_root"
+GetVariable
+Push "hero2suit"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero2speed", "_root"
+GetVariable
+Push "speedb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero2str", "_root"
+GetVariable
+Push "strb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero2manamax", "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero2mana", "_root"
+GetVariable
+Push "manab"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero2lifemax", 1
+SetMember
+Push "_root"
+GetVariable
+Push "hero2life", 0.0
+SetMember
+Push "_root"
+GetVariable
+Push "hero2bar"
+GetMember
+Push "_width", "_root"
+GetVariable
+Push "hero2life"
+GetMember
+Push "_root"
+GetVariable
+Push "hero2lifemax"
+GetMember
+Divide
+Push "_root"
+GetVariable
+Push "hero2bar"
+GetMember
+Push "widthkeep"
+GetMember
+Multiply
+SetMember
+Push "_root"
+GetVariable
+Push "hero2shddmg", "_root"
+GetVariable
+Push "shddmgb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero2phydmg", "_root"
+GetVariable
+Push "phydmgb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero2magdmg", "_root"
+GetVariable
+Push "magdmgb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "shdptsb"
+GetMember
+Push 0.0
+Equals2
+Not
+If loc038d
+Push "_root"
+GetVariable
+Push "hero2shdptsmax", 1
+SetMember
+Jump loc03a2
+loc038d:Push "_root"
+GetVariable
+Push "hero2shdptsmax", "_root"
+GetVariable
+Push "shdptsb"
+GetMember
+SetMember
+loc03a2:Push "_root"
+GetVariable
+Push "hero2shdpts", "_root"
+GetVariable
+Push "shdptsb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero2phydef", "_root"
+GetVariable
+Push "phydefb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero2magdef", "_root"
+GetVariable
+Push "magdefb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero2shdmagdef", "_root"
+GetVariable
+Push "shdphydefb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero2shdphydef", "_root"
+GetVariable
+Push "shdmagdefb"
+GetMember
+SetMember

@@ -1,0 +1,4 @@
+StopSounds
+Push "Violin", 1, "playSound"
+CallFunction
+Pop

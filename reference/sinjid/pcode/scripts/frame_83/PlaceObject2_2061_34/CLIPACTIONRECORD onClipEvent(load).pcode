@@ -1,0 +1,25 @@
+ConstantPool "attacks", "attack", "numofmoves", "mcname2", "enemy2", "subject2", "dmgtype2", "enemy", "_root", "enemy2life", "this", "_visible"
+Push "attacks", "attack", 1
+InitArray
+SetVariable
+Push "numofmoves", 1
+SetVariable
+Push "mcname2", "enemy2"
+SetVariable
+Push "subject2", "enemy2"
+SetVariable
+Push "dmgtype2", "enemy"
+SetVariable
+Push "_root"
+GetVariable
+Push "enemy2life"
+GetMember
+Push 0.0
+Equals2
+Not
+If loc00c3
+Push "this"
+GetVariable
+Push "_visible", false
+SetMember
+loc00c3:

@@ -1,0 +1,14 @@
+ConstantPool "component", "_parent", "controller", "selection", "highlight_mc", "registerSkinElement"
+Push "component", "_parent"
+GetVariable
+Push "controller"
+GetMember
+DefineLocal
+Push "selection", "highlight_mc"
+GetVariable
+Push 2, "component"
+GetVariable
+Push "registerSkinElement"
+CallMethod
+Pop
+Stop

@@ -1,0 +1,6 @@
+Push "speak", "Most of the books here are very resourceful. I just finished reading the one about Shadow Wolves."
+SetVariable
+Push "persontype", "Relaxing Ninja"
+SetVariable
+Push "objectnum", 2
+SetVariable

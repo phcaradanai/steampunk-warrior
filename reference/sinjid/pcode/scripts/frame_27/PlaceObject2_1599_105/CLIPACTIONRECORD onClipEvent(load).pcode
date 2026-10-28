@@ -1,0 +1,7 @@
+ConstantPool "item", "Books", "inventorytype", "objectnum"
+Push "item", "Books"
+SetVariable
+Push "inventorytype", "Books"
+SetVariable
+Push "objectnum", 1
+SetVariable

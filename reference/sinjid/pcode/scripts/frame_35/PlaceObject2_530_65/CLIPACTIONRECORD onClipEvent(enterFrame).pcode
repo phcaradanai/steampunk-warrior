@@ -1,0 +1,16 @@
+ConstantPool "this", "_width", "_root", "hero1mana", "hero1manamax", "widthkeep"
+Push "this"
+GetVariable
+Push "_width", "_root"
+GetVariable
+Push "hero1mana"
+GetMember
+Push "_root"
+GetVariable
+Push "hero1manamax"
+GetMember
+Divide
+Push "widthkeep"
+GetVariable
+Multiply
+SetMember

@@ -1,0 +1,12 @@
+ConstantPool "attacks", "ice", "heal", "none", "attack", "numofmoves", "mcname2", "enemy1", "subject2", "dmgtype2", "enemy"
+Push "attacks", "ice", "heal", "none", "attack", 4
+InitArray
+SetVariable
+Push "numofmoves", 4
+SetVariable
+Push "mcname2", "enemy1"
+SetVariable
+Push "subject2", "enemy1"
+SetVariable
+Push "dmgtype2", "enemy"
+SetVariable

@@ -1,0 +1,62 @@
+ConstantPool "ninjaav", "Sinjid_S", "skill", "classtype", "Spellcaster", "Weapon", "Energy Knife", "_root", "itemstats", "phydmgb", "magdmgb", "classname", "manamaxb", "manab", "speedb", "strb", "lifemaxb", "lifeb", "phydefb", "magdefb"
+Push "ninjaav", "Sinjid_S"
+SetVariable
+Push "skill"
+GetVariable
+Push 9, 1
+SetMember
+Push "classtype", "Spellcaster"
+SetVariable
+Push "Weapon", "Energy Knife"
+SetVariable
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 0.0, "Energy Knife"
+SetMember
+Push "phydmgb", 0.0
+SetVariable
+Push "magdmgb", 5
+SetVariable
+Push "classname", "_root"
+GetVariable
+Push "classtype"
+GetVariable
+GetMember
+Push 4
+GetMember
+SetVariable
+Push "manamaxb", 90
+SetVariable
+Push "manab", 90
+SetVariable
+Push "speedb", 13
+SetVariable
+Push "strb", 15
+SetVariable
+Push "lifemaxb", 75
+SetVariable
+Push "lifeb", 75
+SetVariable
+Push "phydmgb", "phydmgb"
+GetVariable
+Push 0.0
+Add2
+SetVariable
+Push "magdmgb", "magdmgb"
+GetVariable
+Push 5
+Add2
+SetVariable
+Push "phydefb", "phydefb"
+GetVariable
+Push 0.0
+Add2
+SetVariable
+Push "magdefb", "magdefb"
+GetVariable
+Push 5
+Add2
+SetVariable
+Play

@@ -1,0 +1,36 @@
+ConstantPool "_root", "playerturn", "midfight", "stand", "mcname", "gotoAndStop", "subject", "shieldtype", "shield"
+Push "_root"
+GetVariable
+Push "playerturn", "_root"
+GetVariable
+Push "playerturn"
+GetMember
+If loc0075
+Push true
+Jump loc007a
+loc0075:Push false
+loc007a:SetMember
+Push "_root"
+GetVariable
+Push "midfight", false
+SetMember
+Push "stand", 1, "_root"
+GetVariable
+Push "mcname"
+GetVariable
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "subject"
+GetVariable
+Push "shieldtype"
+Add2
+GetMember
+Push 1, "shield"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop

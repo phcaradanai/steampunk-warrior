@@ -1,0 +1,1876 @@
+ConstantPool "this", "init", "FSelectableListClass", "prototype", "FUIComponentClass", "super", "enable", "selected", "Array", "topDisplayed", "numDisplayed", "lastSelected", "tabChildren", "_name", "dataProvider", "DataProviderClass", "addView", "addItemAt", "index", "label", "data", "addItem", "removeItemAt", "selectHolder", "getSelectedIndex", "item", "getItemAt", "removeAll", "replaceItemAt", "newLabel", "newData", "sortItemsBy", "lastSelID", "getItemID", "order", "fieldName", "getLength", "uniqueID", "tmpInd", "sIndex", "getSelectedItem", "getEnabled", "getValue", "setSelectedIndex", "clearSelected", "selectItem", "updateControl", "invalidate", "flag", "executeCallBack", "setDataProvider", "setScrollPosition", "obj", "i", "length", "value", "string", "setItemSymbol", "tmpPos", "getScrollPosition", "itemSymbol", "linkID", "setSize", "setEnabled", "cleanUI", "enabledFlag", "disabled", "enabled", "boundingBox_mc", "gotoAndStop", "limit", "Math", "min", "container_mc", "fListItem", "_mc", "isSelected", "drawItem", "h", "w", "_xscale", "_yscale", "width", "_width", "height", "_height", "controller", "itemNum", "attachMovie", "item_mc", "offset", "scrollOffset", "itmHgt", "_y", "modelChanged", "firstRow", "eventObj", "lastRow", "event", "addRows", "deleteRows", "selectionDeleted", "len", "sort", "id", "measureItmHgt", "tmpItem_mc", "Sizer: PjtTopg", "removeMovieClip", "selectedFlag", "selectionHandler", "changeFlag", "moveSelBy", "itmNum", "newItm", "incr", "max", "clickHandler", "focusRect", "focused", "pressFocus", "onMouseUp", "releaseHandler", "myOnSetFocus", "highlight_mc", "myOnKillFocus", "unfocused"
+DefineFunction "FSelectableListClass", 0 {
+Push 0.0, "this"
+GetVariable
+Push "init"
+CallMethod
+Pop
+}
+Push "FSelectableListClass"
+GetVariable
+Push "prototype", 0.0, "FUIComponentClass"
+NewObject
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "init"
+DefineFunction "", 0 {
+Push 0.0, "super"
+GetVariable
+Push "init"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "enable", true
+SetMember
+Push "this"
+GetVariable
+Push "selected", 0.0, "Array"
+NewObject
+SetMember
+Push "this"
+GetVariable
+Push "topDisplayed", "this"
+GetVariable
+Push "numDisplayed", 0.0
+StoreRegister 0
+SetMember
+Push register0
+SetMember
+Push "this"
+GetVariable
+Push "lastSelected", 0.0
+SetMember
+Push "this"
+GetVariable
+Push "tabChildren", false
+SetMember
+Push "this"
+GetVariable
+Push "_name"
+GetMember
+Push undefined
+Equals2
+Not
+Not
+If loc0615
+Push "this"
+GetVariable
+Push "dataProvider", 0.0, "DataProviderClass"
+NewObject
+SetMember
+Push "this"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "dataProvider"
+GetMember
+Push "addView"
+CallMethod
+Pop
+}
+loc0615:SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "addItemAt"
+DefineFunction "", 3, "index" , "label" , "data"  {
+Push "index"
+GetVariable
+Push 0.0
+Less2
+PushDuplicate
+If loc0667
+Pop
+Push "this"
+GetVariable
+Push "enable"
+GetMember
+Not
+loc0667:Not
+If loc0672
+Push undefined
+Return
+loc0672:Push "label", "label"
+GetVariable
+Push "data", "data"
+GetVariable
+Push 2
+InitObject
+Push "index"
+GetVariable
+Push 2, "this"
+GetVariable
+Push "dataProvider"
+GetMember
+Push "addItemAt"
+CallMethod
+Pop
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "addItem"
+DefineFunction "", 2, "label" , "data"  {
+Push "this"
+GetVariable
+Push "enable"
+GetMember
+Not
+Not
+If loc06e6
+Push undefined
+Return
+loc06e6:Push "label", "label"
+GetVariable
+Push "data", "data"
+GetVariable
+Push 2
+InitObject
+Push 1, "this"
+GetVariable
+Push "dataProvider"
+GetMember
+Push "addItem"
+CallMethod
+Pop
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "removeItemAt"
+DefineFunction "", 1, "index"  {
+Push "this"
+GetVariable
+Push "selectHolder", 0.0, "this"
+GetVariable
+Push "getSelectedIndex"
+CallMethod
+SetMember
+Push "item", "index"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "getItemAt"
+CallMethod
+DefineLocal
+Push "index"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "dataProvider"
+GetMember
+Push "removeItemAt"
+CallMethod
+Pop
+Push "item"
+GetVariable
+Return
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "removeAll"
+DefineFunction "", 0 {
+Push 0.0, "this"
+GetVariable
+Push "dataProvider"
+GetMember
+Push "removeAll"
+CallMethod
+Pop
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "replaceItemAt"
+DefineFunction "", 3, "index" , "newLabel" , "newData"  {
+Push "label", "newLabel"
+GetVariable
+Push "data", "newData"
+GetVariable
+Push 2
+InitObject
+Push "index"
+GetVariable
+Push 2, "this"
+GetVariable
+Push "dataProvider"
+GetMember
+Push "replaceItemAt"
+CallMethod
+Pop
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "sortItemsBy"
+DefineFunction "", 2, "fieldName" , "order"  {
+Push "this"
+GetVariable
+Push "lastSelID", "this"
+GetVariable
+Push "lastSelected"
+GetMember
+Push 1, "this"
+GetVariable
+Push "dataProvider"
+GetMember
+Push "getItemID"
+CallMethod
+SetMember
+Push "order"
+GetVariable
+Push "fieldName"
+GetVariable
+Push 2, "this"
+GetVariable
+Push "dataProvider"
+GetMember
+Push "sortItemsBy"
+CallMethod
+Pop
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "getLength"
+DefineFunction "", 0 {
+Push 0.0, "this"
+GetVariable
+Push "dataProvider"
+GetMember
+Push "getLength"
+CallMethod
+Return
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "getSelectedIndex"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "selected"
+GetMember
+Enumerate2
+loc0909:StoreRegister 0
+Push null
+Equals2
+If loc0964
+Push "uniqueID", register0
+DefineLocal
+Push "tmpInd", "this"
+GetVariable
+Push "selected"
+GetMember
+Push "uniqueID"
+GetVariable
+GetMember
+Push "sIndex"
+GetMember
+DefineLocal
+Push "tmpInd"
+GetVariable
+Push undefined
+Equals2
+Not
+Not
+If loc095f
+loc094d:Push null
+Equals2
+Not
+If loc094d
+Push "tmpInd"
+GetVariable
+Return
+loc095f:Jump loc0909
+}
+loc0964:SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "getSelectedItem"
+DefineFunction "", 0 {
+Push 0.0, "this"
+GetVariable
+Push "getSelectedIndex"
+CallMethod
+Push 1, "this"
+GetVariable
+Push "getItemAt"
+CallMethod
+Return
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "getItemAt"
+DefineFunction "", 1, "index"  {
+Push "index"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "dataProvider"
+GetMember
+Push "getItemAt"
+CallMethod
+Return
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "getEnabled"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "enable"
+GetMember
+Return
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "getValue"
+DefineFunction "", 0 {
+Push "item", 0.0, "this"
+GetVariable
+Push "getSelectedItem"
+CallMethod
+DefineLocal
+Push "item"
+GetVariable
+Push "data"
+GetMember
+Push undefined
+Equals2
+If loc0a63
+Push "item"
+GetVariable
+Push "data"
+GetMember
+Jump loc0a6f
+loc0a63:Push "item"
+GetVariable
+Push "label"
+GetMember
+loc0a6f:Return
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setSelectedIndex"
+DefineFunction "", 2, "index" , "flag"  {
+Push "index"
+GetVariable
+Push 0.0
+Less2
+Not
+PushDuplicate
+Not
+If loc0acd
+Pop
+Push "index"
+GetVariable
+Push 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+Less2
+loc0acd:PushDuplicate
+Not
+If loc0ae1
+Pop
+Push "this"
+GetVariable
+Push "enable"
+GetMember
+loc0ae1:Not
+If loc0b63
+Push 0.0, "this"
+GetVariable
+Push "clearSelected"
+CallMethod
+Pop
+Push true, "index"
+GetVariable
+Push 2, "this"
+GetVariable
+Push "selectItem"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "lastSelected", "index"
+GetVariable
+SetMember
+Push "updateControl", 1, "this"
+GetVariable
+Push "invalidate"
+CallMethod
+Pop
+Push "flag"
+GetVariable
+Push false
+Equals2
+Not
+Not
+If loc0b63
+Push 0.0, "this"
+GetVariable
+Push "executeCallBack"
+CallMethod
+Pop
+}
+loc0b63:SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setDataProvider"
+DefineFunction "", 1, "obj"  {
+Push 0.0, 1, "this"
+GetVariable
+Push "setScrollPosition"
+CallMethod
+Pop
+Push 0.0, "this"
+GetVariable
+Push "clearSelected"
+CallMethod
+Pop
+Push "obj"
+GetVariable
+Push "Array"
+GetVariable
+InstanceOf
+Not
+If loc0c7d
+Push "this"
+GetVariable
+Push "dataProvider", 0.0, "DataProviderClass"
+NewObject
+SetMember
+Push "i", 0.0
+DefineLocal
+loc0bec:Push "i"
+GetVariable
+Push "obj"
+GetVariable
+Push "length"
+GetMember
+Less2
+Not
+If loc0c78
+Push "value", "obj"
+GetVariable
+Push "i"
+GetVariable
+GetMember
+TypeOf
+Push "string"
+Equals2
+If loc0c32
+Push "obj"
+GetVariable
+Push "i"
+GetVariable
+GetMember
+Jump loc0c4a
+loc0c32:Push "label", "obj"
+GetVariable
+Push "i"
+GetVariable
+GetMember
+Push 1
+InitObject
+loc0c4a:DefineLocal
+Push "value"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "dataProvider"
+GetMember
+Push "addItem"
+CallMethod
+Pop
+Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc0bec
+loc0c78:Jump loc0c8c
+loc0c7d:Push "this"
+GetVariable
+Push "dataProvider", "obj"
+GetVariable
+SetMember
+loc0c8c:Push "this"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "dataProvider"
+GetMember
+Push "addView"
+CallMethod
+Pop
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setItemSymbol"
+DefineFunction "", 1, "linkID"  {
+Push "this"
+GetVariable
+Push "tmpPos", 0.0, "this"
+GetVariable
+Push "getScrollPosition"
+CallMethod
+SetMember
+Push "this"
+GetVariable
+Push "itemSymbol", "linkID"
+GetVariable
+SetMember
+Push "setSize", 1, "this"
+GetVariable
+Push "invalidate"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "tmpPos"
+GetMember
+Push 1, "this"
+GetVariable
+Push "setScrollPosition"
+CallMethod
+Pop
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setEnabled"
+DefineFunction "", 1, "enabledFlag"  {
+Push 0.0, "this"
+GetVariable
+Push "cleanUI"
+CallMethod
+Pop
+Push "enabledFlag"
+GetVariable
+Push 1, "super"
+GetVariable
+Push "setEnabled"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "enable", "enabledFlag"
+GetVariable
+SetMember
+Push "this"
+GetVariable
+Push "enable"
+GetMember
+If loc0da8
+Push "disabled"
+Jump loc0dad
+loc0da8:Push "enabled"
+loc0dad:Push 1, "this"
+GetVariable
+Push "boundingBox_mc"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "limit", 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+Push "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Push 2, "Math"
+GetVariable
+Push "min"
+CallMethod
+DefineLocal
+Push "i", 0.0
+DefineLocal
+loc0e09:Push "i"
+GetVariable
+Push "limit"
+GetVariable
+Less2
+Not
+If loc0e5f
+Push "this"
+GetVariable
+Push "enable"
+GetMember
+Push 1, "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "fListItem", "i"
+GetVariable
+Add2
+Push "_mc"
+Add2
+GetMember
+Push "setEnabled"
+CallMethod
+Pop
+Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc0e09
+loc0e5f:Push "this"
+GetVariable
+Push "enable"
+GetMember
+Not
+If loc0e85
+Push "updateControl", 1, "this"
+GetVariable
+Push "invalidate"
+CallMethod
+Pop
+}
+loc0e85:SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "updateControl"
+DefineFunction "", 0 {
+Push "i", 0.0
+DefineLocal
+loc0eae:Push "i"
+GetVariable
+Push "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Less2
+Not
+If loc0f46
+Push "this"
+GetVariable
+Push "topDisplayed"
+GetMember
+Push "i"
+GetVariable
+Add2
+Push 1, "this"
+GetVariable
+Push "isSelected"
+CallMethod
+Push "this"
+GetVariable
+Push "topDisplayed"
+GetMember
+Push "i"
+GetVariable
+Add2
+Push 1, "this"
+GetVariable
+Push "getItemAt"
+CallMethod
+Push 2, "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "fListItem", "i"
+GetVariable
+Add2
+Push "_mc"
+Add2
+GetMember
+Push "drawItem"
+CallMethod
+Pop
+Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc0eae
+}
+loc0f46:SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setSize"
+DefineFunction "", 2, "w" , "h"  {
+Push "h"
+GetVariable
+Push "w"
+GetVariable
+Push 2, "super"
+GetVariable
+Push "setSize"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "boundingBox_mc"
+GetMember
+Push "_xscale", "this"
+GetVariable
+Push "boundingBox_mc"
+GetMember
+Push "_yscale", 100
+StoreRegister 0
+SetMember
+Push register0
+SetMember
+Push "this"
+GetVariable
+Push "boundingBox_mc"
+GetMember
+Push "_xscale", "this"
+GetVariable
+Push "width"
+GetMember
+Push 100
+Multiply
+Push "this"
+GetVariable
+Push "boundingBox_mc"
+GetMember
+Push "_width"
+GetMember
+Divide
+SetMember
+Push "this"
+GetVariable
+Push "boundingBox_mc"
+GetMember
+Push "_yscale", "this"
+GetVariable
+Push "height"
+GetMember
+Push 100
+Multiply
+Push "this"
+GetVariable
+Push "boundingBox_mc"
+GetMember
+Push "_height"
+GetMember
+Divide
+SetMember
+Push "i", 0.0
+DefineLocal
+loc102e:Push "i"
+GetVariable
+Push "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Less2
+Not
+If loc1159
+Push "controller", "this"
+GetVariable
+Push "itemNum", "i"
+GetVariable
+Push 2
+InitObject
+Push 10, "i"
+GetVariable
+Add2
+Push "fListItem", "i"
+GetVariable
+Add2
+Push "_mc"
+Add2
+Push "this"
+GetVariable
+Push "itemSymbol"
+GetMember
+Push 4, "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "attachMovie"
+CallMethod
+Pop
+Push "item_mc", "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "fListItem", "i"
+GetVariable
+Add2
+Push "_mc"
+Add2
+GetMember
+DefineLocal
+Push "offset", "this"
+GetVariable
+Push "scrollOffset"
+GetMember
+Push undefined
+Equals2
+If loc10e7
+Push "this"
+GetVariable
+Push "scrollOffset"
+GetMember
+Jump loc10f3
+loc10e7:Push 0.0
+loc10f3:DefineLocal
+Push "this"
+GetVariable
+Push "itmHgt"
+GetMember
+Push "this"
+GetVariable
+Push "width"
+GetMember
+Push "offset"
+GetVariable
+Subtract
+Push 2, "item_mc"
+GetVariable
+Push "setSize"
+CallMethod
+Pop
+Push "item_mc"
+GetVariable
+Push "_y", "this"
+GetVariable
+Push "itmHgt"
+GetMember
+Push 2
+Subtract
+Push "i"
+GetVariable
+Multiply
+SetMember
+Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc102e
+loc1159:Push 0.0, "this"
+GetVariable
+Push "updateControl"
+CallMethod
+Pop
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "modelChanged"
+DefineFunction "", 1, "eventObj"  {
+Push "firstRow", "eventObj"
+GetVariable
+Push "firstRow"
+GetMember
+DefineLocal
+Push "lastRow", "eventObj"
+GetVariable
+Push "lastRow"
+GetMember
+DefineLocal
+Push "event", "eventObj"
+GetVariable
+Push "event"
+GetMember
+DefineLocal
+Push "event"
+GetVariable
+Push "addRows"
+Equals2
+Not
+If loc12bf
+Push "this"
+GetVariable
+Push "selected"
+GetMember
+Enumerate2
+loc11de:StoreRegister 0
+Push null
+Equals2
+If loc12ba
+Push "i", register0
+DefineLocal
+Push "this"
+GetVariable
+Push "selected"
+GetMember
+Push "i"
+GetVariable
+GetMember
+Push "sIndex"
+GetMember
+Push undefined
+Equals2
+Not
+PushDuplicate
+Not
+If loc123c
+Pop
+Push "this"
+GetVariable
+Push "selected"
+GetMember
+Push "i"
+GetVariable
+GetMember
+Push "sIndex"
+GetMember
+Push "firstRow"
+GetVariable
+Less2
+Not
+loc123c:Not
+If loc12b5
+Push "this"
+GetVariable
+Push "selected"
+GetMember
+Push "i"
+GetVariable
+GetMember
+Push "sIndex", "this"
+GetVariable
+Push "selected"
+GetMember
+Push "i"
+GetVariable
+GetMember
+Push "sIndex"
+GetMember
+Push "lastRow"
+GetVariable
+Push "firstRow"
+GetVariable
+Subtract
+Push 1
+Add2
+Add2
+SetMember
+Push false, "this"
+GetVariable
+Push "selected"
+GetMember
+Push "i"
+GetVariable
+GetMember
+Push "sIndex"
+GetMember
+Push 2, "this"
+GetVariable
+Push "setSelectedIndex"
+CallMethod
+Pop
+loc12b5:Jump loc11de
+loc12ba:Jump loc162c
+loc12bf:Push "event"
+GetVariable
+Push "deleteRows"
+Equals2
+Not
+If loc154f
+Push "firstRow"
+GetVariable
+Push "lastRow"
+GetVariable
+Equals2
+Not
+If loc151f
+Push "index", "firstRow"
+GetVariable
+DefineLocal
+Push "this"
+GetVariable
+Push "selectHolder"
+GetMember
+Push "index"
+GetVariable
+Equals2
+Not
+If loc1314
+Push "this"
+GetVariable
+Push "selectionDeleted", true
+SetMember
+loc1314:Push "this"
+GetVariable
+Push "topDisplayed"
+GetMember
+Push "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Add2
+Push 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+Less2
+Not
+PushDuplicate
+Not
+If loc1365
+Pop
+Push "this"
+GetVariable
+Push "topDisplayed"
+GetMember
+Push 0.0
+Greater
+loc1365:Not
+If loc13e0
+Push "this"
+GetVariable
+Push "topDisplayed", "this"
+GetVariable
+Push "topDisplayed"
+GetMember
+Decrement
+SetMember
+Push "this"
+GetVariable
+Push "selectionDeleted"
+GetMember
+PushDuplicate
+Not
+If loc13b2
+Pop
+Push "index"
+GetVariable
+Push 1
+Subtract
+Push 0.0
+Less2
+Not
+loc13b2:Not
+If loc13db
+Push false, "index"
+GetVariable
+Push 1
+Subtract
+Push 2, "this"
+GetVariable
+Push "setSelectedIndex"
+CallMethod
+Pop
+loc13db:Jump loc149c
+loc13e0:Push "this"
+GetVariable
+Push "selectionDeleted"
+GetMember
+Not
+If loc149c
+Push "len", 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+DefineLocal
+Push "index"
+GetVariable
+Push "len"
+GetVariable
+Push 1
+Subtract
+Equals2
+PushDuplicate
+Not
+If loc1437
+Pop
+Push "len"
+GetVariable
+Push 1
+Greater
+loc1437:PushDuplicate
+If loc1454
+Pop
+Push "index"
+GetVariable
+Push "len"
+GetVariable
+Push 2
+Divide
+Greater
+loc1454:Not
+If loc1482
+Push false, "index"
+GetVariable
+Push 1
+Subtract
+Push 2, "this"
+GetVariable
+Push "setSelectedIndex"
+CallMethod
+Pop
+Jump loc149c
+loc1482:Push false, "index"
+GetVariable
+Push 2, "this"
+GetVariable
+Push "setSelectedIndex"
+CallMethod
+Pop
+loc149c:Push "this"
+GetVariable
+Push "selected"
+GetMember
+Enumerate2
+loc14a9:StoreRegister 0
+Push null
+Equals2
+If loc151a
+Push "i", register0
+DefineLocal
+Push "this"
+GetVariable
+Push "selected"
+GetMember
+Push "i"
+GetVariable
+GetMember
+Push "sIndex"
+GetMember
+Push "firstRow"
+GetVariable
+Greater
+Not
+If loc1515
+Push "this"
+GetVariable
+Push "selected"
+GetMember
+Push "i"
+GetVariable
+GetMember
+Push "sIndex", "this"
+GetVariable
+Push "selected"
+GetMember
+Push "i"
+GetVariable
+GetMember
+Push "sIndex"
+GetMember
+Decrement
+SetMember
+loc1515:Jump loc14a9
+loc151a:Jump loc154a
+loc151f:Push 0.0, "this"
+GetVariable
+Push "clearSelected"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "topDisplayed", 0.0
+SetMember
+loc154a:Jump loc162c
+loc154f:Push "event"
+GetVariable
+Push "sort"
+Equals2
+Not
+If loc162c
+Push "len", 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+DefineLocal
+Push "i", 0.0
+DefineLocal
+loc1588:Push "i"
+GetVariable
+Push "len"
+GetVariable
+Less2
+Not
+If loc162c
+Push "i"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "isSelected"
+CallMethod
+Not
+If loc161d
+Push "id", "i"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "dataProvider"
+GetMember
+Push "getItemID"
+CallMethod
+DefineLocal
+Push "id"
+GetVariable
+Push "this"
+GetVariable
+Push "lastSelID"
+GetMember
+Equals2
+Not
+If loc1600
+Push "this"
+GetVariable
+Push "lastSelected", "i"
+GetVariable
+SetMember
+loc1600:Push "this"
+GetVariable
+Push "selected"
+GetMember
+Push "id"
+GetVariable
+ToString
+GetMember
+Push "sIndex", "i"
+GetVariable
+SetMember
+loc161d:Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc1588
+loc162c:Push "updateControl", 1, "this"
+GetVariable
+Push "invalidate"
+CallMethod
+Pop
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "measureItmHgt"
+DefineFunction "", 0 {
+Push "controller", "this"
+GetVariable
+Push 1
+InitObject
+Push 0.0, "tmpItem_mc", "this"
+GetVariable
+Push "itemSymbol"
+GetMember
+Push 4, "this"
+GetVariable
+Push "attachMovie"
+CallMethod
+Pop
+Push false, "label", "Sizer: PjtTopg", 1
+InitObject
+Push 2, "this"
+GetVariable
+Push "tmpItem_mc"
+GetMember
+Push "drawItem"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "itmHgt", "this"
+GetVariable
+Push "tmpItem_mc"
+GetMember
+Push "_height"
+GetMember
+SetMember
+Push 0.0, "this"
+GetVariable
+Push "tmpItem_mc"
+GetMember
+Push "removeMovieClip"
+CallMethod
+Pop
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "selectItem"
+DefineFunction "", 2, "index" , "selectedFlag"  {
+Push "selectedFlag"
+GetVariable
+PushDuplicate
+Not
+If loc1745
+Pop
+Push "index"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "isSelected"
+CallMethod
+Not
+loc1745:Not
+If loc178c
+Push "this"
+GetVariable
+Push "selected"
+GetMember
+Push "index"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "dataProvider"
+GetMember
+Push "getItemID"
+CallMethod
+ToString
+Push "sIndex", "index"
+GetVariable
+Push 1
+InitObject
+SetMember
+Jump loc17c5
+loc178c:Push "selectedFlag"
+GetVariable
+Not
+Not
+If loc17c5
+Push "this"
+GetVariable
+Push "selected"
+GetMember
+Push "index"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "dataProvider"
+GetMember
+Push "getItemID"
+CallMethod
+ToString
+Delete
+Pop
+}
+loc17c5:SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "isSelected"
+DefineFunction "", 1, "index"  {
+Push "this"
+GetVariable
+Push "selected"
+GetMember
+Push "index"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "dataProvider"
+GetMember
+Push "getItemID"
+CallMethod
+ToString
+GetMember
+Push "sIndex"
+GetMember
+Push undefined
+Equals2
+Not
+Return
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "clearSelected"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "selected"
+GetMember
+Enumerate2
+loc1844:StoreRegister 0
+Push null
+Equals2
+If loc191f
+Push "uniqueID", register0
+DefineLocal
+Push "index", "this"
+GetVariable
+Push "selected"
+GetMember
+Push "uniqueID"
+GetVariable
+GetMember
+Push "sIndex"
+GetMember
+DefineLocal
+Push "index"
+GetVariable
+Push undefined
+Equals2
+Not
+PushDuplicate
+Not
+If loc189e
+Pop
+Push "this"
+GetVariable
+Push "topDisplayed"
+GetMember
+Push "index"
+GetVariable
+Greater
+Not
+loc189e:PushDuplicate
+Not
+If loc18c6
+Pop
+Push "index"
+GetVariable
+Push "this"
+GetVariable
+Push "topDisplayed"
+GetMember
+Push "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Add2
+Less2
+loc18c6:Not
+If loc191a
+Push false, "index"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "getItemAt"
+CallMethod
+Push 2, "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "fListItem", "index"
+GetVariable
+Push "this"
+GetVariable
+Push "topDisplayed"
+GetMember
+Subtract
+Add2
+Push "_mc"
+Add2
+GetMember
+Push "drawItem"
+CallMethod
+Pop
+loc191a:Jump loc1844
+loc191f:Push "this"
+GetVariable
+Push "selected"
+Delete
+Pop
+Push "this"
+GetVariable
+Push "selected", 0.0, "Array"
+NewObject
+SetMember
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "selectionHandler"
+DefineFunction "", 1, "itemNum"  {
+Push "tmpInd", "this"
+GetVariable
+Push "topDisplayed"
+GetMember
+Push "itemNum"
+GetVariable
+Add2
+DefineLocal
+Push "tmpInd"
+GetVariable
+Push undefined
+Equals2
+Push 1, "this"
+GetVariable
+Push "getItemAt"
+CallMethod
+Not
+If loc19b1
+Push "this"
+GetVariable
+Push "changeFlag", false
+SetMember
+Push undefined
+Return
+loc19b1:Push "this"
+GetVariable
+Push "changeFlag", true
+SetMember
+Push 0.0, "this"
+GetVariable
+Push "clearSelected"
+CallMethod
+Pop
+Push true, "tmpInd"
+GetVariable
+Push 2, "this"
+GetVariable
+Push "selectItem"
+CallMethod
+Pop
+Push "tmpInd"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "isSelected"
+CallMethod
+Push "tmpInd"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "getItemAt"
+CallMethod
+Push 2, "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "fListItem", "itemNum"
+GetVariable
+Add2
+Push "_mc"
+Add2
+GetMember
+Push "drawItem"
+CallMethod
+Pop
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "moveSelBy"
+DefineFunction "", 1, "incr"  {
+Push "itmNum", 0.0, "this"
+GetVariable
+Push "getSelectedIndex"
+CallMethod
+DefineLocal
+Push "newItm", "itmNum"
+GetVariable
+Push "incr"
+GetVariable
+Add2
+DefineLocal
+Push "newItm", "newItm"
+GetVariable
+Push 0.0, 2, "Math"
+GetVariable
+Push "max"
+CallMethod
+SetVariable
+Push "newItm", "newItm"
+GetVariable
+Push 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+Push 1
+Subtract
+Push 2, "Math"
+GetVariable
+Push "min"
+CallMethod
+SetVariable
+Push "newItm"
+GetVariable
+Push "itmNum"
+GetVariable
+Equals2
+Not
+If loc1aff
+Push undefined
+Return
+loc1aff:Push "itmNum"
+GetVariable
+Push "this"
+GetVariable
+Push "topDisplayed"
+GetMember
+Less2
+PushDuplicate
+If loc1b3a
+Pop
+Push "itmNum"
+GetVariable
+Push "this"
+GetVariable
+Push "topDisplayed"
+GetMember
+Push "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Add2
+Less2
+Not
+loc1b3a:Not
+If loc1b58
+Push "itmNum"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "setScrollPosition"
+CallMethod
+Pop
+loc1b58:Push "newItm"
+GetVariable
+Push "this"
+GetVariable
+Push "topDisplayed"
+GetMember
+Push "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Add2
+Less2
+Not
+PushDuplicate
+If loc1b93
+Pop
+Push "newItm"
+GetVariable
+Push "this"
+GetVariable
+Push "topDisplayed"
+GetMember
+Less2
+loc1b93:Not
+If loc1bbe
+Push "this"
+GetVariable
+Push "topDisplayed"
+GetMember
+Push "incr"
+GetVariable
+Add2
+Push 1, "this"
+GetVariable
+Push "setScrollPosition"
+CallMethod
+Pop
+loc1bbe:Push "newItm"
+GetVariable
+Push "this"
+GetVariable
+Push "topDisplayed"
+GetMember
+Subtract
+Push 1, "this"
+GetVariable
+Push "selectionHandler"
+CallMethod
+Pop
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "clickHandler"
+DefineFunction "", 1, "itmNum"  {
+Push 0.0, "this"
+GetVariable
+Push "focusRect"
+GetMember
+Push "removeMovieClip"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "focused"
+GetMember
+Not
+Not
+If loc1c49
+Push 0.0, "this"
+GetVariable
+Push "pressFocus"
+CallMethod
+Pop
+loc1c49:Push "itmNum"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "selectionHandler"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "onMouseUp", "this"
+GetVariable
+Push "releaseHandler"
+GetMember
+SetMember
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "releaseHandler"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "changeFlag"
+GetMember
+Not
+If loc1cb8
+Push 0.0, "this"
+GetVariable
+Push "executeCallBack"
+CallMethod
+Pop
+loc1cb8:Push "this"
+GetVariable
+Push "changeFlag", false
+SetMember
+Push "this"
+GetVariable
+Push "onMouseUp", undefined
+SetMember
+}
+SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "myOnSetFocus"
+DefineFunction "", 0 {
+Push 0.0, "super"
+GetVariable
+Push "myOnSetFocus"
+CallMethod
+Pop
+Push "i", 0.0
+DefineLocal
+loc1d12:Push "i"
+GetVariable
+Push "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Less2
+Not
+If loc1d6a
+Push "enabled", 1, "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "fListItem", "i"
+GetVariable
+Add2
+Push "_mc"
+Add2
+GetMember
+Push "highlight_mc"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc1d12
+}
+loc1d6a:SetMember
+Push "FSelectableListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "myOnKillFocus"
+DefineFunction "", 0 {
+Push 0.0, "super"
+GetVariable
+Push "myOnKillFocus"
+CallMethod
+Pop
+Push "i", 0.0
+DefineLocal
+loc1da9:Push "i"
+GetVariable
+Push "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Less2
+Not
+If loc1e01
+Push "unfocused", 1, "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "fListItem", "i"
+GetVariable
+Add2
+Push "_mc"
+Add2
+GetMember
+Push "highlight_mc"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc1da9
+}
+loc1e01:SetMember

@@ -1,0 +1,18 @@
+ConstantPool "_root", "cover", "_visible", "stagelabel", "gotoAndStop", "clearstage"
+Push "_root"
+GetVariable
+Push "cover"
+GetMember
+Push "_visible", false
+SetMember
+Push "stagelabel"
+GetVariable
+Push 1, "_root"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "clearstage", false
+SetMember

@@ -1,0 +1,43 @@
+ConstantPool "_root", "itemstats", "Focus Band", "Fire Band", "Power Band", "Snake Band", "Metal Plates", "Metal Armour", "Snake Skin"
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 20, "Focus Band"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 21, "Fire Band"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 22, "Power Band"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 23, "Snake Band"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 24, "Metal Plates"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 25, "Metal Armour"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 26, "Snake Skin"
+SetMember

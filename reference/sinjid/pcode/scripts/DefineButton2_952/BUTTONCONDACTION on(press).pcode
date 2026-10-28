@@ -1,0 +1,75 @@
+ConstantPool "_root", "inventory", "explainbox", "_visible", "itempick", "slot", "slotnum", "gotoAndStop", "itemhold", "itemstats", "itemmouse"
+Push "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "explainbox"
+GetMember
+Push "_visible", false
+SetMember
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+Push 1, "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "slot", "_root"
+GetVariable
+Push "slotnum"
+GetMember
+Add2
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "itemhold", "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "_root"
+GetVariable
+Push "slotnum"
+GetMember
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "_root"
+GetVariable
+Push "slotnum"
+GetMember
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "itempick", "_root"
+GetVariable
+Push "itemhold"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+Push 1, "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "itemmouse"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "slotnum", undefined
+SetMember

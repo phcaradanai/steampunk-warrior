@@ -1,0 +1,77 @@
+ConstantPool "_root", "engb", "engrate", "expup", "exprate", "Math", "ceil", "endtrain", "blackout", "play", "engbar", "_width", "engmaxb", "widthkeep"
+Push "_root"
+GetVariable
+Push "engb", "_root"
+GetVariable
+Push "engb"
+GetMember
+Push "_root"
+GetVariable
+Push "engrate"
+GetMember
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "expup", "_root"
+GetVariable
+Push "expup"
+GetMember
+Push "_root"
+GetVariable
+Push "exprate"
+GetMember
+Push 2
+Multiply
+Push 1, "Math"
+GetVariable
+Push "ceil"
+CallMethod
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "engb"
+GetMember
+Push 0.0
+Greater
+Not
+Not
+If loc0125
+Push "_root"
+GetVariable
+Push "engb", 0.0
+SetMember
+Push "_root"
+GetVariable
+Push "endtrain", true
+SetMember
+Push 0.0, "_root"
+GetVariable
+Push "blackout"
+GetMember
+Push "play"
+CallMethod
+Pop
+Stop
+loc0125:Push "_root"
+GetVariable
+Push "engbar"
+GetMember
+Push "_width", "_root"
+GetVariable
+Push "engb"
+GetMember
+Push "_root"
+GetVariable
+Push "engmaxb"
+GetMember
+Divide
+Push "_root"
+GetVariable
+Push "engbar"
+GetMember
+Push "widthkeep"
+GetMember
+Multiply
+SetMember

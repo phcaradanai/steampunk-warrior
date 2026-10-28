@@ -1,0 +1,129 @@
+ConstantPool "_root", "grid", "char", "this", "person", "hitTest", "Key", "isDown", "pause", "talking", "clearstage", "speak", "speak1", "i", "White Leaves", "SearchItem", "Searched", "Medicine", "GetItem", "speak2", "TalkBox", "SpeakerText", "persontype", "TalkText", "_visible", "gotoAndPlay"
+Push "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push 1, "this"
+GetVariable
+Push "person"
+GetMember
+Push "hitTest"
+CallMethod
+Not
+If loc027d
+Push 32, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+PushDuplicate
+Not
+If loc0131
+Pop
+Push "_root"
+GetVariable
+Push "pause"
+GetMember
+Push false
+Equals2
+loc0131:PushDuplicate
+Not
+If loc014c
+Pop
+Push "_root"
+GetVariable
+Push "talking"
+GetMember
+Push true
+Equals2
+Not
+loc014c:PushDuplicate
+Not
+If loc0166
+Pop
+Push "_root"
+GetVariable
+Push "clearstage"
+GetMember
+Push false
+Equals2
+loc0166:Not
+If loc027d
+Push "speak", "speak1"
+GetVariable
+SetVariable
+Push "i", 4
+SetVariable
+loc0180:Push "i"
+GetVariable
+Push 12
+Less2
+Not
+If loc0206
+Push true, "White Leaves", 2, "_root"
+GetVariable
+Push "SearchItem"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "Searched"
+GetMember
+Push true
+Equals2
+Not
+If loc01f7
+Push 0.0, "Medicine", 2, "_root"
+GetVariable
+Push "GetItem"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "Searched", false
+SetMember
+Push "speak", "speak2"
+GetVariable
+SetVariable
+loc01f7:Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc0180
+loc0206:Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "SpeakerText", "persontype"
+GetVariable
+SetMember
+Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "TalkText", "speak"
+GetVariable
+SetMember
+Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "_visible", true
+SetMember
+Push "_root"
+GetVariable
+Push "pause", true
+SetMember
+Push "_root"
+GetVariable
+Push "talking", true
+SetMember
+Push 1, 1, "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "gotoAndPlay"
+CallMethod
+Pop
+loc027d:

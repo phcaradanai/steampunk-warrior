@@ -1,0 +1,5 @@
+Stop
+Push "_root"
+GetVariable
+Push "itempick", "None"
+SetMember

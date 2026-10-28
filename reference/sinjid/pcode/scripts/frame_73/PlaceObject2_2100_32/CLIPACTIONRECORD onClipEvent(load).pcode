@@ -1,0 +1,15 @@
+ConstantPool "attacks", "fire", "ice", "attack", "numofmoves", "length", "mcname2", "enemy1", "subject2", "dmgtype2", "enemy"
+Push "attacks", "fire", "ice", "attack", 3
+InitArray
+SetVariable
+Push "numofmoves", "attacks"
+GetVariable
+Push "length"
+GetMember
+SetVariable
+Push "mcname2", "enemy1"
+SetVariable
+Push "subject2", "enemy1"
+SetVariable
+Push "dmgtype2", "enemy"
+SetVariable

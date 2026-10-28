@@ -1,0 +1,39 @@
+ConstantPool "_root", "rests", "engb", "engmaxb", "manab", "manamaxb", "lifeb", "lifemaxb"
+Push "_root"
+GetVariable
+Push "rests"
+GetMember
+Push 0.0
+Greater
+Not
+If loc00b0
+Push "_root"
+GetVariable
+Push "rests", "_root"
+GetVariable
+Push "rests"
+GetMember
+Decrement
+SetMember
+Push "_root"
+GetVariable
+Push "engb", "_root"
+GetVariable
+Push "engmaxb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "manab", "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "lifeb", "_root"
+GetVariable
+Push "lifemaxb"
+GetMember
+SetMember
+loc00b0:

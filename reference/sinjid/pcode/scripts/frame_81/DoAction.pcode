@@ -1,0 +1,68 @@
+ConstantPool "enemy1speed", "_root", "endtrain", "enemy1suit", "Training Ward", "enemy1av", "expup", "goldup", "engcost", "enemy1bodyparts", "Array", "feet2", "feet1", "feetleg2", "feetleg1", "leg2", "leg1", "handarm2", "handarm1", "arm2", "arm1", "body", "enemy1shieldtypeb", "Invisi", "fightav1", "gotoAndStop", "enemy1helmet", "enemy1phydmg", "enemy1magdmg", "enemy1shddmg", "enemy1lifemax", "enemy1shdptsmax", "enemy1magdef", "enemy1phydef", "enemy1shdmagdef", "enemy1shdphydef", "enemy1str", "enemy1life", "enemy1shdpts", "enemy2lifemax", "enemy2life"
+Push "enemy1speed", 15
+SetVariable
+Push "_root"
+GetVariable
+Push "endtrain", false
+SetMember
+Push "enemy1suit", "Training Ward"
+SetVariable
+Push "enemy1av", "enemy1suit"
+GetVariable
+SetVariable
+Stop
+Push "expup", 0.0
+SetVariable
+Push "goldup", 0.0
+SetVariable
+Push "engcost", 0.0
+SetVariable
+Push "enemy1bodyparts", 0.0, "Array"
+NewObject
+SetVariable
+Push "enemy1bodyparts", "feet2", "feet1", "feetleg2", "feetleg1", "leg2", "leg1", "handarm2", "handarm1", "arm2", "arm1", "body", 11
+InitArray
+SetVariable
+Push "enemy1shieldtypeb", "Invisi"
+SetVariable
+Push "enemy1av"
+GetVariable
+Push 1, "fightav1"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "enemy1helmet", "enemy1suit"
+GetVariable
+SetVariable
+Push "enemy1phydmg", 5
+SetVariable
+Push "enemy1magdmg", 5
+SetVariable
+Push "enemy1shddmg", 100
+SetVariable
+Push "enemy1lifemax", 80
+SetVariable
+Push "enemy1shdptsmax", 300
+SetVariable
+Push "enemy1magdef", 50
+SetVariable
+Push "enemy1phydef", 0.0
+SetVariable
+Push "enemy1shdmagdef", 0.0
+SetVariable
+Push "enemy1shdphydef", 50
+SetVariable
+Push "enemy1str", 0.0
+SetVariable
+Push "enemy1life", "enemy1lifemax"
+GetVariable
+SetVariable
+Push "enemy1shdpts", "enemy1shdptsmax"
+GetVariable
+SetVariable
+Push "enemy2lifemax", 0.0
+SetVariable
+Push "enemy2life", "enemy2lifemax"
+GetVariable
+SetVariable

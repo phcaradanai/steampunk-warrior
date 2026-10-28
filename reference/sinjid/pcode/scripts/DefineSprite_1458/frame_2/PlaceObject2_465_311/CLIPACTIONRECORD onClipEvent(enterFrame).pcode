@@ -1,0 +1,11 @@
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 11
+GetMember
+Push 1, "this"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop

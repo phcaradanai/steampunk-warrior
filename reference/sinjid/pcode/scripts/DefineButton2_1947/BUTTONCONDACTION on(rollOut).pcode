@@ -1,0 +1,9 @@
+ConstantPool "_root", "manacostv", "", "manacostv2"
+Push "_root"
+GetVariable
+Push "manacostv", ""
+SetMember
+Push "_root"
+GetVariable
+Push "manacostv2", ""
+SetMember

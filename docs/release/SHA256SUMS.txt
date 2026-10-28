@@ -1,0 +1,4 @@
+b36af93eaad34ee6bda42893015dc13f33b21fe67086fb1f6f22af303b300856  game/builds/macos/SteampunkWarrior-0.1.1.zip
+6ead1a828a8a64f08b163c0f2ad55b3ec54a50474748815631551f5fb5d0b748  game/builds/windows/SteampunkWarrior-Windows-0.1.1.zip
+b36af93eaad34ee6bda42893015dc13f33b21fe67086fb1f6f22af303b300856  game/builds/macos/SteampunkWarrior.zip
+6ead1a828a8a64f08b163c0f2ad55b3ec54a50474748815631551f5fb5d0b748  game/builds/windows/SteampunkWarrior-Windows.zip

@@ -1,0 +1,9 @@
+Push 32, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+Not
+If loc002b
+GotoFrame 0
+Play
+loc002b:

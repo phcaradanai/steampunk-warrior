@@ -1,0 +1,4 @@
+Push "persontype", "Statue2"
+SetVariable
+Push "objectnum", 2
+SetVariable

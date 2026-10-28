@@ -1,0 +1,40 @@
+ConstantPool "enemy2lifemax", "enemy2life", "expup", "engcost", "goldup", "enemy1speed", "enemy1str", "enemy1lifemax", "enemy1life", "enemy1shddmg", "enemy1phydmg", "enemy1magdmg", "enemy1shdpts", "enemy1shdptsmax", "enemy1magdef", "enemy1phydef", "enemy1shdmagdef", "enemy1shdphydef"
+Push "enemy2lifemax", 0.0
+SetVariable
+Push "enemy2life", "enemy2lifemax"
+GetVariable
+SetVariable
+Stop
+Push "expup", 30
+SetVariable
+Push "engcost", 10
+SetVariable
+Push "goldup", 15
+SetVariable
+Push "enemy1speed", 15
+SetVariable
+Push "enemy1str", 0.0
+SetVariable
+Push "enemy1lifemax", 50
+SetVariable
+Push "enemy1life", "enemy1lifemax"
+GetVariable
+SetVariable
+Push "enemy1shddmg", 3
+SetVariable
+Push "enemy1phydmg", 8
+SetVariable
+Push "enemy1magdmg", 0.0
+SetVariable
+Push "enemy1shdpts", 0.0
+SetVariable
+Push "enemy1shdptsmax", 1
+SetVariable
+Push "enemy1magdef", 0.0
+SetVariable
+Push "enemy1phydef", 30
+SetVariable
+Push "enemy1shdmagdef", 0.0
+SetVariable
+Push "enemy1shdphydef", 0.0
+SetVariable

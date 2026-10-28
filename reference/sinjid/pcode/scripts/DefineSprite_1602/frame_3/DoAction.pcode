@@ -1,0 +1,6 @@
+Push "_root"
+GetVariable
+Push "cover"
+GetMember
+Push "_visible", false
+SetMember

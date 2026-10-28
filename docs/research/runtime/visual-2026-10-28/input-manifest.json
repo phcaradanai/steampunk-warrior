@@ -1,0 +1,62 @@
+{
+  "phase": "input",
+  "authority": "Original unmodified SWF in Ruffle; ordinary input; screenshot intervals include capture overhead",
+  "original_sha256": "e258423f2a5887ff236a67eb6eaf674a8d573a5cdb721c20b79c831da4d9e008",
+  "records": [
+    {
+      "name": "combat-ready",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/combat-ready.png",
+      "at": 1793176575439
+    },
+    {
+      "name": "attack-start",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/attack-start.png",
+      "at": 1793176575547
+    },
+    {
+      "name": "attack-0",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/attack-0.png",
+      "at": 1793176575681
+    },
+    {
+      "name": "attack-1",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/attack-1.png",
+      "at": 1793176575848
+    },
+    {
+      "name": "attack-2",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/attack-2.png",
+      "at": 1793176576014
+    },
+    {
+      "name": "attack-3",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/attack-3.png",
+      "at": 1793176576149
+    },
+    {
+      "name": "attack-4",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/attack-4.png",
+      "at": 1793176576298
+    },
+    {
+      "name": "attack-5",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/attack-5.png",
+      "at": 1793176576431
+    },
+    {
+      "name": "attack-6",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/attack-6.png",
+      "at": 1793176576566
+    },
+    {
+      "name": "attack-7",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/attack-7.png",
+      "at": 1793176576713
+    },
+    {
+      "name": "attack-8",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/attack-8.png",
+      "at": 1793176576847
+    }
+  ]
+}

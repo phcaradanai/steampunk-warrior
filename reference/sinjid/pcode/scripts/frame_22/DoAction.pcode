@@ -1,0 +1,285 @@
+ConstantPool "bgstage", "Arena", "bg", "gotoAndStop", "_root", "clearstage", "currentstage", "Arena1", "area", "game", "cell1_3", "type", "cell2_3", "cell3_3", "cell4_3", "cell5_3", "cell6_3", "cell7_3", "cell8_3", "cell9_3", "cell10_3", "cell11_3", "cell12_3", "cell13_3", "cell14_3", "cell15_3", "cell16_3", "cell17_3", "cell18_3", "cell19_3", "cell20_3", "meet", "cell5_6", "cell6_6", "cell7_6", "cell8_6", "cell9_6", "cell9_5", "cell9_4", "cell12_4", "cell12_5", "cell12_6", "cell13_6", "cell14_6", "cell15_6", "cell3_5", "cell18_5", "cell16_6", "cell17_6", "cell17_5", "cell17_4", "cell4_6", "cell4_5", "cell4_4", "cell17_10"
+Stop
+Push "bgstage", "Arena"
+SetVariable
+Push "bgstage"
+GetVariable
+Push 1, "bg"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "clearstage", false
+SetMember
+Push "_root"
+GetVariable
+Push "currentstage", "Arena1"
+SetMember
+Push "_root"
+GetVariable
+Push "area", "Arena"
+SetMember
+Push "game"
+GetVariable
+Push "cell1_3"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell2_3"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell3_3"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell4_3"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell5_3"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell6_3"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell7_3"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell8_3"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell9_3"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell10_3"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell11_3"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell12_3"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell13_3"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell14_3"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell15_3"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell16_3"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell17_3"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell18_3"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell19_3"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell20_3"
+GetMember
+Push "type", 2
+SetMember
+Push "_root"
+GetVariable
+Push "meet", false
+SetMember
+Push "game"
+GetVariable
+Push "cell5_6"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell6_6"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell7_6"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell8_6"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell9_6"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell9_5"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell9_4"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell12_4"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell12_5"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell12_6"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell13_6"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell14_6"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell15_6"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell3_5"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell18_5"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell16_6"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell17_6"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell17_5"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell17_4"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell4_6"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell4_5"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell4_4"
+GetMember
+Push "type", 2
+SetMember
+Push "game"
+GetVariable
+Push "cell17_10"
+GetMember
+Push "type", 2
+SetMember

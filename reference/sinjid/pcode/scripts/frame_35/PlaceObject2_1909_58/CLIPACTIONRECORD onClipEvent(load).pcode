@@ -1,0 +1,7 @@
+ConstantPool "mcname2", "hero1", "subject2", "dmgtype2", "hero"
+Push "mcname2", "hero1"
+SetVariable
+Push "subject2", "hero1"
+SetVariable
+Push "dmgtype2", "hero"
+SetVariable

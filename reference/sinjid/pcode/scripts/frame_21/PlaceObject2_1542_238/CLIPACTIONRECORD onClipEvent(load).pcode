@@ -1,0 +1,6 @@
+Push "persontype", "Elder"
+SetVariable
+Push "inventorytype", "Save"
+SetVariable
+Push "objectnum", 0.0
+SetVariable

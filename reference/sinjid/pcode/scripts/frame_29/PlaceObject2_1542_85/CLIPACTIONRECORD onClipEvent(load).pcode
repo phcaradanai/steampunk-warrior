@@ -1,0 +1,6 @@
+Push "speak", "The monsters in the blue portal are very strong. You should at least be around level 7 before entering."
+SetVariable
+Push "persontype", "Guard"
+SetVariable
+Push "objectnum", 0.0
+SetVariable

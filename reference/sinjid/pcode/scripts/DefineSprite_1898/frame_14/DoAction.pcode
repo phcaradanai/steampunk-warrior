@@ -1,0 +1,77 @@
+ConstantPool "_root", "hero2lifemax", "skill", "hero2phydmg", "hero2magdmg", "hero2speed", "hero1speed", "hero2life", "hero2bar", "_width", "widthkeep"
+Push "_root"
+GetVariable
+Push "hero2lifemax", 70, 30, "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 18
+GetMember
+Multiply
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "hero2phydmg", 13, 12, "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 18
+GetMember
+Multiply
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "hero2magdmg", 13, 12, "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 18
+GetMember
+Multiply
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "hero2speed", "_root"
+GetVariable
+Push "hero1speed"
+GetMember
+Push 4, "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 18
+GetMember
+Multiply
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "hero2life", "_root"
+GetVariable
+Push "hero2lifemax"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero2bar"
+GetMember
+Push "_width", "_root"
+GetVariable
+Push "hero2life"
+GetMember
+Push "_root"
+GetVariable
+Push "hero2lifemax"
+GetMember
+Divide
+Push "_root"
+GetVariable
+Push "hero2bar"
+GetMember
+Push "widthkeep"
+GetMember
+Multiply
+SetMember

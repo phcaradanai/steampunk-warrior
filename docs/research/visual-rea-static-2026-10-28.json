@@ -1,0 +1,95 @@
+{
+  "authority": "static exported ActionScript; not live animation timing",
+  "original_sha256": "e258423f2a5887ff236a67eb6eaf674a8d573a5cdb721c20b79c831da4d9e008",
+  "matches": {
+    "sword.gotoAndStop": {
+      "count": 204,
+      "examples": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1908/frame_16/DoAction_2.as",
+          "line": 1,
+          "text": "sword.gotoAndStop(_root[subject + \"swordtype\"]);"
+        },
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1908/frame_18/DoAction.as",
+          "line": 1,
+          "text": "sword.gotoAndStop(_root[subject + \"swordtype\"]);"
+        },
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1908/frame_1/DoAction.as",
+          "line": 1,
+          "text": "sword.gotoAndStop(_root[subject + \"swordtype\"]);"
+        },
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1908/frame_23/DoAction_2.as",
+          "line": 1,
+          "text": "sword.gotoAndStop(_root[subject + \"swordtype\"]);"
+        }
+      ]
+    },
+    "head.gotoAndStop": {
+      "count": 226,
+      "examples": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineButton2_1401/BUTTONCONDACTION on(release, keyPress Space).as",
+          "line": 12,
+          "text": "head.gotoAndStop(_root.Helmet);"
+        },
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineButton2_1455/BUTTONCONDACTION on(release).as",
+          "line": 17,
+          "text": "head.gotoAndStop(_root.Helmet);"
+        },
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineButton2_1453/BUTTONCONDACTION on(release).as",
+          "line": 17,
+          "text": "head.gotoAndStop(_root.Helmet);"
+        },
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineButton2_1454/BUTTONCONDACTION on(release).as",
+          "line": 17,
+          "text": "head.gotoAndStop(_root.Helmet);"
+        }
+      ]
+    },
+    "shield.gotoAndStop": {
+      "count": 254,
+      "examples": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1908/frame_16/DoAction_2.as",
+          "line": 3,
+          "text": "shield.gotoAndStop(_root[subject + \"shieldtype\"]);"
+        },
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1908/frame_18/DoAction.as",
+          "line": 3,
+          "text": "shield.gotoAndStop(_root[subject + \"shieldtype\"]);"
+        },
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1908/frame_1/DoAction.as",
+          "line": 3,
+          "text": "shield.gotoAndStop(_root[subject + \"shieldtype\"]);"
+        },
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_1908/frame_23/DoAction_2.as",
+          "line": 3,
+          "text": "shield.gotoAndStop(_root[subject + \"shieldtype\"]);"
+        }
+      ]
+    },
+    "movement.gotoAndPlay": {
+      "count": 0,
+      "examples": []
+    },
+    "movement.play()": {
+      "count": 1,
+      "examples": [
+        {
+          "path": "reference/sinjid/decompiled/scripts/DefineSprite_909/frame_1/PlaceObject2_908_2/CLIPACTIONRECORD onClipEvent(enterFrame)_2.as",
+          "line": 6,
+          "text": "this.movement.play();"
+        }
+      ]
+    }
+  }
+}

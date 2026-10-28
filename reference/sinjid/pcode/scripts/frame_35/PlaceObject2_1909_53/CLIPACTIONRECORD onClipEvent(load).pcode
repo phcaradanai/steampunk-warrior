@@ -1,0 +1,12 @@
+ConstantPool "attacks", "attack", "numofmoves", "mcname2", "hero2", "subject2", "dmgtype2", "hero"
+Push "attacks", "attack", 1
+InitArray
+SetVariable
+Push "numofmoves", 1
+SetVariable
+Push "mcname2", "hero2"
+SetVariable
+Push "subject2", "hero2"
+SetVariable
+Push "dmgtype2", "hero"
+SetVariable

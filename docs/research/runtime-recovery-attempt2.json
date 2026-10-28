@@ -1,0 +1,294 @@
+{
+  "authority": "Controlled instrumented SWF6 browser probes; companion REA process Evidence establishes execution provenance. Not a natural progression playthrough.",
+  "phase": "recovery",
+  "original_sha256": "e258423f2a5887ff236a67eb6eaf674a8d573a5cdb721c20b79c831da4d9e008",
+  "probe_sha256": "65e9051d2905e949d88bb799a22023dc9146be780b0fa869f37c2e69ea1b1c46",
+  "instrumentation_sha256": "b35f55c5ad8faf71ebd1745310ba4ee2f3adeb47e1c376a14a5b972c7b090324",
+  "runner_sha256": "4b77c8725c2eb9892543be8d99badec84fd4862d866f0d8cef5b6f95b6deaa7e",
+  "changes": [
+    {
+      "index": 490,
+      "before": {
+        "frame": 17,
+        "code": 12,
+        "sha256": "e774ae15ff5e2b9b0381b61d0e1e696756855f32bc6d93ec798e00b8dabc6076"
+      },
+      "after": {
+        "frame": 17,
+        "code": 12,
+        "sha256": "43f8bc77a84924b0cfd614af23ca19b51f0b7ddd5953a68d6e7f0ffb86b4d262"
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "seq": "1793079119516",
+      "mode": "snapshot",
+      "fields": {}
+    },
+    {
+      "seq": "1793079119517",
+      "mode": "jump",
+      "fields": {
+        "reaTarget": "Arena2"
+      }
+    },
+    {
+      "seq": "1793079119518",
+      "mode": "position",
+      "fields": {
+        "reaX": "299",
+        "reaY": "166"
+      }
+    },
+    {
+      "seq": "1793079119519",
+      "mode": "snapshot",
+      "fields": {}
+    },
+    {
+      "seq": "1793079119520",
+      "mode": "snapshot",
+      "fields": {}
+    },
+    {
+      "seq": "1793079119521",
+      "mode": "set",
+      "fields": {
+        "reaName": "hero1life",
+        "reaValue": "0"
+      }
+    },
+    {
+      "seq": "1793079119522",
+      "mode": "set",
+      "fields": {
+        "reaName": "midfight",
+        "reaValue": "0"
+      }
+    },
+    {
+      "seq": "1793079119523",
+      "mode": "snapshot",
+      "fields": {}
+    },
+    {
+      "seq": "1793079119524",
+      "mode": "snapshot",
+      "fields": {}
+    },
+    {
+      "seq": "1793079119525",
+      "mode": "snapshot",
+      "fields": {}
+    },
+    {
+      "seq": "1793079119526",
+      "mode": "snapshot",
+      "fields": {}
+    },
+    {
+      "seq": "1793079119527",
+      "mode": "snapshot",
+      "fields": {}
+    },
+    {
+      "seq": "1793079119528",
+      "mode": "snapshot",
+      "fields": {}
+    },
+    {
+      "seq": "1793079119529",
+      "mode": "snapshot",
+      "fields": {}
+    },
+    {
+      "seq": "1793079119530",
+      "mode": "snapshot",
+      "fields": {}
+    },
+    {
+      "seq": "1793079119531",
+      "mode": "snapshot",
+      "fields": {}
+    },
+    {
+      "seq": "1793079119532",
+      "mode": "snapshot",
+      "fields": {}
+    },
+    {
+      "seq": "1793079119533",
+      "mode": "snapshot",
+      "fields": {}
+    },
+    {
+      "seq": "1793079119534",
+      "mode": "snapshot",
+      "fields": {}
+    },
+    {
+      "seq": "1793079119535",
+      "mode": "snapshot",
+      "fields": {}
+    },
+    {
+      "seq": "1793079119536",
+      "mode": "snapshot",
+      "fields": {}
+    },
+    {
+      "seq": "1793079119537",
+      "mode": "snapshot",
+      "fields": {}
+    }
+  ],
+  "records": [
+    {
+      "name": "natural-Warrior-initialization-in-instrumented-copy",
+      "state": {
+        "frame": "21",
+        "reaSeq": "1793079119516",
+        "reaMode": "snapshot",
+        "level": "1",
+        "lifeb": "85",
+        "lifemaxb": "85",
+        "manab": "65",
+        "manamaxb": "65",
+        "engb": "50",
+        "engmaxb": "50",
+        "gold": "75",
+        "rests": "10",
+        "currentstage": "Arena0",
+        "hero1life": "",
+        "hero1lifemax": "",
+        "hero1mana": "",
+        "hero1speed": "",
+        "hero1phydmg": "",
+        "hero1magdmg": "",
+        "hero1shdpts": "",
+        "hero1phydef": "",
+        "hero1magdef": "",
+        "hero2life": "",
+        "hero2speed": "",
+        "enemy1life": "",
+        "enemy2life": "",
+        "enemy1speed": "",
+        "enemy2speed": "",
+        "enemy1suit": "",
+        "enemy2suit": "",
+        "enemy1shdpts": "",
+        "enemy2shdpts": "",
+        "playermove": "",
+        "turnnum": "",
+        "midfight": "",
+        "herotarget": "",
+        "enemytarget": "",
+        "endtrain": "",
+        "exprate": "",
+        "engrate": "",
+        "expb": "0",
+        "expup": "",
+        "expmaxb": "50",
+        "skillpts": "0",
+        "statpts": "0",
+        "moon_q": "false",
+        "itempick": "None",
+        "phydmgb": "10",
+        "magdmgb": "0",
+        "strb": "17",
+        "speedb": "13",
+        "Weapon": "Iron Knife",
+        "soundon": "On",
+        "quality": "",
+        "pause": "false",
+        "talking": "",
+        "clearstage": "false",
+        "droppedstuff": "None",
+        "reaResult": "",
+        "skill": "1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+        "itemstats": "Iron Knife,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None",
+        "portals": "1,1,1",
+        "speaker": "SPEAKER",
+        "talk": "Text",
+        "undefinedPlusOne": "1",
+        "charx": "300",
+        "chary": "195"
+      }
+    },
+    {
+      "name": "actual-Human-portal-entry-increments-counter",
+      "state": {
+        "frame": "49",
+        "reaSeq": "1793079119520",
+        "reaMode": "snapshot",
+        "level": "1",
+        "lifeb": "85",
+        "lifemaxb": "85",
+        "manab": "65",
+        "manamaxb": "65",
+        "engb": "50",
+        "engmaxb": "50",
+        "gold": "75",
+        "rests": "10",
+        "currentstage": "Arena2",
+        "hero1life": "80",
+        "hero1lifemax": "85",
+        "hero1mana": "65",
+        "hero1speed": "13",
+        "hero1phydmg": "10",
+        "hero1magdmg": "0",
+        "hero1shdpts": "0",
+        "hero1phydef": "5",
+        "hero1magdef": "0",
+        "hero2life": "0",
+        "hero2speed": "13",
+        "enemy1life": "60",
+        "enemy2life": "0",
+        "enemy1speed": "15",
+        "enemy2speed": "",
+        "enemy1suit": "Thief",
+        "enemy2suit": "",
+        "enemy1shdpts": "20",
+        "enemy2shdpts": "",
+        "playermove": "enemy1,hero2,hero1,enemy2",
+        "turnnum": "2",
+        "midfight": "false",
+        "herotarget": "enemy1",
+        "enemytarget": "hero1",
+        "endtrain": "false",
+        "exprate": "",
+        "engrate": "",
+        "expb": "0",
+        "expup": "30",
+        "expmaxb": "50",
+        "skillpts": "0",
+        "statpts": "0",
+        "moon_q": "false",
+        "itempick": "None",
+        "phydmgb": "10",
+        "magdmgb": "0",
+        "strb": "17",
+        "speedb": "13",
+        "Weapon": "Iron Knife",
+        "soundon": "On",
+        "quality": "",
+        "pause": "false",
+        "talking": "false",
+        "clearstage": "true",
+        "droppedstuff": "None",
+        "reaResult": "",
+        "skill": "1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0",
+        "itemstats": "Iron Knife,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None,None",
+        "portals": "2,1,1",
+        "speaker": "SPEAKER",
+        "talk": "Text",
+        "undefinedPlusOne": "1",
+        "charx": "",
+        "chary": ""
+      }
+    }
+  ],
+  "status": "failed",
+  "error": "Error: Original movie did not reach frame 90\n    at waitFrame (file:///Users/Projects/Steampunk-warrior/docs/research/run-runtime-probes.mjs:60:9)\n    at async file:///Users/Projects/Steampunk-warrior/docs/research/run-runtime-probes.mjs:198:7"
+}

@@ -1,0 +1,1097 @@
+{
+  "status": "proposed design; not implemented",
+  "count_basis": "Sinjid source baseline plus user increments 2026-10-27; replaces assistant proposals36skills/18rooms/90gear",
+  "counts": {
+    "classes": 5,
+    "skills": 22,
+    "active_skills": 19,
+    "passive_skills": 3,
+    "bosses": 6,
+    "rooms": 12,
+    "equipment": 62,
+    "training": 4,
+    "encounters": 36
+  },
+  "classes": [
+    {
+      "id": "C01",
+      "name": "ทหารหม้อน้ำ",
+      "starter_skill": "S01",
+      "VIT": 12,
+      "STR": 8,
+      "INT": 5,
+      "AGI": 5,
+      "trait": "เริ่มทุกไฟต์ด้วยbarrier20"
+    },
+    {
+      "id": "C02",
+      "name": "มือปืนรางเหล็ก",
+      "starter_skill": "S03",
+      "VIT": 8,
+      "STR": 7,
+      "INT": 6,
+      "AGI": 9,
+      "trait": "โจมตีMarkedเพิ่ม10%"
+    },
+    {
+      "id": "C03",
+      "name": "วิศวกรอาร์ก",
+      "starter_skill": "S04",
+      "VIT": 8,
+      "STR": 5,
+      "INT": 12,
+      "AGI": 5,
+      "trait": "FPcostทุกสกิลลด1ขั้นต่ำ1"
+    },
+    {
+      "id": "C04",
+      "name": "หมอสนามเขม่า",
+      "starter_skill": "S09",
+      "VIT": 10,
+      "STR": 5,
+      "INT": 10,
+      "AGI": 5,
+      "trait": "การฮีลเพิ่ม20%"
+    },
+    {
+      "id": "C05",
+      "name": "นักชีวกลเอเธอร์",
+      "starter_skill": "S20",
+      "VIT": 9,
+      "STR": 6,
+      "INT": 9,
+      "AGI": 6,
+      "trait": "Wet/Corrodedที่ตนใส่คงอยู่อีก1turn"
+    }
+  ],
+  "skills": [
+    {
+      "id": "S01",
+      "name": "แทงเฟือง",
+      "kind": "active",
+      "target": "enemy",
+      "fp_cost": 5,
+      "pressure_delta": 8,
+      "effect": "1.25ATK physical;shielddamage x1.5",
+      "required_level": 1,
+      "parents": ""
+    },
+    {
+      "id": "S02",
+      "name": "ฟันต่อเนื่อง",
+      "kind": "active",
+      "target": "enemy",
+      "fp_cost": 8,
+      "pressure_delta": 12,
+      "effect": "2 hits x0.70ATK physical",
+      "required_level": 5,
+      "parents": "S01"
+    },
+    {
+      "id": "S03",
+      "name": "ยิงหมุด",
+      "kind": "active",
+      "target": "enemy",
+      "fp_cost": 5,
+      "pressure_delta": 6,
+      "effect": "1.10ATK physical + Marked2",
+      "required_level": 1,
+      "parents": ""
+    },
+    {
+      "id": "S04",
+      "name": "ประกายอาร์ก",
+      "kind": "active",
+      "target": "enemy",
+      "fp_cost": 6,
+      "pressure_delta": 10,
+      "effect": "1.25TECH electric",
+      "required_level": 1,
+      "parents": ""
+    },
+    {
+      "id": "S05",
+      "name": "กระสุนกระจาย",
+      "kind": "active",
+      "target": "all_enemies",
+      "fp_cost": 10,
+      "pressure_delta": 14,
+      "effect": "0.85ATK physical each",
+      "required_level": 5,
+      "parents": "S03"
+    },
+    {
+      "id": "S06",
+      "name": "ลูกโซ่ไฟฟ้า",
+      "kind": "active",
+      "target": "all_enemies",
+      "fp_cost": 12,
+      "pressure_delta": 16,
+      "effect": "0.95TECH electric each",
+      "required_level": 10,
+      "parents": "S04"
+    },
+    {
+      "id": "S07",
+      "name": "ค้อนทะลวง",
+      "kind": "active",
+      "target": "enemy",
+      "fp_cost": 12,
+      "pressure_delta": 18,
+      "effect": "1.80ATK physical ignores50%armor",
+      "required_level": 10,
+      "parents": "S01,S02"
+    },
+    {
+      "id": "S08",
+      "name": "ระเบิดหมอก",
+      "kind": "active",
+      "target": "all_enemies",
+      "fp_cost": 10,
+      "pressure_delta": 12,
+      "effect": "0.70TECH chemical + Corroded2",
+      "required_level": 5,
+      "parents": "S04"
+    },
+    {
+      "id": "S09",
+      "name": "ปิดบาดแผล",
+      "kind": "active",
+      "target": "self",
+      "fp_cost": 8,
+      "pressure_delta": 0,
+      "effect": "heal 1.30TECH",
+      "required_level": 1,
+      "parents": ""
+    },
+    {
+      "id": "S10",
+      "name": "ฉีดกระตุ้น",
+      "kind": "active",
+      "target": "self",
+      "fp_cost": 8,
+      "pressure_delta": 5,
+      "effect": "initiative+20 for2turns",
+      "required_level": 5,
+      "parents": "S09"
+    },
+    {
+      "id": "S11",
+      "name": "กางสนามโล่",
+      "kind": "active",
+      "target": "self",
+      "fp_cost": 10,
+      "pressure_delta": 10,
+      "effect": "barrier 1.50TECH",
+      "required_level": 5,
+      "parents": "S09"
+    },
+    {
+      "id": "S12",
+      "name": "โดรนช่าง",
+      "kind": "active",
+      "target": "summon",
+      "fp_cost": 16,
+      "pressure_delta": 20,
+      "effect": "one drone 3turns;0.50TECH hit afterowner",
+      "required_level": 10,
+      "parents": "S04,S11"
+    },
+    {
+      "id": "S13",
+      "name": "ยิงจุดอ่อน",
+      "kind": "active",
+      "target": "enemy",
+      "fp_cost": 14,
+      "pressure_delta": 18,
+      "effect": "1.50ATK;Marked target x1.5 then consume",
+      "required_level": 10,
+      "parents": "S03,S05"
+    },
+    {
+      "id": "S14",
+      "name": "เผาไหม้แรงสูง",
+      "kind": "active",
+      "target": "enemy",
+      "fp_cost": 14,
+      "pressure_delta": 22,
+      "effect": "1.60TECH thermal + Heated2",
+      "required_level": 10,
+      "parents": "S04,S08"
+    },
+    {
+      "id": "S15",
+      "name": "ปลดประจุ",
+      "kind": "active",
+      "target": "enemy",
+      "fp_cost": 18,
+      "pressure_delta": 25,
+      "effect": "2.10TECH electric;Wet adds Staggered1",
+      "required_level": 15,
+      "parents": "S06,S14"
+    },
+    {
+      "id": "S16",
+      "name": "จู่โจมฉุกเฉิน",
+      "kind": "active",
+      "target": "enemy",
+      "fp_cost": 12,
+      "pressure_delta": 15,
+      "effect": "1.50ATK;HP<=35% x1.5",
+      "required_level": 10,
+      "parents": "S02,S10"
+    },
+    {
+      "id": "S17",
+      "name": "เสริมโครงร่าง",
+      "kind": "passive",
+      "target": "self",
+      "fp_cost": 0,
+      "pressure_delta": 0,
+      "effect": "maxHP+2% perrank",
+      "required_level": 1,
+      "parents": ""
+    },
+    {
+      "id": "S18",
+      "name": "สายส่งทองแดง",
+      "kind": "passive",
+      "target": "self",
+      "fp_cost": 0,
+      "pressure_delta": 0,
+      "effect": "maxFP+2% perrank",
+      "required_level": 5,
+      "parents": "S04"
+    },
+    {
+      "id": "S19",
+      "name": "รีเฟล็กซ์ช่าง",
+      "kind": "passive",
+      "target": "self",
+      "fp_cost": 0,
+      "pressure_delta": 0,
+      "effect": "initiative+1 perrank",
+      "required_level": 5,
+      "parents": "S03"
+    },
+    {
+      "id": "S20",
+      "name": "สายควบแน่น",
+      "kind": "active",
+      "target": "all_enemies",
+      "fp_cost": 8,
+      "pressure_delta": 6,
+      "effect": "0.50TECH chemical + Wet2",
+      "required_level": 1,
+      "parents": ""
+    },
+    {
+      "id": "S21",
+      "name": "ตรึงชีวภาพ",
+      "kind": "active",
+      "target": "enemy",
+      "fp_cost": 12,
+      "pressure_delta": 10,
+      "effect": "1.00TECH chemical + Sealed2",
+      "required_level": 10,
+      "parents": "S09,S20"
+    },
+    {
+      "id": "S22",
+      "name": "ระบายย้อนเฟส",
+      "kind": "active",
+      "target": "self",
+      "fp_cost": 10,
+      "pressure_delta": -40,
+      "effect": "removeHeated;barrier0.50TECH;cooldown2",
+      "required_level": 15,
+      "parents": "S11,S20"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "R01",
+      "name": "โรงซ่อมสนิมแดง",
+      "beat": "safe",
+      "purpose": "พัก เซฟ ฝึก และเลือกอาชีพ",
+      "exits": "R02"
+    },
+    {
+      "id": "R02",
+      "name": "ตลาดใต้สะพาน",
+      "beat": "safe",
+      "purpose": "ร้านค้าและข่าวสาร เปิดทางน้ำ",
+      "exits": "R01,R03"
+    },
+    {
+      "id": "R03",
+      "name": "คลองหมอกพิษ",
+      "beat": "teach",
+      "purpose": "สอนเปียกกับไฟฟ้าและช่วยคนงาน",
+      "exits": "R02,R04"
+    },
+    {
+      "id": "R04",
+      "name": "ประตูระบายน้ำ",
+      "beat": "test",
+      "purpose": "วาล์วลดอันตรายและบอสB01",
+      "exits": "R03,R05"
+    },
+    {
+      "id": "R05",
+      "name": "สถานีรถไฟร้าง",
+      "beat": "rest",
+      "purpose": "บทคุยฝ่ายต่าง ๆ และทางลัดกลับฐาน",
+      "exits": "R04,R06"
+    },
+    {
+      "id": "R06",
+      "name": "ลานรถหุ้มเกราะ",
+      "beat": "test",
+      "purpose": "ทดสอบเจาะโล่กับคู่ศัตรู บอสB02",
+      "exits": "R05,R07"
+    },
+    {
+      "id": "R07",
+      "name": "เรือนกระจกเอเธอร์",
+      "beat": "teach",
+      "purpose": "สอนสารกลายพันธุ์และเก็บหลักฐาน",
+      "exits": "R06,R08"
+    },
+    {
+      "id": "R08",
+      "name": "ห้องเพาะพันธุ์",
+      "beat": "test",
+      "purpose": "กิ่งทางเลือกช่วยนักวิจัย บอสB03",
+      "exits": "R07,R09"
+    },
+    {
+      "id": "R09",
+      "name": "อุโมงค์ถ่านหิน",
+      "beat": "teach",
+      "purpose": "สอนแรงดันและลำดับเทิร์น",
+      "exits": "R08,R10"
+    },
+    {
+      "id": "R10",
+      "name": "โรงหล่อแขนกล",
+      "beat": "test",
+      "purpose": "ความร้อนสลับรอบและบอสB04",
+      "exits": "R09,R11"
+    },
+    {
+      "id": "R11",
+      "name": "หอจดหมายเหตุเมือง",
+      "beat": "decision",
+      "purpose": "ห้องใหม่ มีหลักฐานเปลี่ยนคำสั่งปฏิกรณ์ บอสB05",
+      "exits": "R10,R12"
+    },
+    {
+      "id": "R12",
+      "name": "หัวใจปฏิกรณ์",
+      "beat": "climax",
+      "purpose": "พักเตือนก่อนล็อกประตูชั่วคราวและบอสB06",
+      "exits": "R11"
+    }
+  ],
+  "bosses": [
+    {
+      "id": "B01",
+      "name": "จระเข้หม้อน้ำ",
+      "kind": "mutant",
+      "room": "R04",
+      "mechanic": "ชาร์จไอน้ำ→กัดหมู่;ปิดวาล์วลดแรงดัน"
+    },
+    {
+      "id": "B02",
+      "name": "ผู้คุมขบวนเหล็ก",
+      "kind": "human",
+      "room": "R06",
+      "mechanic": "ตั้งโล่→ยิง;เจาะโล่หรือแทรกลำดับเทิร์น"
+    },
+    {
+      "id": "B03",
+      "name": "กวางรากแก้ว",
+      "kind": "mutant",
+      "room": "R08",
+      "mechanic": "เรียกหน่อฟื้นฟู;เลือกกำจัดหน่อก่อน"
+    },
+    {
+      "id": "B04",
+      "name": "นายช่างเตาหลอม",
+      "kind": "human",
+      "room": "R10",
+      "mechanic": "สะสมความร้อน→ปล่อยหมัด;ระบาย/ใช้เปียก"
+    },
+    {
+      "id": "B05",
+      "name": "ผู้เก็บความทรงจำ",
+      "kind": "human",
+      "room": "R11",
+      "mechanic": "สองคำสั่งสลับตามตราที่แสดง;หลักฐานเผยลำดับล่วงหน้าอีก1เทิร์น ไม่แสดงintentหลอก"
+    },
+    {
+      "id": "B06",
+      "name": "ราชินีเอเธอร์",
+      "kind": "mutant",
+      "room": "R12",
+      "mechanic": "เกราะชีวะ→ควัน→แกนเปิด;นำโจทย์วาล์ว/โล่/แรงดันมารวม"
+    }
+  ],
+  "equipment": [
+    {
+      "id": "W01",
+      "name": "มีดช่าง",
+      "slot": "weapon",
+      "tier": 1,
+      "source": "shop:R02",
+      "price": 30,
+      "required_level": 1,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W02",
+      "name": "กระบองวาล์ว",
+      "slot": "weapon",
+      "tier": 1,
+      "source": "shop:R02",
+      "price": 30,
+      "required_level": 1,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W03",
+      "name": "ปืนหมุด",
+      "slot": "weapon",
+      "tier": 1,
+      "source": "shop:R02",
+      "price": 30,
+      "required_level": 1,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W04",
+      "name": "ดาบเฟือง",
+      "slot": "weapon",
+      "tier": 1,
+      "source": "shop:R02",
+      "price": 30,
+      "required_level": 1,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W05",
+      "name": "ค้อนลูกสูบ",
+      "slot": "weapon",
+      "tier": 1,
+      "source": "shop:R02",
+      "price": 30,
+      "required_level": 1,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W06",
+      "name": "หอกท่อทองแดง",
+      "slot": "weapon",
+      "tier": 1,
+      "source": "shop:R02",
+      "price": 30,
+      "required_level": 1,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W07",
+      "name": "ประแจไฟฟ้า",
+      "slot": "weapon",
+      "tier": 2,
+      "source": "shop:R05",
+      "price": 120,
+      "required_level": 6,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W08",
+      "name": "ปืนคาร์ไบน์",
+      "slot": "weapon",
+      "tier": 2,
+      "source": "shop:R05",
+      "price": 120,
+      "required_level": 6,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W09",
+      "name": "เลื่อยไอน้ำ",
+      "slot": "weapon",
+      "tier": 2,
+      "source": "shop:R05",
+      "price": 120,
+      "required_level": 6,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W10",
+      "name": "หอกขดลวด",
+      "slot": "weapon",
+      "tier": 2,
+      "source": "shop:R05",
+      "price": 120,
+      "required_level": 6,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W11",
+      "name": "ปืนกรด",
+      "slot": "weapon",
+      "tier": 2,
+      "source": "shop:R05",
+      "price": 120,
+      "required_level": 6,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W12",
+      "name": "ทวนรางเหล็ก",
+      "slot": "weapon",
+      "tier": 3,
+      "source": "shop:R07",
+      "price": 270,
+      "required_level": 11,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W13",
+      "name": "ค้อนสนามแม่เหล็ก",
+      "slot": "weapon",
+      "tier": 3,
+      "source": "shop:R07",
+      "price": 270,
+      "required_level": 11,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W14",
+      "name": "ดาบเขม่าดำ",
+      "slot": "weapon",
+      "tier": 3,
+      "source": "shop:R07",
+      "price": 270,
+      "required_level": 11,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W15",
+      "name": "ปืนแพทย์แรงดัน",
+      "slot": "weapon",
+      "tier": 3,
+      "source": "shop:R07",
+      "price": 270,
+      "required_level": 11,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W16",
+      "name": "กรงเล็บกล",
+      "slot": "weapon",
+      "tier": 3,
+      "source": "shop:R07",
+      "price": 270,
+      "required_level": 11,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W17",
+      "name": "ขวานโรงหล่อ",
+      "slot": "weapon",
+      "tier": 4,
+      "source": "shop:R09",
+      "price": 480,
+      "required_level": 16,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W18",
+      "name": "ปืนอาร์ก",
+      "slot": "weapon",
+      "tier": 4,
+      "source": "shop:R09",
+      "price": 480,
+      "required_level": 16,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W19",
+      "name": "เคียวรากแก้ว",
+      "slot": "weapon",
+      "tier": 4,
+      "source": "shop:R09",
+      "price": 480,
+      "required_level": 16,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W20",
+      "name": "หอกควบแน่น",
+      "slot": "weapon",
+      "tier": 4,
+      "source": "shop:R09",
+      "price": 480,
+      "required_level": 16,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W21",
+      "name": "ดาบจดหมายเหตุ",
+      "slot": "weapon",
+      "tier": 4,
+      "source": "shop:R09",
+      "price": 480,
+      "required_level": 16,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W22",
+      "name": "ปืนคอนเดนเซอร์",
+      "slot": "weapon",
+      "tier": 5,
+      "source": "shop:R11",
+      "price": 750,
+      "required_level": 21,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W23",
+      "name": "ค้อนราชินี",
+      "slot": "weapon",
+      "tier": 5,
+      "source": "shop:R11",
+      "price": 750,
+      "required_level": 21,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W24",
+      "name": "ดาบหัวใจเมือง",
+      "slot": "weapon",
+      "tier": 5,
+      "source": "shop:R11",
+      "price": 750,
+      "required_level": 21,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W25",
+      "name": "คทาชีวกล",
+      "slot": "weapon",
+      "tier": 5,
+      "source": "quest:Q05",
+      "price": 750,
+      "required_level": 21,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "W26",
+      "name": "ปืนย้อนเฟส",
+      "slot": "weapon",
+      "tier": 5,
+      "source": "boss:B06",
+      "price": 750,
+      "required_level": 21,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "D01",
+      "name": "ฝาท่อ",
+      "slot": "shield",
+      "tier": 1,
+      "source": "shop:R02",
+      "price": 30,
+      "required_level": 1,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "D02",
+      "name": "โล่แผ่นเหล็ก",
+      "slot": "shield",
+      "tier": 1,
+      "source": "shop:R02",
+      "price": 30,
+      "required_level": 1,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "D03",
+      "name": "โล่ทองเหลือง",
+      "slot": "shield",
+      "tier": 1,
+      "source": "shop:R02",
+      "price": 30,
+      "required_level": 1,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "D04",
+      "name": "โล่รถไฟ",
+      "slot": "shield",
+      "tier": 1,
+      "source": "shop:R02",
+      "price": 30,
+      "required_level": 1,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "D05",
+      "name": "โล่ขดลวด",
+      "slot": "shield",
+      "tier": 2,
+      "source": "shop:R05",
+      "price": 120,
+      "required_level": 6,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "D06",
+      "name": "โล่กรองพิษ",
+      "slot": "shield",
+      "tier": 2,
+      "source": "shop:R05",
+      "price": 120,
+      "required_level": 6,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "D07",
+      "name": "โล่ลูกสูบ",
+      "slot": "shield",
+      "tier": 2,
+      "source": "shop:R05",
+      "price": 120,
+      "required_level": 6,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "D08",
+      "name": "โล่ไอน้ำ",
+      "slot": "shield",
+      "tier": 3,
+      "source": "shop:R07",
+      "price": 270,
+      "required_level": 11,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "D09",
+      "name": "โล่เรือนกระจก",
+      "slot": "shield",
+      "tier": 3,
+      "source": "shop:R07",
+      "price": 270,
+      "required_level": 11,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "D10",
+      "name": "โล่ฉนวน",
+      "slot": "shield",
+      "tier": 3,
+      "source": "shop:R07",
+      "price": 270,
+      "required_level": 11,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "D11",
+      "name": "โล่คนงาน",
+      "slot": "shield",
+      "tier": 3,
+      "source": "shop:R07",
+      "price": 270,
+      "required_level": 11,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "D12",
+      "name": "โล่สะท้อนอาร์ก",
+      "slot": "shield",
+      "tier": 4,
+      "source": "shop:R09",
+      "price": 480,
+      "required_level": 16,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "D13",
+      "name": "โล่รากแก้ว",
+      "slot": "shield",
+      "tier": 4,
+      "source": "shop:R09",
+      "price": 480,
+      "required_level": 16,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "D14",
+      "name": "โล่เตาหลอม",
+      "slot": "shield",
+      "tier": 4,
+      "source": "shop:R09",
+      "price": 480,
+      "required_level": 16,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "D15",
+      "name": "โล่จดหมายเหตุ",
+      "slot": "shield",
+      "tier": 5,
+      "source": "shop:R11",
+      "price": 750,
+      "required_level": 21,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "D16",
+      "name": "โล่ปฏิกรณ์",
+      "slot": "shield",
+      "tier": 5,
+      "source": "shop:R11",
+      "price": 750,
+      "required_level": 21,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "D17",
+      "name": "โล่ชีวภาพ",
+      "slot": "shield",
+      "tier": 5,
+      "source": "shop:R11",
+      "price": 750,
+      "required_level": 21,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "H01",
+      "name": "แว่นช่าง",
+      "slot": "head",
+      "tier": 1,
+      "source": "shop:R02",
+      "price": 30,
+      "required_level": 1,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "H02",
+      "name": "หมวกคนงาน",
+      "slot": "head",
+      "tier": 1,
+      "source": "shop:R02",
+      "price": 30,
+      "required_level": 1,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "H03",
+      "name": "หน้ากากกรองควัน",
+      "slot": "head",
+      "tier": 2,
+      "source": "shop:R05",
+      "price": 120,
+      "required_level": 6,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "H04",
+      "name": "แว่นยิงไกล",
+      "slot": "head",
+      "tier": 2,
+      "source": "shop:R05",
+      "price": 120,
+      "required_level": 6,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "H05",
+      "name": "หมวกขดลวด",
+      "slot": "head",
+      "tier": 3,
+      "source": "shop:R07",
+      "price": 270,
+      "required_level": 11,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "H06",
+      "name": "หน้ากากหมอ",
+      "slot": "head",
+      "tier": 3,
+      "source": "shop:R07",
+      "price": 270,
+      "required_level": 11,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "H07",
+      "name": "หมวกตรวจเอเธอร์",
+      "slot": "head",
+      "tier": 4,
+      "source": "shop:R09",
+      "price": 480,
+      "required_level": 16,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "H08",
+      "name": "หมวกโรงหล่อ",
+      "slot": "head",
+      "tier": 4,
+      "source": "shop:R09",
+      "price": 480,
+      "required_level": 16,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "H09",
+      "name": "กระบังบันทึก",
+      "slot": "head",
+      "tier": 5,
+      "source": "shop:R11",
+      "price": 750,
+      "required_level": 21,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "H10",
+      "name": "หมวกแกนเมือง",
+      "slot": "head",
+      "tier": 5,
+      "source": "shop:R11",
+      "price": 750,
+      "required_level": 21,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "A01",
+      "name": "เสื้อช่าง",
+      "slot": "suit",
+      "tier": 1,
+      "source": "shop:R02",
+      "price": 30,
+      "required_level": 1,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "A02",
+      "name": "เสื้อเกราะคนงาน",
+      "slot": "suit",
+      "tier": 1,
+      "source": "shop:R02",
+      "price": 30,
+      "required_level": 1,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "A03",
+      "name": "เสื้อรางเหล็ก",
+      "slot": "suit",
+      "tier": 2,
+      "source": "shop:R05",
+      "price": 120,
+      "required_level": 6,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "A04",
+      "name": "ชุดฉนวนอาร์ก",
+      "slot": "suit",
+      "tier": 2,
+      "source": "shop:R05",
+      "price": 120,
+      "required_level": 6,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "A05",
+      "name": "ชุดแพทย์สนาม",
+      "slot": "suit",
+      "tier": 3,
+      "source": "shop:R07",
+      "price": 270,
+      "required_level": 11,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "A06",
+      "name": "ชุดกรองพิษ",
+      "slot": "suit",
+      "tier": 3,
+      "source": "shop:R07",
+      "price": 270,
+      "required_level": 11,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "A07",
+      "name": "เกราะโรงหล่อ",
+      "slot": "suit",
+      "tier": 4,
+      "source": "shop:R09",
+      "price": 480,
+      "required_level": 16,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "A08",
+      "name": "เกราะหัวใจเมือง",
+      "slot": "suit",
+      "tier": 4,
+      "source": "shop:R09",
+      "price": 480,
+      "required_level": 16,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    },
+    {
+      "id": "A09",
+      "name": "ชุดชีวกล",
+      "slot": "suit",
+      "tier": 5,
+      "source": "quest:Q08",
+      "price": 750,
+      "required_level": 21,
+      "differentiation": "numeric sidegrade by ATK/TECH/initiative or armor/resistance; full values frozen in content milestone"
+    }
+  ],
+  "training": [
+    {
+      "id": "T01",
+      "name": "ช่างฝึกหัด",
+      "focus": "Attack/Guard/Vent",
+      "unlock_after": "start",
+      "reward_first_xp": 40,
+      "reward_repeat_xp": 10
+    },
+    {
+      "id": "T02",
+      "name": "ผู้ชำนาญ",
+      "focus": "shield/target",
+      "unlock_after": "B01",
+      "reward_first_xp": 80,
+      "reward_repeat_xp": 20
+    },
+    {
+      "id": "T03",
+      "name": "วิศวกรสนาม",
+      "focus": "Wet/Heated/Corroded",
+      "unlock_after": "B02",
+      "reward_first_xp": 120,
+      "reward_repeat_xp": 30
+    },
+    {
+      "id": "T04",
+      "name": "วิกฤตหม้อน้ำ",
+      "focus": "intent/pressure/boss rehearsal",
+      "unlock_after": "B04",
+      "reward_first_xp": 160,
+      "reward_repeat_xp": 40
+    }
+  ]
+}

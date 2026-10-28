@@ -1,0 +1,19 @@
+ConstantPool "skilllabel", "levelreq", "Skill", "_root", "inventory", "skillbox", "gotoAndStop"
+Push "skilllabel", 15
+SetVariable
+Push "levelreq", 10
+SetVariable
+Push "Skill", "skilllabel"
+GetVariable
+Add2
+Push 1
+InitArray
+Push 1, "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "skillbox"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop

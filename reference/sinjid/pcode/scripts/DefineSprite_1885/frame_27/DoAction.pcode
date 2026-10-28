@@ -1,0 +1,49 @@
+ConstantPool "_root", "mcname", "phydmg", "speed", "subject", "mana", "skill", "dmgtype", "Damage", "hero1mana"
+Push "_root"
+GetVariable
+Push "mcname"
+GetVariable
+Push "phydmg"
+Add2
+GetMember
+Push 3
+Divide
+RandomNumber
+Push 5
+RandomNumber
+Add2
+Push "_root"
+GetVariable
+Push "mcname"
+GetVariable
+Push "speed"
+Add2
+GetMember
+Push 0.0, 0.0, false, "_root"
+GetVariable
+Push "subject"
+GetVariable
+Push "mana"
+Add2
+GetMember
+Push 0.7, 0.8, "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 11
+GetMember
+Multiply
+Add2
+Multiply
+Push 0.0, 7, "_root"
+GetVariable
+Push "dmgtype"
+GetVariable
+Push "Damage"
+Add2
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "hero1mana", 0.0
+SetMember

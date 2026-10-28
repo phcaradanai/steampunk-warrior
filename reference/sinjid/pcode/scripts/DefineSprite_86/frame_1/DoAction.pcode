@@ -1,0 +1,11 @@
+ConstantPool "component", "_parent", "scrollTrack", "track_mc", "registerSkinElement"
+Push "component", "_parent"
+GetVariable
+DefineLocal
+Push "scrollTrack", "track_mc"
+GetVariable
+Push 2, "component"
+GetVariable
+Push "registerSkinElement"
+CallMethod
+Pop

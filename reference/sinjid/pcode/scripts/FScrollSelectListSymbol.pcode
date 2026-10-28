@@ -1,0 +1,887 @@
+ConstantPool "this", "init", "FScrollSelectListClass", "prototype", "FSelectableListClass", "getScrollPosition", "topDisplayed", "setScrollPosition", "enable", "pos", "getLength", "numDisplayed", "Math", "min", "max", "scrollBar_mc", "setAutoHideScrollBar", "permaScrollBar", "flag", "height", "width", "setSize", "setEnabled", "enabledFlag", "super", "h", "w", "removed", "initScrollBar", "modelChanged", "eventObj", "invalidate", "removeMovieClip", "scrollOffset", "hostStyle", "styleTable", "FScrollBarSymbol", "container_mc", "attachMovie", "scrollHandler", "setChangeHandler", "_x", "_width", "_y", "setLargeScroll", "setScrollProperties", "scrollBar", "lastPosition", "updateControl", "clickHandler", "itmNum", "dragScrolling", "dragScroll", "setInterval", "releaseHandler", "clearInterval", "_ymouse", "selectionHandler", "scrollInterval", "itmHgt", "abs", "myOnKeyDown", "focused", "keyCodes", "Array", "keyIncrs", "i", "length", "Key", "isDown", "moveSelBy", "findInputText", "tmpCode", "getAscii", "String", "fromCharCode", "findString", "itemNum", "getSelectedIndex", "jump", "itmStr", "str", "getItemAt", "label", "substring", "toUpperCase"
+DefineFunction "FScrollSelectListClass", 0 {
+Push 0.0, "this"
+GetVariable
+Push "init"
+CallMethod
+Pop
+}
+Push "FScrollSelectListClass"
+GetVariable
+Push "prototype", 0.0, "FSelectableListClass"
+NewObject
+SetMember
+Push "FScrollSelectListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "getScrollPosition"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "topDisplayed"
+GetMember
+Return
+}
+SetMember
+Push "FScrollSelectListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setScrollPosition"
+DefineFunction "", 1, "pos"  {
+Push "this"
+GetVariable
+Push "enable"
+GetMember
+Not
+If loc0497
+Push "pos", 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+Push "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Subtract
+Push "pos"
+GetVariable
+Push 2, "Math"
+GetVariable
+Push "min"
+CallMethod
+SetVariable
+Push "pos", 0.0, "pos"
+GetVariable
+Push 2, "Math"
+GetVariable
+Push "max"
+CallMethod
+SetVariable
+Push "pos"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "scrollBar_mc"
+GetMember
+Push "setScrollPosition"
+CallMethod
+Pop
+}
+loc0497:SetMember
+Push "FScrollSelectListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setAutoHideScrollBar"
+DefineFunction "", 1, "flag"  {
+Push "this"
+GetVariable
+Push "permaScrollBar", "flag"
+GetVariable
+Not
+SetMember
+Push "this"
+GetVariable
+Push "height"
+GetMember
+Push "this"
+GetVariable
+Push "width"
+GetMember
+Push 2, "this"
+GetVariable
+Push "setSize"
+CallMethod
+Pop
+}
+SetMember
+Push "FScrollSelectListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setEnabled"
+DefineFunction "", 1, "enabledFlag"  {
+Push "enabledFlag"
+GetVariable
+Push 1, "super"
+GetVariable
+Push "setEnabled"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "enable"
+GetMember
+Push 1, "this"
+GetVariable
+Push "scrollBar_mc"
+GetMember
+Push "setEnabled"
+CallMethod
+Pop
+}
+SetMember
+Push "FScrollSelectListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setSize"
+DefineFunction "", 2, "w" , "h"  {
+Push "pos", 0.0, "this"
+GetVariable
+Push "getScrollPosition"
+CallMethod
+DefineLocal
+Push "h"
+GetVariable
+Push "w"
+GetVariable
+Push 2, "super"
+GetVariable
+Push "setSize"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "scrollBar_mc"
+GetMember
+Push undefined
+Equals2
+Not
+Not
+If loc05cc
+Push "this"
+GetVariable
+Push "removed", true
+SetMember
+loc05cc:Push "this"
+GetVariable
+Push "scrollBar_mc", undefined
+SetMember
+Push 0.0, "this"
+GetVariable
+Push "initScrollBar"
+CallMethod
+Pop
+Push "pos"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "setScrollPosition"
+CallMethod
+Pop
+}
+SetMember
+Push "FScrollSelectListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "modelChanged"
+DefineFunction "", 1, "eventObj"  {
+Push "eventObj"
+GetVariable
+Push 1, "super"
+GetVariable
+Push "modelChanged"
+CallMethod
+Pop
+Push "initScrollBar", 1, "this"
+GetVariable
+Push "invalidate"
+CallMethod
+Pop
+}
+SetMember
+Push "FScrollSelectListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "initScrollBar"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "permaScrollBar"
+GetMember
+Not
+PushDuplicate
+Not
+If loc06a8
+Pop
+Push 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+Push "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Greater
+Not
+loc06a8:Not
+If loc070f
+Push "this"
+GetVariable
+Push "removed"
+GetMember
+Not
+If loc070a
+Push 0.0, "this"
+GetVariable
+Push "scrollBar_mc"
+GetMember
+Push "removeMovieClip"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "scrollBar_mc", undefined
+SetMember
+Push "this"
+GetVariable
+Push "scrollOffset", undefined
+SetMember
+Push "setSize", 1, "this"
+GetVariable
+Push "invalidate"
+CallMethod
+Pop
+loc070a:Jump loc08b1
+loc070f:Push "this"
+GetVariable
+Push "scrollBar_mc"
+GetMember
+Push undefined
+Equals2
+Not
+If loc0862
+Push "hostStyle", "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push 1
+InitObject
+Push 3000, "scrollBar_mc", "FScrollBarSymbol", 4, "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "attachMovie"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "scrollBar_mc", "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "scrollBar_mc"
+GetMember
+SetMember
+Push "this"
+GetVariable
+Push "scrollHandler", 2, "this"
+GetVariable
+Push "scrollBar_mc"
+GetMember
+Push "setChangeHandler"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "height"
+GetMember
+Push 1, "this"
+GetVariable
+Push "scrollBar_mc"
+GetMember
+Push "setSize"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "scrollBar_mc"
+GetMember
+Push "_x", "this"
+GetVariable
+Push "width"
+GetMember
+Push "this"
+GetVariable
+Push "scrollBar_mc"
+GetMember
+Push "_width"
+GetMember
+Subtract
+SetMember
+Push "this"
+GetVariable
+Push "scrollBar_mc"
+GetMember
+Push "_y", 0.0
+SetMember
+Push "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Push 1
+Subtract
+Push 1, "this"
+GetVariable
+Push "scrollBar_mc"
+GetMember
+Push "setLargeScroll"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "scrollOffset", "this"
+GetVariable
+Push "scrollBar_mc"
+GetMember
+Push "_width"
+GetMember
+SetMember
+Push "setSize", 1, "this"
+GetVariable
+Push "invalidate"
+CallMethod
+Pop
+loc0862:Push 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+Push "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Subtract
+Push 0.0, "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Push 3, "this"
+GetVariable
+Push "scrollBar_mc"
+GetMember
+Push "setScrollProperties"
+CallMethod
+Pop
+}
+loc08b1:SetMember
+Push "FScrollSelectListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "scrollHandler"
+DefineFunction "", 1, "scrollBar"  {
+Push "pos", 0.0, "scrollBar"
+GetVariable
+Push "getScrollPosition"
+CallMethod
+DefineLocal
+Push "this"
+GetVariable
+Push "topDisplayed", "pos"
+GetVariable
+SetMember
+Push "this"
+GetVariable
+Push "lastPosition"
+GetMember
+Push "pos"
+GetVariable
+Equals2
+Not
+Not
+If loc092c
+Push 0.0, "this"
+GetVariable
+Push "updateControl"
+CallMethod
+Pop
+loc092c:Push "this"
+GetVariable
+Push "lastPosition", "pos"
+GetVariable
+SetMember
+}
+SetMember
+Push "FScrollSelectListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "clickHandler"
+DefineFunction "", 1, "itmNum"  {
+Push "itmNum"
+GetVariable
+Push 1, "super"
+GetVariable
+Push "clickHandler"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "dragScrolling"
+GetMember
+Push undefined
+Equals2
+PushDuplicate
+Not
+If loc099f
+Pop
+Push "this"
+GetVariable
+Push "scrollBar_mc"
+GetMember
+Push undefined
+Equals2
+Not
+loc099f:Not
+If loc09c6
+Push "this"
+GetVariable
+Push "dragScrolling", 15, "dragScroll", "this"
+GetVariable
+Push 3, "setInterval"
+CallFunction
+SetMember
+}
+loc09c6:SetMember
+Push "FScrollSelectListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "releaseHandler"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "dragScrolling"
+GetMember
+Push 1, "clearInterval"
+CallFunction
+Pop
+Push "this"
+GetVariable
+Push "dragScrolling", undefined
+SetMember
+Push 0.0, "super"
+GetVariable
+Push "releaseHandler"
+CallMethod
+Pop
+}
+SetMember
+Push "FScrollSelectListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "dragScroll"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "dragScrolling"
+GetMember
+Push 1, "clearInterval"
+CallFunction
+Pop
+Push "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "_ymouse"
+GetMember
+Push 0.0
+Less2
+Not
+If loc0b38
+Push 0.0, "this"
+GetVariable
+Push "getScrollPosition"
+CallMethod
+Push 1
+Subtract
+Push 1, "this"
+GetVariable
+Push "setScrollPosition"
+CallMethod
+Pop
+Push 0.0, 1, "this"
+GetVariable
+Push "selectionHandler"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "scrollInterval", -23.8, 0.0, "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "_ymouse"
+GetMember
+Subtract
+Multiply
+Push 500
+Add2
+Push 25, 2, "Math"
+GetVariable
+Push "max"
+CallMethod
+SetMember
+Push "this"
+GetVariable
+Push "dragScrolling", "this"
+GetVariable
+Push "scrollInterval"
+GetMember
+Push "dragScroll", "this"
+GetVariable
+Push 3, "setInterval"
+CallFunction
+SetMember
+Jump loc0c99
+loc0b38:Push "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "_ymouse"
+GetMember
+Push "this"
+GetVariable
+Push "itmHgt"
+GetMember
+Push 2
+Subtract
+Push "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Multiply
+Greater
+Not
+If loc0c78
+Push 0.0, "this"
+GetVariable
+Push "getScrollPosition"
+CallMethod
+Push 1
+Add2
+Push 1, "this"
+GetVariable
+Push "setScrollPosition"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Push 1
+Subtract
+Push 1, "this"
+GetVariable
+Push "selectionHandler"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "scrollInterval", -23.8, "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "_ymouse"
+GetMember
+Push "this"
+GetVariable
+Push "itmHgt"
+GetMember
+Push 2
+Subtract
+Push "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Multiply
+Subtract
+Push 2
+Subtract
+Push 1, "Math"
+GetVariable
+Push "abs"
+CallMethod
+Multiply
+Push 500
+Add2
+Push 25, 2, "Math"
+GetVariable
+Push "max"
+CallMethod
+SetMember
+Push "this"
+GetVariable
+Push "dragScrolling", "this"
+GetVariable
+Push "scrollInterval"
+GetMember
+Push "dragScroll", "this"
+GetVariable
+Push 3, "setInterval"
+CallFunction
+SetMember
+Jump loc0c99
+loc0c78:Push "this"
+GetVariable
+Push "dragScrolling", 15, "dragScroll", "this"
+GetVariable
+Push 3, "setInterval"
+CallFunction
+SetMember
+}
+loc0c99:SetMember
+Push "FScrollSelectListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "myOnKeyDown"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "focused"
+GetMember
+Not
+If loc0e24
+Push "this"
+GetVariable
+Push "keyCodes", 35, 36, 33, 34, 38, 40, 6, "Array"
+NewObject
+SetMember
+Push "this"
+GetVariable
+Push "keyIncrs", 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+Push 0.0, 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+Subtract
+Push 0.0, "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Push 1
+Subtract
+Subtract
+Push "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Push 1
+Subtract
+Push -1, 1, 6, "Array"
+NewObject
+SetMember
+Push "i", 0.0
+DefineLocal
+loc0d8c:Push "i"
+GetVariable
+Push "this"
+GetVariable
+Push "keyCodes"
+GetMember
+Push "length"
+GetMember
+Less2
+Not
+If loc0e0e
+Push "this"
+GetVariable
+Push "keyCodes"
+GetMember
+Push "i"
+GetVariable
+GetMember
+Push 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+Not
+If loc0dff
+Push "this"
+GetVariable
+Push "keyIncrs"
+GetMember
+Push "i"
+GetVariable
+GetMember
+Push 1, "this"
+GetVariable
+Push "moveSelBy"
+CallMethod
+Pop
+Push undefined
+Return
+loc0dff:Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc0d8c
+loc0e0e:Push 0.0, "this"
+GetVariable
+Push "findInputText"
+CallMethod
+Pop
+}
+loc0e24:SetMember
+Push "FScrollSelectListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "findInputText"
+DefineFunction "", 0 {
+Push "tmpCode", 0.0, "Key"
+GetVariable
+Push "getAscii"
+CallMethod
+DefineLocal
+Push "tmpCode"
+GetVariable
+Push 33
+Less2
+Not
+PushDuplicate
+Not
+If loc0e7e
+Pop
+Push "tmpCode"
+GetVariable
+Push 126
+Greater
+Not
+loc0e7e:Not
+If loc0ead
+Push "tmpCode"
+GetVariable
+Push 1, "String"
+GetVariable
+Push "fromCharCode"
+CallMethod
+Push 1, "this"
+GetVariable
+Push "findString"
+CallMethod
+Pop
+}
+loc0ead:SetMember
+Push "FScrollSelectListClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "findString"
+DefineFunction "", 1, "str"  {
+Push 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+Push 0.0
+Equals2
+Not
+If loc0ef8
+Push undefined
+Return
+loc0ef8:Push "itemNum", 0.0, "this"
+GetVariable
+Push "getSelectedIndex"
+CallMethod
+DefineLocal
+Push "jump", 0.0
+DefineLocal
+Push "i", "itemNum"
+GetVariable
+Push 1
+Add2
+DefineLocal
+loc0f31:Push "i"
+GetVariable
+Push "itemNum"
+GetVariable
+Equals2
+Not
+Not
+If loc1025
+Push "itmStr", "str"
+GetVariable
+Push "length"
+GetMember
+Push 0.0, 2, "i"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "getItemAt"
+CallMethod
+Push "label"
+GetMember
+Push "substring"
+CallMethod
+DefineLocal
+Push "str"
+GetVariable
+Push "itmStr"
+GetVariable
+Equals2
+PushDuplicate
+If loc0fc4
+Pop
+Push 0.0, "str"
+GetVariable
+Push "toUpperCase"
+CallMethod
+Push 0.0, "itmStr"
+GetVariable
+Push "toUpperCase"
+CallMethod
+Equals2
+loc0fc4:Not
+If loc0fdf
+Push "jump", "i"
+GetVariable
+Push "itemNum"
+GetVariable
+Subtract
+DefineLocal
+Jump loc1025
+loc0fdf:Push "i"
+GetVariable
+Push 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+Push 1
+Subtract
+Less2
+Not
+Not
+If loc1016
+Push "i", -1
+SetVariable
+loc1016:Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc0f31
+loc1025:Push "jump"
+GetVariable
+Push 0.0
+Equals2
+Not
+Not
+If loc1057
+Push "jump"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "moveSelBy"
+CallMethod
+Pop
+}
+loc1057:SetMember

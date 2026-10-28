@@ -1,0 +1,15 @@
+ConstantPool "attacks", "Skille4", "Skille2", "Skille0", "attack", "numofmoves", "length", "mcname2", "enemy2", "subject2", "dmgtype2", "enemy"
+Push "attacks", "Skille4", "Skille2", "Skille0", "attack", 4
+InitArray
+SetVariable
+Push "numofmoves", "attacks"
+GetVariable
+Push "length"
+GetMember
+SetVariable
+Push "mcname2", "enemy2"
+SetVariable
+Push "subject2", "enemy2"
+SetVariable
+Push "dmgtype2", "enemy"
+SetVariable

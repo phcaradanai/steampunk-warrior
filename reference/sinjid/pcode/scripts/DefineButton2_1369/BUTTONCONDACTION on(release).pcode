@@ -1,0 +1,3 @@
+Push "book", "a"
+SetVariable
+GotoFrame 18

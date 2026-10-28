@@ -1,0 +1,12 @@
+Push "_root"
+GetVariable
+Push "clearstage"
+GetMember
+Push true
+Equals2
+Not
+If loc0032
+Push "this"
+GetVariable
+RemoveSprite
+loc0032:

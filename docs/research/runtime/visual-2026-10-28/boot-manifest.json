@@ -1,0 +1,37 @@
+{
+  "phase": "boot",
+  "authority": "Original unmodified SWF in Ruffle; ordinary input; screenshot intervals include capture overhead",
+  "original_sha256": "e258423f2a5887ff236a67eb6eaf674a8d573a5cdb721c20b79c831da4d9e008",
+  "records": [
+    {
+      "name": "title",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/title.png",
+      "at": 1793176467442
+    },
+    {
+      "name": "intro",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/intro.png",
+      "at": 1793176468217
+    },
+    {
+      "name": "menu",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/menu.png",
+      "at": 1793176468978
+    },
+    {
+      "name": "create",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/create.png",
+      "at": 1793176469439
+    },
+    {
+      "name": "classes",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/classes.png",
+      "at": 1793176469884
+    },
+    {
+      "name": "hub",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/visual-2026-10-28/hub.png",
+      "at": 1793176470664
+    }
+  ]
+}

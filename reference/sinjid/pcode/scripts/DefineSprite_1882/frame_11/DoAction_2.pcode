@@ -1,0 +1,20 @@
+ConstantPool "mana", "subject", "_root", "skill", "Math", "round", "Heal"
+Push "mana", "subject"
+GetVariable
+Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 9
+GetMember
+Push 25
+Multiply
+Push 1, "Math"
+GetVariable
+Push "round"
+CallMethod
+Push 3, "_root"
+GetVariable
+Push "Heal"
+CallMethod
+Pop

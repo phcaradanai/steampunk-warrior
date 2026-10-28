@@ -1,0 +1,15 @@
+Push "_root"
+GetVariable
+Push "Skill"
+GetMember
+Push 14
+GetMember
+Push 0.0
+Greater
+Not
+If loc004c
+Push "this"
+GetVariable
+Push "_visible", false
+SetMember
+loc004c:

@@ -1,0 +1,4 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: CombatController must run a complete encounter through real resolver
+Results: 0 passed, 1 failed

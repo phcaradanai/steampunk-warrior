@@ -1,0 +1,8 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: local cooling valve persists an actual environment change
+FAIL: coolant changes furnace power and removes the starting heat hazard
+FAIL: rescue route requires solving intake and exhaust valves
+FAIL: specimen pressure valve works: specimen_intake
+FAIL: specimen pressure valve works: specimen_exhaust
+Results: 2 passed, 5 failed

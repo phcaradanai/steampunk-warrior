@@ -1,0 +1,28 @@
+{
+  "executable": "/Users/oyl-mac_m1/.nvm/versions/node/v26.12.1/bin/node",
+  "arguments": [
+    "/Users/Projects/Steampunk-warrior/docs/research/run-runtime-probes.mjs",
+    "options"
+  ],
+  "working_directory": "/Users/Projects/Steampunk-warrior",
+  "timeout_ms": 90000,
+  "idle_timeout_ms": 30000,
+  "terminal": {
+    "columns": 120,
+    "rows": 25,
+    "scrollback": 100
+  },
+  "limits": {
+    "output_bytes": 2000000,
+    "files": 10,
+    "file_bytes": 15000000,
+    "processes": 100,
+    "filesystem_depth": 2
+  },
+  "filesystem_observation_paths": [
+    "/Users/Projects/Steampunk-warrior/reference/sinjid/original.swf",
+    "/Users/Projects/Steampunk-warrior/reference/sinjid/probe.swf",
+    "/Users/Projects/Steampunk-warrior/docs/research/runtime-options-results.json"
+  ],
+  "finalization_ms": 2000
+}

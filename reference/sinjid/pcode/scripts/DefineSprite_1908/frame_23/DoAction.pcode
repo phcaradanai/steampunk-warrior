@@ -1,0 +1,7 @@
+Push "life", "subject"
+GetVariable
+Push 30, 3, "_root"
+GetVariable
+Push "Heal"
+CallMethod
+Pop

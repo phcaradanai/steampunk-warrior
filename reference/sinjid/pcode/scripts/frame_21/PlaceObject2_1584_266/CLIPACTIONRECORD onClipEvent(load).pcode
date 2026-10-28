@@ -1,0 +1,9 @@
+Push "objectnum", 6
+SetVariable
+Push "this"
+GetVariable
+With {
+Push "Bamboo2", 1, "gotoAndStop"
+CallFunction
+Pop
+}

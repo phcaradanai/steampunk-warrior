@@ -1,0 +1,20 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: every gear definition changes a build: W04
+FAIL: every gear definition changes a build: W05
+FAIL: every gear definition changes a build: W06
+FAIL: every gear definition changes a build: W10
+FAIL: every gear definition changes a build: W11
+FAIL: every gear definition changes a build: W15
+FAIL: every gear definition changes a build: W16
+FAIL: every gear definition changes a build: W20
+FAIL: every gear definition changes a build: W21
+FAIL: every gear definition changes a build: W25
+FAIL: every gear definition changes a build: W26
+FAIL: every gear definition changes a build: D04
+FAIL: every gear definition changes a build: D11
+FAIL: every gear definition changes a build: A02
+FAIL: every gear definition changes a build: A04
+FAIL: every gear definition changes a build: A06
+FAIL: every gear definition changes a build: A08
+Results: 53 passed, 17 failed

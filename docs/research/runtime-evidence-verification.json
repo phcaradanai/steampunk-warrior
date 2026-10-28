@@ -1,0 +1,90 @@
+{
+  "status": "passed",
+  "original_sha256": "e258423f2a5887ff236a67eb6eaf674a8d573a5cdb721c20b79c831da4d9e008",
+  "scope": "Representative controlled runtime flows; records are snapshots, not independent exhaustive tests.",
+  "total_records": 126,
+  "phases": [
+    {
+      "phase": "census",
+      "records": 52,
+      "evidence_id": "ev_f0ca607b108af99904d847fd146c49f0445c214a646512ced9abe61ace745216",
+      "result_sha256": "34b1fd452a8fb00ad2d8a3a63d3e860c8b6b4c4919d8c4ef58cd59cd2ba6adb7",
+      "probe_sha256": "9f7368d3aa924c1898453ca28edfd5f23997756e58bda0ce7f26b75d732b8068",
+      "capture_truncated": true,
+      "process_sampling_partial": true,
+      "limitations": []
+    },
+    {
+      "phase": "skills",
+      "records": 26,
+      "evidence_id": "ev_5e5b4204354ebb35655149e64b25d6cf5f9fd27cbcff251c20874217cbcb5f2e",
+      "result_sha256": "473f903053eebdb1dfe1282f0e83f8c75a6f8e4c182b6083b50cd50e3f9e25e0",
+      "probe_sha256": "723f228c3f331bb6f8745761e9db4ea6b1717411a9af64302461c55c0ff1def1",
+      "capture_truncated": false,
+      "process_sampling_partial": false,
+      "limitations": []
+    },
+    {
+      "phase": "quests",
+      "records": 13,
+      "evidence_id": "ev_642deebe9279607a0dc1a55f4142d2dc086dda8ded127667255b92f19db1cbec",
+      "result_sha256": "d6fca4a54fcd3f344f9f0ca9a964cad9332d699a59f8c5d051dbc7ad97fdd0ad",
+      "probe_sha256": "65e9051d2905e949d88bb799a22023dc9146be780b0fa869f37c2e69ea1b1c46",
+      "capture_truncated": false,
+      "process_sampling_partial": false,
+      "limitations": []
+    },
+    {
+      "phase": "economy",
+      "records": 11,
+      "evidence_id": "ev_eae7279d498205fff82a117e86bb74ef56d28fb9f550740442eb687a57040365",
+      "result_sha256": "e7d46a7b72063bc056c34c38611055376ecb976533d57848b98f9a2c881e032a",
+      "probe_sha256": "65e9051d2905e949d88bb799a22023dc9146be780b0fa869f37c2e69ea1b1c46",
+      "capture_truncated": true,
+      "process_sampling_partial": true,
+      "limitations": []
+    },
+    {
+      "phase": "progression",
+      "records": 4,
+      "evidence_id": "ev_9058b2154095f3c2c4438a75e505caa0f782446bb6deb1a52e57fe1526e43308",
+      "result_sha256": "44aea5fd5d400c2dda7bb3a59a78662b2d419fa068281824566f970677295303",
+      "probe_sha256": "65e9051d2905e949d88bb799a22023dc9146be780b0fa869f37c2e69ea1b1c46",
+      "capture_truncated": false,
+      "process_sampling_partial": false,
+      "limitations": []
+    },
+    {
+      "phase": "recovery",
+      "records": 4,
+      "evidence_id": "ev_d6d841dfbe48c04cec3667b3c1c1890e7955d090c8427db452d980a7b671647d",
+      "result_sha256": "e006e47d1b71103f7216f04157ad1173f037acd2e7dfa75d6f533ce7c5acd16e",
+      "probe_sha256": "65e9051d2905e949d88bb799a22023dc9146be780b0fa869f37c2e69ea1b1c46",
+      "capture_truncated": true,
+      "process_sampling_partial": true,
+      "limitations": []
+    },
+    {
+      "phase": "training",
+      "records": 11,
+      "evidence_id": "ev_0f673d2016f83fa4082ff5d6873d305087badf99b50dc6a585f7b9d7ec76d293",
+      "result_sha256": "970a4f39d9b9aadd1c915eb25ebe3fefe16bfcacbb1eeba1f3bded0e4fdf2ece",
+      "probe_sha256": "65e9051d2905e949d88bb799a22023dc9146be780b0fa869f37c2e69ea1b1c46",
+      "capture_truncated": false,
+      "process_sampling_partial": false,
+      "limitations": []
+    },
+    {
+      "phase": "options",
+      "records": 5,
+      "evidence_id": "ev_d0a8af16d10d6722580fe4902292cff3d7759a27c6fd704f6040b312d4da128e",
+      "result_sha256": "30e400eaf3be19053cc84d2cd72d60d4f68fc2c691661916734f3021d33675ed",
+      "probe_sha256": "85c8a46ec31c2a1c8583ba4680b586da10f2748406f2c285f0137877aa6aee37",
+      "capture_truncated": false,
+      "process_sampling_partial": false,
+      "limitations": [
+        "Sound On/Off state transitions verified; output analyser remained zero even while On. Audible playback, music transitions and action cues remain unverified in this headless environment."
+      ]
+    }
+  ]
+}

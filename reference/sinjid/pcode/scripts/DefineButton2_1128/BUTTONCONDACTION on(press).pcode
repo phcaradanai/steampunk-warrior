@@ -1,0 +1,46 @@
+ConstantPool "itemcheck", "sellprice", "", "_root", "itempick", "None", "inventory", "itemmouse", "gotoAndStop", "gold"
+Push "itemcheck"
+GetVariable
+Push true
+Equals2
+PushDuplicate
+Not
+If loc0074
+Pop
+Push "sellprice"
+GetVariable
+Push ""
+Equals2
+Not
+loc0074:Not
+If loc00d6
+Push "_root"
+GetVariable
+Push "itempick", "None"
+SetMember
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+Push 1, "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "itemmouse"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "gold", "_root"
+GetVariable
+Push "gold"
+GetMember
+Push "sellprice"
+GetVariable
+Add2
+SetMember
+Push "sellprice", ""
+SetVariable
+loc00d6:

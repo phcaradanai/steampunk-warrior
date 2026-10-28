@@ -1,0 +1,48 @@
+ConstantPool "component", "_parent", "foregroundDisabled", "arrow_mc", "registerSkinElement", "face", "face_mc", "shadow", "shadow_mc", "darkshadow", "darkshadow_mc", "highlight", "highlight_mc", "highlight3D", "highlight3D_mc"
+Push "component", "_parent"
+GetVariable
+Push "_parent"
+GetMember
+DefineLocal
+Push "foregroundDisabled", "arrow_mc"
+GetVariable
+Push 2, "component"
+GetVariable
+Push "registerSkinElement"
+CallMethod
+Pop
+Push "face", "face_mc"
+GetVariable
+Push 2, "component"
+GetVariable
+Push "registerSkinElement"
+CallMethod
+Pop
+Push "shadow", "shadow_mc"
+GetVariable
+Push 2, "component"
+GetVariable
+Push "registerSkinElement"
+CallMethod
+Pop
+Push "darkshadow", "darkshadow_mc"
+GetVariable
+Push 2, "component"
+GetVariable
+Push "registerSkinElement"
+CallMethod
+Pop
+Push "highlight", "highlight_mc"
+GetVariable
+Push 2, "component"
+GetVariable
+Push "registerSkinElement"
+CallMethod
+Pop
+Push "highlight3D", "highlight3D_mc"
+GetVariable
+Push 2, "component"
+GetVariable
+Push "registerSkinElement"
+CallMethod
+Pop

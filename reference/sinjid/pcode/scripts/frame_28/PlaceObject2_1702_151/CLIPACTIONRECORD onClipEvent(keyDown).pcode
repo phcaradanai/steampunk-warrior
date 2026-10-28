@@ -1,0 +1,114 @@
+ConstantPool "_root", "grid", "char", "stepper", "this", "hitTest", "Key", "isDown", "pause", "talking", "clearstage", "Mendo\'s Ring", "SearchItem", "Searched", "skillpts", "TalkBox", "SpeakerText", "Information", "TalkText", "speak", "_visible", "gotoAndPlay"
+Push "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "stepper"
+GetMember
+Push 1, "this"
+GetVariable
+Push "hitTest"
+CallMethod
+PushDuplicate
+Not
+If loc0103
+Pop
+Push 32, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+loc0103:PushDuplicate
+Not
+If loc011d
+Pop
+Push "_root"
+GetVariable
+Push "pause"
+GetMember
+Push false
+Equals2
+loc011d:PushDuplicate
+Not
+If loc0138
+Pop
+Push "_root"
+GetVariable
+Push "talking"
+GetMember
+Push true
+Equals2
+Not
+loc0138:PushDuplicate
+Not
+If loc0152
+Pop
+Push "_root"
+GetVariable
+Push "clearstage"
+GetMember
+Push false
+Equals2
+loc0152:Not
+If loc0220
+Push true, "Mendo\'s Ring", 2, "_root"
+GetVariable
+Push "SearchItem"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "Searched"
+GetMember
+Push true
+Equals2
+Not
+If loc0220
+Push "_root"
+GetVariable
+Push "skillpts", "_root"
+GetVariable
+Push "skillpts"
+GetMember
+Increment
+SetMember
+Push "_root"
+GetVariable
+Push "Searched", false
+SetMember
+Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "SpeakerText", "Information"
+SetMember
+Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "TalkText", "speak"
+GetVariable
+SetMember
+Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "_visible", true
+SetMember
+Push "_root"
+GetVariable
+Push "pause", true
+SetMember
+Push "_root"
+GetVariable
+Push "talking", true
+SetMember
+Push 1, 1, "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "gotoAndPlay"
+CallMethod
+Pop
+loc0220:

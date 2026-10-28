@@ -1,0 +1,2 @@
+person.gotoAndStop(persontype);
+stop();

@@ -1,0 +1,208 @@
+ConstantPool "_root", "itempick", "None", "hold", "sellprice", "", "BodyParts", "i", "Suit", "grid", "char", "movement", "gotoAndStop", "Helmet", "head", "walkmenu", "engbar", "_width", "engb", "engmaxb", "widthkeep", "lifebar", "lifeb", "lifemaxb", "manabar", "manab", "manamaxb", "pause"
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+Push "None"
+Equals2
+PushDuplicate
+Not
+If loc00f4
+Pop
+Push "_root"
+GetVariable
+Push "hold"
+GetMember
+Push true
+Equals2
+Not
+loc00f4:Not
+If loc0324
+GotoFrame 0
+Push "sellprice", ""
+SetVariable
+Push "_root"
+GetVariable
+Push "BodyParts"
+GetMember
+Enumerate2
+loc0114:StoreRegister 0
+Push null
+Equals2
+If loc0173
+Push "i", register0
+SetVariable
+Push "_root"
+GetVariable
+Push "Suit"
+GetMember
+Push 1, "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "movement"
+GetMember
+Push "_root"
+GetVariable
+Push "BodyParts"
+GetMember
+Push "i"
+GetVariable
+GetMember
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Jump loc0114
+loc0173:Push "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "movement"
+GetMember
+With {
+Push "_root"
+GetVariable
+Push "Helmet"
+GetMember
+Push 1, "head"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+}
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "engbar"
+GetMember
+Push "_width", "_root"
+GetVariable
+Push "engb"
+GetMember
+Push "_root"
+GetVariable
+Push "engmaxb"
+GetMember
+Divide
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "engbar"
+GetMember
+Push "widthkeep"
+GetMember
+Multiply
+SetMember
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "lifebar"
+GetMember
+Push "_width", "_root"
+GetVariable
+Push "lifeb"
+GetMember
+Push "_root"
+GetVariable
+Push "lifemaxb"
+GetMember
+Divide
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "lifebar"
+GetMember
+Push "widthkeep"
+GetMember
+Multiply
+SetMember
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "manabar"
+GetMember
+Push "_width", "_root"
+GetVariable
+Push "manab"
+GetMember
+Push "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+Divide
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "manabar"
+GetMember
+Push "widthkeep"
+GetMember
+Multiply
+SetMember
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "manabar"
+GetMember
+Push "_width", "_root"
+GetVariable
+Push "manab"
+GetMember
+Push "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+Divide
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "manabar"
+GetMember
+Push "widthkeep"
+GetMember
+Multiply
+SetMember
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "lifebar"
+GetMember
+Push "_width", "_root"
+GetVariable
+Push "lifeb"
+GetMember
+Push "_root"
+GetVariable
+Push "lifemaxb"
+GetMember
+Divide
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "lifebar"
+GetMember
+Push "widthkeep"
+GetMember
+Multiply
+SetMember
+GotoFrame 0
+Push "_root"
+GetVariable
+Push "pause", false
+SetMember
+loc0324:

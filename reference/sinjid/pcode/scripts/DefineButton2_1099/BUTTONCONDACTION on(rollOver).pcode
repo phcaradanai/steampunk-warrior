@@ -1,0 +1,46 @@
+ConstantPool "itemlist", "Drink", "itemcheck", "i", "_root", "item", "itempick", "sellprice"
+Push "itemlist", "Drink", 1
+InitArray
+SetVariable
+Push "itemcheck", false
+SetVariable
+Push "itemlist"
+GetVariable
+Enumerate2
+loc005b:StoreRegister 0
+Push null
+Equals2
+If loc00b4
+Push "i", register0
+SetVariable
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+GetMember
+Push 1
+GetMember
+Push "itemlist"
+GetVariable
+Push "i"
+GetVariable
+GetMember
+Equals2
+Not
+If loc00af
+Push "itemcheck", true
+SetVariable
+loc00af:Jump loc005b
+loc00b4:Push "itemcheck"
+GetVariable
+Push true
+Equals2
+Not
+If loc00d1
+Push "sellprice", 3
+SetVariable
+loc00d1:

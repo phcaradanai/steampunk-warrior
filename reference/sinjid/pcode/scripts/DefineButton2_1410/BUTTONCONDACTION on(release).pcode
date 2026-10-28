@@ -1,0 +1,117 @@
+ConstantPool "_root", "gold", "manab", "lifeb", "up", "lifebar", "gotoAndPlay", "lifemaxb", "_width", "widthkeep", "manabar", "manamaxb"
+Push "_root"
+GetVariable
+Push "gold"
+GetMember
+Push 20
+Less2
+Not
+Not
+If loc014b
+Push "_root"
+GetVariable
+Push "gold", "_root"
+GetVariable
+Push "gold"
+GetMember
+Push 20
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "manab", "_root"
+GetVariable
+Push "manab"
+GetMember
+Push 60
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "lifeb", "_root"
+GetVariable
+Push "lifeb"
+GetMember
+Push 60
+Add2
+SetMember
+Push "up", 1, "lifebar"
+GetVariable
+Push "gotoAndPlay"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "lifeb"
+GetMember
+Push "_root"
+GetVariable
+Push "lifemaxb"
+GetMember
+Greater
+Not
+If loc011c
+Push "_root"
+GetVariable
+Push "lifeb", "_root"
+GetVariable
+Push "lifemaxb"
+GetMember
+SetMember
+loc011c:Push "lifebar"
+GetVariable
+Push "_width", "_root"
+GetVariable
+Push "lifeb"
+GetMember
+Push "_root"
+GetVariable
+Push "lifemaxb"
+GetMember
+Divide
+Push "lifebar"
+GetVariable
+Push "widthkeep"
+GetMember
+Multiply
+SetMember
+loc014b:Push "up", 1, "manabar"
+GetVariable
+Push "gotoAndPlay"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "manab"
+GetMember
+Push "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+Greater
+Not
+If loc0193
+Push "_root"
+GetVariable
+Push "manab", "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+SetMember
+loc0193:Push "manabar"
+GetVariable
+Push "_width", "_root"
+GetVariable
+Push "manab"
+GetMember
+Push "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+Divide
+Push "manabar"
+GetVariable
+Push "widthkeep"
+GetMember
+Multiply
+SetMember

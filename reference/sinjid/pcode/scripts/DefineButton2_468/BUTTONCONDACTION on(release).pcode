@@ -1,0 +1,5 @@
+Play
+Push "_root"
+GetVariable
+Push "cleargrid", false
+SetMember

@@ -1,0 +1,40 @@
+ConstantPool "_root", "skill", "d1", "-", "% of life lost", "d2"
+Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 13
+GetMember
+Push 0.0
+Equals2
+Not
+If loc005d
+Push "d1", "-"
+SetVariable
+Jump loc008a
+loc005d:Push "d1", 100, "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 13
+GetMember
+Push 100
+Multiply
+Add2
+Push "% of life lost"
+Add2
+SetVariable
+loc008a:Push "d2", 100, "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 13
+GetMember
+Push 1
+Add2
+Push 100
+Multiply
+Add2
+Push "% of life lost"
+Add2
+SetVariable

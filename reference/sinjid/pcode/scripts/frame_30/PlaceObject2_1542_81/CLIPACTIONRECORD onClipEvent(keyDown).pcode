@@ -1,0 +1,136 @@
+ConstantPool "_root", "grid", "char", "this", "person", "hitTest", "Key", "isDown", "pause", "talking", "clearstage", "moon_q", "SearchNone", "Searched", "Mendo\'s Ring", "GetItem", "speak", "speak1", "speak3", "speak2", "TalkBox", "SpeakerText", "persontype", "TalkText", "_visible", "gotoAndPlay"
+Push "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push 1, "this"
+GetVariable
+Push "person"
+GetMember
+Push "hitTest"
+CallMethod
+Not
+If loc028f
+Push 32, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+PushDuplicate
+Not
+If loc0134
+Pop
+Push "_root"
+GetVariable
+Push "pause"
+GetMember
+Push false
+Equals2
+loc0134:PushDuplicate
+Not
+If loc014f
+Pop
+Push "_root"
+GetVariable
+Push "talking"
+GetMember
+Push true
+Equals2
+Not
+loc014f:PushDuplicate
+Not
+If loc0169
+Pop
+Push "_root"
+GetVariable
+Push "clearstage"
+GetMember
+Push false
+Equals2
+loc0169:Not
+If loc028f
+Push "_root"
+GetVariable
+Push "moon_q"
+GetMember
+Push false
+Equals2
+Not
+If loc020f
+Push 0.0, "_root"
+GetVariable
+Push "SearchNone"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "Searched"
+GetMember
+Push true
+Equals2
+Not
+If loc0201
+Push "_root"
+GetVariable
+Push "Searched"
+GetMember
+Push false
+Equals2
+Pop
+Push 0.0, "Mendo\'s Ring", 2, "_root"
+GetVariable
+Push "GetItem"
+CallMethod
+Pop
+Push "speak", "speak1"
+GetVariable
+SetVariable
+Push "_root"
+GetVariable
+Push "moon_q", true
+SetMember
+Jump loc020a
+loc0201:Push "speak", "speak3"
+GetVariable
+SetVariable
+loc020a:Jump loc0218
+loc020f:Push "speak", "speak2"
+GetVariable
+SetVariable
+loc0218:Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "SpeakerText", "persontype"
+GetVariable
+SetMember
+Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "TalkText", "speak"
+GetVariable
+SetMember
+Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "_visible", true
+SetMember
+Push "_root"
+GetVariable
+Push "pause", true
+SetMember
+Push "_root"
+GetVariable
+Push "talking", true
+SetMember
+Push 1, 1, "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "gotoAndPlay"
+CallMethod
+Pop
+loc028f:

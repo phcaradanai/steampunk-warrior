@@ -1,0 +1,107 @@
+ConstantPool "_root", "skill", "skilllabel", "skillpts", "level", "levelreq", "skillup", "playSound", "UP", "inventory", "skillbox", "gotoAndStop", "Skill", "no"
+Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Push "skilllabel"
+GetVariable
+GetMember
+Push 10
+Less2
+PushDuplicate
+Not
+If loc00ae
+Pop
+Push "_root"
+GetVariable
+Push "skillpts"
+GetMember
+Push 0.0
+Greater
+loc00ae:PushDuplicate
+Not
+If loc00ca
+Pop
+Push "_root"
+GetVariable
+Push "level"
+GetMember
+Push "levelreq"
+GetVariable
+Less2
+Not
+loc00ca:PushDuplicate
+Not
+If loc00f5
+Pop
+Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 4
+GetMember
+Push 0.0
+Equals2
+Not
+loc00f5:Not
+If loc01a7
+Push "_root"
+GetVariable
+Push "skillpts", "_root"
+GetVariable
+Push "skillpts"
+GetMember
+Decrement
+SetMember
+Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Push "skilllabel"
+GetVariable
+Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Push "skilllabel"
+GetVariable
+GetMember
+Increment
+SetMember
+Push "skillup", 1, "_root"
+GetVariable
+Push "playSound"
+CallMethod
+Pop
+GotoFrame 88
+Play
+Push "UP", 1, "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "skillbox"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "Skill", "skilllabel"
+GetVariable
+Add2
+Push 1
+InitArray
+Push 1, "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "skillbox"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Jump loc01bb
+loc01a7:Push "no", 1, "_root"
+GetVariable
+Push "playSound"
+CallMethod
+Pop
+loc01bb:

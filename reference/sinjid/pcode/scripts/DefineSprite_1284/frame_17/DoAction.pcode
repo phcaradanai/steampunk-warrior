@@ -1,0 +1,36 @@
+ConstantPool "_root", "skill", "d1", "-", "d2"
+Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 15
+GetMember
+Push 0.0
+Equals2
+Not
+If loc004e
+Push "d1", "-"
+SetVariable
+Jump loc0075
+loc004e:Push "d1", 60, "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 15
+GetMember
+Push 25
+Multiply
+Add2
+SetVariable
+loc0075:Push "d2", 60, "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 15
+GetMember
+Push 1
+Add2
+Push 25
+Multiply
+Add2
+SetVariable

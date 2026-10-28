@@ -1,0 +1,1524 @@
+ConstantPool "this", "init", "FUIComponentClass", "prototype", "MovieClip", "enable", "focused", "useHandCursor", "_accImpl", "Object", "stub", "styleTable", "Array", "_global", "globalStyleFormat", "FStyleFormat", "isGlobal", "_focusControl", "onSetFocus", "oldFocus", "myOnKillFocus", "newFocus", "myOnSetFocus", "Selection", "addListener", "_name", "_focusrect", "tabEnabled", "focusEnabled", "tabChildren", "tabFocused", "hostStyle", "deadPreview", "_visible", "_width", "_height", "methodTable", "keyListener", "controller", "onKeyDown", "myOnKeyDown", "onKeyUp", "myOnKeyUp", "styleFormat_prm", "i", "setStyleProperty", "setEnabled", "arguments", "length", "enabledFlag", "setFocus", "getEnabled", "setSize", "width", "w", "height", "h", "focusRect", "removeMovieClip", "setChangeHandler", "handlerObj", "obj", "_parent", "changeHandler", "chng", "invalidate", "methodName", "onEnterFrame", "cleanUI", "cleanUINotSize", "funct", "drawRect", "inner", "focusRectInner", "value", "outer", "focusRectOuter", "createEmptyMovieClip", "lineStyle", "y", "x", "moveTo", "lineTo", "pressFocus", "drawFocusRect", "Key", "removeListener", "executeCallBack", "updateStyleProperty", "styleFormat", "propName", "", "tmpValue", "parseInt", "isNaN", "global", "useGlobal", "setCustomStyleProperty", "embedFonts", "subString", "text", "textStyle", "TextFormat", "textProp", "coloredMCs", "j", "myColor", "Color", "myTObj", "ra", "100", "rb", "0", "ga", "gb", "ba", "bb", "aa", "ab", "setTransform", "setRGB", "registerSkinElement", "skinMCRef", "nonStyles", "listeners", "isAStyle", "applyChanges", "arg", "mcRef", "toString", "component", "prop", "count", "name"
+DefineFunction "FUIComponentClass", 0 {
+Push 0.0, "this"
+GetVariable
+Push "init"
+CallMethod
+Pop
+}
+Push "FUIComponentClass"
+GetVariable
+Push "prototype", 0.0, "MovieClip"
+NewObject
+SetMember
+Push "FUIComponentClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "init"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "enable", true
+SetMember
+Push "this"
+GetVariable
+Push "focused", false
+SetMember
+Push "this"
+GetVariable
+Push "useHandCursor", false
+SetMember
+Push "this"
+GetVariable
+Push "_accImpl", 0.0, "Object"
+NewObject
+SetMember
+Push "this"
+GetVariable
+Push "_accImpl"
+GetMember
+Push "stub", true
+SetMember
+Push "this"
+GetVariable
+Push "styleTable", 0.0, "Array"
+NewObject
+SetMember
+Push "_global"
+GetVariable
+Push "globalStyleFormat"
+GetMember
+Push undefined
+Equals2
+Not
+If loc0674
+Push "_global"
+GetVariable
+Push "globalStyleFormat", 0.0, "FStyleFormat"
+NewObject
+SetMember
+Push "globalStyleFormat"
+GetVariable
+Push "isGlobal", true
+SetMember
+Push "_global"
+GetVariable
+Push "_focusControl", 0.0, "Object"
+NewObject
+SetMember
+Push "_global"
+GetVariable
+Push "_focusControl"
+GetMember
+Push "onSetFocus"
+DefineFunction "", 2, "oldFocus" , "newFocus"  {
+Push 0.0, "oldFocus"
+GetVariable
+Push "myOnKillFocus"
+CallMethod
+Pop
+Push 0.0, "newFocus"
+GetVariable
+Push "myOnSetFocus"
+CallMethod
+Pop
+}
+SetMember
+Push "_global"
+GetVariable
+Push "_focusControl"
+GetMember
+Push 1, "Selection"
+GetVariable
+Push "addListener"
+CallMethod
+Pop
+loc0674:Push "this"
+GetVariable
+Push "_name"
+GetMember
+Push undefined
+Equals2
+Not
+Not
+If loc0862
+Push "this"
+GetVariable
+Push "_focusrect", false
+SetMember
+Push "this"
+GetVariable
+Push "tabEnabled", true
+SetMember
+Push "this"
+GetVariable
+Push "focusEnabled", true
+SetMember
+Push "this"
+GetVariable
+Push "tabChildren", false
+SetMember
+Push "this"
+GetVariable
+Push "tabFocused", true
+SetMember
+Push "this"
+GetVariable
+Push "hostStyle"
+GetMember
+Push undefined
+Equals2
+Not
+If loc0706
+Push "this"
+GetVariable
+Push 1, "globalStyleFormat"
+GetVariable
+Push "addListener"
+CallMethod
+Pop
+Jump loc071b
+loc0706:Push "this"
+GetVariable
+Push "styleTable", "this"
+GetVariable
+Push "hostStyle"
+GetMember
+SetMember
+loc071b:Push "this"
+GetVariable
+Push "deadPreview"
+GetMember
+Push "_visible", false
+SetMember
+Push "this"
+GetVariable
+Push "deadPreview"
+GetMember
+Push "_width", "this"
+GetVariable
+Push "deadPreview"
+GetMember
+Push "_height", 1
+StoreRegister 0
+SetMember
+Push register0
+SetMember
+Push "this"
+GetVariable
+Push "methodTable", 0.0, "Object"
+NewObject
+SetMember
+Push "this"
+GetVariable
+Push "keyListener", 0.0, "Object"
+NewObject
+SetMember
+Push "this"
+GetVariable
+Push "keyListener"
+GetMember
+Push "controller", "this"
+GetVariable
+SetMember
+Push "this"
+GetVariable
+Push "keyListener"
+GetMember
+Push "onKeyDown"
+DefineFunction "", 0 {
+Push 0.0, "this"
+GetVariable
+Push "controller"
+GetMember
+Push "myOnKeyDown"
+CallMethod
+Pop
+}
+SetMember
+Push "this"
+GetVariable
+Push "keyListener"
+GetMember
+Push "onKeyUp"
+DefineFunction "", 0 {
+Push 0.0, "this"
+GetVariable
+Push "controller"
+GetMember
+Push "myOnKeyUp"
+CallMethod
+Pop
+}
+SetMember
+Push "this"
+GetVariable
+Push "styleFormat_prm"
+GetMember
+Enumerate2
+loc081c:StoreRegister 0
+Push null
+Equals2
+If loc0862
+Push "i", register0
+DefineLocal
+Push "this"
+GetVariable
+Push "styleFormat_prm"
+GetMember
+Push "i"
+GetVariable
+GetMember
+Push "i"
+GetVariable
+Push 2, "this"
+GetVariable
+Push "setStyleProperty"
+CallMethod
+Pop
+Jump loc081c
+}
+loc0862:SetMember
+Push "FUIComponentClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setEnabled"
+DefineFunction "", 1, "enabledFlag"  {
+Push "this"
+GetVariable
+Push "enable", "arguments"
+GetVariable
+Push "length"
+GetMember
+Push 0.0
+Greater
+If loc08b8
+Push true
+Jump loc08be
+loc08b8:Push "enabledFlag"
+GetVariable
+loc08be:SetMember
+Push "this"
+GetVariable
+Push "tabEnabled", "this"
+GetVariable
+Push "focusEnabled", "enabledFlag"
+GetVariable
+StoreRegister 0
+SetMember
+Push register0
+SetMember
+Push "this"
+GetVariable
+Push "enable"
+GetMember
+Not
+PushDuplicate
+Not
+If loc0901
+Pop
+Push "this"
+GetVariable
+Push "focused"
+GetMember
+loc0901:Not
+If loc091a
+Push undefined, 1, "Selection"
+GetVariable
+Push "setFocus"
+CallMethod
+Pop
+}
+loc091a:SetMember
+Push "FUIComponentClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "getEnabled"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "enable"
+GetMember
+Return
+}
+SetMember
+Push "FUIComponentClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setSize"
+DefineFunction "", 2, "w" , "h"  {
+Push "this"
+GetVariable
+Push "width", "w"
+GetVariable
+SetMember
+Push "this"
+GetVariable
+Push "height", "h"
+GetVariable
+SetMember
+Push 0.0, "this"
+GetVariable
+Push "focusRect"
+GetMember
+Push "removeMovieClip"
+CallMethod
+Pop
+}
+SetMember
+Push "FUIComponentClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setChangeHandler"
+DefineFunction "", 2, "chng" , "obj"  {
+Push "this"
+GetVariable
+Push "handlerObj", "obj"
+GetVariable
+Push undefined
+Equals2
+If loc09df
+Push "obj"
+GetVariable
+Jump loc09eb
+loc09df:Push "this"
+GetVariable
+Push "_parent"
+GetMember
+loc09eb:SetMember
+Push "this"
+GetVariable
+Push "changeHandler", "chng"
+GetVariable
+SetMember
+}
+SetMember
+Push "FUIComponentClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "invalidate"
+DefineFunction "", 1, "methodName"  {
+Push "this"
+GetVariable
+Push "methodTable"
+GetMember
+Push "methodName"
+GetVariable
+Push true
+SetMember
+Push "this"
+GetVariable
+Push "onEnterFrame", "this"
+GetVariable
+Push "cleanUI"
+GetMember
+SetMember
+}
+SetMember
+Push "FUIComponentClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "cleanUI"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "methodTable"
+GetMember
+Push "setSize"
+GetMember
+Not
+If loc0aae
+Push "this"
+GetVariable
+Push "height"
+GetMember
+Push "this"
+GetVariable
+Push "width"
+GetMember
+Push 2, "this"
+GetVariable
+Push "setSize"
+CallMethod
+Pop
+Jump loc0ac4
+loc0aae:Push 0.0, "this"
+GetVariable
+Push "cleanUINotSize"
+CallMethod
+Pop
+loc0ac4:Push "this"
+GetVariable
+Push "methodTable", 0.0, "Object"
+NewObject
+SetMember
+Push "this"
+GetVariable
+Push "onEnterFrame"
+Delete
+Pop
+}
+SetMember
+Push "FUIComponentClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "cleanUINotSize"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "methodTable"
+GetMember
+Enumerate2
+loc0b10:StoreRegister 0
+Push null
+Equals2
+If loc0b42
+Push "funct", register0
+DefineLocal
+Push 0.0, "this"
+GetVariable
+Push "funct"
+GetVariable
+CallMethod
+Pop
+Jump loc0b10
+}
+loc0b42:SetMember
+Push "FUIComponentClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "drawRect"
+DefineFunction "", 4, "x" , "y" , "w" , "h"  {
+Push "inner", "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push "focusRectInner"
+GetMember
+Push "value"
+GetMember
+DefineLocal
+Push "outer", "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push "focusRectOuter"
+GetMember
+Push "value"
+GetMember
+DefineLocal
+Push "inner"
+GetVariable
+Push undefined
+Equals2
+Not
+If loc0bb6
+Push "inner", 16777215
+SetVariable
+loc0bb6:Push "outer"
+GetVariable
+Push undefined
+Equals2
+Not
+If loc0bd6
+Push "outer", 0.0
+SetVariable
+loc0bd6:Push 1000, "focusRect", 2, "this"
+GetVariable
+Push "createEmptyMovieClip"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "focusRect"
+GetMember
+Push "controller", "this"
+GetVariable
+SetMember
+Push "outer"
+GetVariable
+Push 1, 2, "this"
+GetVariable
+Push "focusRect"
+GetMember
+Push "lineStyle"
+CallMethod
+Pop
+Push "y"
+GetVariable
+Push "x"
+GetVariable
+Push 2, "this"
+GetVariable
+Push "focusRect"
+GetMember
+Push "moveTo"
+CallMethod
+Pop
+Push "y"
+GetVariable
+Push "x"
+GetVariable
+Push "w"
+GetVariable
+Add2
+Push 2, "this"
+GetVariable
+Push "focusRect"
+GetMember
+Push "lineTo"
+CallMethod
+Pop
+Push "y"
+GetVariable
+Push "h"
+GetVariable
+Add2
+Push "x"
+GetVariable
+Push "w"
+GetVariable
+Add2
+Push 2, "this"
+GetVariable
+Push "focusRect"
+GetMember
+Push "lineTo"
+CallMethod
+Pop
+Push "y"
+GetVariable
+Push "h"
+GetVariable
+Add2
+Push "x"
+GetVariable
+Push 2, "this"
+GetVariable
+Push "focusRect"
+GetMember
+Push "lineTo"
+CallMethod
+Pop
+Push "y"
+GetVariable
+Push "x"
+GetVariable
+Push 2, "this"
+GetVariable
+Push "focusRect"
+GetMember
+Push "lineTo"
+CallMethod
+Pop
+Push "inner"
+GetVariable
+Push 1, 2, "this"
+GetVariable
+Push "focusRect"
+GetMember
+Push "lineStyle"
+CallMethod
+Pop
+Push "y"
+GetVariable
+Push 1
+Add2
+Push "x"
+GetVariable
+Push 1
+Add2
+Push 2, "this"
+GetVariable
+Push "focusRect"
+GetMember
+Push "moveTo"
+CallMethod
+Pop
+Push "y"
+GetVariable
+Push 1
+Add2
+Push "x"
+GetVariable
+Push "w"
+GetVariable
+Add2
+Push 1
+Subtract
+Push 2, "this"
+GetVariable
+Push "focusRect"
+GetMember
+Push "lineTo"
+CallMethod
+Pop
+Push "y"
+GetVariable
+Push "h"
+GetVariable
+Add2
+Push 1
+Subtract
+Push "x"
+GetVariable
+Push "w"
+GetVariable
+Add2
+Push 1
+Subtract
+Push 2, "this"
+GetVariable
+Push "focusRect"
+GetMember
+Push "lineTo"
+CallMethod
+Pop
+Push "y"
+GetVariable
+Push "h"
+GetVariable
+Add2
+Push 1
+Subtract
+Push "x"
+GetVariable
+Push 1
+Add2
+Push 2, "this"
+GetVariable
+Push "focusRect"
+GetMember
+Push "lineTo"
+CallMethod
+Pop
+Push "y"
+GetVariable
+Push 1
+Add2
+Push "x"
+GetVariable
+Push 1
+Add2
+Push 2, "this"
+GetVariable
+Push "focusRect"
+GetMember
+Push "lineTo"
+CallMethod
+Pop
+}
+SetMember
+Push "FUIComponentClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "pressFocus"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "tabFocused", false
+SetMember
+Push 0.0, "this"
+GetVariable
+Push "focusRect"
+GetMember
+Push "removeMovieClip"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push 1, "Selection"
+GetVariable
+Push "setFocus"
+CallMethod
+Pop
+}
+SetMember
+Push "FUIComponentClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "drawFocusRect"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "height"
+GetMember
+Push 4
+Add2
+Push "this"
+GetVariable
+Push "width"
+GetMember
+Push 4
+Add2
+Push -2, -2, 4, "this"
+GetVariable
+Push "drawRect"
+CallMethod
+Pop
+}
+SetMember
+Push "FUIComponentClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "myOnSetFocus"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "focused", true
+SetMember
+Push "this"
+GetVariable
+Push "keyListener"
+GetMember
+Push 1, "Key"
+GetVariable
+Push "addListener"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "tabFocused"
+GetMember
+Not
+If loc0f6e
+Push 0.0, "this"
+GetVariable
+Push "drawFocusRect"
+CallMethod
+Pop
+}
+loc0f6e:SetMember
+Push "FUIComponentClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "myOnKillFocus"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "tabFocused", true
+SetMember
+Push "this"
+GetVariable
+Push "focused", false
+SetMember
+Push 0.0, "this"
+GetVariable
+Push "focusRect"
+GetMember
+Push "removeMovieClip"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "keyListener"
+GetMember
+Push 1, "Key"
+GetVariable
+Push "removeListener"
+CallMethod
+Pop
+}
+SetMember
+Push "FUIComponentClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "executeCallBack"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "handlerObj"
+GetMember
+Push "this"
+GetVariable
+Push "changeHandler"
+GetMember
+CallMethod
+Pop
+}
+SetMember
+Push "FUIComponentClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "updateStyleProperty"
+DefineFunction "", 2, "styleFormat" , "propName"  {
+Push "styleFormat"
+GetVariable
+Push "isGlobal"
+GetMember
+Push "styleFormat"
+GetVariable
+Push "propName"
+GetVariable
+GetMember
+Push "propName"
+GetVariable
+Push 3, "this"
+GetVariable
+Push "setStyleProperty"
+CallMethod
+Pop
+}
+SetMember
+Push "FUIComponentClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setStyleProperty"
+DefineFunction "", 3, "propName" , "value" , "isGlobal"  {
+Push "value"
+GetVariable
+Push ""
+Equals2
+Not
+If loc10c6
+Push undefined
+Return
+loc10c6:Push "tmpValue", "value"
+GetVariable
+Push 1, "parseInt"
+CallFunction
+DefineLocal
+Push "tmpValue"
+GetVariable
+Push 1, "isNaN"
+CallFunction
+Not
+Not
+If loc10fb
+Push "value", "tmpValue"
+GetVariable
+SetVariable
+loc10fb:Push "global", "arguments"
+GetVariable
+Push "length"
+GetMember
+Push 2
+Greater
+If loc1121
+Push false
+Jump loc1127
+loc1121:Push "isGlobal"
+GetVariable
+loc1127:DefineLocal
+Push "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push "propName"
+GetVariable
+GetMember
+Push undefined
+Equals2
+Not
+If loc1183
+Push "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push "propName"
+GetVariable
+Push 0.0, "Object"
+NewObject
+SetMember
+Push "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push "propName"
+GetVariable
+GetMember
+Push "useGlobal", true
+SetMember
+loc1183:Push "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push "propName"
+GetVariable
+GetMember
+Push "useGlobal"
+GetMember
+PushDuplicate
+If loc11aa
+Pop
+Push "global"
+GetVariable
+Not
+loc11aa:Not
+If loc13d4
+Push "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push "propName"
+GetVariable
+GetMember
+Push "value", "value"
+GetVariable
+SetMember
+Push "value"
+GetVariable
+Push "propName"
+GetVariable
+Push 2, "this"
+GetVariable
+Push "setCustomStyleProperty"
+CallMethod
+Not
+If loc11f4
+Jump loc13b8
+loc11f4:Push "propName"
+GetVariable
+Push "embedFonts"
+Equals2
+Not
+If loc121f
+Push "setSize", 1, "this"
+GetVariable
+Push "invalidate"
+CallMethod
+Pop
+Jump loc13b8
+loc121f:Push 4, 0.0, 2, "propName"
+GetVariable
+Push "subString"
+CallMethod
+Push "text"
+Equals2
+Not
+If loc12d0
+Push "this"
+GetVariable
+Push "textStyle"
+GetMember
+Push undefined
+Equals2
+Not
+If loc1279
+Push "this"
+GetVariable
+Push "textStyle", 0.0, "TextFormat"
+NewObject
+SetMember
+loc1279:Push "textProp", "propName"
+GetVariable
+Push "length"
+GetMember
+Push 4, 2, "propName"
+GetVariable
+Push "subString"
+CallMethod
+DefineLocal
+Push "this"
+GetVariable
+Push "textStyle"
+GetMember
+Push "textProp"
+GetVariable
+Push "value"
+GetVariable
+SetMember
+Push "setSize", 1, "this"
+GetVariable
+Push "invalidate"
+CallMethod
+Pop
+Jump loc13b8
+loc12d0:Push "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push "propName"
+GetVariable
+GetMember
+Push "coloredMCs"
+GetMember
+Enumerate2
+loc12ea:StoreRegister 0
+Push null
+Equals2
+If loc13b8
+Push "j", register0
+DefineLocal
+Push "myColor", "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push "propName"
+GetVariable
+GetMember
+Push "coloredMCs"
+GetMember
+Push "j"
+GetVariable
+GetMember
+Push 1, "Color"
+NewObject
+DefineLocal
+Push "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push "propName"
+GetVariable
+GetMember
+Push "value"
+GetMember
+Push undefined
+Equals2
+Not
+If loc139b
+Push "myTObj", "ra", "100", "rb", "0", "ga", "100", "gb", "0", "ba", "100", "bb", "0", "aa", "100", "ab", "0", 8
+InitObject
+DefineLocal
+Push "myTObj"
+GetVariable
+Push 1, "myColor"
+GetVariable
+Push "setTransform"
+CallMethod
+Pop
+Jump loc13b3
+loc139b:Push "value"
+GetVariable
+Push 1, "myColor"
+GetVariable
+Push "setRGB"
+CallMethod
+Pop
+loc13b3:Jump loc12ea
+loc13b8:Push "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push "propName"
+GetVariable
+GetMember
+Push "useGlobal", "global"
+GetVariable
+SetMember
+}
+loc13d4:SetMember
+Push "FUIComponentClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "registerSkinElement"
+DefineFunction "", 2, "skinMCRef" , "propName"  {
+Push "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push "propName"
+GetVariable
+GetMember
+Push undefined
+Equals2
+Not
+If loc145c
+Push "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push "propName"
+GetVariable
+Push 0.0, "Object"
+NewObject
+SetMember
+Push "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push "propName"
+GetVariable
+GetMember
+Push "useGlobal", true
+SetMember
+loc145c:Push "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push "propName"
+GetVariable
+GetMember
+Push "coloredMCs"
+GetMember
+Push undefined
+Equals2
+Not
+If loc14a5
+Push "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push "propName"
+GetVariable
+GetMember
+Push "coloredMCs", 0.0, "Object"
+NewObject
+SetMember
+loc14a5:Push "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push "propName"
+GetVariable
+GetMember
+Push "coloredMCs"
+GetMember
+Push "skinMCRef"
+GetVariable
+Push "skinMCRef"
+GetVariable
+SetMember
+Push "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push "propName"
+GetVariable
+GetMember
+Push "value"
+GetMember
+Push undefined
+Equals2
+Not
+Not
+If loc152f
+Push "myColor", "skinMCRef"
+GetVariable
+Push 1, "Color"
+NewObject
+DefineLocal
+Push "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push "propName"
+GetVariable
+GetMember
+Push "value"
+GetMember
+Push 1, "myColor"
+GetVariable
+Push "setRGB"
+CallMethod
+Pop
+}
+loc152f:SetMember
+Push "_global"
+GetVariable
+Push "FStyleFormat"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "nonStyles", "listeners", true, "isGlobal", true, "isAStyle", true, "addListener", true, "removeListener", true, "nonStyles", true, "applyChanges", true, 7
+InitObject
+SetMember
+Push "this"
+GetVariable
+Push "listeners", 0.0, "Object"
+NewObject
+SetMember
+Push "this"
+GetVariable
+Push "isGlobal", false
+SetMember
+Push "arguments"
+GetVariable
+Push "length"
+GetMember
+Push 0.0
+Greater
+Not
+If loc160c
+Push "arguments"
+GetVariable
+Push 0.0
+GetMember
+Enumerate2
+loc15ca:StoreRegister 0
+Push null
+Equals2
+If loc160c
+Push "i", register0
+DefineLocal
+Push "this"
+GetVariable
+Push "i"
+GetVariable
+Push "arguments"
+GetVariable
+Push 0.0
+GetMember
+Push "i"
+GetVariable
+GetMember
+SetMember
+Jump loc15ca
+}
+loc160c:SetMember
+Push "_global"
+GetVariable
+Push "FStyleFormat"
+GetMember
+Push "prototype", 0.0, "Object"
+NewObject
+SetMember
+Push "FStyleFormat"
+GetVariable
+Push "prototype"
+GetMember
+Push "addListener"
+DefineFunction "", 0 {
+Push "arg", 0.0
+DefineLocal
+loc1653:Push "arg"
+GetVariable
+Push "arguments"
+GetVariable
+Push "length"
+GetMember
+Less2
+Not
+If loc1717
+Push "mcRef", "arguments"
+GetVariable
+Push "arg"
+GetVariable
+GetMember
+DefineLocal
+Push "this"
+GetVariable
+Push "listeners"
+GetMember
+Push "arguments"
+GetVariable
+Push "arg"
+GetVariable
+GetMember
+Push "mcRef"
+GetVariable
+SetMember
+Push "this"
+GetVariable
+Enumerate2
+loc16a3:StoreRegister 0
+Push null
+Equals2
+If loc1708
+Push "i", register0
+DefineLocal
+Push "i"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "isAStyle"
+CallMethod
+Not
+If loc1703
+Push 0.0, "i"
+GetVariable
+Push "toString"
+CallMethod
+Push "this"
+GetVariable
+Push 2, "mcRef"
+GetVariable
+Push "updateStyleProperty"
+CallMethod
+Pop
+loc1703:Jump loc16a3
+loc1708:Push "arg", "arg"
+GetVariable
+Increment
+SetVariable
+Jump loc1653
+}
+loc1717:SetMember
+Push "FStyleFormat"
+GetVariable
+Push "prototype"
+GetMember
+Push "removeListener"
+DefineFunction "", 1, "component"  {
+Push "this"
+GetVariable
+Push "listeners"
+GetMember
+Push "component"
+GetVariable
+Push undefined
+SetMember
+Push "this"
+GetVariable
+Enumerate2
+loc1759:StoreRegister 0
+Push null
+Equals2
+If loc1822
+Push "prop", register0
+DefineLocal
+Push "prop"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "isAStyle"
+CallMethod
+Not
+If loc181d
+Push "component"
+GetVariable
+Push "styleTable"
+GetMember
+Push "prop"
+GetVariable
+GetMember
+Push "useGlobal"
+GetMember
+Push "this"
+GetVariable
+Push "isGlobal"
+GetMember
+Equals2
+Not
+If loc181d
+Push "component"
+GetVariable
+Push "styleTable"
+GetMember
+Push "prop"
+GetVariable
+GetMember
+Push "useGlobal", true
+SetMember
+Push "value", "this"
+GetVariable
+Push "isGlobal"
+GetMember
+If loc17f8
+Push "globalStyleFormat"
+GetVariable
+Push "prop"
+GetVariable
+GetMember
+Jump loc17fc
+loc17f8:Push undefined
+loc17fc:DefineLocal
+Push true, "value"
+GetVariable
+Push "prop"
+GetVariable
+Push 3, "component"
+GetVariable
+Push "setStyleProperty"
+CallMethod
+Pop
+loc181d:Jump loc1759
+}
+loc1822:SetMember
+Push "FStyleFormat"
+GetVariable
+Push "prototype"
+GetMember
+Push "applyChanges"
+DefineFunction "", 0 {
+Push "count", 0.0
+DefineLocal
+Push "this"
+GetVariable
+Push "listeners"
+GetMember
+Enumerate2
+loc1858:StoreRegister 0
+Push null
+Equals2
+If loc1999
+Push "i", register0
+DefineLocal
+Push "component", "this"
+GetVariable
+Push "listeners"
+GetMember
+Push "i"
+GetVariable
+GetMember
+DefineLocal
+Push "arguments"
+GetVariable
+Push "length"
+GetMember
+Push 0.0
+Greater
+Not
+If loc1928
+Push "j", 0.0
+DefineLocal
+loc18b2:Push "j"
+GetVariable
+Push "arguments"
+GetVariable
+Push "length"
+GetMember
+Less2
+Not
+If loc1923
+Push "arguments"
+GetVariable
+Push "j"
+GetVariable
+GetMember
+Push 1, "this"
+GetVariable
+Push "isAStyle"
+CallMethod
+Not
+If loc1914
+Push "arguments"
+GetVariable
+Push "j"
+GetVariable
+GetMember
+Push "this"
+GetVariable
+Push 2, "component"
+GetVariable
+Push "updateStyleProperty"
+CallMethod
+Pop
+loc1914:Push "j", "j"
+GetVariable
+Increment
+SetVariable
+Jump loc18b2
+loc1923:Jump loc1994
+loc1928:Push "this"
+GetVariable
+Enumerate2
+loc192f:StoreRegister 0
+Push null
+Equals2
+If loc1994
+Push "j", register0
+DefineLocal
+Push "j"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "isAStyle"
+CallMethod
+Not
+If loc198f
+Push 0.0, "j"
+GetVariable
+Push "toString"
+CallMethod
+Push "this"
+GetVariable
+Push 2, "component"
+GetVariable
+Push "updateStyleProperty"
+CallMethod
+Pop
+loc198f:Jump loc192f
+loc1994:Jump loc1858
+}
+loc1999:SetMember
+Push "FStyleFormat"
+GetVariable
+Push "prototype"
+GetMember
+Push "isAStyle"
+DefineFunction "", 1, "name"  {
+Push "this"
+GetVariable
+Push "nonStyles"
+GetMember
+Push "name"
+GetVariable
+GetMember
+If loc19da
+Push true
+Jump loc19df
+loc19da:Push false
+loc19df:Return
+}
+SetMember

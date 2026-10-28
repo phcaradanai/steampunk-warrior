@@ -1,0 +1,33 @@
+ConstantPool "_root", "eded", "playerturn", "midfight", "stand", "mcname", "gotoAndStop"
+Push "_root"
+GetVariable
+Push "eded"
+GetMember
+Push true
+Equals2
+Not
+Not
+If loc008d
+Push "_root"
+GetVariable
+Push "playerturn", "_root"
+GetVariable
+Push "playerturn"
+GetMember
+If loc0079
+Push true
+Jump loc007e
+loc0079:Push false
+loc007e:SetMember
+Push "_root"
+GetVariable
+Push "midfight", false
+SetMember
+loc008d:Push "stand", 1, "_root"
+GetVariable
+Push "mcname"
+GetVariable
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop

@@ -1,0 +1,35 @@
+ConstantPool "_root", "grid", "char", "stepper", "this", "hitTest", "portallevel", "level", "yellow", "gotoAndPlay"
+Push "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "stepper"
+GetMember
+Push 1, "this"
+GetVariable
+Push "hitTest"
+CallMethod
+PushDuplicate
+Not
+If loc009d
+Pop
+Push "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push "level"
+GetVariable
+GetMember
+Push 5
+Greater
+Not
+loc009d:Not
+If loc00b7
+Push "yellow", 1, "this"
+GetVariable
+Push "gotoAndPlay"
+CallMethod
+Pop
+loc00b7:

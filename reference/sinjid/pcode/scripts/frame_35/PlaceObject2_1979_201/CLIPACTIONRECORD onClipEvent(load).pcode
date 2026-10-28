@@ -1,0 +1,7 @@
+GotoFrame 34
+Push "target", "enemy1"
+SetVariable
+Push "typeoftarget", "herotarget"
+SetVariable
+Push "otherpointer", "pointer2"
+SetVariable

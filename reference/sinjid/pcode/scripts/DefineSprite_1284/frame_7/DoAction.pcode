@@ -1,0 +1,40 @@
+ConstantPool "_root", "skill", "d1", "-", " each shot", "d2"
+Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 5
+GetMember
+Push 0.0
+Equals2
+Not
+If loc0059
+Push "d1", "-"
+SetVariable
+Jump loc0086
+loc0059:Push "d1", 7, "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 5
+GetMember
+Push 5
+Multiply
+Add2
+Push " each shot"
+Add2
+SetVariable
+loc0086:Push "d2", 7, "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 5
+GetMember
+Push 1
+Add2
+Push 5
+Multiply
+Add2
+Push " each shot"
+Add2
+SetVariable

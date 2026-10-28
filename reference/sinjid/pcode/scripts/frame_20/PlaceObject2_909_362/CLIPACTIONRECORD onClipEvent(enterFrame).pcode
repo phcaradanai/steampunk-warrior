@@ -1,0 +1,12 @@
+Push "_root"
+GetVariable
+Push "cleargrid"
+GetMember
+Push true
+Equals2
+Not
+If loc0031
+Push "this"
+GetVariable
+RemoveSprite
+loc0031:

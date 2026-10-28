@@ -1,0 +1,60 @@
+ConstantPool "_root", "grid", "char", "this", "person", "hitTest", "yellow", "gotoAndPlay", "clearstage", "_y", "charything", "objectnum", "swapDepths"
+Push "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push 1, "this"
+GetVariable
+Push "person"
+GetMember
+Push "hitTest"
+CallMethod
+Not
+If loc00ad
+Push "yellow", 1, "this"
+GetVariable
+Push "gotoAndPlay"
+CallMethod
+Pop
+loc00ad:Push "_root"
+GetVariable
+Push "clearstage"
+GetMember
+Push true
+Equals2
+Not
+If loc00cc
+Push "this"
+GetVariable
+RemoveSprite
+loc00cc:Push "this"
+GetVariable
+Push "_y"
+GetMember
+Push "_root"
+GetVariable
+Push "charything"
+GetMember
+Greater
+Not
+If loc010e
+Push 20000, "objectnum"
+GetVariable
+Add2
+Push 1, "this"
+GetVariable
+Push "swapDepths"
+CallMethod
+Pop
+Jump loc0130
+loc010e:Push 0.0, "objectnum"
+GetVariable
+Add2
+Push 1, "this"
+GetVariable
+Push "swapDepths"
+CallMethod
+Pop
+loc0130:

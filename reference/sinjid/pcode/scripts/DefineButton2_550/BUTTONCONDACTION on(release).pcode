@@ -1,0 +1,99 @@
+ConstantPool "_root", "meet", "talking", "manapots", "manab", "potion", "playSound", "manapotmc", "gotoAndPlay", "up", "manabar", "manamaxb", "_width", "widthkeep"
+Push "_root"
+GetVariable
+Push "meet"
+GetMember
+Push false
+Equals2
+PushDuplicate
+Not
+If loc00a0
+Pop
+Push "_root"
+GetVariable
+Push "talking"
+GetMember
+Push true
+Equals2
+Not
+loc00a0:PushDuplicate
+Not
+If loc00c1
+Pop
+Push "_root"
+GetVariable
+Push "manapots"
+GetMember
+Push 0.0
+Greater
+loc00c1:Not
+If loc01a5
+Push "_root"
+GetVariable
+Push "manab", "_root"
+GetVariable
+Push "manab"
+GetMember
+Push 80
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "manapots", "_root"
+GetVariable
+Push "manapots"
+GetMember
+Push 1
+Subtract
+SetMember
+Push "potion", 1, "_root"
+GetVariable
+Push "playSound"
+CallMethod
+Pop
+Push 2, 1, "manapotmc"
+GetVariable
+Push "gotoAndPlay"
+CallMethod
+Pop
+Push "up", 1, "manabar"
+GetVariable
+Push "gotoAndPlay"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "manab"
+GetMember
+Push "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+Greater
+Not
+If loc0176
+Push "_root"
+GetVariable
+Push "manab", "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+SetMember
+loc0176:Push "manabar"
+GetVariable
+Push "_width", "_root"
+GetVariable
+Push "manab"
+GetMember
+Push "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+Divide
+Push "manabar"
+GetVariable
+Push "widthkeep"
+GetMember
+Multiply
+SetMember
+loc01a5:

@@ -1,0 +1,53 @@
+ConstantPool "this", "_y", "_root", "cloud", "_x", "hitTest", "_alpha"
+Push "this"
+GetVariable
+Push "_y"
+GetMember
+Push "_root"
+GetVariable
+Push "cloud"
+GetMember
+Push "_x"
+GetMember
+Push 2, "this"
+GetVariable
+Push "hitTest"
+CallMethod
+Not
+If loc00a2
+Push "this"
+GetVariable
+Push "_alpha"
+GetMember
+Push 0.0
+Greater
+Not
+If loc009d
+Push "this"
+GetVariable
+Push "_alpha", "this"
+GetVariable
+Push "_alpha"
+GetMember
+Push 5
+Subtract
+SetMember
+loc009d:Jump loc00db
+loc00a2:Push "this"
+GetVariable
+Push "_alpha"
+GetMember
+Push 50
+Less2
+Not
+If loc00db
+Push "this"
+GetVariable
+Push "_alpha", "this"
+GetVariable
+Push "_alpha"
+GetMember
+Push 5
+Add2
+SetMember
+loc00db:

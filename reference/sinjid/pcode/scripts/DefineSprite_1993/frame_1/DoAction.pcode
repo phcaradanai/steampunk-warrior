@@ -1,0 +1,206 @@
+ConstantPool "_root", "endtrain", "midfight", "bgstage", "bg", "gotoAndStop", "hero1bodyparts", "Array", "feet2", "feet1", "feetleg2", "feetleg1", "leg2", "leg1", "handarm2", "handarm1", "arm2", "arm1", "body", "hero1suit", "Suit", "hero1helmet", "Helmet", "hero1swordtype", "Weapon", "hero1shieldtype", "Shield", "hero1speed", "speedb", "skill", "hero1str", "strb", "hero1manamax", "manamaxb", "hero1mana", "manab", "hero1lifemax", "lifemaxb", "hero1life", "lifeb", "hero1bar", "_width", "widthkeep", "hero1shddmg", "shddmgb", "hero1phydmg", "phydmgb", "hero1magdmg", "magdmgb", "shdptsb", "hero1shdptsmax", "hero1shdpts", "hero1phydef", "phydefb", "hero1magdef", "magdefb", "hero1shdmagdef", "shdphydefb", "hero1shdphydef", "shdmagdefb"
+Push "_root"
+GetVariable
+Push "endtrain", false
+SetMember
+Push "_root"
+GetVariable
+Push "midfight", true
+SetMember
+Push "_root"
+GetVariable
+Push "bgstage"
+GetMember
+Push 1, "_root"
+GetVariable
+Push "bg"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "hero1bodyparts", 0.0, "Array"
+NewObject
+SetMember
+Push "_root"
+GetVariable
+Push "hero1bodyparts", "feet2", "feet1", "feetleg2", "feetleg1", "leg2", "leg1", "handarm2", "handarm1", "arm2", "arm1", "body", 11
+InitArray
+SetMember
+Push "_root"
+GetVariable
+Push "hero1suit", "_root"
+GetVariable
+Push "Suit"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero1helmet", "_root"
+GetVariable
+Push "Helmet"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero1swordtype", "_root"
+GetVariable
+Push "Weapon"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero1shieldtype", "_root"
+GetVariable
+Push "Shield"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero1speed", "_root"
+GetVariable
+Push "speedb"
+GetMember
+Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Push 7
+GetMember
+Push 2
+Multiply
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "hero1str", "_root"
+GetVariable
+Push "strb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero1manamax", "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero1mana", "_root"
+GetVariable
+Push "manab"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero1lifemax", "_root"
+GetVariable
+Push "lifemaxb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero1life", "_root"
+GetVariable
+Push "lifeb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero1bar"
+GetMember
+Push "_width", "_root"
+GetVariable
+Push "hero1life"
+GetMember
+Push "_root"
+GetVariable
+Push "hero1lifemax"
+GetMember
+Divide
+Push "_root"
+GetVariable
+Push "hero1bar"
+GetMember
+Push "widthkeep"
+GetMember
+Multiply
+SetMember
+Push "_root"
+GetVariable
+Push "hero1shddmg", "_root"
+GetVariable
+Push "shddmgb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero1phydmg", "_root"
+GetVariable
+Push "phydmgb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero1magdmg", "_root"
+GetVariable
+Push "magdmgb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "shdptsb"
+GetMember
+Push 0.0
+Equals2
+Not
+If loc0448
+Push "_root"
+GetVariable
+Push "hero1shdptsmax", 1
+SetMember
+Jump loc045d
+loc0448:Push "_root"
+GetVariable
+Push "hero1shdptsmax", "_root"
+GetVariable
+Push "shdptsb"
+GetMember
+SetMember
+loc045d:Push "_root"
+GetVariable
+Push "hero1shdpts", "_root"
+GetVariable
+Push "shdptsb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero1phydef", "_root"
+GetVariable
+Push "phydefb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero1magdef", "_root"
+GetVariable
+Push "magdefb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero1shdmagdef", "_root"
+GetVariable
+Push "shdphydefb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "hero1shdphydef", "_root"
+GetVariable
+Push "shdmagdefb"
+GetMember
+SetMember

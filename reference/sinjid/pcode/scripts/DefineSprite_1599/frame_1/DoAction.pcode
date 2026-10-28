@@ -1,0 +1,8 @@
+Push "item"
+GetVariable
+Push 1, "itemthing"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+Stop

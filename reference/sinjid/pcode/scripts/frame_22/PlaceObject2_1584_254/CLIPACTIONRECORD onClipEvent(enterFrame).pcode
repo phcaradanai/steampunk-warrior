@@ -1,0 +1,41 @@
+ConstantPool "_root", "clearstage", "this", "_y", "charything", "objectnum", "swapDepths"
+Push "_root"
+GetVariable
+Push "clearstage"
+GetMember
+Push true
+Equals2
+Not
+If loc005d
+Push "this"
+GetVariable
+RemoveSprite
+loc005d:Push "this"
+GetVariable
+Push "_y"
+GetMember
+Push "_root"
+GetVariable
+Push "charything"
+GetMember
+Greater
+Not
+If loc009f
+Push 20000, "objectnum"
+GetVariable
+Add2
+Push 1, "this"
+GetVariable
+Push "swapDepths"
+CallMethod
+Pop
+Jump loc00c1
+loc009f:Push 0.0, "objectnum"
+GetVariable
+Add2
+Push 1, "this"
+GetVariable
+Push "swapDepths"
+CallMethod
+Pop
+loc00c1:

@@ -1,0 +1,131 @@
+ConstantPool "_root", "grid", "char", "stepper", "this", "hitTest", "Key", "isDown", "pause", "talking", "clearstage", "portallevel", "cleargrid", "TalkBox", "inventory", "objectives", "blackout", "change", "gotoAndPlay", "theend", "SpeakerText", "Information", "TalkText", "speak", "_visible"
+Push "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "stepper"
+GetMember
+Push 1, "this"
+GetVariable
+Push "hitTest"
+CallMethod
+PushDuplicate
+Not
+If loc011b
+Pop
+Push 32, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+loc011b:PushDuplicate
+Not
+If loc0135
+Pop
+Push "_root"
+GetVariable
+Push "pause"
+GetMember
+Push false
+Equals2
+loc0135:PushDuplicate
+Not
+If loc0150
+Pop
+Push "_root"
+GetVariable
+Push "talking"
+GetMember
+Push true
+Equals2
+Not
+loc0150:PushDuplicate
+Not
+If loc016a
+Pop
+Push "_root"
+GetVariable
+Push "clearstage"
+GetMember
+Push false
+Equals2
+loc016a:Not
+If loc027e
+Push "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push 0.0
+GetMember
+Push 20
+Greater
+Not
+If loc0208
+Push "_root"
+GetVariable
+Push "clearstage", true
+SetMember
+StopSounds
+Push "_root"
+GetVariable
+Push "clearstage", true
+SetMember
+Push "_root"
+GetVariable
+Push "cleargrid", true
+SetMember
+Push "TalkBox"
+RemoveSprite
+Push "inventory"
+RemoveSprite
+Push "objectives"
+RemoveSprite
+Push "blackout"
+RemoveSprite
+Push "change", 1, "this"
+GetVariable
+Push "gotoAndPlay"
+CallMethod
+Pop
+Push "theend", 1, "_root"
+GetVariable
+Push "gotoAndPlay"
+CallMethod
+Pop
+Jump loc027e
+loc0208:Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "SpeakerText", "Information"
+SetMember
+Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "TalkText", "speak"
+GetVariable
+SetMember
+Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "_visible", true
+SetMember
+Push "_root"
+GetVariable
+Push "pause", true
+SetMember
+Push "_root"
+GetVariable
+Push "talking", true
+SetMember
+Push 1, 1, "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "gotoAndPlay"
+CallMethod
+Pop
+loc027e:

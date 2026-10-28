@@ -1,0 +1,5 @@
+onClipEvent(load){
+   speak = "The first portal to the enemy is to the left, but if you want to buy equipment turn right. If your energy is low, you should eat something, otherwise your life and mana will start decreasing.";
+   persontype = "Ninja";
+   objectnum = 2;
+}

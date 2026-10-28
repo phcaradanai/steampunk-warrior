@@ -1,0 +1,69 @@
+ConstantPool "_root", "gold", "lifeb", "up", "lifebar", "gotoAndPlay", "lifemaxb", "_width", "widthkeep"
+Push "_root"
+GetVariable
+Push "gold"
+GetMember
+Push 10
+Less2
+Not
+Not
+If loc0116
+Push "_root"
+GetVariable
+Push "gold", "_root"
+GetVariable
+Push "gold"
+GetMember
+Push 10
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "lifeb", "_root"
+GetVariable
+Push "lifeb"
+GetMember
+Push 40
+Add2
+SetMember
+Push "up", 1, "lifebar"
+GetVariable
+Push "gotoAndPlay"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "lifeb"
+GetMember
+Push "_root"
+GetVariable
+Push "lifemaxb"
+GetMember
+Greater
+Not
+If loc00e7
+Push "_root"
+GetVariable
+Push "lifeb", "_root"
+GetVariable
+Push "lifemaxb"
+GetMember
+SetMember
+loc00e7:Push "lifebar"
+GetVariable
+Push "_width", "_root"
+GetVariable
+Push "lifeb"
+GetMember
+Push "_root"
+GetVariable
+Push "lifemaxb"
+GetMember
+Divide
+Push "lifebar"
+GetVariable
+Push "widthkeep"
+GetMember
+Multiply
+SetMember
+loc0116:

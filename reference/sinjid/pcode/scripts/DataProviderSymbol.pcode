@@ -1,0 +1,450 @@
+ConstantPool "_global", "DataProviderClass", "this", "init", "prototype", "items", "Array", "uniqueID", "views", "addView", "viewRef", "push", "eventObj", "event", "updateAll", "modelChanged", "addItemAt", "index", "getLength", "tmp", "splice", "Object", "value", "object", "label", "__ID__", "addRows", "firstRow", "lastRow", "updateViews", "addItem", "removeItemAt", "tmpItm", "deleteRows", "removeAll", "replaceItemAt", "tmpID", "getItemID", "itemObj", "updateRows", "length", "getItemAt", "sortItemsBy", "fieldName", "sortOn", "order", "DESC", "reverse", "sort", "i"
+Push "_global"
+GetVariable
+Push "DataProviderClass"
+DefineFunction "", 0 {
+Push 0.0, "this"
+GetVariable
+Push "init"
+CallMethod
+Pop
+}
+SetMember
+Push "DataProviderClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "init"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "items", 0.0, "Array"
+NewObject
+SetMember
+Push "this"
+GetVariable
+Push "uniqueID", 0.0
+SetMember
+Push "this"
+GetVariable
+Push "views", 0.0, "Array"
+NewObject
+SetMember
+}
+SetMember
+Push "DataProviderClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "addView"
+DefineFunction "", 1, "viewRef"  {
+Push "viewRef"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "views"
+GetMember
+Push "push"
+CallMethod
+Pop
+Push "eventObj", "event", "updateAll", 1
+InitObject
+DefineLocal
+Push "eventObj"
+GetVariable
+Push 1, "viewRef"
+GetVariable
+Push "modelChanged"
+CallMethod
+Pop
+}
+SetMember
+Push "DataProviderClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "addItemAt"
+DefineFunction "", 2, "index" , "value"  {
+Push "index"
+GetVariable
+Push 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+Less2
+Not
+If loc02ff
+Push "tmp", 0.0, "index"
+GetVariable
+Push 3, "this"
+GetVariable
+Push "items"
+GetMember
+Push "splice"
+CallMethod
+Pop
+loc02ff:Push "this"
+GetVariable
+Push "items"
+GetMember
+Push "index"
+GetVariable
+Push 0.0, "Object"
+NewObject
+SetMember
+Push "value"
+GetVariable
+TypeOf
+Push "object"
+Equals2
+Not
+If loc0352
+Push "this"
+GetVariable
+Push "items"
+GetMember
+Push "index"
+GetVariable
+Push "value"
+GetVariable
+SetMember
+Jump loc036e
+loc0352:Push "this"
+GetVariable
+Push "items"
+GetMember
+Push "index"
+GetVariable
+GetMember
+Push "label", "value"
+GetVariable
+SetMember
+loc036e:Push "this"
+GetVariable
+Push "items"
+GetMember
+Push "index"
+GetVariable
+GetMember
+Push "__ID__", "this"
+GetVariable
+Push "uniqueID"
+GetMember
+Push "this"
+GetVariable
+Push "uniqueID", "this"
+GetVariable
+Push "uniqueID"
+GetMember
+Increment
+SetMember
+SetMember
+Push "eventObj", "event", "addRows", "firstRow", "index"
+GetVariable
+Push "lastRow", "index"
+GetVariable
+Push 3
+InitObject
+DefineLocal
+Push "eventObj"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "updateViews"
+CallMethod
+Pop
+}
+SetMember
+Push "DataProviderClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "addItem"
+DefineFunction "", 1, "value"  {
+Push "value"
+GetVariable
+Push 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+Push 2, "this"
+GetVariable
+Push "addItemAt"
+CallMethod
+Pop
+}
+SetMember
+Push "DataProviderClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "removeItemAt"
+DefineFunction "", 1, "index"  {
+Push "tmpItm", "this"
+GetVariable
+Push "items"
+GetMember
+Push "index"
+GetVariable
+GetMember
+DefineLocal
+Push 1, "index"
+GetVariable
+Push 2, "this"
+GetVariable
+Push "items"
+GetMember
+Push "splice"
+CallMethod
+Pop
+Push "eventObj", "event", "deleteRows", "firstRow", "index"
+GetVariable
+Push "lastRow", "index"
+GetVariable
+Push 3
+InitObject
+DefineLocal
+Push "eventObj"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "updateViews"
+CallMethod
+Pop
+Push "tmpItm"
+GetVariable
+Return
+}
+SetMember
+Push "DataProviderClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "removeAll"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "items", 0.0, "Array"
+NewObject
+SetMember
+Push "event", "deleteRows", "firstRow", 0.0, "lastRow", 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+Push 1
+Subtract
+Push 3
+InitObject
+Push 1, "this"
+GetVariable
+Push "updateViews"
+CallMethod
+Pop
+}
+SetMember
+Push "DataProviderClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "replaceItemAt"
+DefineFunction "", 2, "index" , "itemObj"  {
+Push "index"
+GetVariable
+Push 0.0
+Less2
+PushDuplicate
+If loc059e
+Pop
+Push "index"
+GetVariable
+Push 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+Less2
+Not
+loc059e:Not
+If loc05a9
+Push undefined
+Return
+loc05a9:Push "tmpID", "index"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "getItemID"
+CallMethod
+DefineLocal
+Push "itemObj"
+GetVariable
+TypeOf
+Push "object"
+Equals2
+Not
+If loc05f4
+Push "this"
+GetVariable
+Push "items"
+GetMember
+Push "index"
+GetVariable
+Push "itemObj"
+GetVariable
+SetMember
+Jump loc0610
+loc05f4:Push "this"
+GetVariable
+Push "items"
+GetMember
+Push "index"
+GetVariable
+GetMember
+Push "label", "itemObj"
+GetVariable
+SetMember
+loc0610:Push "this"
+GetVariable
+Push "items"
+GetMember
+Push "index"
+GetVariable
+GetMember
+Push "__ID__", "tmpID"
+GetVariable
+SetMember
+Push "event", "updateRows", "firstRow", "index"
+GetVariable
+Push "lastRow", "index"
+GetVariable
+Push 3
+InitObject
+Push 1, "this"
+GetVariable
+Push "updateViews"
+CallMethod
+Pop
+}
+SetMember
+Push "DataProviderClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "getLength"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "items"
+GetMember
+Push "length"
+GetMember
+Return
+}
+SetMember
+Push "DataProviderClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "getItemAt"
+DefineFunction "", 1, "index"  {
+Push "this"
+GetVariable
+Push "items"
+GetMember
+Push "index"
+GetVariable
+GetMember
+Return
+}
+SetMember
+Push "DataProviderClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "getItemID"
+DefineFunction "", 1, "index"  {
+Push "this"
+GetVariable
+Push "items"
+GetMember
+Push "index"
+GetVariable
+GetMember
+Push "__ID__"
+GetMember
+Return
+}
+SetMember
+Push "DataProviderClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "sortItemsBy"
+DefineFunction "", 2, "fieldName" , "order"  {
+Push "fieldName"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "items"
+GetMember
+Push "sortOn"
+CallMethod
+Pop
+Push "order"
+GetVariable
+Push "DESC"
+Equals2
+Not
+If loc076c
+Push 0.0, "this"
+GetVariable
+Push "items"
+GetMember
+Push "reverse"
+CallMethod
+Pop
+loc076c:Push "event", "sort", 1
+InitObject
+Push 1, "this"
+GetVariable
+Push "updateViews"
+CallMethod
+Pop
+}
+SetMember
+Push "DataProviderClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "updateViews"
+DefineFunction "", 1, "eventObj"  {
+Push "i", 0.0
+DefineLocal
+loc07bd:Push "i"
+GetVariable
+Push "this"
+GetVariable
+Push "views"
+GetMember
+Push "length"
+GetMember
+Less2
+Not
+If loc0810
+Push "eventObj"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "views"
+GetMember
+Push "i"
+GetVariable
+GetMember
+Push "modelChanged"
+CallMethod
+Pop
+Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc07bd
+}
+loc0810:SetMember

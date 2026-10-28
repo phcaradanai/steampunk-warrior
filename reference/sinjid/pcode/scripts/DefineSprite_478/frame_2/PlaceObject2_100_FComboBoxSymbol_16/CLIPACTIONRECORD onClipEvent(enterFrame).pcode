@@ -1,0 +1,49 @@
+ConstantPool "_root", "soundset", "lastSelected", "soundon", "this", "Labels", "Off", "played", "On", "Dream", "playSound"
+Push "_root"
+GetVariable
+Push "soundset", "lastSelected"
+GetVariable
+SetMember
+Push "_root"
+GetVariable
+Push "soundon", "this"
+GetVariable
+Push "Labels"
+GetMember
+Push "lastSelected"
+GetVariable
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "soundon"
+GetMember
+Push "Off"
+Equals2
+Not
+If loc009f
+StopSounds
+Push "played", false
+SetVariable
+loc009f:Push "_root"
+GetVariable
+Push "soundon"
+GetMember
+Push "On"
+Equals2
+Not
+If loc00e5
+Push "played"
+GetVariable
+Push false
+Equals2
+Not
+If loc00e5
+Push "Dream", 1, "_root"
+GetVariable
+Push "playSound"
+CallMethod
+Pop
+Push "played", true
+SetVariable
+loc00e5:

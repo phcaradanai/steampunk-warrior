@@ -1,0 +1,10 @@
+ConstantPool "this", "_width", "_height"
+Push "this"
+GetVariable
+Push "_width", "this"
+GetVariable
+Push "_height", 1
+StoreRegister 0
+SetMember
+Push register0
+SetMember

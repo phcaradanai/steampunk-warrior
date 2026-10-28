@@ -1,0 +1,6 @@
+Push "this"
+GetVariable
+Push "deadPreview"
+GetMember
+Push "_visible", false
+SetMember

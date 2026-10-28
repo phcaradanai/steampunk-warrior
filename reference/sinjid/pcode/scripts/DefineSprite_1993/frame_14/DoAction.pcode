@@ -1,0 +1,123 @@
+ConstantPool "_root", "hero1life", "midfight", "enemy1life", "enemy2life", "endtrain", "herotarget", "enemy2", "pointer1", "_visible", "choosen", "pointer2", "gotoAndStop", "enemy1"
+Push "_root"
+GetVariable
+Push "hero1life"
+GetMember
+Push 0.0
+Greater
+Not
+Not
+If loc00e1
+Push "_root"
+GetVariable
+Push "midfight"
+GetMember
+Push false
+Equals2
+Not
+If loc00d6
+Push "_root"
+GetVariable
+Push "midfight", true
+SetMember
+GotoFrame 22
+Play
+Jump loc00dc
+loc00d6:GotoFrame 12
+Play
+loc00dc:Jump loc0168
+loc00e1:Push "_root"
+GetVariable
+Push "enemy1life"
+GetMember
+Push "_root"
+GetVariable
+Push "enemy2life"
+GetMember
+Add2
+Push 0.0
+Greater
+Not
+PushDuplicate
+If loc0121
+Pop
+Push "_root"
+GetVariable
+Push "endtrain"
+GetMember
+Push true
+Equals2
+loc0121:Not
+If loc0163
+Push "_root"
+GetVariable
+Push "midfight"
+GetMember
+Push false
+Equals2
+Not
+If loc0158
+Push "_root"
+GetVariable
+Push "midfight", true
+SetMember
+GotoFrame 14
+Play
+Jump loc015e
+loc0158:GotoFrame 12
+Play
+loc015e:Jump loc0168
+loc0163:GotoFrame 11
+loc0168:Push "_root"
+GetVariable
+Push "enemy1life"
+GetMember
+Push 0.0
+Greater
+Not
+Not
+If loc01c4
+Push "_root"
+GetVariable
+Push "herotarget", "enemy2"
+SetMember
+Push "_root"
+GetVariable
+Push "pointer1"
+GetMember
+Push "_visible", false
+SetMember
+Push "choosen", 1, "_root"
+GetVariable
+Push "pointer2"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+loc01c4:Push "_root"
+GetVariable
+Push "enemy2life"
+GetMember
+Push 0.0
+Greater
+Not
+Not
+If loc0220
+Push "_root"
+GetVariable
+Push "herotarget", "enemy1"
+SetMember
+Push "_root"
+GetVariable
+Push "pointer2"
+GetMember
+Push "_visible", false
+SetMember
+Push "choosen", 1, "_root"
+GetVariable
+Push "pointer1"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+loc0220:

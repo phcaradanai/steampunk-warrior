@@ -1,0 +1,37 @@
+ConstantPool "editable", "labels", "High", "Medium", "Low", "data", "HIGH", "MEDIUM", "LOW", "rowCount", "changeHandler", ""
+Push "editable", false
+SetVariable
+Push "labels", 0.0
+InitArray
+SetVariable
+Push "labels"
+GetVariable
+Push 0.0, "High"
+SetMember
+Push "labels"
+GetVariable
+Push 1, "Medium"
+SetMember
+Push "labels"
+GetVariable
+Push 2, "Low"
+SetMember
+Push "data", 0.0
+InitArray
+SetVariable
+Push "data"
+GetVariable
+Push 0.0, "HIGH"
+SetMember
+Push "data"
+GetVariable
+Push 1, "MEDIUM"
+SetMember
+Push "data"
+GetVariable
+Push 2, "LOW"
+SetMember
+Push "rowCount", 3
+SetVariable
+Push "changeHandler", ""
+SetVariable

@@ -1,0 +1,8 @@
+Push "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "explainbox"
+GetMember
+Push "_visible", false
+SetMember

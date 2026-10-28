@@ -1,0 +1,2 @@
+playSound("Dream");
+stop();

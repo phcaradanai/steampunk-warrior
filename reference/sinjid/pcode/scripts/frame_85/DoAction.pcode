@@ -1,0 +1,31 @@
+ConstantPool "itemsign", "_visible", "droppedstuff", "None", "GetItemDrop", "_root", "conbut", "Orc", "playSound"
+Push "itemsign"
+GetVariable
+Push "_visible", false
+SetMember
+Push "droppedstuff"
+GetVariable
+Push "None"
+Equals2
+Not
+Not
+If loc008b
+Push "droppedstuff"
+GetVariable
+Push 1, "GetItemDrop"
+CallFunction
+Pop
+Push "droppedstuff", "None"
+SetVariable
+loc008b:Push "_root"
+GetVariable
+Push "conbut"
+GetMember
+Push "_visible", false
+SetMember
+StopSounds
+Push "Orc", 1, "_root"
+GetVariable
+Push "playSound"
+CallMethod
+Pop

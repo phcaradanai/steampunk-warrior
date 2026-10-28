@@ -1,0 +1,29 @@
+ConstantPool "_root", "lifeb", "hero1life", "pause", "clearstage", "reload", "save_stage", "gotoAndStop"
+Push "_root"
+GetVariable
+Push "lifeb", "_root"
+GetVariable
+Push "hero1life"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "pause", false
+SetMember
+Push "_root"
+GetVariable
+Push "clearstage", false
+SetMember
+Push "_root"
+GetVariable
+Push "reload", true
+SetMember
+Push "_root"
+GetVariable
+Push "save_stage"
+GetMember
+Push 1, "_root"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop

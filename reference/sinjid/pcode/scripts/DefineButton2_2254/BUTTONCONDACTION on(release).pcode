@@ -1,0 +1,175 @@
+ConstantPool "_root", "cleargrid", "datasave", "Array", "classtype", "classname", "ninjaav", "rests", "expmaxb", "skillpts", "lifepots", "manapots", "Shield", "Weapon", "Suit", "Helmet", "newobjective", "playername", "level", "shddmgb", "shdptsb", "shdmagdefb", "shdphydefb", "magdefb", "phydefb", "magdmgb", "phydmgb", "gold", "engmaxb", "expb", "manamaxb", "lifemaxb", "speedb", "strb", "user", "data", "stats", "i", "skill", "itemstats", "portallevel", "p1", "p2", "p3", "lifeb", "life", "manab", "mana", "engb", "eng", "flush", "pause"
+StopSounds
+Push "_root"
+GetVariable
+Push "cleargrid", false
+SetMember
+Push "datasave", 0.0, "Array"
+NewObject
+SetVariable
+Push "datasave", "classtype", "classname", "ninjaav", "rests", "expmaxb", "skillpts", "lifepots", "manapots", "Shield", "Weapon", "Suit", "Helmet", "newobjective", "playername", "level", "shddmgb", "shdptsb", "shdmagdefb", "shdphydefb", "magdefb", "phydefb", "magdmgb", "phydmgb", "gold", "engmaxb", "expb", "manamaxb", "lifemaxb", "speedb", "strb", 30
+InitArray
+SetVariable
+Push "user"
+GetVariable
+Push "data"
+GetMember
+Push "stats"
+GetMember
+Push "strb"
+GetVariable
+GetMember
+Push undefined
+Equals2
+Not
+Not
+If loc03d7
+Push "datasave"
+GetVariable
+Enumerate2
+loc020e:StoreRegister 0
+Push null
+Equals2
+If loc0256
+Push "i", register0
+SetVariable
+Push "_root"
+GetVariable
+Push "datasave"
+GetVariable
+Push "i"
+GetVariable
+GetMember
+Push "user"
+GetVariable
+Push "data"
+GetMember
+Push "stats"
+GetMember
+Push "i"
+GetVariable
+GetMember
+SetMember
+Jump loc020e
+loc0256:Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Enumerate2
+loc0263:StoreRegister 0
+Push null
+Equals2
+If loc02aa
+Push "i", register0
+SetVariable
+Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Push "i"
+GetVariable
+Push "user"
+GetVariable
+Push "data"
+GetMember
+Push "skill"
+GetMember
+Push "i"
+GetVariable
+GetMember
+SetMember
+Jump loc0263
+loc02aa:Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Enumerate2
+loc02b7:StoreRegister 0
+Push null
+Equals2
+If loc02fe
+Push "i", register0
+SetVariable
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "i"
+GetVariable
+Push "user"
+GetVariable
+Push "data"
+GetMember
+Push "itemstats"
+GetMember
+Push "i"
+GetVariable
+GetMember
+SetMember
+Jump loc02b7
+loc02fe:Push "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push 0.0, "user"
+GetVariable
+Push "data"
+GetMember
+Push "p1"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push 1, "user"
+GetVariable
+Push "data"
+GetMember
+Push "p2"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push 2, "user"
+GetVariable
+Push "data"
+GetMember
+Push "p3"
+GetMember
+SetMember
+Push "lifeb", "user"
+GetVariable
+Push "data"
+GetMember
+Push "life"
+GetMember
+SetVariable
+Push "manab", "user"
+GetVariable
+Push "data"
+GetMember
+Push "mana"
+GetMember
+SetVariable
+Push "engb", "user"
+GetVariable
+Push "data"
+GetMember
+Push "eng"
+GetMember
+SetVariable
+Push 0.0, "user"
+GetVariable
+Push "flush"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "pause", false
+SetMember
+GotoFrame 19
+Play
+loc03d7:

@@ -1,0 +1,273 @@
+ConstantPool "_root", "exprate", "engrate", "level", "engb", "itempick", "None", "hold", "sellprice", "", "BodyParts", "i", "Suit", "grid", "char", "movement", "gotoAndStop", "Helmet", "head", "walkmenu", "engbar", "_width", "engmaxb", "widthkeep", "lifebar", "lifeb", "lifemaxb", "manabar", "manab", "manamaxb", "_parent", "inventory", "_visible", "pause", "encounter", "portaltype", "Training Room", "label", "TRAIN", "bgstage", "Arena", "play", "meet"
+Push "_root"
+GetVariable
+Push "exprate", 20
+SetMember
+Push "_root"
+GetVariable
+Push "engrate", 10
+SetMember
+Push "level", 3
+SetVariable
+Push "_root"
+GetVariable
+Push "engb"
+GetMember
+Push 0.0
+Greater
+Not
+If loc0487
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+Push "None"
+Equals2
+PushDuplicate
+Not
+If loc01b8
+Pop
+Push "_root"
+GetVariable
+Push "hold"
+GetMember
+Push true
+Equals2
+Not
+loc01b8:Not
+If loc03f7
+GotoFrame 0
+Push "sellprice", ""
+SetVariable
+Push "_root"
+GetVariable
+Push "BodyParts"
+GetMember
+Enumerate2
+loc01d8:StoreRegister 0
+Push null
+Equals2
+If loc0237
+Push "i", register0
+SetVariable
+Push "_root"
+GetVariable
+Push "Suit"
+GetMember
+Push 1, "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "movement"
+GetMember
+Push "_root"
+GetVariable
+Push "BodyParts"
+GetMember
+Push "i"
+GetVariable
+GetMember
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Jump loc01d8
+loc0237:Push "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "movement"
+GetMember
+With {
+Push "_root"
+GetVariable
+Push "Helmet"
+GetMember
+Push 1, "head"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+}
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "engbar"
+GetMember
+Push "_width", "_root"
+GetVariable
+Push "engb"
+GetMember
+Push "_root"
+GetVariable
+Push "engmaxb"
+GetMember
+Divide
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "engbar"
+GetMember
+Push "widthkeep"
+GetMember
+Multiply
+SetMember
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "lifebar"
+GetMember
+Push "_width", "_root"
+GetVariable
+Push "lifeb"
+GetMember
+Push "_root"
+GetVariable
+Push "lifemaxb"
+GetMember
+Divide
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "lifebar"
+GetMember
+Push "widthkeep"
+GetMember
+Multiply
+SetMember
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "manabar"
+GetMember
+Push "_width", "_root"
+GetVariable
+Push "manab"
+GetMember
+Push "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+Divide
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "manabar"
+GetMember
+Push "widthkeep"
+GetMember
+Multiply
+SetMember
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "manabar"
+GetMember
+Push "_width", "_root"
+GetVariable
+Push "manab"
+GetMember
+Push "_root"
+GetVariable
+Push "manamaxb"
+GetMember
+Divide
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "manabar"
+GetMember
+Push "widthkeep"
+GetMember
+Multiply
+SetMember
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "lifebar"
+GetMember
+Push "_width", "_root"
+GetVariable
+Push "lifeb"
+GetMember
+Push "_root"
+GetVariable
+Push "lifemaxb"
+GetMember
+Divide
+Push "_root"
+GetVariable
+Push "walkmenu"
+GetMember
+Push "lifebar"
+GetMember
+Push "widthkeep"
+GetMember
+Multiply
+SetMember
+Push "_parent"
+GetVariable
+Push "inventory"
+GetMember
+Push "_visible", false
+SetMember
+Push "_root"
+GetVariable
+Push "pause", false
+SetMember
+loc03f7:Push "_root"
+GetVariable
+Push "encounter"
+GetMember
+Push "portaltype", "Training Room"
+SetMember
+Push "_root"
+GetVariable
+Push "encounter"
+GetMember
+Push "level", "level"
+GetVariable
+SetMember
+Push "_root"
+GetVariable
+Push "encounter"
+GetMember
+Push "label", "TRAIN", "level"
+GetVariable
+Push 1
+InitArray
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "bgstage", "Arena"
+SetMember
+Push 0.0, "_root"
+GetVariable
+Push "encounter"
+GetMember
+Push "play"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "meet", true
+SetMember
+Push "_root"
+GetVariable
+Push "pause", true
+SetMember
+loc0487:

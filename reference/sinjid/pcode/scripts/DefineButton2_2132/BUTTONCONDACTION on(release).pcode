@@ -1,0 +1,36 @@
+ConstantPool "_root", "midfight", "playermove", "turnnum", "hero1", "endtrain", "blackout", "play"
+Push "_root"
+GetVariable
+Push "midfight"
+GetMember
+Push false
+Equals2
+PushDuplicate
+Not
+If loc007d
+Pop
+Push "_root"
+GetVariable
+Push "playermove"
+GetMember
+Push "_root"
+GetVariable
+Push "turnnum"
+GetMember
+GetMember
+Push "hero1"
+Equals2
+loc007d:Not
+If loc00ad
+Push "_root"
+GetVariable
+Push "endtrain", true
+SetMember
+Push 0.0, "_root"
+GetVariable
+Push "blackout"
+GetMember
+Push "play"
+CallMethod
+Pop
+loc00ad:

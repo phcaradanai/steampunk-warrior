@@ -1,0 +1,7 @@
+onClipEvent(load){
+   attacks = ["attack","Skille2"];
+   numofmoves = attacks.length;
+   mcname2 = "enemy2";
+   subject2 = "enemy2";
+   dmgtype2 = "enemy";
+}

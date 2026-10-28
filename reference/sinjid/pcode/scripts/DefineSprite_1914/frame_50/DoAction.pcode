@@ -1,0 +1,5 @@
+Push "counter"
+GetVariable
+Push "dmg2", "dmg"
+GetVariable
+SetMember

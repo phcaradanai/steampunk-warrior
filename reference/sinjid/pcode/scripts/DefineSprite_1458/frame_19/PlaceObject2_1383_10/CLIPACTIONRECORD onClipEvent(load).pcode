@@ -1,0 +1,9 @@
+Push "_parent"
+GetVariable
+Push "book"
+GetMember
+Push 1, "this"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop

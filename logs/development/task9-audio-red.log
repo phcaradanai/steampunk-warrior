@@ -1,0 +1,15 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: original music exists: city
+FAIL: original music exists: combat
+FAIL: original music exists: boss
+FAIL: original effect exists: ui
+FAIL: original effect exists: metal
+FAIL: original effect exists: electric
+FAIL: original effect exists: vent
+FAIL: original effect exists: heal
+FAIL: original effect exists: shield
+FAIL: original effect exists: victory
+FAIL: original effect exists: defeat
+FAIL: music must route through actual game audio service
+Results: 0 passed, 12 failed

@@ -1,0 +1,156 @@
+ConstantPool "_root", "pause", "Key", "isDown", "right", "this", "gotoAndStop", "left", "up", "down"
+Push "_root"
+GetVariable
+Push "pause"
+GetMember
+Push false
+Equals2
+Not
+If loc028e
+Push 39, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+PushDuplicate
+If loc008b
+Pop
+Push 68, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+loc008b:Not
+If loc00aa
+Push "right", 1, "this"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+Jump loc00f7
+loc00aa:Push 37, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+PushDuplicate
+If loc00dd
+Pop
+Push 65, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+loc00dd:Not
+If loc00f7
+Push "left", 1, "this"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+loc00f7:Push 38, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+PushDuplicate
+If loc012a
+Pop
+Push 87, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+loc012a:PushDuplicate
+Not
+If loc0149
+Pop
+Push 39, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+Not
+loc0149:PushDuplicate
+Not
+If loc0168
+Pop
+Push 37, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+Not
+loc0168:PushDuplicate
+Not
+If loc0187
+Pop
+Push 65, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+Not
+loc0187:PushDuplicate
+Not
+If loc01a6
+Pop
+Push 68, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+Not
+loc01a6:Not
+If loc01c5
+Push "up", 1, "this"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+Jump loc028e
+loc01c5:Push 40, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+PushDuplicate
+If loc01f8
+Pop
+Push 83, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+loc01f8:PushDuplicate
+Not
+If loc0217
+Pop
+Push 39, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+Not
+loc0217:PushDuplicate
+Not
+If loc0236
+Pop
+Push 37, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+Not
+loc0236:PushDuplicate
+Not
+If loc0255
+Pop
+Push 65, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+Not
+loc0255:PushDuplicate
+Not
+If loc0274
+Pop
+Push 68, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+Not
+loc0274:Not
+If loc028e
+Push "down", 1, "this"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+loc028e:

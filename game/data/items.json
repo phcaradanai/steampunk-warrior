@@ -1,0 +1,1011 @@
+[
+  {
+    "id": "W01",
+    "name": "มีดช่าง",
+    "slot": "weapon",
+    "tier": 1,
+    "source": "shop:R02",
+    "price": 30,
+    "required_level": 1,
+    "bonuses": {
+      "attack": 7,
+      "tech": 1,
+      "initiative": 0
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W02",
+    "name": "กระบองวาล์ว",
+    "slot": "weapon",
+    "tier": 1,
+    "source": "shop:R02",
+    "price": 30,
+    "required_level": 1,
+    "bonuses": {
+      "attack": 1,
+      "tech": 7,
+      "initiative": 0
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W03",
+    "name": "ปืนหมุด",
+    "slot": "weapon",
+    "tier": 1,
+    "source": "shop:R02",
+    "price": 30,
+    "required_level": 1,
+    "bonuses": {
+      "attack": 5,
+      "tech": 5,
+      "initiative": 1
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W04",
+    "name": "ดาบเฟือง",
+    "slot": "weapon",
+    "tier": 1,
+    "source": "shop:R02",
+    "price": 30,
+    "required_level": 1,
+    "bonuses": {
+      "attack": 9,
+      "tech": 0,
+      "initiative": -2
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W05",
+    "name": "ค้อนลูกสูบ",
+    "slot": "weapon",
+    "tier": 1,
+    "source": "shop:R02",
+    "price": 30,
+    "required_level": 1,
+    "bonuses": {
+      "attack": 0,
+      "tech": 9,
+      "initiative": -2
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W06",
+    "name": "หอกท่อทองแดง",
+    "slot": "weapon",
+    "tier": 1,
+    "source": "shop:R02",
+    "price": 30,
+    "required_level": 1,
+    "bonuses": {
+      "attack": 3,
+      "tech": 3,
+      "initiative": 4
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W07",
+    "name": "ประแจไฟฟ้า",
+    "slot": "weapon",
+    "tier": 2,
+    "source": "shop:R05",
+    "price": 120,
+    "required_level": 6,
+    "bonuses": {
+      "attack": 14,
+      "tech": 2,
+      "initiative": 0
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W08",
+    "name": "ปืนคาร์ไบน์",
+    "slot": "weapon",
+    "tier": 2,
+    "source": "shop:R05",
+    "price": 120,
+    "required_level": 6,
+    "bonuses": {
+      "attack": 2,
+      "tech": 14,
+      "initiative": 0
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W09",
+    "name": "เลื่อยไอน้ำ",
+    "slot": "weapon",
+    "tier": 2,
+    "source": "shop:R05",
+    "price": 120,
+    "required_level": 6,
+    "bonuses": {
+      "attack": 10,
+      "tech": 10,
+      "initiative": 1
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W10",
+    "name": "หอกขดลวด",
+    "slot": "weapon",
+    "tier": 2,
+    "source": "shop:R05",
+    "price": 120,
+    "required_level": 6,
+    "bonuses": {
+      "attack": 18,
+      "tech": 0,
+      "initiative": -2
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W11",
+    "name": "ปืนกรด",
+    "slot": "weapon",
+    "tier": 2,
+    "source": "shop:R05",
+    "price": 120,
+    "required_level": 6,
+    "bonuses": {
+      "attack": 0,
+      "tech": 18,
+      "initiative": -2
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W12",
+    "name": "ทวนรางเหล็ก",
+    "slot": "weapon",
+    "tier": 3,
+    "source": "shop:R07",
+    "price": 270,
+    "required_level": 11,
+    "bonuses": {
+      "attack": 21,
+      "tech": 3,
+      "initiative": 0
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W13",
+    "name": "ค้อนสนามแม่เหล็ก",
+    "slot": "weapon",
+    "tier": 3,
+    "source": "shop:R07",
+    "price": 270,
+    "required_level": 11,
+    "bonuses": {
+      "attack": 3,
+      "tech": 21,
+      "initiative": 0
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W14",
+    "name": "ดาบเขม่าดำ",
+    "slot": "weapon",
+    "tier": 3,
+    "source": "shop:R07",
+    "price": 270,
+    "required_level": 11,
+    "bonuses": {
+      "attack": 15,
+      "tech": 15,
+      "initiative": 1
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W15",
+    "name": "ปืนแพทย์แรงดัน",
+    "slot": "weapon",
+    "tier": 3,
+    "source": "shop:R07",
+    "price": 270,
+    "required_level": 11,
+    "bonuses": {
+      "attack": 27,
+      "tech": 0,
+      "initiative": -2
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W16",
+    "name": "กรงเล็บกล",
+    "slot": "weapon",
+    "tier": 3,
+    "source": "shop:R07",
+    "price": 270,
+    "required_level": 11,
+    "bonuses": {
+      "attack": 0,
+      "tech": 27,
+      "initiative": -2
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W17",
+    "name": "ขวานโรงหล่อ",
+    "slot": "weapon",
+    "tier": 4,
+    "source": "shop:R09",
+    "price": 480,
+    "required_level": 16,
+    "bonuses": {
+      "attack": 28,
+      "tech": 4,
+      "initiative": 0
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W18",
+    "name": "ปืนอาร์ก",
+    "slot": "weapon",
+    "tier": 4,
+    "source": "shop:R09",
+    "price": 480,
+    "required_level": 16,
+    "bonuses": {
+      "attack": 4,
+      "tech": 28,
+      "initiative": 0
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W19",
+    "name": "เคียวรากแก้ว",
+    "slot": "weapon",
+    "tier": 4,
+    "source": "shop:R09",
+    "price": 480,
+    "required_level": 16,
+    "bonuses": {
+      "attack": 20,
+      "tech": 20,
+      "initiative": 1
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W20",
+    "name": "หอกควบแน่น",
+    "slot": "weapon",
+    "tier": 4,
+    "source": "shop:R09",
+    "price": 480,
+    "required_level": 16,
+    "bonuses": {
+      "attack": 36,
+      "tech": 0,
+      "initiative": -2
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W21",
+    "name": "ดาบจดหมายเหตุ",
+    "slot": "weapon",
+    "tier": 4,
+    "source": "shop:R09",
+    "price": 480,
+    "required_level": 16,
+    "bonuses": {
+      "attack": 0,
+      "tech": 36,
+      "initiative": -2
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W22",
+    "name": "ปืนคอนเดนเซอร์",
+    "slot": "weapon",
+    "tier": 5,
+    "source": "shop:R11",
+    "price": 750,
+    "required_level": 21,
+    "bonuses": {
+      "attack": 35,
+      "tech": 5,
+      "initiative": 0
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W23",
+    "name": "ค้อนราชินี",
+    "slot": "weapon",
+    "tier": 5,
+    "source": "shop:R11",
+    "price": 750,
+    "required_level": 21,
+    "bonuses": {
+      "attack": 5,
+      "tech": 35,
+      "initiative": 0
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W24",
+    "name": "ดาบหัวใจเมือง",
+    "slot": "weapon",
+    "tier": 5,
+    "source": "shop:R11",
+    "price": 750,
+    "required_level": 21,
+    "bonuses": {
+      "attack": 25,
+      "tech": 25,
+      "initiative": 1
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W25",
+    "name": "คทาชีวกล",
+    "slot": "weapon",
+    "tier": 5,
+    "source": "quest:Q05",
+    "price": 750,
+    "required_level": 21,
+    "bonuses": {
+      "attack": 45,
+      "tech": 0,
+      "initiative": -2
+    },
+    "special": "",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "W26",
+    "name": "ปืนย้อนเฟส",
+    "slot": "weapon",
+    "tier": 5,
+    "source": "boss:B06",
+    "price": 750,
+    "required_level": 21,
+    "bonuses": {
+      "attack": 0,
+      "tech": 45,
+      "initiative": -2
+    },
+    "special": "vent_breaker",
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+  },
+  {
+    "id": "D01",
+    "name": "ฝาท่อ",
+    "slot": "shield",
+    "tier": 1,
+    "source": "shop:R02",
+    "price": 30,
+    "required_level": 1,
+    "bonuses": {
+      "barrier": 27,
+      "armor": 3,
+      "resist": 2,
+      "initiative": 0
+    },
+    "special": "",
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+  },
+  {
+    "id": "D02",
+    "name": "โล่แผ่นเหล็ก",
+    "slot": "shield",
+    "tier": 1,
+    "source": "shop:R02",
+    "price": 30,
+    "required_level": 1,
+    "bonuses": {
+      "barrier": 35,
+      "armor": 2,
+      "resist": 1,
+      "initiative": -1
+    },
+    "special": "",
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+  },
+  {
+    "id": "D03",
+    "name": "โล่ทองเหลือง",
+    "slot": "shield",
+    "tier": 1,
+    "source": "shop:R02",
+    "price": 30,
+    "required_level": 1,
+    "bonuses": {
+      "barrier": 23,
+      "armor": 1,
+      "resist": 5,
+      "initiative": 1
+    },
+    "special": "",
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+  },
+  {
+    "id": "D04",
+    "name": "โล่รถไฟ",
+    "slot": "shield",
+    "tier": 1,
+    "source": "shop:R02",
+    "price": 30,
+    "required_level": 1,
+    "bonuses": {
+      "barrier": 24,
+      "armor": 5,
+      "resist": 3,
+      "initiative": -2
+    },
+    "special": "",
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+  },
+  {
+    "id": "D05",
+    "name": "โล่ขดลวด",
+    "slot": "shield",
+    "tier": 2,
+    "source": "shop:R05",
+    "price": 120,
+    "required_level": 6,
+    "bonuses": {
+      "barrier": 39,
+      "armor": 6,
+      "resist": 4,
+      "initiative": 0
+    },
+    "special": "",
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+  },
+  {
+    "id": "D06",
+    "name": "โล่กรองพิษ",
+    "slot": "shield",
+    "tier": 2,
+    "source": "shop:R05",
+    "price": 120,
+    "required_level": 6,
+    "bonuses": {
+      "barrier": 55,
+      "armor": 4,
+      "resist": 2,
+      "initiative": -1
+    },
+    "special": "",
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+  },
+  {
+    "id": "D07",
+    "name": "โล่ลูกสูบ",
+    "slot": "shield",
+    "tier": 2,
+    "source": "shop:R05",
+    "price": 120,
+    "required_level": 6,
+    "bonuses": {
+      "barrier": 31,
+      "armor": 2,
+      "resist": 10,
+      "initiative": 1
+    },
+    "special": "",
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+  },
+  {
+    "id": "D08",
+    "name": "โล่ไอน้ำ",
+    "slot": "shield",
+    "tier": 3,
+    "source": "shop:R07",
+    "price": 270,
+    "required_level": 11,
+    "bonuses": {
+      "barrier": 51,
+      "armor": 9,
+      "resist": 6,
+      "initiative": 0
+    },
+    "special": "",
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+  },
+  {
+    "id": "D09",
+    "name": "โล่เรือนกระจก",
+    "slot": "shield",
+    "tier": 3,
+    "source": "shop:R07",
+    "price": 270,
+    "required_level": 11,
+    "bonuses": {
+      "barrier": 75,
+      "armor": 6,
+      "resist": 3,
+      "initiative": -1
+    },
+    "special": "",
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+  },
+  {
+    "id": "D10",
+    "name": "โล่ฉนวน",
+    "slot": "shield",
+    "tier": 3,
+    "source": "shop:R07",
+    "price": 270,
+    "required_level": 11,
+    "bonuses": {
+      "barrier": 39,
+      "armor": 3,
+      "resist": 15,
+      "initiative": 1
+    },
+    "special": "",
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+  },
+  {
+    "id": "D11",
+    "name": "โล่คนงาน",
+    "slot": "shield",
+    "tier": 3,
+    "source": "shop:R07",
+    "price": 270,
+    "required_level": 11,
+    "bonuses": {
+      "barrier": 42,
+      "armor": 15,
+      "resist": 9,
+      "initiative": -2
+    },
+    "special": "",
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+  },
+  {
+    "id": "D12",
+    "name": "โล่สะท้อนอาร์ก",
+    "slot": "shield",
+    "tier": 4,
+    "source": "shop:R09",
+    "price": 480,
+    "required_level": 16,
+    "bonuses": {
+      "barrier": 63,
+      "armor": 12,
+      "resist": 8,
+      "initiative": 0
+    },
+    "special": "",
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+  },
+  {
+    "id": "D13",
+    "name": "โล่รากแก้ว",
+    "slot": "shield",
+    "tier": 4,
+    "source": "shop:R09",
+    "price": 480,
+    "required_level": 16,
+    "bonuses": {
+      "barrier": 95,
+      "armor": 8,
+      "resist": 4,
+      "initiative": -1
+    },
+    "special": "",
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+  },
+  {
+    "id": "D14",
+    "name": "โล่เตาหลอม",
+    "slot": "shield",
+    "tier": 4,
+    "source": "shop:R09",
+    "price": 480,
+    "required_level": 16,
+    "bonuses": {
+      "barrier": 47,
+      "armor": 4,
+      "resist": 20,
+      "initiative": 1
+    },
+    "special": "",
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+  },
+  {
+    "id": "D15",
+    "name": "โล่จดหมายเหตุ",
+    "slot": "shield",
+    "tier": 5,
+    "source": "shop:R11",
+    "price": 750,
+    "required_level": 21,
+    "bonuses": {
+      "barrier": 75,
+      "armor": 15,
+      "resist": 10,
+      "initiative": 0
+    },
+    "special": "",
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+  },
+  {
+    "id": "D16",
+    "name": "โล่ปฏิกรณ์",
+    "slot": "shield",
+    "tier": 5,
+    "source": "shop:R11",
+    "price": 750,
+    "required_level": 21,
+    "bonuses": {
+      "barrier": 115,
+      "armor": 10,
+      "resist": 5,
+      "initiative": -1
+    },
+    "special": "",
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+  },
+  {
+    "id": "D17",
+    "name": "โล่ชีวภาพ",
+    "slot": "shield",
+    "tier": 5,
+    "source": "shop:R11",
+    "price": 750,
+    "required_level": 21,
+    "bonuses": {
+      "barrier": 55,
+      "armor": 5,
+      "resist": 25,
+      "initiative": 1
+    },
+    "special": "",
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+  },
+  {
+    "id": "H01",
+    "name": "แว่นช่าง",
+    "slot": "head",
+    "tier": 1,
+    "source": "shop:R02",
+    "price": 30,
+    "required_level": 1,
+    "bonuses": {
+      "max_fp": 5,
+      "initiative": 3,
+      "resist": 2
+    },
+    "special": "",
+    "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
+  },
+  {
+    "id": "H02",
+    "name": "หมวกคนงาน",
+    "slot": "head",
+    "tier": 1,
+    "source": "shop:R02",
+    "price": 30,
+    "required_level": 1,
+    "bonuses": {
+      "max_fp": 7,
+      "initiative": 2,
+      "resist": 3
+    },
+    "special": "",
+    "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
+  },
+  {
+    "id": "H03",
+    "name": "หน้ากากกรองควัน",
+    "slot": "head",
+    "tier": 2,
+    "source": "shop:R05",
+    "price": 120,
+    "required_level": 6,
+    "bonuses": {
+      "max_fp": 10,
+      "initiative": 3,
+      "resist": 4
+    },
+    "special": "",
+    "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
+  },
+  {
+    "id": "H04",
+    "name": "แว่นยิงไกล",
+    "slot": "head",
+    "tier": 2,
+    "source": "shop:R05",
+    "price": 120,
+    "required_level": 6,
+    "bonuses": {
+      "max_fp": 14,
+      "initiative": 2,
+      "resist": 6
+    },
+    "special": "",
+    "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
+  },
+  {
+    "id": "H05",
+    "name": "หมวกขดลวด",
+    "slot": "head",
+    "tier": 3,
+    "source": "shop:R07",
+    "price": 270,
+    "required_level": 11,
+    "bonuses": {
+      "max_fp": 15,
+      "initiative": 3,
+      "resist": 6
+    },
+    "special": "",
+    "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
+  },
+  {
+    "id": "H06",
+    "name": "หน้ากากหมอ",
+    "slot": "head",
+    "tier": 3,
+    "source": "shop:R07",
+    "price": 270,
+    "required_level": 11,
+    "bonuses": {
+      "max_fp": 21,
+      "initiative": 2,
+      "resist": 9
+    },
+    "special": "",
+    "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
+  },
+  {
+    "id": "H07",
+    "name": "หมวกตรวจเอเธอร์",
+    "slot": "head",
+    "tier": 4,
+    "source": "shop:R09",
+    "price": 480,
+    "required_level": 16,
+    "bonuses": {
+      "max_fp": 20,
+      "initiative": 3,
+      "resist": 8
+    },
+    "special": "",
+    "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
+  },
+  {
+    "id": "H08",
+    "name": "หมวกโรงหล่อ",
+    "slot": "head",
+    "tier": 4,
+    "source": "shop:R09",
+    "price": 480,
+    "required_level": 16,
+    "bonuses": {
+      "max_fp": 28,
+      "initiative": 2,
+      "resist": 12
+    },
+    "special": "",
+    "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
+  },
+  {
+    "id": "H09",
+    "name": "กระบังบันทึก",
+    "slot": "head",
+    "tier": 5,
+    "source": "shop:R11",
+    "price": 750,
+    "required_level": 21,
+    "bonuses": {
+      "max_fp": 25,
+      "initiative": 3,
+      "resist": 10
+    },
+    "special": "",
+    "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
+  },
+  {
+    "id": "H10",
+    "name": "หมวกแกนเมือง",
+    "slot": "head",
+    "tier": 5,
+    "source": "shop:R11",
+    "price": 750,
+    "required_level": 21,
+    "bonuses": {
+      "max_fp": 35,
+      "initiative": 2,
+      "resist": 15
+    },
+    "special": "",
+    "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
+  },
+  {
+    "id": "A01",
+    "name": "เสื้อช่าง",
+    "slot": "suit",
+    "tier": 1,
+    "source": "shop:R02",
+    "price": 30,
+    "required_level": 1,
+    "bonuses": {
+      "max_hp": 12,
+      "armor": 4,
+      "resist": 3
+    },
+    "special": "",
+    "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
+  },
+  {
+    "id": "A02",
+    "name": "เสื้อเกราะคนงาน",
+    "slot": "suit",
+    "tier": 1,
+    "source": "shop:R02",
+    "price": 30,
+    "required_level": 1,
+    "bonuses": {
+      "max_hp": 8,
+      "armor": 2,
+      "resist": 6
+    },
+    "special": "",
+    "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
+  },
+  {
+    "id": "A03",
+    "name": "เสื้อรางเหล็ก",
+    "slot": "suit",
+    "tier": 2,
+    "source": "shop:R05",
+    "price": 120,
+    "required_level": 6,
+    "bonuses": {
+      "max_hp": 24,
+      "armor": 8,
+      "resist": 6
+    },
+    "special": "",
+    "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
+  },
+  {
+    "id": "A04",
+    "name": "ชุดฉนวนอาร์ก",
+    "slot": "suit",
+    "tier": 2,
+    "source": "shop:R05",
+    "price": 120,
+    "required_level": 6,
+    "bonuses": {
+      "max_hp": 16,
+      "armor": 4,
+      "resist": 12
+    },
+    "special": "",
+    "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
+  },
+  {
+    "id": "A05",
+    "name": "ชุดแพทย์สนาม",
+    "slot": "suit",
+    "tier": 3,
+    "source": "shop:R07",
+    "price": 270,
+    "required_level": 11,
+    "bonuses": {
+      "max_hp": 36,
+      "armor": 12,
+      "resist": 9
+    },
+    "special": "",
+    "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
+  },
+  {
+    "id": "A06",
+    "name": "ชุดกรองพิษ",
+    "slot": "suit",
+    "tier": 3,
+    "source": "shop:R07",
+    "price": 270,
+    "required_level": 11,
+    "bonuses": {
+      "max_hp": 24,
+      "armor": 6,
+      "resist": 18
+    },
+    "special": "",
+    "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
+  },
+  {
+    "id": "A07",
+    "name": "เกราะโรงหล่อ",
+    "slot": "suit",
+    "tier": 4,
+    "source": "shop:R09",
+    "price": 480,
+    "required_level": 16,
+    "bonuses": {
+      "max_hp": 48,
+      "armor": 16,
+      "resist": 12
+    },
+    "special": "",
+    "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
+  },
+  {
+    "id": "A08",
+    "name": "เกราะหัวใจเมือง",
+    "slot": "suit",
+    "tier": 4,
+    "source": "shop:R09",
+    "price": 480,
+    "required_level": 16,
+    "bonuses": {
+      "max_hp": 32,
+      "armor": 8,
+      "resist": 24
+    },
+    "special": "",
+    "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
+  },
+  {
+    "id": "A09",
+    "name": "ชุดชีวกล",
+    "slot": "suit",
+    "tier": 5,
+    "source": "quest:Q08",
+    "price": 750,
+    "required_level": 21,
+    "bonuses": {
+      "max_hp": 60,
+      "armor": 20,
+      "resist": 15
+    },
+    "special": "condensate_barrier",
+    "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
+  }
+]

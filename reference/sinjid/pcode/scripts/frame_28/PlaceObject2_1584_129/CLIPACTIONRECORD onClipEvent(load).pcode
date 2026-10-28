@@ -1,0 +1,9 @@
+Push "objectnum", 3
+SetVariable
+Push "this"
+GetVariable
+With {
+Push "Urn", 1, "gotoAndStop"
+CallFunction
+Pop
+}

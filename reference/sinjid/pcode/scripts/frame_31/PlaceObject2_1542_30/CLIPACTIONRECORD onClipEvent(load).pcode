@@ -1,0 +1,6 @@
+Push "persontype", "Shadow"
+SetVariable
+Push "inventorytype", "Items_5"
+SetVariable
+Push "objectnum", 1
+SetVariable

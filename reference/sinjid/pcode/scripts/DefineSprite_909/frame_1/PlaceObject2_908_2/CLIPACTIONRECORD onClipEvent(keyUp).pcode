@@ -1,0 +1,7 @@
+Push 1, 1, "this"
+GetVariable
+Push "movement"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop

@@ -1,0 +1,12 @@
+Push 32, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+Not
+Not
+If loc003d
+Push "_root"
+GetVariable
+Push "hold", false
+SetMember
+loc003d:

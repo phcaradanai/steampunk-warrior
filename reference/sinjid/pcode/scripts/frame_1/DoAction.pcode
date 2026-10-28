@@ -1,0 +1,19 @@
+Push "soundon", "On"
+SetVariable
+Push "qualityset", 0.0
+SetVariable
+Push "tilelock", true
+SetVariable
+Push "qset2", "HIGH"
+SetVariable
+Push "soundset", 0.0
+SetVariable
+GetURL "FSCommand:showmenu", "false"
+Push "Stage"
+GetVariable
+Push "showMenu", false
+SetMember
+Push "_root"
+GetVariable
+Push "_focusrect", false
+SetMember

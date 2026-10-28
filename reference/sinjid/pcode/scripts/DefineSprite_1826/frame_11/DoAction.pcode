@@ -1,0 +1,8 @@
+Push "stand", 1, "_root"
+GetVariable
+Push "mcname"
+GetVariable
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop

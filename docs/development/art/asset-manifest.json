@@ -1,0 +1,74 @@
+[
+  {
+    "path": "game/art/characters/hero-boiler-seed.png",
+    "sha256": "730b357bca4162e3cfb4e22ed21899a8549280cac5b2ee4898e0f00da038c30d",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "source": "OpenAI built-in image_gen, original project-directed generation 2026-10-27",
+    "status": "style_seed",
+    "raster_modified": false
+  },
+  {
+    "path": "game/art/characters/actors-a.png",
+    "sha256": "8ff0c3b5c4b15e041127cac0183bd8fd3ecdf5ee054b00c59cc1e87aea7bfa83",
+    "size": [
+      1122,
+      1402
+    ],
+    "mode": "RGBA",
+    "source": "OpenAI built-in image_gen, original project-directed generation 2026-10-27",
+    "status": "draft_superseded",
+    "raster_modified": false
+  },
+  {
+    "path": "game/art/characters/actors-a-v2.png",
+    "sha256": "b84c7153a8cbdffa28371ac4783f3862edb950f49ac063cb556bf4790a1742e2",
+    "size": [
+      1122,
+      1402
+    ],
+    "mode": "RGBA",
+    "source": "OpenAI built-in image_gen, original project-directed generation 2026-10-27",
+    "status": "integrated_native_verified",
+    "raster_modified": false
+  },
+  {
+    "path": "game/art/characters/actors-b.png",
+    "sha256": "5ef7dba2cbae733000b1430728ff84837a9510a38572e0df3246c6f8d2a98f72",
+    "size": [
+      1448,
+      1086
+    ],
+    "mode": "RGBA",
+    "source": "OpenAI built-in image_gen, original project-directed generation 2026-10-27",
+    "status": "integrated_native_verified",
+    "raster_modified": false
+  },
+  {
+    "path": "game/art/environments/floors.png",
+    "sha256": "aa20352915a6faedc7cdce39abc91394983bb9e266ece5ed83fcb5121a59e147",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGB",
+    "source": "OpenAI built-in image_gen, original project-directed generation 2026-10-27",
+    "status": "integrated_native_verified",
+    "raster_modified": false
+  },
+  {
+    "path": "game/art/environments/title.png",
+    "sha256": "0483ec8b5be9fdae9758699fb96067fac75068e5cd7d246b74297b49ecfc8b4f",
+    "size": [
+      1672,
+      941
+    ],
+    "mode": "RGB",
+    "source": "OpenAI built-in image_gen, original project-directed generation 2026-10-27",
+    "status": "integrated_native_verified",
+    "raster_modified": false
+  }
+]

@@ -1,0 +1,8 @@
+Stop
+Push 0.0, "_root"
+GetVariable
+Push "blackout"
+GetMember
+Push "play"
+CallMethod
+Pop

@@ -1,0 +1,34 @@
+[
+  {
+    "id": "T01",
+    "name": "ช่างฝึกหัด",
+    "focus": "Attack/Guard/Vent",
+    "unlock_after": "start",
+    "reward_first_xp": 40,
+    "reward_repeat_xp": 10
+  },
+  {
+    "id": "T02",
+    "name": "ผู้ชำนาญ",
+    "focus": "shield/target",
+    "unlock_after": "B01",
+    "reward_first_xp": 80,
+    "reward_repeat_xp": 20
+  },
+  {
+    "id": "T03",
+    "name": "วิศวกรสนาม",
+    "focus": "Wet/Heated/Corroded",
+    "unlock_after": "B02",
+    "reward_first_xp": 120,
+    "reward_repeat_xp": 30
+  },
+  {
+    "id": "T04",
+    "name": "วิกฤตหม้อน้ำ",
+    "focus": "intent/pressure/boss rehearsal",
+    "unlock_after": "B04",
+    "reward_first_xp": 160,
+    "reward_repeat_xp": 40
+  }
+]

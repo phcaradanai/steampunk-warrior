@@ -1,0 +1,6 @@
+Push "persontype", "Healer"
+SetVariable
+Push "objectnum", 1
+SetVariable
+Push "inventorytype", "Heal"
+SetVariable

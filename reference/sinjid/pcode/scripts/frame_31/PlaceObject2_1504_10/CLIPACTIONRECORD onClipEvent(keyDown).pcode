@@ -1,0 +1,169 @@
+ConstantPool "_root", "grid", "char", "stepper", "this", "hitTest", "clearstage", "Key", "isDown", "pause", "portallevel", "level", "TalkBox", "SpeakerText", "Information", "TalkText", "speak", "_visible", "talking", "gotoAndPlay", "encounter", "portaltype", "Dark Rift", "label", "portal3", "bgstage", "portalstages", "length", "play", "meet"
+Push "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "stepper"
+GetMember
+Push 1, "this"
+GetVariable
+Push "hitTest"
+CallMethod
+PushDuplicate
+Not
+If loc013a
+Pop
+Push "_root"
+GetVariable
+Push "clearstage"
+GetMember
+Push false
+Equals2
+loc013a:Not
+If loc0308
+Push 32, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+PushDuplicate
+Not
+If loc0170
+Pop
+Push "_root"
+GetVariable
+Push "pause"
+GetMember
+Push false
+Equals2
+loc0170:Not
+If loc0308
+Push "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push "level"
+GetVariable
+GetMember
+Push 5
+Greater
+Not
+If loc0213
+Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "SpeakerText", "Information"
+SetMember
+Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "TalkText", "speak"
+GetVariable
+SetMember
+Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "_visible", true
+SetMember
+Push "_root"
+GetVariable
+Push "pause", true
+SetMember
+Push "_root"
+GetVariable
+Push "talking", true
+SetMember
+Push 1, 1, "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "gotoAndPlay"
+CallMethod
+Pop
+Jump loc0308
+loc0213:Push "_root"
+GetVariable
+Push "encounter"
+GetMember
+Push "portaltype", "Dark Rift"
+SetMember
+Push "_root"
+GetVariable
+Push "encounter"
+GetMember
+Push "level", "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push "level"
+GetVariable
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "encounter"
+GetMember
+Push "label", "_root"
+GetVariable
+Push "portal3"
+GetMember
+Push "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push "level"
+GetVariable
+GetMember
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "bgstage", "_root"
+GetVariable
+Push "portalstages"
+GetMember
+Push "_root"
+GetVariable
+Push "portalstages"
+GetMember
+Push "length"
+GetMember
+RandomNumber
+GetMember
+SetMember
+Push 0.0, "_root"
+GetVariable
+Push "encounter"
+GetMember
+Push "play"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push "level"
+GetVariable
+Push "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push "level"
+GetVariable
+GetMember
+Push 1
+Add2
+SetMember
+Push "_root"
+GetVariable
+Push "meet", true
+SetMember
+Push "_root"
+GetVariable
+Push "pause", true
+SetMember
+loc0308:

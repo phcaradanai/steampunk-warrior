@@ -1,0 +1,30 @@
+ConstantPool "subject", "hero1", "life", "_root", "Heal", "portallevel"
+Push "subject"
+GetVariable
+Push "hero1"
+Equals2
+Not
+If loc0065
+Push "life", "subject"
+GetVariable
+Push 80, 3, "_root"
+GetVariable
+Push "Heal"
+CallMethod
+Pop
+Jump loc009e
+loc0065:Push "life", "subject"
+GetVariable
+Push 4, "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push 0.0
+GetMember
+Multiply
+Push 3, "_root"
+GetVariable
+Push "Heal"
+CallMethod
+Pop
+loc009e:

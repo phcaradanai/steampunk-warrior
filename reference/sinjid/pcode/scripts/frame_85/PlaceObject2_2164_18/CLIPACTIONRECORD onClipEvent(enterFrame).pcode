@@ -1,0 +1,71 @@
+ConstantPool "_root", "goldup", "goldUP", "expup", "expUP", "conbut", "_visible"
+Push "_root"
+GetVariable
+Push "goldup"
+GetMember
+Push 0.0
+Greater
+Not
+If loc00d9
+Push 0.0, "goldUP"
+CallFunction
+Pop
+Push 0.0, "goldUP"
+CallFunction
+Pop
+Push 0.0, "goldUP"
+CallFunction
+Pop
+Push 0.0, "goldUP"
+CallFunction
+Pop
+Push 0.0, "goldUP"
+CallFunction
+Pop
+Push 0.0, "goldUP"
+CallFunction
+Pop
+Push 0.0, "goldUP"
+CallFunction
+Pop
+Push 0.0, "goldUP"
+CallFunction
+Pop
+Jump loc0181
+loc00d9:Push "_root"
+GetVariable
+Push "expup"
+GetMember
+Push 0.0
+Greater
+Not
+If loc016d
+Push 0.0, "expUP"
+CallFunction
+Pop
+Push 0.0, "expUP"
+CallFunction
+Pop
+Push 0.0, "expUP"
+CallFunction
+Pop
+Push 0.0, "expUP"
+CallFunction
+Pop
+Push 0.0, "expUP"
+CallFunction
+Pop
+Push 0.0, "expUP"
+CallFunction
+Pop
+Push 0.0, "expUP"
+CallFunction
+Pop
+Jump loc0181
+loc016d:Push "_root"
+GetVariable
+Push "conbut"
+GetMember
+Push "_visible", true
+SetMember
+loc0181:

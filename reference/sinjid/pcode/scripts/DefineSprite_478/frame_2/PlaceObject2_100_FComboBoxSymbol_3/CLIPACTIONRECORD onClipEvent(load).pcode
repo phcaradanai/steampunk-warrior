@@ -1,0 +1,9 @@
+Push "_root"
+GetVariable
+Push "qualityset"
+GetMember
+Push 1, "this"
+GetVariable
+Push "setSelectedIndex"
+CallMethod
+Pop

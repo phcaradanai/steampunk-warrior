@@ -1,0 +1,10 @@
+Push 32, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+Not
+Not
+If loc0037
+Push "spacedown", false
+SetVariable
+loc0037:

@@ -1,0 +1,161 @@
+ConstantPool "_root", "grid", "char", "stepper", "this", "hitTest", "Key", "isDown", "pause", "portallevel", "level", "encounter", "portaltype", "Human Gateway", "label", "portal1", "bgstage", "portalstages", "length", "play", "meet", "TalkBox", "SpeakerText", "Information", "TalkText", "speak", "_visible", "talking", "gotoAndPlay"
+Push "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "stepper"
+GetMember
+Push 1, "this"
+GetVariable
+Push "hitTest"
+CallMethod
+Not
+If loc02e9
+Push 32, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+PushDuplicate
+Not
+If loc014f
+Pop
+Push "_root"
+GetVariable
+Push "pause"
+GetMember
+Push false
+Equals2
+loc014f:Not
+If loc02e9
+Push "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push "level"
+GetVariable
+GetMember
+Push 20
+Greater
+Not
+Not
+If loc0273
+Push "_root"
+GetVariable
+Push "encounter"
+GetMember
+Push "portaltype", "Human Gateway"
+SetMember
+Push "_root"
+GetVariable
+Push "encounter"
+GetMember
+Push "level", "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push "level"
+GetVariable
+GetMember
+Push 1
+InitArray
+SetMember
+Push "_root"
+GetVariable
+Push "encounter"
+GetMember
+Push "label", "_root"
+GetVariable
+Push "portal1"
+GetMember
+Push "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push "level"
+GetVariable
+GetMember
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "bgstage", "_root"
+GetVariable
+Push "portalstages"
+GetMember
+Push "_root"
+GetVariable
+Push "portalstages"
+GetMember
+Push "length"
+GetMember
+RandomNumber
+GetMember
+SetMember
+Push 0.0, "_root"
+GetVariable
+Push "encounter"
+GetMember
+Push "play"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push "level"
+GetVariable
+Push "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push "level"
+GetVariable
+GetMember
+Increment
+SetMember
+Push "_root"
+GetVariable
+Push "meet", true
+SetMember
+Push "_root"
+GetVariable
+Push "pause", true
+SetMember
+Jump loc02e9
+loc0273:Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "SpeakerText", "Information"
+SetMember
+Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "TalkText", "speak"
+GetVariable
+SetMember
+Push "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "_visible", true
+SetMember
+Push "_root"
+GetVariable
+Push "pause", true
+SetMember
+Push "_root"
+GetVariable
+Push "talking", true
+SetMember
+Push 1, 1, "_root"
+GetVariable
+Push "TalkBox"
+GetMember
+Push "gotoAndPlay"
+CallMethod
+Pop
+loc02e9:

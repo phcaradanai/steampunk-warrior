@@ -1,0 +1,2456 @@
+ConstantPool "_global", "_popUpLevel", "this", "superHolder", "_root", "createEmptyMovieClip", "testContainer", "testCont", "testBox", "boundingBox_mc", "FBoundingBoxSymbol", "attachMovie", "_name", "removeMovieClip", "_parent", "rowCount", "editable", "itemSymbol", "FComboBoxItemSymbol", "init", "permaScrollBar", "proxyBox_mc", "gotoAndStop", "width", "_width", "height", "_height", "_yscale", "i", "labels", "length", "data", "addItem", "lastSelected", "selectItem", "_xscale", "opened", "setSize", "highlightTop", "changeHandler", "setChangeHandler", "onUnload", "setSelectedIndex", "value", "", "focusEnabled", "changeFlag", "FComboBoxClass", "prototype", "FScrollSelectListClass", "FComboBoxSymbol", "Object", "registerClass", "modelChanged", "eventObj", "super", "event", "addRows", "deleteRows", "diff", "lastRow", "firstRow", "mode", "len", "getLength", "lenBefore", "invalidate", "getSelectedIndex", "updateAll", "removeAll", "enable", "w", "number", "container_mc", "measureItmHgt", "container", "tabChildren", "setPopUpLocation", "component", "background", "boundingBox", "registerSkinElement", "itmHgt", "numDisplayed", "Math", "min", "downArrow", "DownArrow", "_y", "_x", "setEditable", "_visible", "fader", "faderX", "setDataProvider", "dp", "getValue", "fLabel_mc", "getLabel", "getRowCount", "setRowCount", "count", "max", "getScrollPosition", "setScrollPosition", "updateControl", "editableFlag", "onPress", "pressHandler", "useHandCursor", "trackAsMenu", "controller", "itemNum", "onRollOver", "topLabel", "getSelectedItem", "drawItem", "FLabelSymbol", "fLabel_txt", "labelField", "type", "input", "onSetFocus", "onLabelFocus", "onKillFocus", "myOnKillFocus", "setLabel", "onChanged", "findInputText", "buttonPressHandler", "setEnabled", "enabledFlag", "boolean", "disabled", "enabled", "dynamic", "selectable", "flag", "index", "label", "setValue", "focusRect", "onMouseUp", "releaseHandler", "focused", "pressFocus", "clickFilter", "openOrClose", "clickHandler", "itmNum", "selectionHandler", "myOnSetFocus", "highlight_mc", "drawFocusRect", "drawRect", "Selection", "getFocus", "indexOf", "onKeyDown", "mcRef", "point", "x", "y", "localToGlobal", "globalToLocal", "Stage", "upward", "topDisplayed", "moveSelBy", "fadeRate", "styleTable", "popUpFade", "time", "const", "sqrt", "_alpha", "onEnterFrame", "fireChange", "executeCallback", "onCombo", "_ymouse", "_xmouse", "hitTest", "onMouseDown", "dragScrolling", "clearInterval", "isSelected", "myOnKeyDown", "Key", "isDown", "hscroll", "tabFocused", "addListener"
+DefineFunction "FComboBoxClass", 0 {
+Push "_global"
+GetVariable
+Push "_popUpLevel", "_global"
+GetVariable
+Push "_popUpLevel"
+GetMember
+Push undefined
+Equals2
+If loc07ec
+Push "_global"
+GetVariable
+Push "_popUpLevel"
+GetMember
+Push 1
+Add2
+Jump loc07f4
+loc07ec:Push 20000
+loc07f4:SetMember
+Push "this"
+GetVariable
+Push "superHolder", "_popUpLevel"
+GetVariable
+Push "superHolder", "_popUpLevel"
+GetVariable
+Add2
+Push 2, "_root"
+GetVariable
+Push "createEmptyMovieClip"
+CallMethod
+SetMember
+Push "testContainer", 20000, "testCont", 2, "this"
+GetVariable
+Push "superHolder"
+GetMember
+Push "createEmptyMovieClip"
+CallMethod
+DefineLocal
+Push "testBox", 0.0, "boundingBox_mc", "FBoundingBoxSymbol", 3, "testContainer"
+GetVariable
+Push "attachMovie"
+CallMethod
+DefineLocal
+Push "testBox"
+GetVariable
+Push "_name"
+GetMember
+Push undefined
+Equals2
+Not
+If loc08c7
+Push 0.0, "this"
+GetVariable
+Push "superHolder"
+GetMember
+Push "removeMovieClip"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "superHolder", "_popUpLevel"
+GetVariable
+Push "superHolder", "_popUpLevel"
+GetVariable
+Add2
+Push 2, "this"
+GetVariable
+Push "_parent"
+GetMember
+Push "createEmptyMovieClip"
+CallMethod
+SetMember
+Jump loc08dd
+loc08c7:Push 0.0, "testContainer"
+GetVariable
+Push "removeMovieClip"
+CallMethod
+Pop
+loc08dd:Push "this"
+GetVariable
+Push "rowCount"
+GetMember
+Push undefined
+Equals2
+Not
+If loc0913
+Push "this"
+GetVariable
+Push "rowCount", 8
+SetMember
+Push "this"
+GetVariable
+Push "editable", false
+SetMember
+loc0913:Push "this"
+GetVariable
+Push "itemSymbol", "FComboBoxItemSymbol"
+SetMember
+Push 0.0, "this"
+GetVariable
+Push "init"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "permaScrollBar", false
+SetMember
+Push 1, 1, "this"
+GetVariable
+Push "proxyBox_mc"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "width", "this"
+GetVariable
+Push "_width"
+GetMember
+SetMember
+Push "this"
+GetVariable
+Push "height", "this"
+GetVariable
+Push "proxyBox_mc"
+GetMember
+Push "_height"
+GetMember
+Push "this"
+GetVariable
+Push "_yscale"
+GetMember
+Multiply
+Push 100
+Divide
+SetMember
+Push "i", 0.0
+DefineLocal
+loc09b7:Push "i"
+GetVariable
+Push "this"
+GetVariable
+Push "labels"
+GetMember
+Push "length"
+GetMember
+Less2
+Not
+If loc0a1d
+Push "this"
+GetVariable
+Push "data"
+GetMember
+Push "i"
+GetVariable
+GetMember
+Push "this"
+GetVariable
+Push "labels"
+GetMember
+Push "i"
+GetVariable
+GetMember
+Push 2, "this"
+GetVariable
+Push "addItem"
+CallMethod
+Pop
+Push "i", "i"
+GetVariable
+Increment
+SetVariable
+Jump loc09b7
+loc0a1d:Push "this"
+GetVariable
+Push "lastSelected", 0.0
+SetMember
+Push 0.0, 1, "this"
+GetVariable
+Push "selectItem"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "_xscale", "this"
+GetVariable
+Push "_yscale", 100
+StoreRegister 0
+SetMember
+Push register0
+SetMember
+Push "this"
+GetVariable
+Push "opened", false
+SetMember
+Push "this"
+GetVariable
+Push "width"
+GetMember
+Push 1, "this"
+GetVariable
+Push "setSize"
+CallMethod
+Pop
+Push false, 1, "this"
+GetVariable
+Push "highlightTop"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "changeHandler"
+GetMember
+Push "length"
+GetMember
+Push 0.0
+Greater
+Not
+If loc0af3
+Push "this"
+GetVariable
+Push "changeHandler"
+GetMember
+Push 1, "this"
+GetVariable
+Push "setChangeHandler"
+CallMethod
+Pop
+loc0af3:Push "this"
+GetVariable
+Push "onUnload"
+DefineFunction "", 0 {
+Push 0.0, "this"
+GetVariable
+Push "superHolder"
+GetMember
+Push "removeMovieClip"
+CallMethod
+Pop
+}
+SetMember
+Push false, 0.0, 2, "this"
+GetVariable
+Push "setSelectedIndex"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "value", ""
+SetMember
+Push "this"
+GetVariable
+Push "focusEnabled", true
+SetMember
+Push "this"
+GetVariable
+Push "changeFlag", false
+SetMember
+}
+Push "FComboBoxClass"
+GetVariable
+Push "prototype", 0.0, "FScrollSelectListClass"
+NewObject
+SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "FComboBoxSymbol", 2, "Object"
+GetVariable
+Push "registerClass"
+CallMethod
+Pop
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "modelChanged"
+DefineFunction "", 1, "eventObj"  {
+Push "eventObj"
+GetVariable
+Push 1, "super"
+GetVariable
+Push "modelChanged"
+CallMethod
+Pop
+Push "event", "eventObj"
+GetVariable
+Push "event"
+GetMember
+DefineLocal
+Push "event"
+GetVariable
+Push "addRows"
+Equals2
+PushDuplicate
+If loc0c04
+Pop
+Push "event"
+GetVariable
+Push "deleteRows"
+Equals2
+loc0c04:Not
+If loc0d10
+Push "diff", "eventObj"
+GetVariable
+Push "lastRow"
+GetMember
+Push "eventObj"
+GetVariable
+Push "firstRow"
+GetMember
+Subtract
+Push 1
+Add2
+DefineLocal
+Push "mode", "event"
+GetVariable
+Push "addRows"
+Equals2
+If loc0c4f
+Push -1
+Jump loc0c57
+loc0c4f:Push 1
+loc0c57:DefineLocal
+Push "len", 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+DefineLocal
+Push "lenBefore", "len"
+GetVariable
+Push "mode"
+GetVariable
+Push "diff"
+GetVariable
+Multiply
+Subtract
+DefineLocal
+Push "this"
+GetVariable
+Push "rowCount"
+GetMember
+Push "lenBefore"
+GetVariable
+Greater
+PushDuplicate
+If loc0cb4
+Pop
+Push "this"
+GetVariable
+Push "rowCount"
+GetMember
+Push "len"
+GetVariable
+Greater
+loc0cb4:Not
+If loc0cce
+Push "setSize", 1, "this"
+GetVariable
+Push "invalidate"
+CallMethod
+Pop
+loc0cce:Push 0.0, "this"
+GetVariable
+Push "getSelectedIndex"
+CallMethod
+Push undefined
+Equals2
+Not
+If loc0d0b
+Push false, 0.0, 2, "this"
+GetVariable
+Push "setSelectedIndex"
+CallMethod
+Pop
+loc0d0b:Jump loc0d36
+loc0d10:Push "event"
+GetVariable
+Push "updateAll"
+Equals2
+Not
+If loc0d36
+Push "setSize", 1, "this"
+GetVariable
+Push "invalidate"
+CallMethod
+Pop
+}
+loc0d36:SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "removeAll"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "enable"
+GetMember
+Not
+Not
+If loc0d68
+Push undefined
+Return
+loc0d68:Push 0.0, "super"
+GetVariable
+Push "removeAll"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "editable"
+GetMember
+Not
+If loc0d9e
+Push "this"
+GetVariable
+Push "value", ""
+SetMember
+loc0d9e:Push "setSize", 1, "this"
+GetVariable
+Push "invalidate"
+CallMethod
+Pop
+}
+SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setSize"
+DefineFunction "", 1, "w"  {
+Push "w"
+GetVariable
+Push undefined
+Equals2
+PushDuplicate
+If loc0dee
+Pop
+Push "w"
+GetVariable
+TypeOf
+Push "number"
+Equals2
+Not
+loc0dee:PushDuplicate
+If loc0e09
+Pop
+Push "w"
+GetVariable
+Push 0.0
+Greater
+Not
+loc0e09:PushDuplicate
+If loc0e1d
+Pop
+Push "this"
+GetVariable
+Push "enable"
+GetMember
+Not
+loc0e1d:Not
+If loc0e28
+Push undefined
+Return
+loc0e28:Push "this"
+GetVariable
+Push "proxyBox_mc"
+GetMember
+Push "_width", "w"
+GetVariable
+SetMember
+Push 0.0, "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "removeMovieClip"
+CallMethod
+Pop
+Push 0.0, "this"
+GetVariable
+Push "measureItmHgt"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "container_mc", 3, "container", 2, "this"
+GetVariable
+Push "superHolder"
+GetMember
+Push "createEmptyMovieClip"
+CallMethod
+SetMember
+Push "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "tabChildren", false
+SetMember
+Push "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push 1, "this"
+GetVariable
+Push "setPopUpLocation"
+CallMethod
+Pop
+Push 0.0, "boundingBox_mc", "FBoundingBoxSymbol", 3, "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "attachMovie"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "boundingBox_mc", "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "boundingBox_mc"
+GetMember
+SetMember
+Push "this"
+GetVariable
+Push "boundingBox_mc"
+GetMember
+Push "component", "this"
+GetVariable
+SetMember
+Push "background", "this"
+GetVariable
+Push "boundingBox_mc"
+GetMember
+Push "boundingBox"
+GetMember
+Push 2, "this"
+GetVariable
+Push "registerSkinElement"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "proxyBox_mc"
+GetMember
+Push "_height", "this"
+GetVariable
+Push "itmHgt"
+GetMember
+SetMember
+Push "this"
+GetVariable
+Push "numDisplayed", 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+Push "this"
+GetVariable
+Push "rowCount"
+GetMember
+Push 2, "Math"
+GetVariable
+Push "min"
+CallMethod
+SetMember
+Push "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Push 3
+Less2
+Not
+If loc0fe8
+Push "this"
+GetVariable
+Push "numDisplayed", 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+Push 3, 2, "Math"
+GetVariable
+Push "min"
+CallMethod
+SetMember
+loc0fe8:Push "this"
+GetVariable
+Push "height", "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Push "this"
+GetVariable
+Push "itmHgt"
+GetMember
+Push 2
+Subtract
+Multiply
+Push 2
+Add2
+SetMember
+Push "this"
+GetVariable
+Push "height"
+GetMember
+Push "w"
+GetVariable
+Push 2, "super"
+GetVariable
+Push "setSize"
+CallMethod
+Pop
+Push 10, "downArrow", "DownArrow", 3, "this"
+GetVariable
+Push "attachMovie"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "downArrow"
+GetMember
+Push "_y", 0.0
+SetMember
+Push "this"
+GetVariable
+Push "downArrow"
+GetMember
+Push "_width", "this"
+GetVariable
+Push "itmHgt"
+GetMember
+SetMember
+Push "this"
+GetVariable
+Push "downArrow"
+GetMember
+Push "_height", "this"
+GetVariable
+Push "itmHgt"
+GetMember
+SetMember
+Push "this"
+GetVariable
+Push "downArrow"
+GetMember
+Push "_x", "this"
+GetVariable
+Push "proxyBox_mc"
+GetMember
+Push "_width"
+GetMember
+Push "this"
+GetVariable
+Push "downArrow"
+GetMember
+Push "_width"
+GetMember
+Subtract
+SetMember
+Push "this"
+GetVariable
+Push "editable"
+GetMember
+Push 1, "this"
+GetVariable
+Push "setEditable"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "_visible", "this"
+GetVariable
+Push "opened"
+GetMember
+SetMember
+Push false, 1, "this"
+GetVariable
+Push "highlightTop"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "fader", 4, "faderX", "FBoundingBoxSymbol", 3, "this"
+GetVariable
+Push "superHolder"
+GetMember
+Push "attachMovie"
+CallMethod
+SetMember
+Push "background", "this"
+GetVariable
+Push "fader"
+GetMember
+Push "boundingBox"
+GetMember
+Push 2, "this"
+GetVariable
+Push "registerSkinElement"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "fader"
+GetMember
+Push "_width", "this"
+GetVariable
+Push "width"
+GetMember
+SetMember
+Push "this"
+GetVariable
+Push "fader"
+GetMember
+Push "_height", "this"
+GetVariable
+Push "height"
+GetMember
+SetMember
+Push "this"
+GetVariable
+Push "fader"
+GetMember
+Push "_visible", false
+SetMember
+}
+SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setDataProvider"
+DefineFunction "", 1, "dp"  {
+Push "dp"
+GetVariable
+Push 1, "super"
+GetVariable
+Push "setDataProvider"
+CallMethod
+Pop
+Push "setSize", 1, "this"
+GetVariable
+Push "invalidate"
+CallMethod
+Pop
+Push 0.0, 1, "this"
+GetVariable
+Push "setSelectedIndex"
+CallMethod
+Pop
+}
+SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "getValue"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "editable"
+GetMember
+Not
+If loc1272
+Push 0.0, "this"
+GetVariable
+Push "fLabel_mc"
+GetMember
+Push "getLabel"
+CallMethod
+Return
+loc1272:Push 0.0, "super"
+GetVariable
+Push "getValue"
+CallMethod
+Return
+}
+SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "getRowCount"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "rowCount"
+GetMember
+Return
+}
+SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setRowCount"
+DefineFunction "", 1, "count"  {
+Push "this"
+GetVariable
+Push "rowCount", 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+Push "count"
+GetVariable
+Greater
+If loc1303
+Push "count"
+GetVariable
+Jump loc131f
+loc1303:Push 3, "count"
+GetVariable
+Push 2, "Math"
+GetVariable
+Push "max"
+CallMethod
+loc131f:SetMember
+Push "this"
+GetVariable
+Push "width"
+GetMember
+Push 1, "this"
+GetVariable
+Push "setSize"
+CallMethod
+Pop
+Push "len", 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+DefineLocal
+Push "len"
+GetVariable
+Push 0.0, "this"
+GetVariable
+Push "getScrollPosition"
+CallMethod
+Subtract
+Push "this"
+GetVariable
+Push "rowCount"
+GetMember
+Less2
+Not
+If loc13d5
+Push "len"
+GetVariable
+Push "len"
+GetVariable
+Push "this"
+GetVariable
+Push "rowCount"
+GetMember
+Push 2, "Math"
+GetVariable
+Push "min"
+CallMethod
+Subtract
+Push 1, "this"
+GetVariable
+Push "setScrollPosition"
+CallMethod
+Pop
+Push "updateControl", 1, "this"
+GetVariable
+Push "invalidate"
+CallMethod
+Pop
+}
+loc13d5:SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setEditable"
+DefineFunction "", 1, "editableFlag"  {
+Push "this"
+GetVariable
+Push "enable"
+GetMember
+Not
+Not
+If loc1414
+Push undefined
+Return
+loc1414:Push "this"
+GetVariable
+Push "editable", "editableFlag"
+GetVariable
+SetMember
+Push "this"
+GetVariable
+Push "editable"
+GetMember
+Not
+Not
+If loc1550
+Push "this"
+GetVariable
+Push "onPress", "this"
+GetVariable
+Push "pressHandler"
+GetMember
+SetMember
+Push "this"
+GetVariable
+Push "useHandCursor", false
+SetMember
+Push "this"
+GetVariable
+Push "trackAsMenu", true
+SetMember
+Push "controller", "this"
+GetVariable
+Push "itemNum", -1, 2
+InitObject
+Push 5, "fLabel_mc", "FComboBoxItemSymbol", 4, "this"
+GetVariable
+Push "attachMovie"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "fLabel_mc"
+GetMember
+Push "onRollOver", undefined
+SetMember
+Push "this"
+GetVariable
+Push "itmHgt"
+GetMember
+Push "this"
+GetVariable
+Push "width"
+GetMember
+Push "this"
+GetVariable
+Push "itmHgt"
+GetMember
+Subtract
+Push 1
+Add2
+Push 2, "this"
+GetVariable
+Push "fLabel_mc"
+GetMember
+Push "setSize"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "topLabel", 0.0, "this"
+GetVariable
+Push "getSelectedItem"
+CallMethod
+SetMember
+Push false, "this"
+GetVariable
+Push "topLabel"
+GetMember
+Push 2, "this"
+GetVariable
+Push "fLabel_mc"
+GetMember
+Push "drawItem"
+CallMethod
+Pop
+Push false, 1, "this"
+GetVariable
+Push "highlightTop"
+CallMethod
+Pop
+Jump loc16f2
+loc1550:Push 5, "fLabel_mc", "FLabelSymbol", 3, "this"
+GetVariable
+Push "attachMovie"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "fLabel_txt", "this"
+GetVariable
+Push "fLabel_mc"
+GetMember
+Push "labelField"
+GetMember
+SetMember
+Push "this"
+GetVariable
+Push "fLabel_txt"
+GetMember
+Push "type", "input"
+SetMember
+Push "this"
+GetVariable
+Push "fLabel_txt"
+GetMember
+Push "_x", 4
+SetMember
+Push "this"
+GetVariable
+Push "fLabel_txt"
+GetMember
+Push "onSetFocus", "this"
+GetVariable
+Push "onLabelFocus"
+GetMember
+SetMember
+Push "this"
+GetVariable
+Push "width"
+GetMember
+Push "this"
+GetVariable
+Push "itmHgt"
+GetMember
+Subtract
+Push 3
+Subtract
+Push 1, "this"
+GetVariable
+Push "fLabel_mc"
+GetMember
+Push "setSize"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "onPress"
+Delete
+Pop
+Push "this"
+GetVariable
+Push "fLabel_txt"
+GetMember
+Push "onKillFocus"
+DefineFunction "", 0 {
+Push 0.0, "this"
+GetVariable
+Push "_parent"
+GetMember
+Push "_parent"
+GetMember
+Push "myOnKillFocus"
+CallMethod
+Pop
+}
+SetMember
+Push "this"
+GetVariable
+Push "value"
+GetMember
+Push 1, "this"
+GetVariable
+Push "fLabel_mc"
+GetMember
+Push "setLabel"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "fLabel_txt"
+GetMember
+Push "onChanged"
+DefineFunction "", 0 {
+Push 0.0, "this"
+GetVariable
+Push "_parent"
+GetMember
+Push "_parent"
+GetMember
+Push "findInputText"
+CallMethod
+Pop
+}
+SetMember
+Push "this"
+GetVariable
+Push "downArrow"
+GetMember
+Push "onPress", "this"
+GetVariable
+Push "buttonPressHandler"
+GetMember
+SetMember
+Push "this"
+GetVariable
+Push "downArrow"
+GetMember
+Push "useHandCursor", false
+SetMember
+Push "this"
+GetVariable
+Push "downArrow"
+GetMember
+Push "trackAsMenu", true
+SetMember
+}
+loc16f2:SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setEnabled"
+DefineFunction "", 1, "enabledFlag"  {
+Push "enabledFlag", "enabledFlag"
+GetVariable
+Push undefined
+Equals2
+PushDuplicate
+If loc173a
+Pop
+Push "enabledFlag"
+GetVariable
+TypeOf
+Push "boolean"
+Equals2
+Not
+loc173a:If loc174a
+Push "enabledFlag"
+GetVariable
+Jump loc174f
+loc174a:Push true
+loc174f:SetVariable
+Push "enabledFlag"
+GetVariable
+Push 1, "super"
+GetVariable
+Push "setEnabled"
+CallMethod
+Pop
+Push "background", "this"
+GetVariable
+Push "boundingBox_mc"
+GetMember
+Push "boundingBox"
+GetMember
+Push 2, "this"
+GetVariable
+Push "registerSkinElement"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "enable"
+GetMember
+If loc17a9
+Push "disabled"
+Jump loc17ae
+loc17a9:Push "enabled"
+loc17ae:Push 1, "this"
+GetVariable
+Push "proxyBox_mc"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "enable"
+GetMember
+If loc17e4
+Push 3
+Jump loc17ec
+loc17e4:Push 1
+loc17ec:Push 1, "this"
+GetVariable
+Push "downArrow"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "editable"
+GetMember
+Not
+If loc1859
+Push "this"
+GetVariable
+Push "fLabel_txt"
+GetMember
+Push "type", "enabledFlag"
+GetVariable
+If loc1839
+Push "dynamic"
+Jump loc183e
+loc1839:Push "input"
+loc183e:SetMember
+Push "this"
+GetVariable
+Push "fLabel_txt"
+GetMember
+Push "selectable", "enabledFlag"
+GetVariable
+SetMember
+Jump loc18b4
+loc1859:Push "enabledFlag"
+GetVariable
+Not
+If loc18b4
+Push false, "this"
+GetVariable
+Push "topLabel"
+GetMember
+Push 2, "this"
+GetVariable
+Push "fLabel_mc"
+GetMember
+Push "drawItem"
+CallMethod
+Pop
+Push false, 0.0, "this"
+GetVariable
+Push "getSelectedIndex"
+CallMethod
+Push 2, "this"
+GetVariable
+Push "setSelectedIndex"
+CallMethod
+Pop
+loc18b4:Push "this"
+GetVariable
+Push "enable"
+GetMember
+Push 1, "this"
+GetVariable
+Push "fLabel_mc"
+GetMember
+Push "setEnabled"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "fLabel_txt"
+GetMember
+Push "onSetFocus", "enabledFlag"
+GetVariable
+If loc18fa
+Push undefined
+Jump loc1906
+loc18fa:Push "this"
+GetVariable
+Push "onLabelFocus"
+GetMember
+loc1906:SetMember
+}
+SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setSelectedIndex"
+DefineFunction "", 2, "index" , "flag"  {
+Push "flag"
+GetVariable
+Push "index"
+GetVariable
+Push 2, "super"
+GetVariable
+Push "setSelectedIndex"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "editable"
+GetMember
+Not
+Not
+If loc19a6
+Push "this"
+GetVariable
+Push "topLabel", 0.0, "this"
+GetVariable
+Push "getSelectedItem"
+CallMethod
+SetMember
+Push false, "this"
+GetVariable
+Push "topLabel"
+GetMember
+Push 2, "this"
+GetVariable
+Push "fLabel_mc"
+GetMember
+Push "drawItem"
+CallMethod
+Pop
+Jump loc1a09
+loc19a6:Push "this"
+GetVariable
+Push "value", "flag"
+GetVariable
+Push undefined
+Equals2
+Not
+If loc19df
+Push 0.0, "this"
+GetVariable
+Push "getSelectedItem"
+CallMethod
+Push "label"
+GetMember
+Jump loc19e4
+loc19df:Push ""
+loc19e4:SetMember
+Push "this"
+GetVariable
+Push "value"
+GetMember
+Push 1, "this"
+GetVariable
+Push "fLabel_mc"
+GetMember
+Push "setLabel"
+CallMethod
+Pop
+loc1a09:Push "updateControl", 1, "this"
+GetVariable
+Push "invalidate"
+CallMethod
+Pop
+}
+SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setValue"
+DefineFunction "", 1, "value"  {
+Push "this"
+GetVariable
+Push "editable"
+GetMember
+Not
+If loc1a7c
+Push "value"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "fLabel_mc"
+GetMember
+Push "setLabel"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "value", "value"
+GetVariable
+SetMember
+}
+loc1a7c:SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "pressHandler"
+DefineFunction "", 0 {
+Push 0.0, "this"
+GetVariable
+Push "focusRect"
+GetMember
+Push "removeMovieClip"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "enable"
+GetMember
+Not
+If loc1ba3
+Push "this"
+GetVariable
+Push "opened"
+GetMember
+Not
+Not
+If loc1af1
+Push "this"
+GetVariable
+Push "onMouseUp", "this"
+GetVariable
+Push "releaseHandler"
+GetMember
+SetMember
+Jump loc1afe
+loc1af1:Push "this"
+GetVariable
+Push "onMouseUp", undefined
+SetMember
+loc1afe:Push "this"
+GetVariable
+Push "changeFlag", false
+SetMember
+Push "this"
+GetVariable
+Push "focused"
+GetMember
+Not
+Not
+If loc1b5e
+Push 0.0, "this"
+GetVariable
+Push "pressFocus"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "clickFilter", "this"
+GetVariable
+Push "editable"
+GetMember
+If loc1b58
+Push true
+Jump loc1b5d
+loc1b58:Push false
+loc1b5d:SetMember
+loc1b5e:Push "this"
+GetVariable
+Push "clickFilter"
+GetMember
+Not
+Not
+If loc1b95
+Push "this"
+GetVariable
+Push "opened"
+GetMember
+Not
+Push 1, "this"
+GetVariable
+Push "openOrClose"
+CallMethod
+Pop
+Jump loc1ba3
+loc1b95:Push "this"
+GetVariable
+Push "clickFilter", false
+SetMember
+}
+loc1ba3:SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "clickHandler"
+DefineFunction "", 1, "itmNum"  {
+Push "this"
+GetVariable
+Push "focused"
+GetMember
+Not
+Not
+If loc1c12
+Push "this"
+GetVariable
+Push "editable"
+GetMember
+Not
+If loc1bfc
+Push "this"
+GetVariable
+Push "fLabel_txt"
+GetMember
+Push "onKillFocus", undefined
+SetMember
+loc1bfc:Push 0.0, "this"
+GetVariable
+Push "pressFocus"
+CallMethod
+Pop
+loc1c12:Push "itmNum"
+GetVariable
+Push 1, "super"
+GetVariable
+Push "clickHandler"
+CallMethod
+Pop
+Push "itmNum"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "selectionHandler"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "onMouseUp", "this"
+GetVariable
+Push "releaseHandler"
+GetMember
+SetMember
+}
+SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "highlightTop"
+DefineFunction "", 1, "flag"  {
+Push "this"
+GetVariable
+Push "editable"
+GetMember
+Not
+Not
+If loc1cb3
+Push "flag"
+GetVariable
+Push "this"
+GetVariable
+Push "topLabel"
+GetMember
+Push 2, "this"
+GetVariable
+Push "fLabel_mc"
+GetMember
+Push "drawItem"
+CallMethod
+Pop
+}
+loc1cb3:SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "myOnSetFocus"
+DefineFunction "", 0 {
+Push 0.0, "super"
+GetVariable
+Push "myOnSetFocus"
+CallMethod
+Pop
+Push "enabled", 1, "this"
+GetVariable
+Push "fLabel_mc"
+GetMember
+Push "highlight_mc"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+Push true, 1, "this"
+GetVariable
+Push "highlightTop"
+CallMethod
+Pop
+}
+SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "drawFocusRect"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "_height"
+GetMember
+Push 4
+Add2
+Push "this"
+GetVariable
+Push "width"
+GetMember
+Push 4
+Add2
+Push -2, -2, 4, "this"
+GetVariable
+Push "drawRect"
+CallMethod
+Pop
+}
+SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "myOnKillFocus"
+DefineFunction "", 0 {
+Push "labelField", 1, 0.0, "Selection"
+GetVariable
+Push "getFocus"
+CallMethod
+Push "indexOf"
+CallMethod
+Push -1
+Equals2
+Not
+Not
+If loc1dc8
+Push undefined
+Return
+loc1dc8:Push 0.0, "super"
+GetVariable
+Push "myOnKillFocus"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "fLabel_txt"
+GetMember
+Push "onKeyDown"
+Delete
+Pop
+Push false, 1, "this"
+GetVariable
+Push "openOrClose"
+CallMethod
+Pop
+Push false, 1, "this"
+GetVariable
+Push "highlightTop"
+CallMethod
+Pop
+}
+SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "setPopUpLocation"
+DefineFunction "", 1, "mcRef"  {
+Push "mcRef"
+GetVariable
+Push "_x", "this"
+GetVariable
+Push "_x"
+GetMember
+SetMember
+Push "point", "x", "this"
+GetVariable
+Push "_x"
+GetMember
+Push "y", "this"
+GetVariable
+Push "_y"
+GetMember
+Push "this"
+GetVariable
+Push "proxyBox_mc"
+GetMember
+Push "_height"
+GetMember
+Add2
+Push 2
+InitObject
+DefineLocal
+Push "point"
+GetVariable
+Push 1, "this"
+GetVariable
+Push "_parent"
+GetMember
+Push "localToGlobal"
+CallMethod
+Pop
+Push "point"
+GetVariable
+Push 1, "mcRef"
+GetVariable
+Push "_parent"
+GetMember
+Push "globalToLocal"
+CallMethod
+Pop
+Push "mcRef"
+GetVariable
+Push "_x", "point"
+GetVariable
+Push "x"
+GetMember
+SetMember
+Push "mcRef"
+GetVariable
+Push "_y", "point"
+GetVariable
+Push "y"
+GetMember
+SetMember
+Push "this"
+GetVariable
+Push "height"
+GetMember
+Push "mcRef"
+GetVariable
+Push "_y"
+GetMember
+Add2
+Push "Stage"
+GetVariable
+Push "height"
+GetMember
+Less2
+Not
+Not
+If loc1f64
+Push "this"
+GetVariable
+Push "upward", true
+SetMember
+Push "mcRef"
+GetVariable
+Push "_y", "point"
+GetVariable
+Push "y"
+GetMember
+Push "this"
+GetVariable
+Push "height"
+GetMember
+Subtract
+Push "this"
+GetVariable
+Push "proxyBox_mc"
+GetMember
+Push "_height"
+GetMember
+Subtract
+SetMember
+Jump loc1f72
+loc1f64:Push "this"
+GetVariable
+Push "upward", false
+SetMember
+}
+loc1f72:SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "openOrClose"
+DefineFunction "", 1, "flag"  {
+Push 0.0, "this"
+GetVariable
+Push "getLength"
+CallMethod
+Push 0.0
+Equals2
+Not
+If loc1fbe
+Push undefined
+Return
+loc1fbe:Push "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push 1, "this"
+GetVariable
+Push "setPopUpLocation"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "lastSelected"
+GetMember
+Push -1
+Equals2
+Not
+PushDuplicate
+Not
+If loc2040
+Pop
+Push "this"
+GetVariable
+Push "lastSelected"
+GetMember
+Push "this"
+GetVariable
+Push "topDisplayed"
+GetMember
+Less2
+PushDuplicate
+If loc2040
+Pop
+Push "this"
+GetVariable
+Push "lastSelected"
+GetMember
+Push "this"
+GetVariable
+Push "topDisplayed"
+GetMember
+Push "this"
+GetVariable
+Push "numDisplayed"
+GetMember
+Add2
+Greater
+loc2040:Not
+If loc207a
+Push "this"
+GetVariable
+Push "lastSelected"
+GetMember
+Push 0.0, "this"
+GetVariable
+Push "getSelectedIndex"
+CallMethod
+Subtract
+Push 1, "super"
+GetVariable
+Push "moveSelBy"
+CallMethod
+Pop
+loc207a:Push "flag"
+GetVariable
+If loc20a6
+Push 1, 1, "this"
+GetVariable
+Push "downArrow"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Jump loc20c2
+loc20a6:Push 2, 1, "this"
+GetVariable
+Push "downArrow"
+GetMember
+Push "gotoAndStop"
+CallMethod
+loc20c2:Pop
+Push "flag"
+GetVariable
+Push "this"
+GetVariable
+Push "opened"
+GetMember
+Equals2
+Not
+If loc20e1
+Push undefined
+Return
+loc20e1:Push "flag"
+GetVariable
+Not
+Push 1, "this"
+GetVariable
+Push "highlightTop"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "fadeRate", "this"
+GetVariable
+Push "styleTable"
+GetMember
+Push "popUpFade"
+GetMember
+Push "value"
+GetMember
+SetMember
+Push "flag"
+GetVariable
+Not
+PushDuplicate
+If loc213a
+Pop
+Push "this"
+GetVariable
+Push "fadeRate"
+GetMember
+Push undefined
+Equals2
+loc213a:PushDuplicate
+If loc215a
+Pop
+Push "this"
+GetVariable
+Push "fadeRate"
+GetMember
+Push 0.0
+Equals2
+loc215a:Not
+If loc218c
+Push "this"
+GetVariable
+Push "opened", "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "_visible", "flag"
+GetVariable
+StoreRegister 0
+SetMember
+Push register0
+SetMember
+Push undefined
+Return
+loc218c:Push "this"
+GetVariable
+Push "fader"
+GetMember
+Push 1, "this"
+GetVariable
+Push "setPopUpLocation"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "time", 0.0
+SetMember
+Push "this"
+GetVariable
+Push "const", 85, "this"
+GetVariable
+Push "fadeRate"
+GetMember
+Push 1, "Math"
+GetVariable
+Push "sqrt"
+CallMethod
+Divide
+SetMember
+Push "this"
+GetVariable
+Push "fader"
+GetMember
+Push "_alpha", 85
+SetMember
+Push "this"
+GetVariable
+Push "container_mc"
+GetMember
+Push "_visible", "this"
+GetVariable
+Push "fader"
+GetMember
+Push "_visible", true
+StoreRegister 0
+SetMember
+Push register0
+SetMember
+Push "this"
+GetVariable
+Push "onEnterFrame"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "fader"
+GetMember
+Push "_alpha", 100, "this"
+GetVariable
+Push "const"
+GetMember
+Push "this"
+GetVariable
+Push "time", "this"
+GetVariable
+Push "time"
+GetMember
+Increment
+StoreRegister 0
+SetMember
+Push register0, 1, "Math"
+GetVariable
+Push "sqrt"
+CallMethod
+Multiply
+Push 15
+Add2
+Subtract
+SetMember
+Push "this"
+GetVariable
+Push "time"
+GetMember
+Push "this"
+GetVariable
+Push "fadeRate"
+GetMember
+Less2
+Not
+Not
+If loc22e8
+Push "this"
+GetVariable
+Push "fader"
+GetMember
+Push "_visible", false
+SetMember
+Push "this"
+GetVariable
+Push "onEnterFrame"
+Delete
+Pop
+Push "this"
+GetVariable
+Push "opened", true
+SetMember
+}
+loc22e8:SetMember
+}
+SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "fireChange"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "lastSelected", 0.0, "this"
+GetVariable
+Push "getSelectedIndex"
+CallMethod
+SetMember
+Push "this"
+GetVariable
+Push "editable"
+GetMember
+Not
+Not
+If loc237d
+Push "this"
+GetVariable
+Push "topLabel", 0.0, "this"
+GetVariable
+Push "getSelectedItem"
+CallMethod
+SetMember
+Push true, "this"
+GetVariable
+Push "topLabel"
+GetMember
+Push 2, "this"
+GetVariable
+Push "fLabel_mc"
+GetMember
+Push "drawItem"
+CallMethod
+Pop
+Jump loc23c5
+loc237d:Push "this"
+GetVariable
+Push "value", 0.0, "this"
+GetVariable
+Push "getSelectedItem"
+CallMethod
+Push "label"
+GetMember
+SetMember
+Push "this"
+GetVariable
+Push "value"
+GetMember
+Push 1, "this"
+GetVariable
+Push "fLabel_mc"
+GetMember
+Push "setLabel"
+CallMethod
+Pop
+loc23c5:Push 0.0, "this"
+GetVariable
+Push "executeCallback"
+CallMethod
+Pop
+}
+SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "releaseHandler"
+DefineFunction "", 0 {
+Push "onCombo", "_root"
+GetVariable
+Push "_ymouse"
+GetMember
+Push "_root"
+GetVariable
+Push "_xmouse"
+GetMember
+Push 2, "this"
+GetVariable
+Push "boundingBox_mc"
+GetMember
+Push "hitTest"
+CallMethod
+DefineLocal
+Push "this"
+GetVariable
+Push "changeFlag"
+GetMember
+Not
+If loc247f
+Push "onCombo"
+GetVariable
+Not
+If loc245b
+Push 0.0, "this"
+GetVariable
+Push "fireChange"
+CallMethod
+Pop
+loc245b:Push "this"
+GetVariable
+Push "opened"
+GetMember
+Not
+Push 1, "this"
+GetVariable
+Push "openOrClose"
+CallMethod
+Pop
+Jump loc2541
+loc247f:Push "onCombo"
+GetVariable
+Not
+If loc24a4
+Push false, 1, "this"
+GetVariable
+Push "openOrClose"
+CallMethod
+Pop
+Jump loc2541
+loc24a4:Push "this"
+GetVariable
+Push "onMouseDown"
+DefineFunction "", 0 {
+Push "_root"
+GetVariable
+Push "_ymouse"
+GetMember
+Push "_root"
+GetVariable
+Push "_xmouse"
+GetMember
+Push 2, "this"
+GetVariable
+Push "boundingBox_mc"
+GetMember
+Push "hitTest"
+CallMethod
+Not
+PushDuplicate
+Not
+If loc2519
+Pop
+Push "_root"
+GetVariable
+Push "_ymouse"
+GetMember
+Push "_root"
+GetVariable
+Push "_xmouse"
+GetMember
+Push 2, "this"
+GetVariable
+Push "hitTest"
+CallMethod
+Not
+loc2519:Not
+If loc2540
+Push "this"
+GetVariable
+Push "onMouseDown", undefined
+SetMember
+Push false, 1, "this"
+GetVariable
+Push "openOrClose"
+CallMethod
+Pop
+}
+loc2540:SetMember
+loc2541:Push "this"
+GetVariable
+Push "changeFlag", false
+SetMember
+Push "this"
+GetVariable
+Push "onMouseUp", undefined
+SetMember
+Push "this"
+GetVariable
+Push "dragScrolling"
+GetMember
+Push 1, "clearInterval"
+CallFunction
+Pop
+Push "this"
+GetVariable
+Push "dragScrolling", undefined
+SetMember
+}
+SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "moveSelBy"
+DefineFunction "", 1, "itemNum"  {
+Push "itemNum"
+GetVariable
+Push 0.0
+Equals2
+Not
+Not
+If loc2675
+Push "itemNum"
+GetVariable
+Push 1, "super"
+GetVariable
+Push "moveSelBy"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "editable"
+GetMember
+Not
+If loc2614
+Push 0.0, "this"
+GetVariable
+Push "getSelectedItem"
+CallMethod
+Push "label"
+GetMember
+Push 1, "this"
+GetVariable
+Push "setValue"
+CallMethod
+Pop
+loc2614:Push "this"
+GetVariable
+Push "opened"
+GetMember
+Not
+Not
+If loc2675
+Push "this"
+GetVariable
+Push "changeFlag"
+GetMember
+PushDuplicate
+Not
+If loc2659
+Pop
+Push "this"
+GetVariable
+Push "lastSelected"
+GetMember
+Push 1, "this"
+GetVariable
+Push "isSelected"
+CallMethod
+Not
+loc2659:Not
+If loc2675
+Push 0.0, "this"
+GetVariable
+Push "fireChange"
+CallMethod
+Pop
+}
+loc2675:SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "myOnKeyDown"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "focused"
+GetMember
+Not
+Not
+If loc26a7
+Push undefined
+Return
+loc26a7:Push "this"
+GetVariable
+Push "editable"
+GetMember
+PushDuplicate
+Not
+If loc26d1
+Pop
+Push 13, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+loc26d1:Not
+If loc2733
+Push 0.0, "this"
+GetVariable
+Push "fLabel_mc"
+GetMember
+Push "getLabel"
+CallMethod
+Push 1, "this"
+GetVariable
+Push "setValue"
+CallMethod
+Pop
+Push 0.0, "this"
+GetVariable
+Push "executeCallback"
+CallMethod
+Pop
+Push false, 1, "this"
+GetVariable
+Push "openOrClose"
+CallMethod
+Pop
+Jump loc2803
+loc2733:Push 13, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+PushDuplicate
+If loc277b
+Pop
+Push 32, 1, "Key"
+GetVariable
+Push "isDown"
+CallMethod
+PushDuplicate
+Not
+If loc277b
+Pop
+Push "this"
+GetVariable
+Push "editable"
+GetMember
+Not
+loc277b:PushDuplicate
+Not
+If loc278f
+Pop
+Push "this"
+GetVariable
+Push "opened"
+GetMember
+loc278f:Not
+If loc2803
+Push 0.0, "this"
+GetVariable
+Push "getSelectedIndex"
+CallMethod
+Push "this"
+GetVariable
+Push "lastSelected"
+GetMember
+Equals2
+Not
+Not
+If loc27d4
+Push 0.0, "this"
+GetVariable
+Push "fireChange"
+CallMethod
+Pop
+loc27d4:Push false, 1, "this"
+GetVariable
+Push "openOrClose"
+CallMethod
+Pop
+Push "this"
+GetVariable
+Push "fLabel_txt"
+GetMember
+Push "hscroll", 0.0
+SetMember
+loc2803:Push 0.0, "super"
+GetVariable
+Push "myOnKeyDown"
+CallMethod
+Pop
+}
+SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "findInputText"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "editable"
+GetMember
+Not
+Not
+If loc285c
+Push 0.0, "super"
+GetVariable
+Push "findInputText"
+CallMethod
+Pop
+}
+loc285c:SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "onLabelFocus"
+DefineFunction "", 0 {
+Push "this"
+GetVariable
+Push "_parent"
+GetMember
+Push "_parent"
+GetMember
+Push "tabFocused", false
+SetMember
+Push "this"
+GetVariable
+Push "_parent"
+GetMember
+Push "_parent"
+GetMember
+Push "focused", true
+SetMember
+Push "this"
+GetVariable
+Push "onKeyDown"
+DefineFunction "", 0 {
+Push 0.0, "this"
+GetVariable
+Push "_parent"
+GetMember
+Push "_parent"
+GetMember
+Push "myOnKeyDown"
+CallMethod
+Pop
+}
+SetMember
+Push "this"
+GetVariable
+Push 1, "Key"
+GetVariable
+Push "addListener"
+CallMethod
+Pop
+}
+SetMember
+Push "FComboBoxClass"
+GetVariable
+Push "prototype"
+GetMember
+Push "buttonPressHandler"
+DefineFunction "", 0 {
+Push 0.0, "this"
+GetVariable
+Push "_parent"
+GetMember
+Push "pressHandler"
+CallMethod
+Pop
+}
+SetMember

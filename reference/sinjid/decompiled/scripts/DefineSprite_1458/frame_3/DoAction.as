@@ -1,0 +1,10 @@
+_root.itemstats[20] = "Silver Knife";
+_root.itemstats[21] = "Spiked Axe";
+_root.itemstats[22] = "Heavy Blade";
+_root.itemstats[23] = "Leather Wrist";
+_root.itemstats[24] = "Metal Wrist";
+_root.itemstats[25] = "Wooden Guard";
+_root.itemstats[26] = "Hand Blade";
+_root.itemstats[27] = "Bandana";
+_root.itemstats[28] = "Metal Band";
+_root.itemstats[29] = "Leather Armour";

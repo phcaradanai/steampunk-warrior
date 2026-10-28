@@ -1,0 +1,2 @@
+itemthing.gotoAndStop(item);
+stop();

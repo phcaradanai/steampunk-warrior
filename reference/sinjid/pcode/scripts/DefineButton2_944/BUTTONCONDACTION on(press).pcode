@@ -1,0 +1,35 @@
+ConstantPool "_root", "item", "itempick", "Required Item", "None", "inventory", "itemmouse", "gotoAndStop"
+Push "_root"
+GetVariable
+Push "item"
+GetMember
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+GetMember
+Push 1
+GetMember
+Push "Required Item"
+Equals2
+Not
+Not
+If loc00b3
+Push "_root"
+GetVariable
+Push "itempick", "None"
+SetMember
+Push "_root"
+GetVariable
+Push "itempick"
+GetMember
+Push 1, "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "itemmouse"
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop
+loc00b3:

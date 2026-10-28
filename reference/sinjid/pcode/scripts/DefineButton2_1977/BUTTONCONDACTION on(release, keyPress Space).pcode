@@ -1,0 +1,18 @@
+ConstantPool "_root", "typeoftarget", "target", "otherpointer", "gotoAndStop"
+Push "_root"
+GetVariable
+Push "typeoftarget"
+GetVariable
+Push "target"
+GetVariable
+SetMember
+GotoFrame 1
+Play
+Push 1, 1, "_root"
+GetVariable
+Push "otherpointer"
+GetVariable
+GetMember
+Push "gotoAndStop"
+CallMethod
+Pop

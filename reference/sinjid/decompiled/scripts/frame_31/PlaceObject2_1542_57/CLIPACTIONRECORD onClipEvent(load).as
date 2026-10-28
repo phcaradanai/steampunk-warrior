@@ -1,0 +1,5 @@
+onClipEvent(load){
+   speak = "I went into the dark rift, but I was defeated by the blood spirit. It has high magical attacks, but no physical damage at all. Its shield was unbreakable!";
+   persontype = "Wounded Warrior";
+   objectnum = 5;
+}

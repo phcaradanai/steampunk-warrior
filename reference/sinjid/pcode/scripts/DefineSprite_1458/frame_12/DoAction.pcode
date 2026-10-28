@@ -1,0 +1,61 @@
+ConstantPool "_root", "itemstats", "Long Sword", "Chain Mail"
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 20, "Long Sword"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 21, "Chain Mail"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 22, "Long Sword"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 23, "Chain Mail"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 24, "Long Sword"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 25, "Chain Mail"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 26, "Long Sword"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 27, "Chain Mail"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 28, "Long Sword"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 29, "Chain Mail"
+SetMember

@@ -1,0 +1,68 @@
+ConstantPool "_root", "midfight", "playermove", "turnnum", "enemy2", "enemy2life", "attacks", "numofmoves", "Fight"
+Push "_root"
+GetVariable
+Push "midfight"
+GetMember
+Push false
+Equals2
+PushDuplicate
+Not
+If loc008b
+Pop
+Push "_root"
+GetVariable
+Push "playermove"
+GetMember
+Push "_root"
+GetVariable
+Push "turnnum"
+GetMember
+GetMember
+Push "enemy2"
+Equals2
+loc008b:Not
+If loc0124
+Push "_root"
+GetVariable
+Push "enemy2life"
+GetMember
+Push 0.0
+Greater
+Not
+If loc00de
+Push "attacks"
+GetVariable
+Push "numofmoves"
+GetVariable
+RandomNumber
+GetMember
+Push 1, "_root"
+GetVariable
+Push "Fight"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "midfight", true
+SetMember
+loc00de:Push "_root"
+GetVariable
+Push "turnnum", "_root"
+GetVariable
+Push "turnnum"
+GetMember
+Increment
+SetMember
+Push "_root"
+GetVariable
+Push "turnnum"
+GetMember
+Push 4
+Equals2
+Not
+If loc0124
+Push "_root"
+GetVariable
+Push "turnnum", 0.0
+SetMember
+loc0124:

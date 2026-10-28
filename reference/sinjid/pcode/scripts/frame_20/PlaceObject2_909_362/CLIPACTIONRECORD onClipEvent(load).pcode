@@ -1,0 +1,86 @@
+ConstantPool "this", "swapDepths", "_root", "reload", "buildGrid", "save_y", "save_x", "initializeChar", "game", "char", "x", "y", "grid", "_x", "_y", "save_stage", "gotoAndStop"
+Push 100, 1, "this"
+GetVariable
+Push "swapDepths"
+CallMethod
+Pop
+Push "_root"
+GetVariable
+Push "reload"
+GetMember
+Push true
+Equals2
+Not
+If loc018c
+Push "_root"
+GetVariable
+Push "reload", false
+SetMember
+Push 0.0, "buildGrid"
+CallFunction
+Pop
+Push "_root"
+GetVariable
+Push "save_y"
+GetMember
+Push "_root"
+GetVariable
+Push "save_x"
+GetMember
+Push 2, "initializeChar"
+CallFunction
+Pop
+Push "_root"
+GetVariable
+Push "game"
+GetMember
+Push "char"
+GetMember
+Push "x", "_root"
+GetVariable
+Push "save_x"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "game"
+GetMember
+Push "char"
+GetMember
+Push "y", "_root"
+GetVariable
+Push "save_y"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "_x", "_root"
+GetVariable
+Push "save_x"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "grid"
+GetMember
+Push "char"
+GetMember
+Push "_y", "_root"
+GetVariable
+Push "save_y"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "save_stage"
+GetMember
+Push 1, "_root"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop
+loc018c:

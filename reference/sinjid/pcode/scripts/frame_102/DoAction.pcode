@@ -1,0 +1,5 @@
+StopSounds
+Push "Over2", 1, "playSound"
+CallFunction
+Pop
+Stop

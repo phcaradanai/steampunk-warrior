@@ -1,0 +1,64 @@
+name,type,physical_damage,magic_damage,shield_damage,physical_defense,magic_defense,shield_physical_defense,shield_magic_defense,shield_hp,speed,bonus_life,bonus_mana,special_skill,strength_required,description,source,line,sell_price
+Iron Knife,Weapon,5,0,0,0,0,0,0,0,0,0,0,0,10,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,3,7
+Energy Knife,Weapon,0,5,0,0,0,0,0,0,0,0,0,0,10,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,4,7
+Silver Knife,Weapon,10,0,0,0,0,0,0,0,0,0,0,0,10,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,5,13
+Long Sword,Weapon,12,0,2,0,0,0,0,0,0,0,0,0,15,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,6,18
+Spiked Axe,Weapon,11,0,5,0,0,0,0,0,0,0,0,0,16,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,7,21
+Heavy Blade,Weapon,16,0,0,0,0,0,0,0,0,0,0,0,16,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,8,21
+Katana,Weapon,24,0,7,0,0,0,0,0,0,0,0,0,18,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,9,40
+Shield Breaker,Weapon,17,0,40,0,0,0,0,0,0,0,0,0,22,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,10,74
+Blaze Edge,Weapon,20,13,5,0,0,0,0,0,0,0,0,0,23,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,11,49
+Fusion Edge,Weapon,24,18,5,0,0,0,0,0,0,0,20,0,25,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,12,87
+Spike Sword,Weapon,38,12,7,0,0,0,0,0,0,0,0,0,25,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,13,74
+Demon Sword,Weapon,19,32,10,0,0,0,0,0,0,0,0,0,20,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,14,79
+Blood Razor,Weapon,58,0,10,0,0,0,0,0,0,0,0,0,26,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,15,88
+Raider Sword,Weapon,8,0,3,0,0,0,0,0,0,0,0,0,13,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,16,14
+Guard Blade,Weapon,90,0,10,15,0,0,0,0,0,0,-40,0,40,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,17,98
+Golden Blade,Weapon,46,24,12,0,0,0,0,0,0,0,0,0,28,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,18,107
+Double Razor,Weapon,13,8,7,0,0,0,0,0,0,0,0,0,18,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,19,36
+Shadow Katana,Weapon,33,32,10,0,0,0,0,0,15,0,0,0,24,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,20,117
+Shadow Spirit,Weapon,21,44,5,0,0,0,0,0,0,0,80,0,19,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,21,195
+Fallen Blade,Weapon,75,10,0,15,0,0,0,0,0,0,0,0,40,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,22,130
+Wooden Rod,Weapon,5,16,0,0,0,0,0,0,0,0,30,0,15,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,23,66
+Golden Rod,Weapon,7,34,0,0,0,0,0,0,0,0,60,0,15,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,24,131
+Wooden Staff,Weapon,10,30,0,0,0,0,0,0,0,0,100,0,15,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,25,182
+Ion Bo,Weapon,10,60,0,0,0,0,0,0,0,0,120,0,20,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,26,247
+Rust Blade,Weapon,18,0,0,0,0,0,0,0,0,0,0,0,15,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,27,23
+Leather Wrist,Shield,0,0,0,0,0,10,0,25,0,0,0,0,5,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,28,14
+Metal Wrist,Shield,0,0,0,0,0,20,0,40,0,0,0,0,5,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,29,24
+Wooden Guard,Shield,0,0,0,0,0,15,0,50,0,0,0,0,15,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,30,26
+Hand Blade,Shield,0,0,0,0,0,50,0,60,0,0,0,0,17,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,31,44
+Metal Guard,Shield,0,0,0,0,0,35,0,80,0,0,0,0,18,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,32,46
+Double Blade,Shield,0,0,0,0,0,80,0,75,0,0,0,0,19,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,33,62
+Wooden Shield,Shield,0,0,0,0,0,20,20,80,0,0,0,0,15,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,34,48
+Metal Shield,Shield,0,0,0,0,0,40,40,160,0,0,0,0,21,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,35,96
+Demon Shield,Shield,0,0,0,0,0,30,40,200,0,0,20,0,21,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,36,116
+Spike Shield,Shield,20,0,0,0,0,40,40,180,0,0,0,0,21,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,37,112
+Claw Blade,Shield,0,0,0,0,0,85,0,100,0,0,0,0,23,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,38,74
+Shadow Wrist,Shield,0,0,0,0,0,40,60,100,5,0,0,0,16,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,39,82
+Energy Wrist,Shield,0,0,0,0,0,20,80,120,0,0,30,0,18,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,40,100
+The Guardian,Shield,0,0,0,0,0,50,50,300,0,0,0,0,25,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,41,160
+Blade Shield,Shield,0,0,0,0,0,70,30,170,0,0,0,0,24,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,42,108
+Fallen Shield,Shield,0,0,0,0,0,70,30,250,0,0,0,0,24,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,43,140
+Voodoo Shield,Shield,0,0,0,0,0,0,92,120,0,0,40,0,18,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,44,101
+Bandana,Head Gear,0,0,0,7,5,0,0,0,0,0,0,0,1,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,46,8
+Metal Band,Head Gear,0,0,0,15,3,0,0,0,0,0,0,0,10,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,47,13
+Focus Band,Head Gear,0,0,0,5,12,0,0,0,0,0,30,0,10,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,48,33
+Fire Band,Head Gear,0,7,0,6,6,0,0,0,0,0,0,0,15,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,49,13
+Power Band,Head Gear,13,0,0,12,3,0,0,0,0,0,0,0,17,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,50,20
+Golden Band,Head Gear,0,0,0,20,15,0,0,0,0,0,0,0,18,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,51,25
+Demon Skin,Head Gear,8,12,0,15,10,0,0,0,0,0,0,0,22,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,52,31
+Shadow Band,Head Gear,0,0,0,10,10,0,0,0,5,0,20,0,19,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,53,31
+Snake Band,Head Gear,0,0,0,0,0,0,0,0,6,0,10,0,15,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,54,11
+Ki Band,Head Gear,0,15,0,15,5,0,0,0,0,0,50,0,15,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,55,59
+Leather Armour,Suit,0,0,0,20,10,0,0,0,0,0,0,0,13,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,56,70
+Metal Plates,Suit,0,0,0,30,15,0,0,0,0,0,0,0,19,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,57,105
+Metal Armour,Suit,0,0,0,40,20,0,0,0,0,0,0,0,21,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,58,140
+Golden Armour,Suit,0,0,0,60,60,0,0,0,0,0,0,0,20,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,59,281
+Demon Rags,Suit,15,0,0,50,15,0,0,0,0,0,0,0,28,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,60,187
+Focus Armour,Suit,0,10,0,15,30,0,0,0,0,0,100,0,17,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,61,363
+Snake Skin,Suit,0,6,0,10,30,0,0,0,0,0,15,0,15,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,62,143
+Shadow Armour,Suit,0,0,0,35,50,0,0,0,13,0,0,0,22,,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,63,229
+Medicine,Drink,0,0,0,0,0,0,0,0,0,0,0,0,0,A medicine made from herbs. Sell it to a merchant to make money.,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,64,
+Mendo's Ring,Relic,0,0,0,0,0,0,0,0,0,0,0,0,0,"An old ring which seems be be not of any value, but it emits a strong spiritual force.",reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,65,
+White Leaves,Herb,0,0,0,0,0,0,0,0,0,0,0,0,0,Rare white leaves. Can be made into a medicine.,reference/sinjid/decompiled/scripts/frame_17/DoAction_2.as,66,

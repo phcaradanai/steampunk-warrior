@@ -1,0 +1,56 @@
+ConstantPool "_root", "engb", "engcost", "lifeb", "hero1life", "manab", "hero1mana", "pause", "clearstage", "reload", "gotoAndStop"
+Push "_root"
+GetVariable
+Push "engb", "_root"
+GetVariable
+Push "engb"
+GetMember
+Push "_root"
+GetVariable
+Push "engcost"
+GetMember
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "engb"
+GetMember
+Push 0.0
+Less2
+Not
+If loc00b2
+Push "_root"
+GetVariable
+Push "engb", 0.0
+SetMember
+loc00b2:Push "_root"
+GetVariable
+Push "lifeb", "_root"
+GetVariable
+Push "hero1life"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "manab", "_root"
+GetVariable
+Push "hero1mana"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "pause", false
+SetMember
+Push "_root"
+GetVariable
+Push "clearstage", false
+SetMember
+Push "_root"
+GetVariable
+Push "reload", true
+SetMember
+Push "reload", 1, "_root"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop

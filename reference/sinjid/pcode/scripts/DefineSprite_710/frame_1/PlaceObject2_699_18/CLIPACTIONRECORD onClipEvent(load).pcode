@@ -1,0 +1,13 @@
+Push "this"
+GetVariable
+With {
+Push "_root"
+GetVariable
+Push "outfit"
+GetMember
+Push 0.0
+GetMember
+Push 1, "gotoAndStop"
+CallFunction
+Pop
+}

@@ -1,0 +1,10 @@
+Push "mealset", "Meal_1"
+SetVariable
+Push "foodcost", 20
+SetVariable
+Push "foodeng", 60
+SetVariable
+Push "foodlife", 20
+SetVariable
+Push "foodmana", 20
+SetVariable

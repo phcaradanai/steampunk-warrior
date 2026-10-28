@@ -1,0 +1,6 @@
+Push "speak", "I went into the dark rift, but I was defeated by the blood spirit. It has high magical attacks, but no physical damage at all. Its shield was unbreakable!"
+SetVariable
+Push "persontype", "Wounded Warrior"
+SetVariable
+Push "objectnum", 5
+SetVariable

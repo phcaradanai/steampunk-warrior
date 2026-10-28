@@ -1,0 +1,74 @@
+ConstantPool "_root", "midfight", "playermove", "turnnum", "hero1", "enemy1life", "pointer1", "_visible", "enemy2life", "pointer2", "this"
+Push "_root"
+GetVariable
+Push "midfight"
+GetMember
+Push false
+Equals2
+PushDuplicate
+Not
+If loc009c
+Pop
+Push "_root"
+GetVariable
+Push "playermove"
+GetMember
+Push "_root"
+GetVariable
+Push "turnnum"
+GetMember
+GetMember
+Push "hero1"
+Equals2
+loc009c:Not
+If loc011b
+Push "_root"
+GetVariable
+Push "enemy1life"
+GetMember
+Push 0.0
+Greater
+Not
+If loc00d5
+Push "_root"
+GetVariable
+Push "pointer1"
+GetMember
+Push "_visible", true
+SetMember
+loc00d5:Push "_root"
+GetVariable
+Push "enemy2life"
+GetMember
+Push 0.0
+Greater
+Not
+If loc0108
+Push "_root"
+GetVariable
+Push "pointer2"
+GetMember
+Push "_visible", true
+SetMember
+loc0108:Push "this"
+GetVariable
+Push "_visible", false
+SetMember
+Jump loc0151
+loc011b:Push "this"
+GetVariable
+Push "_visible", true
+SetMember
+Push "_root"
+GetVariable
+Push "pointer2"
+GetMember
+Push "_visible", false
+SetMember
+Push "_root"
+GetVariable
+Push "pointer1"
+GetMember
+Push "_visible", false
+SetMember
+loc0151:

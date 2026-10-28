@@ -1,0 +1,6 @@
+Push "speak", "The doorway there will take you to a chamber which only the greatest warriors are allowed to enter."
+SetVariable
+Push "persontype", "Dark Ninja"
+SetVariable
+Push "objectnum", 0.0
+SetVariable

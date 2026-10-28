@@ -1,0 +1,61 @@
+ConstantPool "_root", "itemstats", "Silver Knife", "Spiked Axe", "Heavy Blade", "Leather Wrist", "Metal Wrist", "Wooden Guard", "Hand Blade", "Bandana", "Metal Band", "Leather Armour"
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 20, "Silver Knife"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 21, "Spiked Axe"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 22, "Heavy Blade"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 23, "Leather Wrist"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 24, "Metal Wrist"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 25, "Wooden Guard"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 26, "Hand Blade"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 27, "Bandana"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 28, "Metal Band"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 29, "Leather Armour"
+SetMember

@@ -1,0 +1,34 @@
+ConstantPool "_root", "gold", "lifepots", "lifepotmc", "gotoAndPlay"
+Push "_root"
+GetVariable
+Push "gold"
+GetMember
+Push 25
+Less2
+Not
+Not
+If loc009e
+Push "_root"
+GetVariable
+Push "gold", "_root"
+GetVariable
+Push "gold"
+GetMember
+Push 25
+Subtract
+SetMember
+Push "_root"
+GetVariable
+Push "lifepots", "_root"
+GetVariable
+Push "lifepots"
+GetMember
+Push 1
+Add2
+SetMember
+Push 2, 1, "lifepotmc"
+GetVariable
+Push "gotoAndPlay"
+CallMethod
+Pop
+loc009e:

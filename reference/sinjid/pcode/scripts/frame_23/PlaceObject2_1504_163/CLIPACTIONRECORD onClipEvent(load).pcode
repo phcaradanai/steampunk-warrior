@@ -1,0 +1,10 @@
+ConstantPool "level", "_root", "levelsave", "speak", "You have completed all the levels in this portal."
+Push "level", 0.0
+SetVariable
+Push "_root"
+GetVariable
+Push "levelsave", "level"
+GetVariable
+SetMember
+Push "speak", "You have completed all the levels in this portal."
+SetVariable

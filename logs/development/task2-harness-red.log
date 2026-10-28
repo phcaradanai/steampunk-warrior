@@ -1,0 +1,9 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Invalid type in function 'get_turn_order' in base 'RefCounted (CombatResolver)'. The array of argument 2 (Array) does not have the same element type as the expected typed array argument.
+          at: run (res://tests/test_combat.gd:89)
+          GDScript backtrace (most recent call first):
+              [0] run (res://tests/test_combat.gd:89)
+              [1] _initialize (res://tests/run_tests.gd:29)
+FAIL: suite interrupted before completion: combat
+Results: 31 passed, 1 failed

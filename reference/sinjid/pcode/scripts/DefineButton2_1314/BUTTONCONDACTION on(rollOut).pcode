@@ -1,0 +1,9 @@
+ConstantPool "foodcost", "-", "foodeng", "foodlife", "foodmana"
+Push "foodcost", "-"
+SetVariable
+Push "foodeng", "-"
+SetVariable
+Push "foodlife", "-"
+SetVariable
+Push "foodmana", "-"
+SetVariable

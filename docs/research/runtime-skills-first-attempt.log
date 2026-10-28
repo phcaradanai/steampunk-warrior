@@ -1,0 +1,31 @@
+{"test":"natural-Warrior-initialization-in-instrumented-copy","frame":"21","status":"captured"}
+{"test":"skill-tree-reset-fixture","frame":"21","status":"captured"}
+{"test":"two-predecessor-node-rejects-no-parents","frame":"21","status":"captured"}
+{"test":"two-predecessor-node-rejects-one-parent","frame":"21","status":"captured"}
+{"test":"two-predecessor-node-accepts-both-parents","frame":"21","status":"captured"}
+{"test":"rank10-cap-rejects-spending","frame":"21","status":"captured"}
+{"test":"active-skill-0-Stab","frame":"35","status":"captured"}
+{"test":"active-skill-1-Shurikens","frame":"35","status":"captured"}
+{"test":"active-skill-2-Double Strike","frame":"35","status":"captured"}
+{"test":"active-skill-3-Speed Strike","frame":"35","status":"captured"}
+{"test":"active-skill-4-Energy Shot","frame":"35","status":"captured"}
+{"test":"active-skill-5-Blast Fire","frame":"35","status":"captured"}
+{"test":"active-skill-6-Vertical Strike","frame":"35","status":"captured"}
+node:internal/modules/run_main:111
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Charge: original button/callback mana result
+
+1000 !== 1250
+
+    at file:///Users/Projects/Steampunk-warrior/docs/research/run-runtime-probes.mjs:92:14 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 1000,
+  expected: 1250,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v26.12.1

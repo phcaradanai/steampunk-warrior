@@ -1,0 +1,4 @@
+Push "this"
+GetVariable
+Push "_visible", false
+SetMember

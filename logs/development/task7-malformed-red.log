@@ -1,0 +1,120 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Invalid call. Nonexistent 'int' constructor.
+          at: SaveService.validate_snapshot (res://save/save_service.gd:103)
+          GDScript backtrace (most recent call first):
+              [0] validate_snapshot (res://save/save_service.gd:103)
+              [1] save_slot (res://save/save_service.gd:216)
+              [2] run (res://tests/test_save.gd:34)
+              [3] _initialize (res://tests/run_tests.gd:29)
+SCRIPT ERROR: Invalid call. Nonexistent 'int' constructor.
+          at: SaveService.validate_snapshot (res://save/save_service.gd:103)
+          GDScript backtrace (most recent call first):
+              [0] validate_snapshot (res://save/save_service.gd:103)
+              [1] _read (res://save/save_service.gd:193)
+              [2] _write_temp (res://save/save_service.gd:208)
+              [3] save_slot (res://save/save_service.gd:226)
+              [4] run (res://tests/test_save.gd:34)
+              [5] _initialize (res://tests/run_tests.gd:29)
+FAIL: wrong numeric type rejected without a runtime exception
+SCRIPT ERROR: Invalid call. Nonexistent 'int' constructor.
+          at: SaveService.validate_snapshot (res://save/save_service.gd:103)
+          GDScript backtrace (most recent call first):
+              [0] validate_snapshot (res://save/save_service.gd:103)
+              [1] _read (res://save/save_service.gd:193)
+              [2] save_slot (res://save/save_service.gd:220)
+              [3] run (res://tests/test_save.gd:45)
+              [4] _initialize (res://tests/run_tests.gd:29)
+SCRIPT ERROR: Invalid call. Nonexistent 'int' constructor.
+          at: SaveService.validate_snapshot (res://save/save_service.gd:103)
+          GDScript backtrace (most recent call first):
+              [0] validate_snapshot (res://save/save_service.gd:103)
+              [1] _read (res://save/save_service.gd:193)
+              [2] save_slot (res://save/save_service.gd:230)
+              [3] run (res://tests/test_save.gd:45)
+              [4] _initialize (res://tests/run_tests.gd:29)
+SCRIPT ERROR: Invalid call. Nonexistent 'int' constructor.
+          at: SaveService.validate_snapshot (res://save/save_service.gd:103)
+          GDScript backtrace (most recent call first):
+              [0] validate_snapshot (res://save/save_service.gd:103)
+              [1] _read (res://save/save_service.gd:193)
+              [2] load_slot (res://save/save_service.gd:239)
+              [3] run (res://tests/test_save.gd:46)
+              [4] _initialize (res://tests/run_tests.gd:29)
+SCRIPT ERROR: Invalid call. Nonexistent 'int' constructor.
+          at: SaveService.validate_snapshot (res://save/save_service.gd:103)
+          GDScript backtrace (most recent call first):
+              [0] validate_snapshot (res://save/save_service.gd:103)
+              [1] _read (res://save/save_service.gd:193)
+              [2] load_slot (res://save/save_service.gd:240)
+              [3] run (res://tests/test_save.gd:46)
+              [4] _initialize (res://tests/run_tests.gd:29)
+FAIL: backup retains previous known-good state
+SCRIPT ERROR: Invalid call. Nonexistent 'int' constructor.
+          at: SaveService.validate_snapshot (res://save/save_service.gd:103)
+          GDScript backtrace (most recent call first):
+              [0] validate_snapshot (res://save/save_service.gd:103)
+              [1] _read (res://save/save_service.gd:193)
+              [2] load_slot (res://save/save_service.gd:240)
+              [3] run (res://tests/test_save.gd:51)
+              [4] _initialize (res://tests/run_tests.gd:29)
+SCRIPT ERROR: Invalid call. Nonexistent 'int' constructor.
+          at: SaveService.validate_snapshot (res://save/save_service.gd:103)
+          GDScript backtrace (most recent call first):
+              [0] validate_snapshot (res://save/save_service.gd:103)
+              [1] _read (res://save/save_service.gd:193)
+              [2] load_slot (res://save/save_service.gd:240)
+              [3] run (res://tests/test_save.gd:58)
+              [4] _initialize (res://tests/run_tests.gd:29)
+SCRIPT ERROR: Invalid call. Nonexistent 'int' constructor.
+          at: SaveService.validate_snapshot (res://save/save_service.gd:103)
+          GDScript backtrace (most recent call first):
+              [0] validate_snapshot (res://save/save_service.gd:103)
+              [1] _read (res://save/save_service.gd:193)
+              [2] load_slot (res://save/save_service.gd:239)
+              [3] run (res://tests/test_save.gd:60)
+              [4] _initialize (res://tests/run_tests.gd:29)
+SCRIPT ERROR: Invalid call. Nonexistent 'int' constructor.
+          at: SaveService.validate_snapshot (res://save/save_service.gd:103)
+          GDScript backtrace (most recent call first):
+              [0] validate_snapshot (res://save/save_service.gd:103)
+              [1] _read (res://save/save_service.gd:193)
+              [2] load_slot (res://save/save_service.gd:240)
+              [3] run (res://tests/test_save.gd:60)
+              [4] _initialize (res://tests/run_tests.gd:29)
+FAIL: explicit backup load works without editing future file
+SCRIPT ERROR: Invalid call. Nonexistent 'int' constructor.
+          at: SaveService.validate_snapshot (res://save/save_service.gd:103)
+          GDScript backtrace (most recent call first):
+              [0] validate_snapshot (res://save/save_service.gd:103)
+              [1] _read (res://save/save_service.gd:193)
+              [2] restore_backup (res://save/save_service.gd:253)
+              [3] run (res://tests/test_save.gd:62)
+              [4] _initialize (res://tests/run_tests.gd:29)
+SCRIPT ERROR: Invalid call. Nonexistent 'int' constructor.
+          at: SaveService.validate_snapshot (res://save/save_service.gd:103)
+          GDScript backtrace (most recent call first):
+              [0] validate_snapshot (res://save/save_service.gd:103)
+              [1] _read (res://save/save_service.gd:193)
+              [2] _write_temp (res://save/save_service.gd:208)
+              [3] restore_backup (res://save/save_service.gd:258)
+              [4] run (res://tests/test_save.gd:62)
+              [5] _initialize (res://tests/run_tests.gd:29)
+SCRIPT ERROR: Invalid call. Nonexistent 'int' constructor.
+          at: SaveService.validate_snapshot (res://save/save_service.gd:103)
+          GDScript backtrace (most recent call first):
+              [0] validate_snapshot (res://save/save_service.gd:103)
+              [1] _read (res://save/save_service.gd:193)
+              [2] load_slot (res://save/save_service.gd:239)
+              [3] run (res://tests/test_save.gd:63)
+              [4] _initialize (res://tests/run_tests.gd:29)
+SCRIPT ERROR: Invalid call. Nonexistent 'int' constructor.
+          at: SaveService.validate_snapshot (res://save/save_service.gd:103)
+          GDScript backtrace (most recent call first):
+              [0] validate_snapshot (res://save/save_service.gd:103)
+              [1] _read (res://save/save_service.gd:193)
+              [2] load_slot (res://save/save_service.gd:240)
+              [3] run (res://tests/test_save.gd:63)
+              [4] _initialize (res://tests/run_tests.gd:29)
+FAIL: explicit recovery restores backup while preserving rejected original
+Results: 11 passed, 4 failed

@@ -1,0 +1,1 @@
+playSound("songstart1");

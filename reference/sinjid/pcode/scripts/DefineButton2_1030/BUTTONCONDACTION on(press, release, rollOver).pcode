@@ -1,0 +1,12 @@
+ConstantPool "cost", "_root", "slotnum", "ExplainItem"
+Push "cost", 60
+SetVariable
+Push "_root"
+GetVariable
+Push "slotnum", 26
+SetMember
+Push 0.0, "_root"
+GetVariable
+Push "ExplainItem"
+CallMethod
+Pop

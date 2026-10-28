@@ -1,0 +1,55 @@
+ConstantPool "_root", "itemstats", "Rust Blade", "Katana", "Shield Breaker", "Blaze Edge", "Wooden Rod", "Metal Guard", "Double Blade", "Claw Blade", "Golden Rod"
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 20, "Rust Blade"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 21, "Katana"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 22, "Shield Breaker"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 23, "Blaze Edge"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 24, "Wooden Rod"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 25, "Metal Guard"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 26, "Double Blade"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 27, "Claw Blade"
+SetMember
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push 28, "Golden Rod"
+SetMember

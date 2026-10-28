@@ -1,0 +1,44 @@
+ConstantPool "_root", "portallevel", "levelsave", "manab", "lifeb", "engb", "pause", "clearstage", "reload", "gotoAndStop"
+StopSounds
+Push "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push "_root"
+GetVariable
+Push "levelsave"
+GetMember
+Push "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push "_root"
+GetVariable
+Push "levelsave"
+GetMember
+GetMember
+Decrement
+SetMember
+Push "manab", 5
+SetVariable
+Push "lifeb", 5
+SetVariable
+Push "engb", 5
+SetVariable
+Push "_root"
+GetVariable
+Push "pause", false
+SetMember
+Push "_root"
+GetVariable
+Push "clearstage", false
+SetMember
+Push "_root"
+GetVariable
+Push "reload", true
+SetMember
+Push "reload", 1, "_root"
+GetVariable
+Push "gotoAndStop"
+CallMethod
+Pop

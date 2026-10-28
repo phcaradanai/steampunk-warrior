@@ -1,0 +1,12 @@
+ConstantPool "component", "_parent", "background", "boundingBox", "registerSkinElement"
+Push "component", "_parent"
+GetVariable
+DefineLocal
+Push "background", "boundingBox"
+GetVariable
+Push 2, "component"
+GetVariable
+Push "registerSkinElement"
+CallMethod
+Pop
+Stop

@@ -1,0 +1,3377 @@
+{
+  "swf_sha256": "e258423f2a5887ff236a67eb6eaf674a8d573a5cdb721c20b79c831da4d9e008",
+  "evidence_type": "FFdec-decompiled static ActionScript and SWF FrameLabel records; not runtime",
+  "labels": {
+    "reload": 20,
+    "Arena": 21,
+    "Arena0": 21,
+    "Arena1": 22,
+    "Arena2": 23,
+    "Arena3": 24,
+    "Arena4": 25,
+    "Arena5": 26,
+    "Arena6": 27,
+    "Arena7": 28,
+    "Arena8": 29,
+    "Arena9": 30,
+    "Arena10": 31,
+    "find": 32,
+    "HUMAN4": 35,
+    "HUMAN7": 36,
+    "HUMAN10": 37,
+    "HUMAN11": 38,
+    "HUMAN19": 39,
+    "HUMAN20": 40,
+    "MONSTER5": 41,
+    "MONSTER7": 42,
+    "MONSTER8": 43,
+    "HUMAN1": 49,
+    "HUMAN2": 50,
+    "HUMAN3": 51,
+    "HUMAN5": 52,
+    "HUMAN6": 53,
+    "HUMAN8": 54,
+    "HUMAN9": 55,
+    "HUMAN12": 56,
+    "HUMAN13": 57,
+    "HUMAN14": 58,
+    "HUMAN15": 59,
+    "HUMAN16": 60,
+    "HUMAN17": 61,
+    "HUMAN18": 62,
+    "MONSTER1": 64,
+    "MONSTER2": 65,
+    "MONSTER3": 66,
+    "MONSTER4": 67,
+    "MONSTER6": 68,
+    "MONSTER9": 69,
+    "MONSTER10": 70,
+    "DARK1": 72,
+    "DARK2": 73,
+    "DARK3": 74,
+    "DARK4": 75,
+    "DARK5": 76,
+    "TRAIN3": 79,
+    "TRAIN2": 80,
+    "TRAIN1": 81,
+    "WASP": 82,
+    "WASP2": 83,
+    "victory": 85,
+    "levelup": 86,
+    "SkillPut": 89,
+    "defeat": 90,
+    "theend": 91
+  },
+  "rooms": [
+    {
+      "id": "Arena0",
+      "frame": 21,
+      "blocked_cells": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          10,
+          3
+        ],
+        [
+          11,
+          3
+        ],
+        [
+          12,
+          3
+        ],
+        [
+          13,
+          3
+        ],
+        [
+          14,
+          3
+        ],
+        [
+          15,
+          3
+        ],
+        [
+          16,
+          3
+        ],
+        [
+          17,
+          3
+        ],
+        [
+          18,
+          3
+        ],
+        [
+          19,
+          3
+        ],
+        [
+          20,
+          3
+        ],
+        [
+          7,
+          9
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          8,
+          5
+        ],
+        [
+          18,
+          5
+        ],
+        [
+          17,
+          5
+        ],
+        [
+          13,
+          5
+        ],
+        [
+          17,
+          8
+        ]
+      ],
+      "exits": [
+        {
+          "to": "Arena1",
+          "source": "reference/sinjid/decompiled/scripts/frame_21/PlaceObject2_1504_222/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ],
+      "npcs": [
+        {
+          "speaker": "Elder",
+          "inventory": "Save",
+          "dialogues": {},
+          "source": "reference/sinjid/decompiled/scripts/frame_21/PlaceObject2_1542_238/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Healer",
+          "inventory": "Heal",
+          "dialogues": {},
+          "source": "reference/sinjid/decompiled/scripts/frame_21/PlaceObject2_1542_240/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Student",
+          "inventory": null,
+          "dialogues": {
+            "speak": "This is the arena entrance. If you are hurt, the man in the white robes will heal you for a cheap price. If you want to save, talk to the old man with the stick."
+          },
+          "source": "reference/sinjid/decompiled/scripts/frame_21/PlaceObject2_1542_242/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ]
+    },
+    {
+      "id": "Arena1",
+      "frame": 22,
+      "blocked_cells": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          10,
+          3
+        ],
+        [
+          11,
+          3
+        ],
+        [
+          12,
+          3
+        ],
+        [
+          13,
+          3
+        ],
+        [
+          14,
+          3
+        ],
+        [
+          15,
+          3
+        ],
+        [
+          16,
+          3
+        ],
+        [
+          17,
+          3
+        ],
+        [
+          18,
+          3
+        ],
+        [
+          19,
+          3
+        ],
+        [
+          20,
+          3
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          8,
+          6
+        ],
+        [
+          9,
+          6
+        ],
+        [
+          9,
+          5
+        ],
+        [
+          9,
+          4
+        ],
+        [
+          12,
+          4
+        ],
+        [
+          12,
+          5
+        ],
+        [
+          12,
+          6
+        ],
+        [
+          13,
+          6
+        ],
+        [
+          14,
+          6
+        ],
+        [
+          15,
+          6
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          18,
+          5
+        ],
+        [
+          16,
+          6
+        ],
+        [
+          17,
+          6
+        ],
+        [
+          17,
+          5
+        ],
+        [
+          17,
+          4
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          17,
+          10
+        ]
+      ],
+      "exits": [
+        {
+          "to": "Arena0",
+          "source": "reference/sinjid/decompiled/scripts/frame_22/PlaceObject2_1504_222/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "to": "Arena2",
+          "source": "reference/sinjid/decompiled/scripts/frame_22/PlaceObject2_1602_224/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "to": "Arena3",
+          "source": "reference/sinjid/decompiled/scripts/frame_22/PlaceObject2_1602_226/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ],
+      "npcs": [
+        {
+          "speaker": "Food Vendor",
+          "inventory": null,
+          "dialogues": {},
+          "source": "reference/sinjid/decompiled/scripts/frame_22/PlaceObject2_1542_208/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Potion Vendor",
+          "inventory": null,
+          "dialogues": {},
+          "source": "reference/sinjid/decompiled/scripts/frame_22/PlaceObject2_1542_212/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Ninja",
+          "inventory": null,
+          "dialogues": {
+            "speak": "The first portal to the enemy is to the left, but if you want to buy equipment turn right. If your energy is low, you should eat something, otherwise your life and mana will start decreasing."
+          },
+          "source": "reference/sinjid/decompiled/scripts/frame_22/PlaceObject2_1542_238/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ]
+    },
+    {
+      "id": "Arena2",
+      "frame": 23,
+      "blocked_cells": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          10,
+          3
+        ],
+        [
+          11,
+          3
+        ],
+        [
+          12,
+          3
+        ],
+        [
+          13,
+          3
+        ],
+        [
+          14,
+          3
+        ],
+        [
+          15,
+          3
+        ],
+        [
+          16,
+          3
+        ],
+        [
+          17,
+          3
+        ],
+        [
+          18,
+          3
+        ],
+        [
+          19,
+          3
+        ],
+        [
+          20,
+          3
+        ],
+        [
+          15,
+          6
+        ],
+        [
+          5,
+          9
+        ],
+        [
+          9,
+          5
+        ],
+        [
+          10,
+          5
+        ],
+        [
+          11,
+          5
+        ],
+        [
+          12,
+          5
+        ],
+        [
+          12,
+          4
+        ],
+        [
+          13,
+          4
+        ],
+        [
+          9,
+          4
+        ],
+        [
+          8,
+          4
+        ],
+        [
+          7,
+          5
+        ]
+      ],
+      "exits": [
+        {
+          "to": "Arena1",
+          "source": "reference/sinjid/decompiled/scripts/frame_23/PlaceObject2_1602_165/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ],
+      "npcs": [
+        {
+          "speaker": "Apprentice",
+          "inventory": null,
+          "dialogues": {
+            "speak": "Step into the portal to fight a human enemy. Make sure you are ready before each battle. Check your potions, equipment, and energy."
+          },
+          "source": "reference/sinjid/decompiled/scripts/frame_23/PlaceObject2_1542_208/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Guard",
+          "inventory": null,
+          "dialogues": {
+            "speak": "If you find this portal too hard, go train in the training room upstairs."
+          },
+          "source": "reference/sinjid/decompiled/scripts/frame_23/PlaceObject2_1542_212/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ]
+    },
+    {
+      "id": "Arena3",
+      "frame": 24,
+      "blocked_cells": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          10,
+          3
+        ],
+        [
+          11,
+          3
+        ],
+        [
+          12,
+          3
+        ],
+        [
+          13,
+          3
+        ],
+        [
+          14,
+          3
+        ],
+        [
+          15,
+          3
+        ],
+        [
+          16,
+          3
+        ],
+        [
+          17,
+          3
+        ],
+        [
+          18,
+          3
+        ],
+        [
+          19,
+          3
+        ],
+        [
+          20,
+          3
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          8,
+          5
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          6,
+          4
+        ],
+        [
+          8,
+          4
+        ],
+        [
+          15,
+          10
+        ],
+        [
+          16,
+          10
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          17,
+          10
+        ],
+        [
+          17,
+          9
+        ]
+      ],
+      "exits": [
+        {
+          "to": "Arena4",
+          "source": "reference/sinjid/decompiled/scripts/frame_24/PlaceObject2_1504_163/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "to": "Arena1",
+          "source": "reference/sinjid/decompiled/scripts/frame_24/PlaceObject2_1602_161/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ],
+      "npcs": [
+        {
+          "speaker": "Item Vendor",
+          "inventory": "Items_0",
+          "dialogues": {},
+          "source": "reference/sinjid/decompiled/scripts/frame_24/PlaceObject2_1542_159/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Apprentice",
+          "inventory": null,
+          "dialogues": {
+            "speak": "You can buy items here. There are more item vendors upstairs. If you run out of money, talk to the busy merchant at the crates."
+          },
+          "source": "reference/sinjid/decompiled/scripts/frame_24/PlaceObject2_1542_208/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Item Vendor2",
+          "inventory": "Trade",
+          "dialogues": {},
+          "source": "reference/sinjid/decompiled/scripts/frame_24/PlaceObject2_1542_212/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ]
+    },
+    {
+      "id": "Arena4",
+      "frame": 25,
+      "blocked_cells": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          10,
+          3
+        ],
+        [
+          11,
+          3
+        ],
+        [
+          12,
+          3
+        ],
+        [
+          13,
+          3
+        ],
+        [
+          14,
+          3
+        ],
+        [
+          15,
+          3
+        ],
+        [
+          16,
+          3
+        ],
+        [
+          17,
+          3
+        ],
+        [
+          18,
+          3
+        ],
+        [
+          19,
+          3
+        ],
+        [
+          20,
+          3
+        ],
+        [
+          12,
+          6
+        ],
+        [
+          13,
+          6
+        ],
+        [
+          14,
+          6
+        ],
+        [
+          15,
+          6
+        ],
+        [
+          16,
+          6
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          7,
+          10
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          5,
+          10
+        ],
+        [
+          4,
+          10
+        ],
+        [
+          10,
+          10
+        ],
+        [
+          5,
+          4
+        ]
+      ],
+      "exits": [
+        {
+          "to": "Arena3",
+          "source": "reference/sinjid/decompiled/scripts/frame_25/PlaceObject2_1504_97/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "to": "Arena5",
+          "source": "reference/sinjid/decompiled/scripts/frame_25/PlaceObject2_1602_99/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ],
+      "npcs": [
+        {
+          "speaker": "Drinker",
+          "inventory": null,
+          "dialogues": {
+            "speak": "No.. no.. YOU shut up!"
+          },
+          "source": "reference/sinjid/decompiled/scripts/frame_25/PlaceObject2_1542_159/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Drunkard",
+          "inventory": null,
+          "dialogues": {
+            "speak": "Stop trying to take my bottle!"
+          },
+          "source": "reference/sinjid/decompiled/scripts/frame_25/PlaceObject2_1542_161/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Drinker",
+          "inventory": null,
+          "dialogues": {
+            "speak": "I love you. *hic*"
+          },
+          "source": "reference/sinjid/decompiled/scripts/frame_25/PlaceObject2_1542_174/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Ninja",
+          "inventory": null,
+          "dialogues": {
+            "speak": "These people shouldn\\'t be drinking. It disrupts the chi and derranges the positive ions formations of their bodies. Not to mention the disturbances within the feng chui."
+          },
+          "source": "reference/sinjid/decompiled/scripts/frame_25/PlaceObject2_1542_208/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ]
+    },
+    {
+      "id": "Arena5",
+      "frame": 26,
+      "blocked_cells": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          10,
+          3
+        ],
+        [
+          11,
+          3
+        ],
+        [
+          12,
+          3
+        ],
+        [
+          13,
+          3
+        ],
+        [
+          14,
+          3
+        ],
+        [
+          15,
+          3
+        ],
+        [
+          16,
+          3
+        ],
+        [
+          17,
+          3
+        ],
+        [
+          18,
+          3
+        ],
+        [
+          19,
+          3
+        ],
+        [
+          20,
+          3
+        ],
+        [
+          15,
+          5
+        ],
+        [
+          12,
+          8
+        ],
+        [
+          8,
+          5
+        ],
+        [
+          13,
+          5
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          7,
+          10
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          5,
+          10
+        ],
+        [
+          4,
+          10
+        ]
+      ],
+      "exits": [
+        {
+          "to": "Arena7",
+          "source": "reference/sinjid/decompiled/scripts/frame_26/PlaceObject2_1504_97/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "to": "Arena6",
+          "source": "reference/sinjid/decompiled/scripts/frame_26/PlaceObject2_1602_93/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "to": "Arena4",
+          "source": "reference/sinjid/decompiled/scripts/frame_26/PlaceObject2_1602_95/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ],
+      "npcs": [
+        {
+          "speaker": "Vendor2",
+          "inventory": "Items_1",
+          "dialogues": {},
+          "source": "reference/sinjid/decompiled/scripts/frame_26/PlaceObject2_1542_107/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Apprentice",
+          "inventory": null,
+          "dialogues": {
+            "speak": "Before you buy an item, make sure you are strong enough to carry it, otherwise it\\'s a waste of money."
+          },
+          "source": "reference/sinjid/decompiled/scripts/frame_26/PlaceObject2_1542_123/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Vendor",
+          "inventory": "Items_2",
+          "dialogues": {},
+          "source": "reference/sinjid/decompiled/scripts/frame_26/PlaceObject2_1542_159/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ]
+    },
+    {
+      "id": "Arena6",
+      "frame": 27,
+      "blocked_cells": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          10,
+          3
+        ],
+        [
+          11,
+          3
+        ],
+        [
+          12,
+          3
+        ],
+        [
+          13,
+          3
+        ],
+        [
+          14,
+          3
+        ],
+        [
+          15,
+          3
+        ],
+        [
+          16,
+          3
+        ],
+        [
+          17,
+          3
+        ],
+        [
+          18,
+          3
+        ],
+        [
+          19,
+          3
+        ],
+        [
+          20,
+          3
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          8,
+          5
+        ],
+        [
+          9,
+          5
+        ],
+        [
+          10,
+          5
+        ],
+        [
+          11,
+          5
+        ],
+        [
+          12,
+          5
+        ],
+        [
+          13,
+          5
+        ],
+        [
+          14,
+          5
+        ],
+        [
+          15,
+          5
+        ],
+        [
+          16,
+          5
+        ],
+        [
+          16,
+          4
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          16,
+          9
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          18,
+          5
+        ],
+        [
+          17,
+          5
+        ],
+        [
+          17,
+          4
+        ],
+        [
+          18,
+          4
+        ],
+        [
+          3,
+          6
+        ]
+      ],
+      "exits": [
+        {
+          "to": "Arena5",
+          "source": "reference/sinjid/decompiled/scripts/frame_27/PlaceObject2_1602_93/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ],
+      "npcs": [
+        {
+          "speaker": "Scribe",
+          "inventory": null,
+          "dialogues": {
+            "speak": "Welcome to the library! The books and scrolls here contains a lot of helpful information. Reading them might help you overcome the monster portal and the dark rift."
+          },
+          "source": "reference/sinjid/decompiled/scripts/frame_27/PlaceObject2_1542_107/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Lady",
+          "inventory": null,
+          "dialogues": {
+            "speak1": "I\\'ve been studying herbs here. If you bring me white leaves, I can make medicine out of it for you.",
+            "speak2": "Ah! You found some white leaves! Here\\'s your medicine."
+          },
+          "source": "reference/sinjid/decompiled/scripts/frame_27/PlaceObject2_1542_123/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Relaxing Ninja",
+          "inventory": null,
+          "dialogues": {
+            "speak": "Most of the books here are very resourceful. I just finished reading the one about Shadow Wolves."
+          },
+          "source": "reference/sinjid/decompiled/scripts/frame_27/PlaceObject2_1542_159/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ]
+    },
+    {
+      "id": "Arena7",
+      "frame": 28,
+      "blocked_cells": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          10,
+          3
+        ],
+        [
+          11,
+          3
+        ],
+        [
+          12,
+          3
+        ],
+        [
+          13,
+          3
+        ],
+        [
+          14,
+          3
+        ],
+        [
+          15,
+          3
+        ],
+        [
+          16,
+          3
+        ],
+        [
+          17,
+          3
+        ],
+        [
+          18,
+          3
+        ],
+        [
+          19,
+          3
+        ],
+        [
+          20,
+          3
+        ],
+        [
+          6,
+          6
+        ],
+        [
+          11,
+          6
+        ],
+        [
+          10,
+          6
+        ],
+        [
+          15,
+          6
+        ],
+        [
+          12,
+          6
+        ],
+        [
+          9,
+          6
+        ],
+        [
+          10,
+          7
+        ],
+        [
+          11,
+          7
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          18,
+          5
+        ]
+      ],
+      "exits": [
+        {
+          "to": "Arena5",
+          "source": "reference/sinjid/decompiled/scripts/frame_28/PlaceObject2_1504_59/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "to": "Arena9",
+          "source": "reference/sinjid/decompiled/scripts/frame_28/PlaceObject2_1602_149/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "to": "Arena8",
+          "source": "reference/sinjid/decompiled/scripts/frame_28/PlaceObject2_1602_93/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ],
+      "npcs": [
+        {
+          "speaker": "Statue",
+          "inventory": null,
+          "dialogues": {},
+          "source": "reference/sinjid/decompiled/scripts/frame_28/PlaceObject2_1542_81/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Statue2",
+          "inventory": null,
+          "dialogues": {},
+          "source": "reference/sinjid/decompiled/scripts/frame_28/PlaceObject2_1542_83/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Statue2",
+          "inventory": null,
+          "dialogues": {},
+          "source": "reference/sinjid/decompiled/scripts/frame_28/PlaceObject2_1542_85/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ]
+    },
+    {
+      "id": "Arena8",
+      "frame": 29,
+      "blocked_cells": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          10,
+          3
+        ],
+        [
+          11,
+          3
+        ],
+        [
+          12,
+          3
+        ],
+        [
+          13,
+          3
+        ],
+        [
+          14,
+          3
+        ],
+        [
+          15,
+          3
+        ],
+        [
+          16,
+          3
+        ],
+        [
+          17,
+          3
+        ],
+        [
+          18,
+          3
+        ],
+        [
+          19,
+          3
+        ],
+        [
+          20,
+          3
+        ],
+        [
+          12,
+          10
+        ],
+        [
+          14,
+          4
+        ],
+        [
+          18,
+          4
+        ],
+        [
+          14,
+          5
+        ],
+        [
+          15,
+          5
+        ],
+        [
+          16,
+          5
+        ],
+        [
+          17,
+          5
+        ],
+        [
+          18,
+          5
+        ],
+        [
+          15,
+          11
+        ],
+        [
+          17,
+          11
+        ],
+        [
+          18,
+          9
+        ],
+        [
+          10,
+          4
+        ],
+        [
+          11,
+          4
+        ],
+        [
+          12,
+          4
+        ],
+        [
+          13,
+          4
+        ]
+      ],
+      "exits": [
+        {
+          "to": "Arena7",
+          "source": "reference/sinjid/decompiled/scripts/frame_29/PlaceObject2_1602_27/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ],
+      "npcs": [
+        {
+          "speaker": "Vendor3",
+          "inventory": "Items_3",
+          "dialogues": {},
+          "source": "reference/sinjid/decompiled/scripts/frame_29/PlaceObject2_1542_81/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Dark Ninja",
+          "inventory": null,
+          "dialogues": {
+            "speak": "The training room can be dangerous, if you are not careful. End the training if your life or energy starts running low. You will still recieve the EXP you earned."
+          },
+          "source": "reference/sinjid/decompiled/scripts/frame_29/PlaceObject2_1542_83/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Guard",
+          "inventory": null,
+          "dialogues": {
+            "speak": "The monsters in the blue portal are very strong. You should at least be around level 7 before entering."
+          },
+          "source": "reference/sinjid/decompiled/scripts/frame_29/PlaceObject2_1542_85/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Posted Note",
+          "inventory": null,
+          "dialogues": {
+            "speak": "Training Room - Step inside and choose your type of training. Hit the target to gain EXP. When the target\\'s shield breaks, you will gain an EXP bonus."
+          },
+          "source": "reference/sinjid/decompiled/scripts/frame_29/PlaceObject2_1707_48/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ]
+    },
+    {
+      "id": "Arena9",
+      "frame": 30,
+      "blocked_cells": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          10,
+          3
+        ],
+        [
+          11,
+          3
+        ],
+        [
+          12,
+          3
+        ],
+        [
+          13,
+          3
+        ],
+        [
+          14,
+          3
+        ],
+        [
+          15,
+          3
+        ],
+        [
+          16,
+          3
+        ],
+        [
+          17,
+          3
+        ],
+        [
+          18,
+          3
+        ],
+        [
+          19,
+          3
+        ],
+        [
+          20,
+          3
+        ],
+        [
+          7,
+          4
+        ],
+        [
+          14,
+          4
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          9,
+          9
+        ],
+        [
+          10,
+          9
+        ],
+        [
+          9,
+          7
+        ],
+        [
+          7,
+          9
+        ],
+        [
+          5,
+          7
+        ]
+      ],
+      "exits": [
+        {
+          "to": "Arena10",
+          "source": "reference/sinjid/decompiled/scripts/frame_30/PlaceObject2_1504_59/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "to": "Arena7",
+          "source": "reference/sinjid/decompiled/scripts/frame_30/PlaceObject2_1602_27/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ],
+      "npcs": [
+        {
+          "speaker": "Dark Ninja",
+          "inventory": null,
+          "dialogues": {
+            "speak": "The doorway there will take you to a chamber which only the greatest warriors are allowed to enter."
+          },
+          "source": "reference/sinjid/decompiled/scripts/frame_30/PlaceObject2_1542_57/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Meditating Ninja",
+          "inventory": null,
+          "dialogues": {
+            "speak1": "I was strolling down the beach yesterday, when I found this strange ring washed on the shore. I don\\'t like it much, so you can have it... it may do you good.",
+            "speak2": "Did you find a good use for the ring I gave you?",
+            "speak3": "I have something to give you, but you seem to be full. Come back to me when you can carry another item."
+          },
+          "source": "reference/sinjid/decompiled/scripts/frame_30/PlaceObject2_1542_81/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ]
+    },
+    {
+      "id": "Arena10",
+      "frame": 31,
+      "blocked_cells": [
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          10,
+          3
+        ],
+        [
+          11,
+          3
+        ],
+        [
+          12,
+          3
+        ],
+        [
+          13,
+          3
+        ],
+        [
+          14,
+          3
+        ],
+        [
+          15,
+          3
+        ],
+        [
+          16,
+          3
+        ],
+        [
+          17,
+          3
+        ],
+        [
+          18,
+          3
+        ],
+        [
+          19,
+          3
+        ],
+        [
+          20,
+          3
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          14,
+          6
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          18,
+          8
+        ],
+        [
+          11,
+          5
+        ],
+        [
+          10,
+          5
+        ],
+        [
+          12,
+          5
+        ],
+        [
+          9,
+          4
+        ],
+        [
+          13,
+          4
+        ]
+      ],
+      "exits": [
+        {
+          "to": "Arena9",
+          "source": "reference/sinjid/decompiled/scripts/frame_31/PlaceObject2_1504_39/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ],
+      "npcs": [
+        {
+          "speaker": "Guard",
+          "inventory": null,
+          "dialogues": {
+            "speak": "This is the final portal of the temple. There are only 5 levels in here, but each is extremely hard. You should go find some information about your enemies before you engage them."
+          },
+          "source": "reference/sinjid/decompiled/scripts/frame_31/PlaceObject2_1542_26/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Vendor4",
+          "inventory": "Items_4",
+          "dialogues": {},
+          "source": "reference/sinjid/decompiled/scripts/frame_31/PlaceObject2_1542_28/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Shadow",
+          "inventory": "Items_5",
+          "dialogues": {},
+          "source": "reference/sinjid/decompiled/scripts/frame_31/PlaceObject2_1542_30/CLIPACTIONRECORD onClipEvent(load).as"
+        },
+        {
+          "speaker": "Wounded Warrior",
+          "inventory": null,
+          "dialogues": {
+            "speak": "I went into the dark rift, but I was defeated by the blood spirit. It has high magical attacks, but no physical damage at all. Its shield was unbreakable!"
+          },
+          "source": "reference/sinjid/decompiled/scripts/frame_31/PlaceObject2_1542_57/CLIPACTIONRECORD onClipEvent(load).as"
+        }
+      ]
+    }
+  ],
+  "encounters": [
+    {
+      "id": "HUMAN4",
+      "frame": 35,
+      "source": "reference/sinjid/decompiled/scripts/frame_35/DoAction.as",
+      "assignments": {
+        "expup": "60",
+        "goldup": "100",
+        "engcost": "20",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy2suit": "\"Thief\"",
+        "enemy1suit": "\"Bandit\"",
+        "enemy2av": "enemy2suit",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Iron Knife\"",
+        "enemy1shieldtypeb": "\"Leather Wrist\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "15",
+        "enemy1lifemax": "100",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "5",
+        "enemy1phydmg": "4",
+        "enemy1magdmg": "0",
+        "enemy1shdptsmax": "35",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy1magdef": "10",
+        "enemy1phydef": "15",
+        "enemy1shdmagdef": "0",
+        "enemy1shdphydef": "20",
+        "enemy1str": "0",
+        "enemy2bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy2helmet": "enemy2suit",
+        "enemy2swordtype": "\"Iron Knife\"",
+        "enemy2shieldtypeb": "\"Leather Wrist\"",
+        "enemy2shieldtype": "enemy2shieldtypeb",
+        "enemy2speed": "15",
+        "enemy2lifemax": "140",
+        "enemy2life": "enemy2lifemax",
+        "enemy2shddmg": "5",
+        "enemy2phydmg": "7",
+        "enemy2magdmg": "0",
+        "enemy2shdptsmax": "35",
+        "enemy2shdpts": "enemy2shdptsmax",
+        "enemy2magdef": "10",
+        "enemy2phydef": "15",
+        "enemy2shdmagdef": "0",
+        "enemy2shdphydef": "20",
+        "enemy2str": "0"
+      }
+    },
+    {
+      "id": "HUMAN7",
+      "frame": 36,
+      "source": "reference/sinjid/decompiled/scripts/frame_36/DoAction.as",
+      "assignments": {
+        "expup": "80",
+        "goldup": "130",
+        "engcost": "30",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy2suit": "\"Warrior\"",
+        "enemy1suit": "\"Raider\"",
+        "enemy2av": "enemy2suit",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Raider Sword\"",
+        "enemy1shieldtypeb": "\"Metal Wrist\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "15",
+        "enemy1lifemax": "200",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "10",
+        "enemy1phydmg": "5",
+        "enemy1magdmg": "0",
+        "enemy1shdptsmax": "70",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy1magdef": "10",
+        "enemy1phydef": "15",
+        "enemy1shdmagdef": "0",
+        "enemy1shdphydef": "20",
+        "enemy1str": "0",
+        "enemy2bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy2helmet": "enemy2suit",
+        "enemy2swordtype": "\"Long Sword\"",
+        "enemy2shieldtypeb": "\"Wooden Shield\"",
+        "enemy2shieldtype": "enemy2shieldtypeb",
+        "enemy2speed": "15",
+        "enemy2lifemax": "230",
+        "enemy2life": "enemy2lifemax",
+        "enemy2shddmg": "5",
+        "enemy2phydmg": "3",
+        "enemy2magdmg": "0",
+        "enemy2shdptsmax": "140",
+        "enemy2shdpts": "enemy2shdptsmax",
+        "enemy2magdef": "10",
+        "enemy2phydef": "15",
+        "enemy2shdmagdef": "0",
+        "enemy2shdphydef": "20",
+        "enemy2str": "0"
+      }
+    },
+    {
+      "id": "HUMAN10",
+      "frame": 37,
+      "source": "reference/sinjid/decompiled/scripts/frame_37/DoAction.as",
+      "assignments": {
+        "expup": "100",
+        "goldup": "220",
+        "engcost": "30",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Seer\"",
+        "enemy2suit": "\"Warrior\"",
+        "enemy2av": "enemy2suit",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Wooden Rod\"",
+        "enemy1shieldtypeb": "\"Metal Guard\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "17",
+        "enemy1lifemax": "260",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "10",
+        "enemy1phydmg": "3",
+        "enemy1magdmg": "7",
+        "enemy1shdptsmax": "100",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy1magdef": "40",
+        "enemy1phydef": "10",
+        "enemy1shdmagdef": "30",
+        "enemy1shdphydef": "0",
+        "enemy1str": "0",
+        "enemy2bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy2helmet": "enemy2suit",
+        "enemy2swordtype": "\"Long Sword\"",
+        "enemy2shieldtypeb": "\"Metal Shield\"",
+        "enemy2shieldtype": "enemy2shieldtypeb",
+        "enemy2speed": "14",
+        "enemy2lifemax": "280",
+        "enemy2life": "enemy2lifemax",
+        "enemy2shddmg": "10",
+        "enemy2phydmg": "6",
+        "enemy2magdmg": "0",
+        "enemy2shdptsmax": "320",
+        "enemy2shdpts": "enemy2shdptsmax",
+        "enemy2magdef": "10",
+        "enemy2phydef": "30",
+        "enemy2shdmagdef": "0",
+        "enemy2shdphydef": "30",
+        "enemy2str": "0"
+      }
+    },
+    {
+      "id": "HUMAN11",
+      "frame": 38,
+      "source": "reference/sinjid/decompiled/scripts/frame_38/DoAction.as",
+      "assignments": {
+        "expup": "150",
+        "goldup": "260",
+        "engcost": "30",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Mecenary\"",
+        "enemy2suit": "\"Assailant\"",
+        "enemy2av": "enemy2suit",
+        "enemy1av": "\"Mercenary\"",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Double Razor\"",
+        "enemy1shieldtypeb": "\"Metal Guard\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "10",
+        "enemy1lifemax": "420",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "15",
+        "enemy1phydmg": "10",
+        "enemy1magdmg": "0",
+        "enemy1shdptsmax": "170",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy1magdef": "0",
+        "enemy1phydef": "30",
+        "enemy1shdmagdef": "0",
+        "enemy1shdphydef": "30",
+        "enemy1str": "0",
+        "enemy2bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy2helmet": "enemy2suit",
+        "enemy2swordtype": "\"Katana\"",
+        "enemy2shieldtypeb": "\"Metal Guard\"",
+        "enemy2shieldtype": "enemy2shieldtypeb",
+        "enemy2speed": "50",
+        "enemy2lifemax": "110",
+        "enemy2life": "enemy2lifemax",
+        "enemy2shddmg": "15",
+        "enemy2phydmg": "13",
+        "enemy2magdmg": "0",
+        "enemy2shdptsmax": "80",
+        "enemy2shdpts": "enemy2shdptsmax",
+        "enemy2magdef": "10",
+        "enemy2phydef": "25",
+        "enemy2shdmagdef": "10",
+        "enemy2shdphydef": "25",
+        "enemy2str": "0"
+      }
+    },
+    {
+      "id": "HUMAN19",
+      "frame": 39,
+      "source": "reference/sinjid/decompiled/scripts/frame_39/DoAction.as",
+      "assignments": {
+        "expup": "500",
+        "goldup": "320",
+        "engcost": "35",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Ronin\"",
+        "enemy2suit": "\"Shaman\"",
+        "enemy2av": "enemy2suit",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Katana\"",
+        "enemy1shieldtypeb": "\"None\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "20",
+        "enemy1lifemax": "1000",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "10",
+        "enemy1phydmg": "10",
+        "enemy1magdmg": "11",
+        "enemy1shdptsmax": "1",
+        "enemy1shdpts": "0",
+        "enemy1magdef": "40",
+        "enemy1phydef": "40",
+        "enemy1shdmagdef": "0",
+        "enemy1shdphydef": "0",
+        "enemy1str": "0",
+        "enemy2bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy2helmet": "enemy2suit",
+        "enemy2swordtype": "\"Wooden Rod\"",
+        "enemy2shieldtypeb": "\"None\"",
+        "enemy2shieldtype": "enemy2shieldtypeb",
+        "enemy2speed": "20",
+        "enemy2lifemax": "1000",
+        "enemy2life": "enemy2lifemax",
+        "enemy2shddmg": "8",
+        "enemy2phydmg": "9",
+        "enemy2magdmg": "8",
+        "enemy2shdptsmax": "1",
+        "enemy2shdpts": "0",
+        "enemy2magdef": "50",
+        "enemy2phydef": "20",
+        "enemy2shdmagdef": "0",
+        "enemy2shdphydef": "0",
+        "enemy2str": "0"
+      }
+    },
+    {
+      "id": "HUMAN20",
+      "frame": 40,
+      "source": "reference/sinjid/decompiled/scripts/frame_40/DoAction.as",
+      "assignments": {
+        "expup": "550",
+        "goldup": "750",
+        "engcost": "35",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Samurai\"",
+        "enemy2suit": "\"Samurai\"",
+        "enemy2av": "enemy2suit",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Katana\"",
+        "enemy1shieldtypeb": "\"Metal Guard\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "17",
+        "enemy1lifemax": "1350",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "10",
+        "enemy1phydmg": "14",
+        "enemy1magdmg": "10",
+        "enemy1shdpts": "150",
+        "enemy1shdptsmax": "enemy1shdpts",
+        "enemy1magdef": "30",
+        "enemy1phydef": "40",
+        "enemy1shdmagdef": "30",
+        "enemy1shdphydef": "40",
+        "enemy1str": "0",
+        "enemy2bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy2helmet": "enemy2suit",
+        "enemy2swordtype": "\"Long Sword\"",
+        "enemy2shieldtypeb": "\"Double Blade\"",
+        "enemy2shieldtype": "enemy2shieldtypeb",
+        "enemy2speed": "17",
+        "enemy2lifemax": "1350",
+        "enemy2life": "enemy2lifemax",
+        "enemy2shddmg": "10",
+        "enemy2phydmg": "10",
+        "enemy2magdmg": "14",
+        "enemy2shdptsmax": "150",
+        "enemy2shdpts": "enemy2shdptsmax",
+        "enemy2magdef": "30",
+        "enemy2phydef": "40",
+        "enemy2shdmagdef": "30",
+        "enemy2shdphydef": "40",
+        "enemy2str": "0"
+      }
+    },
+    {
+      "id": "MONSTER5",
+      "frame": 41,
+      "source": "reference/sinjid/decompiled/scripts/frame_41/DoAction.as",
+      "assignments": {
+        "expup": "300",
+        "goldup": "450",
+        "engcost": "45",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Skeleton\"",
+        "enemy2suit": "\"Zombie\"",
+        "enemy2av": "\"Undead\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Big Axe\"",
+        "enemy1shieldtypeb": "\"Metal Shield\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "25",
+        "enemy1lifemax": "400",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "10",
+        "enemy1phydmg": "14",
+        "enemy1magdmg": "10",
+        "enemy1shdpts": "300",
+        "enemy1shdptsmax": "enemy1shdpts",
+        "enemy1magdef": "10",
+        "enemy1phydef": "10",
+        "enemy1shdmagdef": "10",
+        "enemy1shdphydef": "10",
+        "enemy1str": "0",
+        "enemy2bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy2helmet": "enemy2suit",
+        "enemy2swordtype": "\"Hammer\"",
+        "enemy2shieldtypeb": "\"None\"",
+        "enemy2shieldtype": "enemy2shieldtypeb",
+        "enemy2speed": "17",
+        "enemy2lifemax": "1500",
+        "enemy2life": "enemy2lifemax",
+        "enemy2shddmg": "10",
+        "enemy2phydmg": "30",
+        "enemy2magdmg": "0",
+        "enemy2shdptsmax": "1",
+        "enemy2shdpts": "0",
+        "enemy2magdef": "20",
+        "enemy2phydef": "60",
+        "enemy2shdmagdef": "20",
+        "enemy2shdphydef": "40",
+        "enemy2str": "0"
+      }
+    },
+    {
+      "id": "MONSTER7",
+      "frame": 42,
+      "source": "reference/sinjid/decompiled/scripts/frame_42/DoAction.as",
+      "assignments": {
+        "expup": "350",
+        "goldup": "450",
+        "engcost": "50",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Skeleton Mage\"",
+        "enemy2suit": "\"Skeleton\"",
+        "enemy2av": "enemy2suit",
+        "enemy1av": "enemy1suit",
+        "enemy1shieldtypeb": "\"Robe\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "27",
+        "enemy1lifemax": "500",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "10",
+        "enemy1phydmg": "5",
+        "enemy1magdmg": "28",
+        "enemy1shdpts": "1200",
+        "enemy1shdptsmax": "enemy1shdpts",
+        "enemy1magdef": "50",
+        "enemy1phydef": "10",
+        "enemy1shdmagdef": "50",
+        "enemy1shdphydef": "30",
+        "enemy1str": "0",
+        "enemy2bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy2helmet": "enemy2suit",
+        "enemy2swordtype": "\"Raider Sword\"",
+        "enemy2shieldtypeb": "\"Metal Shield\"",
+        "enemy2shieldtype": "enemy2shieldtypeb",
+        "enemy2speed": "27",
+        "enemy2lifemax": "450",
+        "enemy2life": "enemy2lifemax",
+        "enemy2shddmg": "10",
+        "enemy2phydmg": "17",
+        "enemy2magdmg": "5",
+        "enemy2shdptsmax": "350",
+        "enemy2shdpts": "enemy2shdptsmax",
+        "enemy2magdef": "20",
+        "enemy2phydef": "20",
+        "enemy2shdmagdef": "20",
+        "enemy2shdphydef": "20",
+        "enemy2str": "0"
+      }
+    },
+    {
+      "id": "MONSTER8",
+      "frame": 43,
+      "source": "reference/sinjid/decompiled/scripts/frame_43/DoAction.as",
+      "assignments": {
+        "expup": "350",
+        "goldup": "460",
+        "engcost": "35",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy2suit": "\"Mountain Naga\"",
+        "enemy1suit": "\"Golem\"",
+        "enemy2av": "enemy2suit",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Club\"",
+        "enemy1shieldtypeb": "\"Rock Shield\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "27",
+        "enemy1lifemax": "1000",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "20",
+        "enemy1phydmg": "25",
+        "enemy1magdmg": "0",
+        "enemy1shdpts": "300",
+        "enemy1shdptsmax": "enemy1shdpts",
+        "enemy1magdef": "30",
+        "enemy1phydef": "50",
+        "enemy1shdmagdef": "80",
+        "enemy1shdphydef": "80",
+        "enemy1str": "0",
+        "enemy2bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy2helmet": "enemy2suit",
+        "enemy2shieldtypeb": "\"Metal Shield\"",
+        "enemy2shieldtype": "enemy2shieldtypeb",
+        "enemy2speed": "27",
+        "enemy2lifemax": "1150",
+        "enemy2life": "enemy2lifemax",
+        "enemy2shddmg": "0",
+        "enemy2phydmg": "17",
+        "enemy2magdmg": "10",
+        "enemy2shdptsmax": "450",
+        "enemy2shdpts": "enemy2shdptsmax",
+        "enemy2magdef": "30",
+        "enemy2phydef": "30",
+        "enemy2shdmagdef": "30",
+        "enemy2shdphydef": "30",
+        "enemy2str": "0"
+      }
+    },
+    {
+      "id": "HUMAN1",
+      "frame": 49,
+      "source": "reference/sinjid/decompiled/scripts/frame_49/DoAction.as",
+      "assignments": {
+        "enemy1speed": "15",
+        "expup": "30",
+        "goldup": "30",
+        "engcost": "10",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Thief\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Iron Knife\"",
+        "enemy1shieldtypeb": "\"Leather Wrist\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1phydmg": "5",
+        "enemy1magdmg": "0",
+        "enemy1shddmg": "5",
+        "enemy1lifemax": "60",
+        "enemy1shdptsmax": "20",
+        "enemy1magdef": "10",
+        "enemy1phydef": "15",
+        "enemy1shdmagdef": "0",
+        "enemy1shdphydef": "20",
+        "enemy1str": "0",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax"
+      }
+    },
+    {
+      "id": "HUMAN2",
+      "frame": 50,
+      "source": "reference/sinjid/decompiled/scripts/frame_50/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "30",
+        "goldup": "40",
+        "engcost": "10",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Bandit\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Iron Knife\"",
+        "enemy1shieldtypeb": "\"Metal Wrist\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "15",
+        "enemy1lifemax": "40",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "5",
+        "enemy1phydmg": "7",
+        "enemy1magdmg": "0",
+        "enemy1shdptsmax": "60",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy1magdef": "10",
+        "enemy1phydef": "15",
+        "enemy1shdmagdef": "0",
+        "enemy1shdphydef": "20",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "HUMAN3",
+      "frame": 51,
+      "source": "reference/sinjid/decompiled/scripts/frame_51/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "40",
+        "goldup": "50",
+        "engcost": "10",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Raider\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Raider Sword\"",
+        "enemy1shieldtypeb": "\"Metal Wrist\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "15",
+        "enemy1lifemax": "120",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "5",
+        "enemy1phydmg": "9",
+        "enemy1magdmg": "0",
+        "enemy1shdptsmax": "15",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy1magdef": "10",
+        "enemy1phydef": "15",
+        "enemy1shdmagdef": "0",
+        "enemy1shdphydef": "20",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "HUMAN5",
+      "frame": 52,
+      "source": "reference/sinjid/decompiled/scripts/frame_52/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "40",
+        "goldup": "60",
+        "engcost": "15",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Warrior\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Long Sword\"",
+        "enemy1shieldtypeb": "\"Wooden Shield\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "15",
+        "enemy1lifemax": "180",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "10",
+        "enemy1phydmg": "8",
+        "enemy1magdmg": "0",
+        "enemy1shdptsmax": "200",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy1magdef": "10",
+        "enemy1phydef": "15",
+        "enemy1shdmagdef": "0",
+        "enemy1shdphydef": "20",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "HUMAN6",
+      "frame": 53,
+      "source": "reference/sinjid/decompiled/scripts/frame_53/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "40",
+        "goldup": "70",
+        "engcost": "15",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Seer\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Wooden Rod\"",
+        "enemy1shieldtypeb": "\"Wooden Guard\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "17",
+        "enemy1lifemax": "200",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "10",
+        "enemy1phydmg": "2",
+        "enemy1magdmg": "8",
+        "enemy1shdptsmax": "170",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy1magdef": "30",
+        "enemy1phydef": "10",
+        "enemy1shdmagdef": "60",
+        "enemy1shdphydef": "15",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "HUMAN8",
+      "frame": 54,
+      "source": "reference/sinjid/decompiled/scripts/frame_54/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "60",
+        "goldup": "80",
+        "engcost": "15",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Mecenary\"",
+        "enemy1av": "\"Mercenary\"",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Long Sword\"",
+        "enemy1shieldtypeb": "\"Metal Guard\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "14",
+        "enemy1lifemax": "400",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "10",
+        "enemy1phydmg": "12",
+        "enemy1magdmg": "0",
+        "enemy1shdptsmax": "150",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy1magdef": "20",
+        "enemy1phydef": "20",
+        "enemy1shdmagdef": "70",
+        "enemy1shdphydef": "70",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "HUMAN9",
+      "frame": 55,
+      "source": "reference/sinjid/decompiled/scripts/frame_55/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "60",
+        "goldup": "90",
+        "engcost": "15",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Assailant\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Katana\"",
+        "enemy1shieldtypeb": "\"Hand Blade\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "50",
+        "enemy1lifemax": "100",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "10",
+        "enemy1phydmg": "14",
+        "enemy1magdmg": "0",
+        "enemy1shdptsmax": "40",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy1magdef": "5",
+        "enemy1phydef": "30",
+        "enemy1shdmagdef": "15",
+        "enemy1shdphydef": "15",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "HUMAN12",
+      "frame": 56,
+      "source": "reference/sinjid/decompiled/scripts/frame_56/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "150",
+        "goldup": "160",
+        "engcost": "20",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Agent\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Katana\"",
+        "enemy1shieldtypeb": "\"Metal Wrist\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "19",
+        "enemy1lifemax": "550",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "15",
+        "enemy1phydmg": "17",
+        "enemy1magdmg": "0",
+        "enemy1shdptsmax": "250",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy1magdef": "-15",
+        "enemy1phydef": "40",
+        "enemy1shdmagdef": "25",
+        "enemy1shdphydef": "50",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "HUMAN13",
+      "frame": 57,
+      "source": "reference/sinjid/decompiled/scripts/frame_57/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "150",
+        "goldup": "120",
+        "engcost": "20",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Seer\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Golden Rod\"",
+        "enemy1shieldtypeb": "\"Metal Guard\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "19",
+        "enemy1lifemax": "600",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "15",
+        "enemy1phydmg": "4",
+        "enemy1magdmg": "15",
+        "enemy1shdptsmax": "250",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy1magdef": "60",
+        "enemy1phydef": "15",
+        "enemy1shdmagdef": "60",
+        "enemy1shdphydef": "30",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "HUMAN14",
+      "frame": 58,
+      "source": "reference/sinjid/decompiled/scripts/frame_58/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "200",
+        "goldup": "70",
+        "engcost": "20",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Shaman\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Wooden Staff\"",
+        "enemy1shieldtypeb": "\"None\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "19",
+        "enemy1phydmg": "7",
+        "enemy1magdmg": "14",
+        "enemy1shddmg": "7",
+        "enemy1lifemax": "700",
+        "enemy1shdpts": "0",
+        "enemy1shdptsmax": "1",
+        "enemy1life": "enemy1lifemax",
+        "enemy1magdef": "40",
+        "enemy1phydef": "40",
+        "enemy1shdmagdef": "0",
+        "enemy1shdphydef": "0",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "HUMAN15",
+      "frame": 59,
+      "source": "reference/sinjid/decompiled/scripts/frame_59/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "120",
+        "goldup": "120",
+        "engcost": "25",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Assailant\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Katana\"",
+        "enemy1shieldtypeb": "\"Double Blade\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "60",
+        "enemy1phydmg": "23",
+        "enemy1magdmg": "0",
+        "enemy1shddmg": "20",
+        "enemy1lifemax": "180",
+        "enemy1shdpts": "70",
+        "enemy1shdptsmax": "enemy1shdpts",
+        "enemy1life": "enemy1lifemax",
+        "enemy1magdef": "15",
+        "enemy1phydef": "40",
+        "enemy1shdmagdef": "15",
+        "enemy1shdphydef": "40",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "HUMAN16",
+      "frame": 60,
+      "source": "reference/sinjid/decompiled/scripts/frame_60/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "120",
+        "goldup": "120",
+        "engcost": "25",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Ronin\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Katana\"",
+        "enemy1shieldtypeb": "\"None\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "19",
+        "enemy1phydmg": "10",
+        "enemy1magdmg": "13",
+        "enemy1shddmg": "20",
+        "enemy1lifemax": "900",
+        "enemy1shdpts": "0",
+        "enemy1shdptsmax": "1",
+        "enemy1life": "enemy1lifemax",
+        "enemy1magdef": "40",
+        "enemy1phydef": "40",
+        "enemy1shdmagdef": "0",
+        "enemy1shdphydef": "0",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "HUMAN17",
+      "frame": 61,
+      "source": "reference/sinjid/decompiled/scripts/frame_61/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "120",
+        "goldup": "140",
+        "engcost": "25",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Agent\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Silver Knife\"",
+        "enemy1shieldtypeb": "\"Double Blade\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "21",
+        "enemy1phydmg": "19",
+        "enemy1magdmg": "0",
+        "enemy1shddmg": "10",
+        "enemy1lifemax": "1000",
+        "enemy1shdpts": "120",
+        "enemy1shdptsmax": "enemy1shdpts",
+        "enemy1life": "enemy1lifemax",
+        "enemy1magdef": "-10",
+        "enemy1phydef": "40",
+        "enemy1shdmagdef": "90",
+        "enemy1shdphydef": "90",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "HUMAN18",
+      "frame": 62,
+      "source": "reference/sinjid/decompiled/scripts/frame_62/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "160",
+        "goldup": "230",
+        "engcost": "25",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Samurai\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Katana\"",
+        "enemy1shieldtypeb": "\"Metal Guard\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "18",
+        "enemy1phydmg": "18",
+        "enemy1magdmg": "0",
+        "enemy1shddmg": "10",
+        "enemy1lifemax": "1100",
+        "enemy1shdpts": "150",
+        "enemy1shdptsmax": "enemy1shdpts",
+        "enemy1life": "enemy1lifemax",
+        "enemy1magdef": "30",
+        "enemy1phydef": "40",
+        "enemy1shdmagdef": "30",
+        "enemy1shdphydef": "40",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "MONSTER1",
+      "frame": 64,
+      "source": "reference/sinjid/decompiled/scripts/frame_64/DoAction.as",
+      "assignments": {
+        "enemy1speed": "35",
+        "expup": "170",
+        "goldup": "250",
+        "engcost": "30",
+        "enemy1av": "\"Poison Wasp\"",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1helmet": "enemy1suit",
+        "enemy1phydmg": "16",
+        "enemy1magdmg": "0",
+        "enemy1shddmg": "5",
+        "enemy1lifemax": "550",
+        "enemy1shdptsmax": "1",
+        "enemy1magdef": "10",
+        "enemy1phydef": "15",
+        "enemy1shdmagdef": "10",
+        "enemy1shdphydef": "10",
+        "enemy1str": "0",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shdpts": "0",
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax"
+      }
+    },
+    {
+      "id": "MONSTER2",
+      "frame": 65,
+      "source": "reference/sinjid/decompiled/scripts/frame_65/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "180",
+        "goldup": "225",
+        "engcost": "30",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Zombie\"",
+        "enemy1av": "\"Undead\"",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Hammer\"",
+        "enemy1shieldtype": "\"None\"",
+        "enemy1speed": "15",
+        "enemy1lifemax": "1200",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "7",
+        "enemy1phydmg": "28",
+        "enemy1magdmg": "0",
+        "enemy1shdptsmax": "1",
+        "enemy1shdpts": "0",
+        "enemy1magdef": "10",
+        "enemy1phydef": "40",
+        "enemy1shdmagdef": "20",
+        "enemy1shdphydef": "20",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "MONSTER3",
+      "frame": 66,
+      "source": "reference/sinjid/decompiled/scripts/frame_66/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "200",
+        "goldup": "260",
+        "engcost": "30",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1av": "\"Skeleton Mage\"",
+        "enemy1helmet": "enemy1suit",
+        "enemy1shieldtypeb": "\"Robe\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "22",
+        "enemy1lifemax": "400",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "0",
+        "enemy1phydmg": "0",
+        "enemy1magdmg": "32",
+        "enemy1shdptsmax": "800",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy1magdef": "30",
+        "enemy1phydef": "10",
+        "enemy1shdmagdef": "60",
+        "enemy1shdphydef": "20",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "MONSTER4",
+      "frame": 67,
+      "source": "reference/sinjid/decompiled/scripts/frame_67/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "200",
+        "goldup": "265",
+        "engcost": "30",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Mountain Naga\"",
+        "enemy1av": "\"Mountain Naga\"",
+        "enemy1helmet": "enemy1suit",
+        "enemy1shieldtypeb": "\"Metal Shield\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "22",
+        "enemy1lifemax": "1100",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "30",
+        "enemy1phydmg": "25",
+        "enemy1magdmg": "4",
+        "enemy1shdptsmax": "400",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy1magdef": "40",
+        "enemy1phydef": "40",
+        "enemy1shdmagdef": "20",
+        "enemy1shdphydef": "20",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "MONSTER6",
+      "frame": 68,
+      "source": "reference/sinjid/decompiled/scripts/frame_68/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "200",
+        "goldup": "270",
+        "engcost": "35",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Golem\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Club\"",
+        "enemy1shieldtypeb": "\"Rock Shield\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "20",
+        "enemy1lifemax": "700",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "10",
+        "enemy1phydmg": "28",
+        "enemy1magdmg": "3",
+        "enemy1shdptsmax": "200",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy1magdef": "40",
+        "enemy1phydef": "60",
+        "enemy1shdmagdef": "80",
+        "enemy1shdphydef": "80",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "MONSTER9",
+      "frame": 69,
+      "source": "reference/sinjid/decompiled/scripts/frame_69/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "300",
+        "goldup": "300",
+        "engcost": "40",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Semi Demon\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Demon Sword\"",
+        "enemy1shieldtypeb": "\"Demon Shield\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "25",
+        "enemy1lifemax": "2300",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "10",
+        "enemy1phydmg": "25",
+        "enemy1magdmg": "10",
+        "enemy1shdptsmax": "200",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy1magdef": "10",
+        "enemy1phydef": "50",
+        "enemy1shdmagdef": "30",
+        "enemy1shdphydef": "30",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "MONSTER10",
+      "frame": 70,
+      "source": "reference/sinjid/decompiled/scripts/frame_70/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "500",
+        "goldup": "500",
+        "engcost": "40",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Flesh Fiend\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Spike Sword\"",
+        "enemy1shieldtypeb": "\"Spike Shield\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "30",
+        "enemy1lifemax": "2350",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "10",
+        "enemy1phydmg": "30",
+        "enemy1magdmg": "10",
+        "enemy1shdptsmax": "350",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy1magdef": "40",
+        "enemy1phydef": "40",
+        "enemy1shdmagdef": "60",
+        "enemy1shdphydef": "60",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "DARK1",
+      "frame": 72,
+      "source": "reference/sinjid/decompiled/scripts/frame_72/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "300",
+        "goldup": "300",
+        "engcost": "50",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Liquid Metal\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Guard Blade\"",
+        "enemy1shieldtypeb": "\"Metal Shield\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "27",
+        "enemy1lifemax": "3000",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "10",
+        "enemy1phydmg": "60",
+        "enemy1magdmg": "0",
+        "enemy1shdptsmax": "350",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy1magdef": "20",
+        "enemy1phydef": "70",
+        "enemy1shdmagdef": "30",
+        "enemy1shdphydef": "30",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "DARK2",
+      "frame": 73,
+      "source": "reference/sinjid/decompiled/scripts/frame_73/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "400",
+        "goldup": "300",
+        "engcost": "55",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Blood Spirit\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1speed": "35",
+        "enemy1lifemax": "1800",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "0",
+        "enemy1phydmg": "0",
+        "enemy1magdmg": "65",
+        "enemy1shdptsmax": "4000",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy1magdef": "65",
+        "enemy1phydef": "0",
+        "enemy1shdmagdef": "50",
+        "enemy1shdphydef": "20",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "DARK3",
+      "frame": 74,
+      "source": "reference/sinjid/decompiled/scripts/frame_74/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "500",
+        "goldup": "400",
+        "engcost": "70",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Fallen Guardian\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Fallen Blade\"",
+        "enemy1shieldtypeb": "\"Fallen Shield\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "38",
+        "enemy1lifemax": "4000",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "10",
+        "enemy1phydmg": "50",
+        "enemy1magdmg": "20",
+        "enemy1shdptsmax": "2300",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy1magdef": "40",
+        "enemy1phydef": "40",
+        "enemy1shdmagdef": "20",
+        "enemy1shdphydef": "20",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "DARK4",
+      "frame": 75,
+      "source": "reference/sinjid/decompiled/scripts/frame_75/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "600",
+        "goldup": "500",
+        "engcost": "80",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Fallen Ninja\"",
+        "enemy1av": "\"Anti Ninja\"",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Shadow Katana\"",
+        "enemy1shieldtypeb": "\"None\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "80",
+        "enemy1lifemax": "4000",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "5",
+        "enemy1phydmg": "65",
+        "enemy1magdmg": "15",
+        "enemy1shdptsmax": "1",
+        "enemy1shdpts": "0",
+        "enemy1magdef": "0",
+        "enemy1phydef": "0",
+        "enemy1shdmagdef": "20",
+        "enemy1shdphydef": "20",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "DARK5",
+      "frame": 76,
+      "source": "reference/sinjid/decompiled/scripts/frame_76/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "700",
+        "goldup": "600",
+        "engcost": "80",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1suit": "\"Shadow Reaper\"",
+        "enemy1av": "enemy1suit",
+        "enemy1helmet": "enemy1suit",
+        "enemy1swordtype": "\"Scythe\"",
+        "enemy1shieldtypeb": "\"None\"",
+        "enemy1shieldtype": "enemy1shieldtypeb",
+        "enemy1speed": "60",
+        "enemy1lifemax": "1000",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "5",
+        "enemy1phydmg": "65",
+        "enemy1magdmg": "15",
+        "enemy1shdptsmax": "1",
+        "enemy1shdpts": "0",
+        "enemy1magdef": "85",
+        "enemy1phydef": "85",
+        "enemy1shdmagdef": "20",
+        "enemy1shdphydef": "20",
+        "enemy1str": "0"
+      }
+    },
+    {
+      "id": "TRAIN3",
+      "frame": 79,
+      "source": "reference/sinjid/decompiled/scripts/frame_79/DoAction.as",
+      "assignments": {
+        "enemy1speed": "40",
+        "enemy1suit": "\"Training Ward\"",
+        "enemy1av": "enemy1suit",
+        "expup": "0",
+        "goldup": "0",
+        "engcost": "0",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1shieldtypeb": "\"Invisi\"",
+        "enemy1helmet": "enemy1suit",
+        "enemy1phydmg": "12",
+        "enemy1magdmg": "12",
+        "enemy1shddmg": "100",
+        "enemy1lifemax": "300",
+        "enemy1shdptsmax": "700",
+        "enemy1magdef": "50",
+        "enemy1phydef": "0",
+        "enemy1shdmagdef": "0",
+        "enemy1shdphydef": "50",
+        "enemy1str": "0",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax"
+      }
+    },
+    {
+      "id": "TRAIN2",
+      "frame": 80,
+      "source": "reference/sinjid/decompiled/scripts/frame_80/DoAction.as",
+      "assignments": {
+        "enemy1speed": "30",
+        "enemy1suit": "\"Training Ward\"",
+        "enemy1av": "enemy1suit",
+        "expup": "0",
+        "goldup": "0",
+        "engcost": "0",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1shieldtypeb": "\"Invisi\"",
+        "enemy1helmet": "enemy1suit",
+        "enemy1phydmg": "8",
+        "enemy1magdmg": "8",
+        "enemy1shddmg": "100",
+        "enemy1lifemax": "180",
+        "enemy1shdptsmax": "500",
+        "enemy1magdef": "50",
+        "enemy1phydef": "0",
+        "enemy1shdmagdef": "0",
+        "enemy1shdphydef": "50",
+        "enemy1str": "0",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax"
+      }
+    },
+    {
+      "id": "TRAIN1",
+      "frame": 81,
+      "source": "reference/sinjid/decompiled/scripts/frame_81/DoAction.as",
+      "assignments": {
+        "enemy1speed": "15",
+        "enemy1suit": "\"Training Ward\"",
+        "enemy1av": "enemy1suit",
+        "expup": "0",
+        "goldup": "0",
+        "engcost": "0",
+        "enemy1bodyparts": "[\"body\",\"arm1\",\"arm2\",\"handarm1\",\"handarm2\",\"leg1\",\"leg2\",\"feetleg1\",\"feetleg2\",\"feet1\",\"feet2\"]",
+        "enemy1shieldtypeb": "\"Invisi\"",
+        "enemy1helmet": "enemy1suit",
+        "enemy1phydmg": "5",
+        "enemy1magdmg": "5",
+        "enemy1shddmg": "100",
+        "enemy1lifemax": "80",
+        "enemy1shdptsmax": "300",
+        "enemy1magdef": "50",
+        "enemy1phydef": "0",
+        "enemy1shdmagdef": "0",
+        "enemy1shdphydef": "50",
+        "enemy1str": "0",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shdpts": "enemy1shdptsmax",
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax"
+      }
+    },
+    {
+      "id": "WASP",
+      "frame": 82,
+      "source": "reference/sinjid/decompiled/scripts/frame_82/DoAction.as",
+      "assignments": {
+        "enemy2lifemax": "0",
+        "enemy2life": "enemy2lifemax",
+        "expup": "30",
+        "engcost": "10",
+        "goldup": "15",
+        "enemy1speed": "15",
+        "enemy1str": "0",
+        "enemy1lifemax": "50",
+        "enemy1life": "enemy1lifemax",
+        "enemy1shddmg": "3",
+        "enemy1phydmg": "8",
+        "enemy1magdmg": "0",
+        "enemy1shdpts": "0",
+        "enemy1shdptsmax": "1",
+        "enemy1magdef": "0",
+        "enemy1phydef": "30",
+        "enemy1shdmagdef": "0",
+        "enemy1shdphydef": "0"
+      }
+    },
+    {
+      "id": "WASP2",
+      "frame": 83,
+      "source": "reference/sinjid/decompiled/scripts/frame_83/DoAction.as",
+      "assignments": {
+        "enemy2life": "40",
+        "enemy2lifemax": "enemy2life",
+        "expup": "75",
+        "engcost": "15",
+        "goldup": "40",
+        "enemy1speed": "15",
+        "enemy1str": "0",
+        "enemy1life": "75",
+        "enemy1lifemax": "enemy1life",
+        "enemy1shddmg": "5",
+        "enemy1phydmg": "6",
+        "enemy1magdmg": "0",
+        "enemy1shdptsmax": "1",
+        "enemy1shdpts": "0",
+        "enemy1magdef": "0",
+        "enemy1phydef": "30",
+        "enemy1shdmagdef": "0",
+        "enemy1shdphydef": "0",
+        "enemy2speed": "15",
+        "enemy2str": "0",
+        "enemy2shddmg": "1",
+        "enemy2phydmg": "9",
+        "enemy2magdmg": "0",
+        "enemy2shdpts": "0",
+        "enemy2shdptsmax": "1",
+        "enemy2magdef": "0",
+        "enemy2phydef": "30",
+        "enemy2shdmagdef": "0",
+        "enemy2shdphydef": "0"
+      }
+    }
+  ]
+}

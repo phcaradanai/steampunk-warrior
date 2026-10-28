@@ -1,0 +1,8 @@
+Push "backgroundDisabled", "boundingBox2"
+GetVariable
+Push 2, "component"
+GetVariable
+Push "registerSkinElement"
+CallMethod
+Pop
+Stop

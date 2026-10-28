@@ -1,0 +1,212 @@
+ConstantPool "_root", "inventory", "saved", "play", "datasave", "Array", "classtype", "classname", "ninjaav", "rests", "expmaxb", "skillpts", "lifepots", "manapots", "Shield", "Weapon", "Suit", "Helmet", "newobjective", "playername", "level", "shddmgb", "shdptsb", "shdmagdefb", "shdphydefb", "magdefb", "phydefb", "magdmgb", "phydmgb", "gold", "engmaxb", "expb", "manamaxb", "lifemaxb", "speedb", "strb", "user", "data", "stats", "itemstats", "skill", "i", "p1", "portallevel", "p2", "p3", "life", "lifeb", "mana", "manab", "eng", "engb", "flush"
+Push 0.0, "_root"
+GetVariable
+Push "inventory"
+GetMember
+Push "saved"
+GetMember
+Push "play"
+CallMethod
+Pop
+Push "datasave", 0.0, "Array"
+NewObject
+SetVariable
+Push "datasave", "classtype", "classname", "ninjaav", "rests", "expmaxb", "skillpts", "lifepots", "manapots", "Shield", "Weapon", "Suit", "Helmet", "newobjective", "playername", "level", "shddmgb", "shdptsb", "shdmagdefb", "shdphydefb", "magdefb", "phydefb", "magdmgb", "phydmgb", "gold", "engmaxb", "expb", "manamaxb", "lifemaxb", "speedb", "strb", 30
+InitArray
+SetVariable
+Push "_root"
+GetVariable
+Push "user"
+GetMember
+Push "data"
+GetMember
+Push "stats", 0.0, "Array"
+NewObject
+SetMember
+Push "_root"
+GetVariable
+Push "user"
+GetMember
+Push "data"
+GetMember
+Push "itemstats", 0.0, "Array"
+NewObject
+SetMember
+Push "_root"
+GetVariable
+Push "user"
+GetMember
+Push "data"
+GetMember
+Push "skill", 0.0, "Array"
+NewObject
+SetMember
+Push "datasave"
+GetVariable
+Enumerate2
+loc026d:StoreRegister 0
+Push null
+Equals2
+If loc02bb
+Push "i", register0
+SetVariable
+Push "_root"
+GetVariable
+Push "user"
+GetMember
+Push "data"
+GetMember
+Push "stats"
+GetMember
+Push "i"
+GetVariable
+Push "_root"
+GetVariable
+Push "datasave"
+GetVariable
+Push "i"
+GetVariable
+GetMember
+GetMember
+SetMember
+Jump loc026d
+loc02bb:Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Enumerate2
+loc02c8:StoreRegister 0
+Push null
+Equals2
+If loc0315
+Push "i", register0
+SetVariable
+Push "_root"
+GetVariable
+Push "user"
+GetMember
+Push "data"
+GetMember
+Push "skill"
+GetMember
+Push "i"
+GetVariable
+Push "_root"
+GetVariable
+Push "skill"
+GetMember
+Push "i"
+GetVariable
+GetMember
+SetMember
+Jump loc02c8
+loc0315:Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Enumerate2
+loc0322:StoreRegister 0
+Push null
+Equals2
+If loc036f
+Push "i", register0
+SetVariable
+Push "_root"
+GetVariable
+Push "user"
+GetMember
+Push "data"
+GetMember
+Push "itemstats"
+GetMember
+Push "i"
+GetVariable
+Push "_root"
+GetVariable
+Push "itemstats"
+GetMember
+Push "i"
+GetVariable
+GetMember
+SetMember
+Jump loc0322
+loc036f:Push "_root"
+GetVariable
+Push "user"
+GetMember
+Push "data"
+GetMember
+Push "p1", "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push 0.0
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "user"
+GetMember
+Push "data"
+GetMember
+Push "p2", "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push 1
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "user"
+GetMember
+Push "data"
+GetMember
+Push "p3", "_root"
+GetVariable
+Push "portallevel"
+GetMember
+Push 2
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "user"
+GetMember
+Push "data"
+GetMember
+Push "life", "_root"
+GetVariable
+Push "lifeb"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "user"
+GetMember
+Push "data"
+GetMember
+Push "mana", "_root"
+GetVariable
+Push "manab"
+GetMember
+SetMember
+Push "_root"
+GetVariable
+Push "user"
+GetMember
+Push "data"
+GetMember
+Push "eng", "_root"
+GetVariable
+Push "engb"
+GetMember
+SetMember
+Push 0.0, "_root"
+GetVariable
+Push "user"
+GetMember
+Push "flush"
+CallMethod
+Pop
+Play

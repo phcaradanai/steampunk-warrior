@@ -1,0 +1,21 @@
+ConstantPool "_root", "pause", "this", "stop", "play"
+Push "_root"
+GetVariable
+Push "pause"
+GetMember
+Push true
+Equals2
+Not
+If loc0053
+Push 0.0, "this"
+GetVariable
+Push "stop"
+CallMethod
+Pop
+Jump loc0069
+loc0053:Push 0.0, "this"
+GetVariable
+Push "play"
+CallMethod
+Pop
+loc0069:

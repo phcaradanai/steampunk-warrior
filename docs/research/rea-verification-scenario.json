@@ -1,0 +1,26 @@
+{
+  "executable": "/Library/Frameworks/Python.framework/Versions/3.14/bin/python3",
+  "arguments": [
+    "/Users/Projects/Steampunk-warrior/docs/research/verify_reference.py"
+  ],
+  "working_directory": "/Users/Projects/Steampunk-warrior",
+  "timeout_ms": 30000,
+  "idle_timeout_ms": 30000,
+  "terminal": {
+    "columns": 120,
+    "rows": 20,
+    "scrollback": 50
+  },
+  "limits": {
+    "output_bytes": 100000,
+    "files": 10,
+    "file_bytes": 15000000,
+    "processes": 100,
+    "filesystem_depth": 2
+  },
+  "filesystem_observation_paths": [
+    "/Users/Projects/Steampunk-warrior/reference/sinjid/original.swf",
+    "/Users/Projects/Steampunk-warrior/docs/research/reference-manifest.json"
+  ],
+  "finalization_ms": 1000
+}

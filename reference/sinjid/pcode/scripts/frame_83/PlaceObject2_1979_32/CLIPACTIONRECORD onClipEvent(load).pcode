@@ -1,0 +1,6 @@
+Push "target", "enemy2"
+SetVariable
+Push "typeoftarget", "herotarget"
+SetVariable
+Push "otherpointer", "pointer1"
+SetVariable

@@ -1,0 +1,6 @@
+ConstantPool "subject", "_parent"
+Push "subject", "_parent"
+GetVariable
+Push "subject"
+GetMember
+SetVariable

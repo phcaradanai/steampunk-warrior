@@ -306,30 +306,32 @@ func _open_modal(title: String, allow_close: bool = true) -> void:
 		world.blocked = true
 	var shade := ColorRect.new()
 	shade.name = "ModalShade"
-	shade.color = Color(0,0,0,0.75)
+	shade.color = Color(0,0,0,0.55)
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	screen.add_child(shade)
 	modal = shade
-	var panel := PanelContainer.new()
-	panel.position = Vector2(180,55)
-	panel.size = Vector2(920,610)
-	shade.add_child(panel)
+	var panel := UIBuilder.glass_panel(shade,Vector2(90,36),Vector2(1100,648))
+	panel.get_theme_stylebox("panel").bg_color = Color(0.04,0.08,0.09,0.94)
 	var layout := VBoxContainer.new()
-	layout.add_theme_constant_override("separation",10)
+	layout.add_theme_constant_override("separation",8)
 	panel.add_child(layout)
-	UIBuilder.label(layout,title,26,Color("e7c588"))
+	var head := HBoxContainer.new()
+	layout.add_child(head)
+	var heading := UIBuilder.label(head,title,24,Color("e7c588"))
+	heading.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	if allow_close:
+		# Esc already closes through _unhandled_input; a shortcut here would also fire on the opening key's release.
+		UIBuilder.icon_button(head,"close","ปิด / กลับ  [Esc]",_close_modal.bind(false),"CloseModal",44)
 	modal_notice = UIBuilder.label(layout,"\n".join([save_warning,reward_notice]).strip_edges(),15,Color("95c5b1"))
 	var scroll := ScrollContainer.new()
 	scroll.follow_focus = true
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	scroll.custom_minimum_size.y = 410
+	scroll.custom_minimum_size.y = 520
 	layout.add_child(scroll)
 	modal_body = VBoxContainer.new()
 	modal_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	modal_body.add_theme_constant_override("separation",8)
 	scroll.add_child(modal_body)
-	if allow_close:
-		UIBuilder.button(layout,"ปิด / กลับ",_close_modal.bind(false),"CloseModal")
 	_focus_modal.call_deferred()
 
 func _close_modal(force: bool = false) -> void:
@@ -416,34 +418,107 @@ func _choose_dialogue(node_id: String, choice_id: String) -> void:
 	if _commit("dialogue_choice",{"node_id":node_id,"choice_id":choice_id}).ok:
 		_show_dialogue(node_id)
 
+const TIER_COLORS := ["8a9490","6fbf73","5ab4e0","b07ce0","e3b858"]
+const STAT_NAMES := {"attack":"โจมตี","tech":"เทค","max_hp":"HP","max_fp":"FP","armor":"เกราะ","resist":"ต้านทาน","barrier":"โล่","initiative":"ความเร็ว"}
+var inv_pick: Dictionary = {}
+
+# Two panes like a mobile inventory: tiles on the left, the picked thing's detail and actions on the right.
+func _modal_split() -> Array:
+	var split := HBoxContainer.new()
+	split.add_theme_constant_override("separation",16)
+	split.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	modal_body.add_child(split)
+	var left := VBoxContainer.new()
+	left.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	left.add_theme_constant_override("separation",8)
+	split.add_child(left)
+	var right := UIBuilder.glass_panel(split,Vector2.ZERO,Vector2.ZERO)
+	right.custom_minimum_size = Vector2(360,500)
+	var detail := VBoxContainer.new()
+	detail.add_theme_constant_override("separation",8)
+	right.add_child(detail)
+	return [left,detail]
+
+func _tile(parent: Node, icon: Texture2D, tip: String, caption: String, picked: bool, callback: Callable, id: String = "", tier: int = 0) -> Button:
+	var tile := UIBuilder.icon_button(parent,"bag",tip,callback,id,76,caption)
+	tile.icon = icon
+	var style: StyleBoxFlat = tile.get_theme_stylebox("normal").duplicate()
+	style.set_corner_radius_all(12)
+	style.border_color = Color("f1d9a0") if picked else Color(TIER_COLORS[clampi(tier-1,0,4)]) if tier > 0 else Color(0.4,0.5,0.48,0.8)
+	style.set_border_width_all(3 if picked else 2)
+	tile.add_theme_stylebox_override("normal",style)
+	return tile
+
+func _grid(parent: Node, title: String, columns: int = 8) -> GridContainer:
+	UIBuilder.label(parent,title,17,Color("c8d6cc"))
+	var grid := GridContainer.new()
+	grid.columns = columns
+	grid.add_theme_constant_override("h_separation",8)
+	grid.add_theme_constant_override("v_separation",8)
+	parent.add_child(grid)
+	return grid
+
+func _pick(choice: Dictionary, shop: bool) -> void:
+	inv_pick = choice
+	if shop: _show_shop()
+	else: _show_inventory()
+
+func _item_detail(detail: VBoxContainer, item: Dictionary, note: String) -> void:
+	var heading := UIBuilder.label(detail,item.name,22,Color(TIER_COLORS[clampi(int(item.tier)-1,0,4)]))
+	heading.autowrap_mode = TextServer.AUTOWRAP_OFF
+	UIBuilder.label(detail,"%s · ระดับ %d · ต้องเลเวล %d" % [{"weapon":"อาวุธ","shield":"โล่","head":"หมวก","suit":"ชุด"}.get(item.slot,item.slot),int(item.tier),int(item.required_level)],14,Color("a7b9ac"))
+	var equipped := catalog.get_entry("items",session.state.player.equipment.get(item.slot,""))
+	for key in STAT_NAMES:
+		var value: int = int(item.bonuses.get(key,0))
+		var delta: int = value - int(equipped.get("bonuses",{}).get(key,0))
+		if value == 0 and delta == 0: continue
+		var line := UIBuilder.label(detail,"%s  %+d" % [STAT_NAMES[key],value] + (("   (%+d)" % delta) if equipped.get("id","") != item.id and delta != 0 else ""),17,Color("83dcb3") if delta > 0 else Color("e0806a") if delta < 0 else Color("e6dfca"))
+		line.autowrap_mode = TextServer.AUTOWRAP_OFF
+	if not item.special.is_empty(): UIBuilder.label(detail,UIBuilder.item_description(item).split(" · ")[-1],15,Color("f1d9a0"))
+	if not note.is_empty(): UIBuilder.label(detail,note,14,Color("8fb4a6"))
+
 func _show_inventory() -> void:
-	_open_modal("อุปกรณ์และคลังโรงซ่อม")
+	var p: Dictionary = session.state.player
+	_open_modal("กระเป๋าและอุปกรณ์  ·  %d เฟือง" % p.currency)
+	var panes := _modal_split()
+	var left: VBoxContainer = panes[0]
+	var detail: VBoxContainer = panes[1]
+	if inv_pick.is_empty() or (inv_pick.from == "bag" and inv_pick.key >= p.items.size()) or (inv_pick.from == "stash" and inv_pick.key >= p.stash.size()) or (inv_pick.from == "slot" and not p.equipment.has(inv_pick.key)) or inv_pick.from in ["shop","supply"]:
+		inv_pick = {"from":"bag","key":0} if not p.items.is_empty() else {"from":"slot","key":p.equipment.keys().front()} if not p.equipment.is_empty() else {}
+	var slots := _grid(left,"สวมอยู่",4)
 	for slot in ["weapon","shield","head","suit"]:
-		var id: String = session.state.player.equipment.get(slot, "")
-		if not id.is_empty():
-			var equipped := catalog.get_entry("items",id)
-			var button := UIBuilder.button(modal_body,"ถอด " + equipped.name+"\n"+UIBuilder.item_description(equipped),_inventory_action.bind({"kind":"unequip","slot":slot},false))
-			button.icon = UIBuilder.item_icon(equipped)
-	UIBuilder.label(modal_body,"กระเป๋า %d / 24" % session.state.player.items.size(),20)
-	for i in range(session.state.player.items.size()):
-		var item := catalog.get_entry("items",session.state.player.items[i])
-		var row := HBoxContainer.new()
-		modal_body.add_child(row)
-		var icon := TextureRect.new()
-		icon.texture = UIBuilder.item_icon(item)
-		icon.custom_minimum_size = Vector2(36,36)
-		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		row.add_child(icon)
-		var label := UIBuilder.label(row,"%s · เลเวล %d\n%s" % [item.name,item.required_level,UIBuilder.item_description(item)],17)
-		label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		UIBuilder.button(row,"สวม",_inventory_action.bind({"kind":"equip","index":i},false))
-		UIBuilder.button(row,"ขาย",_inventory_action.bind({"kind":"sell","index":i},false))
-		UIBuilder.button(row,"ฝาก",_inventory_action.bind({"kind":"stash_put","index":i},false))
+		var item := catalog.get_entry("items",p.equipment.get(slot,""))
+		var picked: bool = inv_pick.get("from","") == "slot" and inv_pick.key == slot
+		if item.is_empty(): _tile(slots,load("res://art/icons/%s.svg" % slot),"ช่อง%s ว่าง" % {"weapon":"อาวุธ","shield":"โล่","head":"หมวก","suit":"ชุด"}[slot],"ว่าง",false,func(): pass).disabled = true
+		else: _tile(slots,UIBuilder.item_icon(item),item.name+"\n"+UIBuilder.item_description(item),"",picked,_pick.bind({"from":"slot","key":slot},false),"Slot_"+slot,int(item.tier))
+	var bag := _grid(left,"กระเป๋า %d / 24" % p.items.size())
+	for i in p.items.size():
+		var item := catalog.get_entry("items",p.items[i])
+		_tile(bag,UIBuilder.item_icon(item),item.name+"\n"+UIBuilder.item_description(item),"Lv%d" % item.required_level,inv_pick.get("from","") == "bag" and inv_pick.key == i,_pick.bind({"from":"bag","key":i},false),"Bag_%d" % i,int(item.tier))
 	if session.state.room_id == "R01":
-		UIBuilder.label(modal_body,"คลัง",20)
-		for i in range(session.state.player.stash.size()):
-			UIBuilder.button(modal_body,"รับ " + catalog.get_entry("items",session.state.player.stash[i]).name,_inventory_action.bind({"kind":"stash_take","index":i},false))
+		var stash := _grid(left,"คลังโรงซ่อม %d" % p.stash.size())
+		for i in p.stash.size():
+			var item := catalog.get_entry("items",p.stash[i])
+			_tile(stash,UIBuilder.item_icon(item),item.name+"\n"+UIBuilder.item_description(item),"",inv_pick.get("from","") == "stash" and inv_pick.key == i,_pick.bind({"from":"stash","key":i},false),"Stash_%d" % i,int(item.tier))
+	if inv_pick.is_empty():
+		UIBuilder.label(detail,"กระเป๋าว่าง",18)
+		return
+	var picked_id: String = p.items[inv_pick.key] if inv_pick.from == "bag" else p.stash[inv_pick.key] if inv_pick.from == "stash" else p.equipment[inv_pick.key]
+	var item := catalog.get_entry("items",picked_id)
+	_item_detail(detail,item,"ตัวเลขในวงเล็บเทียบกับของที่สวมอยู่" if inv_pick.from != "slot" else "กำลังสวมอยู่")
+	var actions := HBoxContainer.new()
+	actions.add_theme_constant_override("separation",8)
+	detail.add_child(actions)
+	if inv_pick.from == "bag":
+		var equip := UIBuilder.button(actions,"สวม",_inventory_action.bind({"kind":"equip","index":inv_pick.key},false),"EquipPicked")
+		equip.disabled = int(p.level) < int(item.required_level)
+		equip.tooltip_text = "สวมแทนของเดิม ของเดิมกลับเข้ากระเป๋า" if not equip.disabled else "เลเวลยังไม่ถึง"
+		UIBuilder.button(actions,"ขาย +%d" % int(floor(float(item.price)*0.35)),_inventory_action.bind({"kind":"sell","index":inv_pick.key},false),"SellPicked").tooltip_text = "ขายได้ 35% ของราคา"
+		UIBuilder.button(actions,"ฝาก",_inventory_action.bind({"kind":"stash_put","index":inv_pick.key},false),"StashPicked").tooltip_text = "ฝากไว้ที่คลังโรงซ่อม"
+	elif inv_pick.from == "slot":
+		UIBuilder.button(actions,"ถอด",_inventory_action.bind({"kind":"unequip","slot":inv_pick.key},false),"UnequipPicked").tooltip_text = "ถอดเก็บเข้ากระเป๋า"
+	else:
+		UIBuilder.button(actions,"รับคืน",_inventory_action.bind({"kind":"stash_take","index":inv_pick.key},false),"TakePicked").tooltip_text = "ย้ายจากคลังเข้ากระเป๋า"
 
 func _inventory_action(request: Dictionary, shop: bool) -> void:
 	var result := _commit("inventory",{"request":request})
@@ -454,43 +529,77 @@ func _inventory_action(request: Dictionary, shop: bool) -> void:
 			_show_inventory()
 
 func _show_shop() -> void:
-	_open_modal("ร้านอุปกรณ์ · เงิน %d เฟือง" % session.state.player.currency)
-	for item in catalog.data.items:
-		if item.source == "shop:" + session.state.room_id:
-			var button := UIBuilder.button(modal_body,"%s · %d เฟือง · เลเวล %d\n%s" % [item.name,item.price,item.required_level,UIBuilder.item_description(item)],_inventory_action.bind({"kind":"buy","item_id":item.id},true))
-			button.icon = UIBuilder.item_icon(item)
-	UIBuilder.button(modal_body,"ยาHP · 20 เฟือง",_inventory_action.bind({"kind":"potion_buy","potion":"life"},true))
-	UIBuilder.button(modal_body,"ยาFP · 20 เฟือง",_inventory_action.bind({"kind":"potion_buy","potion":"focus"},true))
-	UIBuilder.button(modal_body,"อาหาร พลังงาน+50 · 30 เฟือง",_inventory_action.bind({"kind":"food"},true))
+	var p: Dictionary = session.state.player
+	_open_modal("ร้านอุปกรณ์  ·  %d เฟือง" % p.currency)
+	var panes := _modal_split()
+	var stock: Array = catalog.data.items.filter(func(item): return item.source == "shop:" + session.state.room_id)
+	if not inv_pick.get("from","") in ["shop","supply"]: inv_pick = {"from":"shop","key":stock[0].id} if not stock.is_empty() else {"from":"supply","key":"life"}
+	var grid := _grid(panes[0],"สินค้า")
+	for item in stock:
+		_tile(grid,UIBuilder.item_icon(item),"%s · %d เฟือง\n%s" % [item.name,item.price,UIBuilder.item_description(item)],"%d" % item.price,inv_pick.key == item.id,_pick.bind({"from":"shop","key":item.id},true),"Shop_"+item.id,int(item.tier))
+	var supplies := {"life":["potion_hp","ยาHP","ฟื้น HP 35%% ในการต่อสู้ · มีอยู่ %d" % p.potions.life,{"kind":"potion_buy","potion":"life"}],"focus":["potion_fp","ยาFP","ฟื้น FP 35%% ในการต่อสู้ · มีอยู่ %d" % p.potions.focus,{"kind":"potion_buy","potion":"focus"}],"food":["energy","อาหาร","พลังงาน +50 ทันที · พลังงานตอนนี้ %d/100" % p.energy,{"kind":"food"}]}
+	var row := _grid(panes[0],"ของใช้")
+	for key in supplies:
+		_tile(row,load("res://art/icons/%s.svg" % supplies[key][0]),supplies[key][1]+" · "+supplies[key][2],"%d" % (30 if key == "food" else 20),inv_pick.key == key,_pick.bind({"from":"supply","key":key},true),"Supply_"+key)
+	var detail: VBoxContainer = panes[1]
+	var price: int
+	var request: Dictionary
+	if inv_pick.from == "shop":
+		var item := catalog.get_entry("items",inv_pick.key)
+		_item_detail(detail,item,"ตัวเลขในวงเล็บเทียบกับของที่สวมอยู่")
+		price = int(item.price)
+		request = {"kind":"buy","item_id":item.id}
+	else:
+		var supply: Array = supplies[inv_pick.key]
+		UIBuilder.label(detail,supply[1],22,Color("f1d9a0"))
+		UIBuilder.label(detail,supply[2],16)
+		price = 30 if inv_pick.key == "food" else 20
+		request = supply[3]
+	var buy := UIBuilder.button(detail,"ซื้อ  %d เฟือง" % price,_inventory_action.bind(request,true),"BuyPicked")
+	buy.disabled = int(p.currency) < price
+	buy.tooltip_text = "เงินไม่พอ" if buy.disabled else "ซื้อ เหลือ %d เฟือง" % (int(p.currency) - price)
+
+var skill_pick: String = ""
 
 func _show_skills() -> void:
 	var p: Dictionary = session.state.player
-	_open_modal("แต้มสกิล %d · แต้มค่าสถานะ %d" % [p.skill_points,p.attribute_points])
-	var attributes := HBoxContainer.new()
-	modal_body.add_child(attributes)
-	var names: Dictionary = {"VIT":"ความทนทาน","STR":"กำลัง","INT":"เทคโนโลยี","AGI":"ความคล่อง"}
+	_open_modal("สกิลและค่าสถานะ  ·  แต้มสกิล %d  ·  แต้มค่าสถานะ %d" % [p.skill_points,p.attribute_points])
+	var panes := _modal_split()
+	var left: VBoxContainer = panes[0]
+	var detail: VBoxContainer = panes[1]
+	var attributes := _grid(left,"ค่าสถานะ (กดเพื่อเพิ่ม)",4)
+	var names: Dictionary = {"VIT":["heal","ความทนทาน · เพิ่ม HP"],"STR":["weapon","กำลัง · เพิ่มพลังโจมตีกายภาพ"],"INT":["electric","เทคโนโลยี · เพิ่มพลังสกิลเทคและการฮีล"],"AGI":["energy","ความคล่อง · เพิ่มความเร็วในลำดับเทิร์น"]}
 	for attribute in ["VIT","STR","INT","AGI"]:
-		var button := UIBuilder.button(attributes,"%s %d +" % [names[attribute],p.base_attributes[attribute]],_grow.bind("allocate_attribute",{"attribute":attribute}))
-		button.disabled = p.attribute_points <= 0
-	if session.state.room_id == "R01":
-		UIBuilder.button(modal_body,"คืนแต้มสกิลฟรี (คงสกิลเริ่มอาชีพ)",_grow.bind("respec",{}))
+		var tile := _tile(attributes,load("res://art/icons/%s.svg" % names[attribute][0]),names[attribute][1],"%s %d" % [attribute,p.base_attributes[attribute]],false,_grow.bind("allocate_attribute",{"attribute":attribute}),"Attr_"+attribute)
+		tile.disabled = p.attribute_points <= 0
+	if skill_pick.is_empty() or catalog.get_entry("skills",skill_pick).is_empty(): skill_pick = catalog.data.skills[0].id
 	var actor := session.progression.derive(p,catalog.data)
 	actor["class_id"] = p.class_id
 	var resolver := CombatResolver.new()
-	for skill in catalog.data.skills:
-		var rank: int = int(p.skill_ranks.get(skill.id,0))
-		var button := UIBuilder.button(modal_body,"%s · ระดับ %d/10 · เรียน +" % [skill.name,rank],_grow.bind("learn_skill",{"skill_id":skill.id}),"Learn_"+skill.id)
-		button.disabled = not session.progression.learn_skill(p,skill.id).ok
-		var preview := resolver.skill_preview(actor,skill,maxi(1,rank))
-		var description := UIBuilder.skill_description(skill,preview,maxi(1,rank))
-		var parents: Array[String] = []
-		for id in skill.parents:
-			parents.append(catalog.get_entry("skills",id).name)
-		description += "\nต้องเลเวล %d" % skill.required_level
-		if not parents.is_empty():
-			description += " · ก่อนหน้า: " + " และ ".join(parents)
-		button.tooltip_text = description
-		UIBuilder.label(modal_body,description,15,Color("a7b9ac"))
+	# Skill tree rows by unlock level, read left to right like a mobile talent board.
+	for level in [1,5,10,15]:
+		var row := _grid(left,"เลเวล %d" % level,8)
+		for skill in catalog.data.skills.filter(func(s): return int(s.required_level) == level):
+			var rank: int = int(p.skill_ranks.get(skill.id,0))
+			var tile := _tile(row,UIBuilder.skill_icon(skill),skill.name,"%d/10" % rank,skill.id == skill_pick,func():
+				skill_pick = skill.id
+				_show_skills(),"Skill_"+skill.id,5 if rank >= 10 else 2 if rank > 0 else 0)
+			if rank == 0: tile.modulate = Color(1,1,1,0.55)
+	if session.state.room_id == "R01":
+		UIBuilder.button(left,"คืนแต้มสกิลฟรี (คงสกิลเริ่มอาชีพ)",_grow.bind("respec",{}),"Respec")
+	var skill := catalog.get_entry("skills",skill_pick)
+	var rank: int = int(p.skill_ranks.get(skill.id,0))
+	UIBuilder.label(detail,skill.name,22,Color("f1d9a0"))
+	UIBuilder.label(detail,"%s · ระดับ %d/10" % ["ติดตัว" if skill.kind == "passive" else "ใช้งาน",rank],15,Color("a7b9ac"))
+	var preview := resolver.skill_preview(actor,skill,maxi(1,rank))
+	UIBuilder.label(detail,UIBuilder.skill_description(skill,preview,maxi(1,rank)),16)
+	var parents: Array[String] = []
+	for id in skill.parents: parents.append(catalog.get_entry("skills",id).name)
+	UIBuilder.label(detail,"ต้องเลเวล %d" % skill.required_level + (" · ก่อนหน้า: " + " และ ".join(parents) if not parents.is_empty() else ""),14,Color("8fb4a6"))
+	var check := session.progression.learn_skill(p,skill.id)
+	var learn := UIBuilder.button(detail,"เรียน +1  (ใช้ 1 แต้ม)",_grow.bind("learn_skill",{"skill_id":skill.id}),"Learn_"+skill.id)
+	learn.disabled = not check.ok
+	learn.tooltip_text = check.get("reason","") if not check.ok else "เพิ่มระดับเป็น %d/10" % (rank+1)
 
 func _grow(kind: String, payload: Dictionary) -> void:
 	if _commit(kind,payload).ok:

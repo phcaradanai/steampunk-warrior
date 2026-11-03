@@ -14,7 +14,7 @@ func _initialize() -> void:
   config.set_value(section,"advanced_options",false)
   config.set_value(section,"export_filter","all_resources")
   config.set_value(section,"include_filter","*.json,*.txt,*.md")
-  config.set_value(section,"exclude_filter","tests/*,builds/*,art/characters/actors-a.png,art/characters/hero-boiler-seed.png")
+  config.set_value(section,"exclude_filter","tests/*,builds/*,art/characters/actors-a.png,art/characters/hero-boiler-seed.png,art/environments/title_painted.png")
   config.set_value(section,"export_path",entry[3])
   config.set_value(section,"script_export_mode",2)
   for property in preset.get_property_list():

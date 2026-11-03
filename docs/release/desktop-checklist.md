@@ -1,3 +1,17 @@
+## 0.3.0 — 3 November 2026
+
+Built from commit `b46f909` in a clean worktree. Covers the P0–P4 work in [the completion plan](../superpowers/plans/2026-11-03-completion-plan.md): pipe lines for all five chapters, late-game foes, story pages and endings, boss models and phases, prop occlusion, economy with gear upgrades, item icons, weapon families and skill clips, area music, title art from game models, save version 2 with v1 migration, and the GL fallback speed-up.
+
+- Tests: 2003 passed, 0 failed. The renderer smoke tests passed: playable, controls, transitions, settlement, combat timing, story, targets, phases, and save restart (write and read). smoke_audio passed at commit `e679acc`, but it reports no PCM output on this Mac since then, including on a clean checkout of `e679acc`. That points to the machine's audio output rather than the game, but audio is not verified for 0.3.0.
+- macOS: `codesign --verify --deep --strict` passes (ad-hoc signature). The exported binary was launched and ran for 12 seconds with no console output. It was not played by hand. The user's saves were backed up first and are unchanged.
+- GL fallback (`rendering_device/fallback_to_opengl3=true`), measured on an Apple M1 through OpenGL over Metal, not on Windows or Intel hardware:
+  - R07 runs at about 58–74 FPS, up from 11.
+  - Figure edges are slightly rougher and idle figures update at about 10 Hz.
+- Windows: the `.exe` and `.pck` exported with no errors. They have not been run on Windows.
+- Save compatibility: v1 saves and `.bak` files migrate in memory when loaded and are written as v2 on the next save. The user's real level-10 autosave loads.
+- PCK: 211 resource paths, with no tests, fixtures, builds, research, SWF or reference title painting. It is 62.9 MB.
+- Hashes are in `SHA256SUMS.txt`.
+
 ## 0.2.1 — 3 November 2026
 
 Built from commit `50f990b` in a clean worktree, so uncommitted work in the main checkout is not included. Contains the P0 fixes from [the completion plan](../superpowers/plans/2026-11-03-completion-plan.md): drop tables, the combat title card, the pause menu with back-to-title and quit, and the class screen.

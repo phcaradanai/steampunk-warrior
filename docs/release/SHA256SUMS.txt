@@ -6,3 +6,7 @@ b36af93eaad34ee6bda42893015dc13f33b21fe67086fb1f6f22af303b300856  game/builds/ma
 d34d36f3be1a6c49c56525ae86469b92e4f417ddf0b43cf00dd80c385c4b0562  game/builds/windows/SteampunkWarrior-0.2.1.exe
 81daccb620ce0f6e9990893b035c86aaa08c1716d4c53da1806aa67105c99a73  game/builds/windows/SteampunkWarrior-0.2.1.pck
 52617e82332c6e669ada43c4ba0edbc6c5c970180cbf315c31458b0ea5ebf8d8  game/builds/windows/SteampunkWarrior-Windows-0.2.1.zip
+c7ece12dccd5e074b96a4564148b112c38a1ee58adff38ab249ab2687acb48ff  game/builds/macos/SteampunkWarrior-0.3.0.zip
+d34d36f3be1a6c49c56525ae86469b92e4f417ddf0b43cf00dd80c385c4b0562  game/builds/windows/SteampunkWarrior-0.3.0.exe
+b97b0b42532f7189ebcd13da4cdcd4a42667e0689b5fab4f76f9e546655b3313  game/builds/windows/SteampunkWarrior-0.3.0.pck
+ff0b12b5d86375eabf573c019f7011e138c3051500acb8aeeaddf4e3afb74793  game/builds/windows/SteampunkWarrior-Windows-0.3.0.zip

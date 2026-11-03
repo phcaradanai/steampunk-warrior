@@ -14,7 +14,7 @@ Checks:
 
 Use the verified absolute binary path in place of `Godot`. Latest logs live in `logs/development/`. Captures are real AppleM1/OpenGL viewport images under `docs/development/screenshots/`,not generated mockups. UI smoke drives actual button signals and physics InputMap; marker positioning is a controlled fixture,not an unaided human playthrough.
 
-The project has no Git repository. Implementation is isolated in new game/; research data is not included in the game. Detailed resumable ledger: `.superpowers/sdd/2026-10-27-steampunk-warrior/progress.md`.
+At the time of this note the project had no Git repository; it is now tracked in Git (branch `feature/pipe-hub-stage`). Implementation is isolated in game/; research data is not included in the game. Detailed resumable ledger: `.superpowers/sdd/2026-10-27-steampunk-warrior/progress.md`.
 
 Planning `docs/design/verify_plan.py` is a historical planning-before-product check and deliberately asserts that a game project did not exist at that time. It is not the post-approval runtime test command.
 

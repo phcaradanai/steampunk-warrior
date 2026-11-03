@@ -175,7 +175,7 @@ func enter_pipe(marker: Dictionary) -> void:
 	var walk := create_tween()
 	player.hero.moving = true
 	player.hero.facing_left = mouth.x < player.position.x
-	walk.tween_property(player,"position",mouth+Vector2(0,8),clampf(player.position.distance_to(mouth)/220.0,0.12,0.5))
+	walk.tween_property(player,"position",mouth+Vector2(0,8),clampf(player.position.distance_to(mouth)/350.0,0.12,0.5))
 	await walk.finished
 	if is_instance_valid(rims): rims.visible = true
 	player.hero.moving = false

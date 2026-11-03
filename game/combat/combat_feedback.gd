@@ -4,10 +4,9 @@ extends Control
 const STAB_SKILLS := ["S01","S02","S03","S05","S07","S13","S16"]
 # Melee moves cross the arena to the target; the rest fire from where the actor stands.
 const MELEE_SKILLS := ["S01","S02","S07","S16"]
-const DASH := 0.2
-const WINDUP := 0.16
-const HOLD := 0.14
-const RETURN := 0.24
+const DASH := 0.36
+const HOLD := 0.12
+const RETURN := 0.42
 var bursts: Array[Dictionary] = []
 var shake_enabled: bool = true
 var flash_enabled: bool = true
@@ -35,6 +34,7 @@ func play_events(events: Array, portraits: Dictionary, options: Dictionary) -> v
 	flash_enabled = not options.get("reduced_flash",false)
 	playing += 1
 	var mover: ActorPortrait = null
+	var recover := 0.0
 	var index := 0
 	while index < events.size():
 		var event: Dictionary = events[index]
@@ -48,14 +48,17 @@ func play_events(events: Array, portraits: Dictionary, options: Dictionary) -> v
 				mover = actor
 			_strike(actor, payload)
 			_sound(event)
+			# Damage, numbers and the target's flinch wait for the blow to actually land in the clip.
+			var timing: Vector2 = actor.hero.strike_timing(_hero_action(payload)) if actor.hero != null else Vector2(0.18, 0.15)
+			recover = timing.y
 			if target != null and is_inside_tree():
-				await get_tree().create_timer(WINDUP).timeout
+				await get_tree().create_timer(timing.x).timeout
 				if not melee: await _projectile(actor, target, payload)
 		elif event.type in ["damage","heal"] and portraits.has(payload.target_id):
 			_impact(event, portraits)
 		index += 1
 	if mover != null and is_instance_valid(mover) and is_inside_tree():
-		await get_tree().create_timer(HOLD).timeout
+		await get_tree().create_timer(recover + HOLD).timeout
 		await _return(mover)
 	playing -= 1
 
@@ -76,22 +79,23 @@ func _dash(actor: ActorPortrait, target: ActorPortrait) -> void:
 	var spot := Vector2(target.position.x + target.size.x*0.5 + reach - actor.size.x*0.5, target.position.y + target.get_meta("feet",target.size.y) - actor.get_meta("feet",actor.size.y))
 	if actor.hero != null:
 		actor.hero.facing_left = side > 0
-		actor.hero.moving = true
+		actor.hero.running = true
 	var run := actor.create_tween()
-	run.tween_property(actor,"position",spot,DASH).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	run.tween_property(actor,"position",spot,DASH).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	await run.finished
-	if actor.hero != null: actor.hero.moving = false
+	if actor.hero != null: actor.hero.running = false
 
 func _return(actor: ActorPortrait) -> void:
 	var home: Vector2 = actor.get_meta("home", actor.position)
 	if actor.hero != null:
+		actor.hero.end_action()
 		actor.hero.facing_left = home.x < actor.position.x
-		actor.hero.moving = true
+		actor.hero.running = true
 	var back := actor.create_tween()
 	back.tween_property(actor,"position",home,RETURN).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	await back.finished
 	if is_instance_valid(actor) and actor.hero != null:
-		actor.hero.moving = false
+		actor.hero.running = false
 		actor.hero.facing_left = actor.mirror
 
 func _strike(actor: ActorPortrait, payload: Dictionary) -> void:

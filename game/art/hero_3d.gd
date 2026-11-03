@@ -7,7 +7,9 @@ const OUTLINE := Color("101b20")
 const SUIT_COLORS := [Color("88583e"), Color("b48c4e"), Color("32526e")]
 const LIMB_MESHES := ["UpperArm_R", "UpperArm_L", "ThighMesh_R", "ThighMesh_L"]
 # Clip speed lifts the authored 1.5-1.7s actions into the combat pump's 0.36s turn rhythm.
-const ACTIONS := {"attack":["Attack",1.7], "skill_stab":["Skill_Stab",1.6], "skill_steam":["Skill_Steam",1.6], "guard":["Guard",1.4], "hit":["Hit",1.5], "down":["Down",1.2], "vent":["Skill_Steam",1.6], "enter_pipe":["Enter_Pipe",1.4]}
+const ACTIONS := {"attack":["Attack",1.15], "skill_stab":["Skill_Stab",1.1], "skill_steam":["Skill_Steam",1.1], "guard":["Guard",1.2], "hit":["Hit",1.25], "down":["Down",1.0], "vent":["Skill_Steam",1.1], "enter_pipe":["Enter_Pipe",1.4]}
+# Clip time where the blade or nozzle reaches full extension, read from the Shoulder_R rotation peaks.
+const CONTACT := {"Attack":0.87, "Skill_Stab":0.77, "Skill_Steam":0.77}
 
 var model: Node3D
 var animator: AnimationPlayer
@@ -170,8 +172,17 @@ func _process(delta: float) -> void:
 	freeze = maxf(0.0, freeze - delta)
 	animator.speed_scale = 0.0 if freeze > 0.0 else 1.0
 	if busy > 0.0 or down or dummy: return
-	var loop := "Walk" if moving else "Idle"
-	if animator.current_animation != loop: animator.play(loop, 0.12)
+	var loop := "Run" if running else "Walk" if moving else "Idle"
+	if animator.current_animation != loop: animator.play(loop, 0.12, walk_speed if loop == "Walk" else 1.0)
+
+func strike_timing(kind: String) -> Vector2:
+	if not ACTIONS.has(kind) or dummy: return super(kind)
+	var clip: String = ACTIONS[kind][0]
+	var speed: float = ACTIONS[kind][1]
+	var length := animator.get_animation(clip).length
+	var contact: float = CONTACT.get(clip, length * 0.5)
+	# Return once the follow-through settles, not when the whole clip has wound down.
+	return Vector2(contact / speed, minf(0.35, (length - contact) / speed))
 
 # NPCs and human foes reuse the hero rig: fixed gear, recoloured cloth/hair/skin, body proportions and a few head props.
 func apply_variant(spec: Dictionary) -> void:

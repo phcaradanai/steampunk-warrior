@@ -15,6 +15,8 @@ var clock: float = 0.0
 var action: String = ""
 var action_time: float = 0.0
 var hover: float = 0.0
+const STRIKE := 0.8
+const STRIKE_CONTACT := 0.48
 
 func build(creature: String, colors: Dictionary) -> Creature3D:
 	kind = creature
@@ -234,21 +236,26 @@ func _process(delta: float) -> void:
 		return
 	clock += delta
 	action_time += delta
-	var stride := sin(clock * (11.0 if moving else 2.2))
+	var go := moving or running
+	var stride := sin(clock * (13.0 if running else 11.0 if moving else 2.2))
 	for i in legs.size():
-		legs[i].rotation_degrees.z = stride * (28.0 if moving else 3.0) * (1 if i % 2 == 0 else -1)
+		legs[i].rotation_degrees.z = stride * (28.0 if go else 3.0) * (1 if i % 2 == 0 else -1)
 	for i in wings.size():
 		wings[i].rotation_degrees.x = sin(clock * 14.0) * 35.0 * (1 if i % 2 == 0 else -1)
 	if tail != null: tail.rotation_degrees.y = sin(clock * 3.0) * 20.0
-	body.position = Vector3(0, hover + sin(clock * 2.2) * 0.02 + (absf(stride) * 0.04 if moving else 0.0), 0)
+	body.position = Vector3(0, hover + sin(clock * 2.2) * 0.02 + (absf(stride) * 0.04 if go else 0.0), 0)
 	body.scale = Vector3(1, 1 + sin(clock * 2.2) * 0.02, 1)
 	body.rotation = Vector3.ZERO
 	match action:
 		"attack", "skill_stab", "skill_steam":
-			# Rear back, then snap forward through the target.
-			var t := action_time / 0.45
-			body.position.x += (-0.12 if t < 0.4 else 0.3 * sin(minf(1.0, (t - 0.4) / 0.6) * PI))
-			body.rotation.z = deg_to_rad(10.0 if t < 0.4 else -14.0 * sin(minf(1.0, (t - 0.4) / 0.6) * PI))
+			# Rear back, snap forward to land at STRIKE_CONTACT, then ease home.
+			var t := action_time / STRIKE
+			var reach: float
+			if t < 0.5: reach = -0.16 * (t / 0.5)
+			elif t < 0.6: reach = lerpf(-0.16, 0.34, (t - 0.5) / 0.1)
+			else: reach = lerpf(0.34, 0.0, minf(1.0, (t - 0.6) / 0.4))
+			body.position.x += reach
+			body.rotation.z = deg_to_rad(-reach * 45.0)
 			if t >= 1.0: _settle()
 		"hit", "guard":
 			var t := action_time / 0.35
@@ -259,6 +266,12 @@ func _process(delta: float) -> void:
 			var t := minf(1.0, action_time / 0.5)
 			body.rotation.x = deg_to_rad(80.0 * t)
 			body.position.y = lerpf(hover, 0.0, t)
+
+func strike_timing(_kind: String) -> Vector2:
+	return Vector2(STRIKE_CONTACT, 0.2)
+
+func end_action() -> void:
+	_settle()
 
 func _settle() -> void:
 	action = ""

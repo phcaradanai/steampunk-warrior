@@ -6,6 +6,8 @@ var viewport: SubViewport
 var camera: Camera3D
 var facing_left: bool = false
 var moving: bool = false
+var running: bool = false
+var walk_speed: float = 1.0
 var down: bool = false
 var busy: float = 0.0
 var freeze: float = 0.0
@@ -59,6 +61,14 @@ func _process(_delta: float) -> void:
 
 func perform(_kind: String) -> void:
 	pass
+
+# Seconds from starting a strike to the blow landing, and from landing to the end of the follow-through.
+func strike_timing(_kind: String) -> Vector2:
+	return Vector2(0.3, 0.2)
+
+# Drop whatever one-shot is playing so locomotion takes over (stepping back after a strike).
+func end_action() -> void:
+	busy = 0.0
 
 func hit_stop(seconds: float = 0.06) -> void:
 	freeze = seconds

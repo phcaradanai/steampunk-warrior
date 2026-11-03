@@ -10,6 +10,8 @@ var depth_scaled: bool = false
 func _init() -> void:
 	hero = Hero3D.new()
 	hero.size = Vector2(96, 96)
+	# Faster walk needs a faster stride so feet don't slide.
+	hero.walk_speed = 1.6
 	hero.position = Vector2(-48, 22 - 96)
 	hero.pivot_offset = Vector2(48, 96 - 22)
 	add_child(hero)
@@ -24,7 +26,7 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	var direction := Vector2.ZERO if blocked else Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	velocity = direction * 180.0
+	velocity = direction * 288.0
 	if direction.length_squared() > 0.0:
 		facing = direction
 	move_and_slide()

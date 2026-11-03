@@ -44,7 +44,7 @@ const PEOPLE := {
 const CREATURES := {
 	"N01":["rat",{}], "N02":["dog",{}], "N03":["bat",{}], "N04":["centipede",{}], "N05":["beetle",{}],
 	"N06":["spider",{}], "N07":["boar",{}], "N08":["heron",{}], "N09":["wolf",{"fur":"5a4a3a"}],
-	"N24":["hound",{"fur":"4a6a3a","glow":"b7f04a"}], "N25":["heron",{"fur":"b48aff","glow":"ffcf4a"}],
+	"N24":["wolf",{"fur":"4a6a3a","glow":"b7f04a"}], "N25":["heron",{"fur":"b48aff","glow":"ffcf4a"}],
 	"B01":["croc",{}], "B03":["deer",{}], "root":["sprout",{}],
 	"rest":["bed",{}], "shop":["cart",{}], "objective":["crate",{}],
 }

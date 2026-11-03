@@ -7,7 +7,6 @@ const MELEE_SKILLS := ["S01","S02","S07","S16"]
 const DASH := 0.36
 const HOLD := 0.12
 const RETURN := 0.42
-var bursts: Array[Dictionary] = []
 var shake_enabled: bool = true
 var flash_enabled: bool = true
 var clock: float = 0.0
@@ -25,11 +24,8 @@ func _process(delta: float) -> void:
 	clock += delta
 	trauma = maxf(0,trauma-delta*5)
 	shake_offset = Vector2(sin(clock*83),cos(clock*71))*trauma*3 if shake_enabled else Vector2.ZERO
-	for burst in bursts: burst.life -= delta
-	bursts = bursts.filter(func(b):return b.life > 0)
 	var stage := get_parent().get("stage") as Control
 	if stage != null: stage.position = Vector2(0,CombatView.STAGE_TOP) + shake_offset*2
-	queue_redraw()
 
 # Plays one resolved turn: approach, strike, impacts on the contact frame, then step back.
 func play_events(events: Array, portraits: Dictionary, options: Dictionary) -> void:
@@ -113,11 +109,12 @@ func _strike(actor: ActorPortrait, payload: Dictionary) -> void:
 func _projectile(actor: ActorPortrait, target: ActorPortrait, payload: Dictionary) -> void:
 	var from := _anchor(actor, 0.45)
 	var to := _anchor(target, 0.45)
-	var bolt := {"point":from,"color":Color("9fe6ff") if payload.get("skill_id","") in ["S04","S06","S15"] else Color("ffd27a"),"life":.3,"bolt":true}
-	bursts.append(bolt)
+	var bolt := VfxSprite.spawn(self, "bolt-steam" if payload.get("skill_id","") in ["S04","S06","S15"] else "bolt-brass", from, false, 2.0)
+	bolt.rotation = (to-from).angle()
 	var flight := create_tween()
-	flight.tween_method(func(t: float): bolt.point = from.lerp(to,t), 0.0, 1.0, .18)
+	flight.tween_property(bolt,"position",to,.18)
 	await flight.finished
+	bolt.queue_free()
 
 func _anchor(portrait: ActorPortrait, height: float) -> Vector2:
 	return portrait.global_position-global_position+Vector2(portrait.size.x*.5, portrait.get_meta("feet",portrait.size.y)*height)
@@ -134,12 +131,19 @@ func _impact(event: Dictionary, portraits: Dictionary) -> void:
 	if target.hero != null and event.type == "damage":
 		target.hero.perform("guard" if payload.get("shielded",false) else "hit")
 	# The player's own blows freeze its clip for a beat and throw sparks, whatever the target is made of.
-	if event.type == "damage" and payload.get("source_id","") == "hero" and payload.target_id != "hero" and portraits.has("hero") and portraits.hero.hero != null:
-		portraits.hero.hero.hit_stop()
-		_impact_3d(target)
+	var heavy: bool = event.type == "damage" and payload.get("source_id","") == "hero" and payload.target_id != "hero" and portraits.has("hero") and portraits.hero.hero != null
+	if heavy: portraits.hero.hero.hit_stop()
 	var point := _anchor(target, 0.5)
 	var color := Color("83dcb3") if event.type == "heal" else Color("80cde1") if payload.get("shielded",false) else Color("efbb71")
-	bursts.append({"point":point,"color":color,"life":.32,"shielded":payload.get("shielded",false)})
+	var source: ActorPortrait = portraits.get(payload.get("source_id",""))
+	var from_right: bool = source != null and source != target and source.position.x > target.position.x
+	if event.type == "heal":
+		VfxSprite.spawn(self, "heal-aoe", _anchor(target, 1.0), false, 2.0)
+	elif payload.get("shielded",false):
+		# The shield sheet faces an attacker on its right; the spark sheets fly off to the right.
+		VfxSprite.spawn(self, "shield-block", _anchor(target, 1.0), not from_right)
+	else:
+		VfxSprite.spawn(self, "crit-hit" if heavy and flash_enabled else "hit-spark", point, from_right)
 	trauma = 1.0 if event.type == "damage" else trauma
 	if flash_enabled:
 		# Whole-figure flash so the blow reads at a glance, then fade back.
@@ -198,7 +202,8 @@ func play_loot(source: ActorPortrait, gold: int, item: Dictionary, options: Dict
 		icon.position = origin-icon.size*0.5
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(icon)
-		bursts.append({"point":origin+Vector2(0,-70),"color":Color("fff2b0"),"life":.9,"shielded":true})
+		var beam := VfxSprite.spawn(self, "loot-beam", Vector2(origin.x, floor_y), false, 2.0)
+		beam.create_tween().tween_callback(beam.queue_free).set_delay(1.3)
 		var pop := icon.create_tween()
 		pop.tween_property(icon,"position:y",origin.y-110,.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 		var name_label := _label("ได้รับ " + item.name, 22, Color("f1d9a0"))
@@ -220,29 +225,6 @@ func _label(text: String, font_size: int, color: Color) -> Label:
 	add_child(label)
 	return label
 
-func _draw() -> void:
-	for burst in bursts:
-		var elapsed: float = 1.0-burst.life/.32
-		var color: Color = burst.color
-		var point: Vector2 = burst.point+shake_offset
-		if burst.get("bolt",false):
-			draw_circle(point,9,color)
-			draw_circle(point,15,Color(color,0.35))
-			continue
-		color.a *= clampf(1.0-elapsed,0,1)
-		if burst.shielded:
-			draw_arc(point,18+elapsed*16,0,TAU,32,color,3)
-		else:
-			for i in range(10):
-				var direction := Vector2.from_angle(i*TAU/10+0.3)
-				draw_line(point+direction*(8+elapsed*16),point+direction*(18+elapsed*40),color,3)
-
 func _hero_action(payload: Dictionary) -> String:
 	if payload.kind != "skill": return payload.kind
 	return "skill_stab" if payload.skill_id in STAB_SKILLS else "skill_steam"
-
-func _impact_3d(target: ActorPortrait) -> void:
-	var burst := ImpactBurst3D.new()
-	burst.size = Vector2(180,180)
-	burst.position = _anchor(target, 0.5)-burst.size*0.5
-	add_child(burst)

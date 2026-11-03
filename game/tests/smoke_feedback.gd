@@ -41,7 +41,9 @@ func _initialize() -> void:
 	await create_timer(.4).timeout
 	check(scene.combat.state == before,"feedback cannot change HP,FP,turns or rewards")
 	check(view.portraits.hero.motion_offset.length() < .01,"hit recoil returns to its resting position")
-	check(view.feedback.bursts.is_empty(),"impact effects expire instead of accumulating")
+	# The longest impact sheet (shield block) runs 1.1 s.
+	await create_timer(.8).timeout
+	check(view.feedback.get_children().filter(func(n):return n is VfxSprite and not n.loop).is_empty(),"impact effects expire instead of accumulating")
 	for filename in DirAccess.get_files_at(directory):
 		DirAccess.remove_absolute(directory.path_join(filename))
 	DirAccess.remove_absolute(directory)

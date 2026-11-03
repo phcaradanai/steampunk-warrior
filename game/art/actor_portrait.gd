@@ -6,7 +6,7 @@ var mirror: bool = false
 var alive: bool = true
 var motion_offset := Vector2.ZERO
 var elapsed: float = 0.0
-var hero: Hero3D
+var hero: Stage3D
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
 		return
 	queue_redraw()
 
-func attach_hero(stage: Hero3D) -> void:
+func attach_hero(stage: Stage3D) -> void:
 	hero = stage
 	add_child(stage)
 

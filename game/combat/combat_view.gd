@@ -98,10 +98,14 @@ func _build_stage() -> void:
 			# Hero3D frames the model with its feet slightly above the viewport bottom.
 			portrait.set_meta("feet",portrait.size.y*0.925)
 		else:
+			var figure := Roster3D.create(Roster3D.actor_key(actor))
+			if figure != null:
+				figure.facing_left = true
+				portrait.attach_hero(figure)
 			var index: int = enemies.find(actor)
 			center = 900.0 if enemies.size() == 1 else 850.0 + index*190.0
 			feet = GROUND - index*16.0
-			portrait.set_meta("feet",portrait.size.y-4)
+			portrait.set_meta("feet",portrait.size.y*0.925 if figure != null else portrait.size.y-4)
 		portrait.position = Vector2(center-portrait.size.x*0.5, feet-portrait.get_meta("feet"))
 		portrait.set_meta("home",portrait.position)
 		stage.add_child(portrait)
@@ -160,7 +164,7 @@ func _render(events: Array = []) -> void:
 			living.append(actor)
 		if portraits.has(actor.id):
 			portraits[actor.id].alive = actor.hp > 0
-			if actor.side == "player" and actor.hp <= 0: hero_stage.perform("down")
+			if actor.hp <= 0 and portraits[actor.id].hero != null: portraits[actor.id].hero.perform("down")
 	if not living.is_empty() and not living.any(func(a):return a.id == selected_target):
 		selected_target = living[0].id
 	# Bars and sounds change on the contact frame, so plates wait for the strike to land.

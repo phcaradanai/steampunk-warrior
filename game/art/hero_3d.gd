@@ -1,5 +1,5 @@
 class_name Hero3D
-extends Control
+extends Stage3D
 # Toon SD hero (prototypes/character-lab) rendered by an orthographic SubViewport for the 2.5D look.
 
 const MODEL := preload("res://art/characters/vesper_warrior.glb")
@@ -9,50 +9,19 @@ const LIMB_MESHES := ["UpperArm_R", "UpperArm_L", "ThighMesh_R", "ThighMesh_L"]
 # Clip speed lifts the authored 1.5-1.7s actions into the combat pump's 0.36s turn rhythm.
 const ACTIONS := {"attack":["Attack",1.7], "skill_stab":["Skill_Stab",1.6], "skill_steam":["Skill_Steam",1.6], "guard":["Guard",1.4], "hit":["Hit",1.5], "down":["Down",1.2], "vent":["Skill_Steam",1.6], "enter_pipe":["Enter_Pipe",1.4]}
 
-var viewport: SubViewport
 var model: Node3D
 var animator: AnimationPlayer
 var nodes: Dictionary = {}
 var suit_material: StandardMaterial3D
 var sparks: GPUParticles3D
 var steam: GPUParticles3D
-var facing_left: bool = false
-var moving: bool = false
-var down: bool = false
-var busy: float = 0.0
-var freeze: float = 0.0
+# Per-instance toon copies keyed by the GLB material name, so a variant recolours only itself.
+var toons: Dictionary = {}
+var variant: Dictionary = {}
+var dummy: bool = false
 
 func _init() -> void:
-	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	viewport = SubViewport.new()
-	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
-	viewport.own_world_3d = true
-	viewport.transparent_bg = true
-	viewport.msaa_3d = Viewport.MSAA_4X
-	add_child(viewport)
-	var environment := Environment.new()
-	environment.background_mode = Environment.BG_CLEAR_COLOR
-	environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-	environment.ambient_light_color = Color("b8c6cc")
-	environment.ambient_light_energy = 0.72
-	var world := WorldEnvironment.new()
-	world.environment = environment
-	viewport.add_child(world)
-	var key := DirectionalLight3D.new()
-	key.rotation_degrees = Vector3(-38, -32, 0)
-	key.light_color = Color("fff0d6")
-	key.light_energy = 1.25
-	viewport.add_child(key)
-	var fill := DirectionalLight3D.new()
-	fill.rotation_degrees = Vector3(-15, 135, 0)
-	fill.light_color = Color("75b8c8")
-	fill.light_energy = 0.45
-	viewport.add_child(fill)
-	var camera := Camera3D.new()
-	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
-	camera.size = 2.0
-	camera.position = Vector3(0, 0.85, 10)
-	viewport.add_child(camera)
+	super()
 	model = MODEL.instantiate()
 	viewport.add_child(model)
 	_index(model)
@@ -60,7 +29,9 @@ func _init() -> void:
 	animator = model.get_node("AnimationPlayer")
 	for clip in ["Idle", "Walk"]:
 		animator.get_animation(clip).loop_mode = Animation.LOOP_LINEAR
-	animator.animation_finished.connect(func(_clip): busy = 0.0)
+	animator.animation_finished.connect(func(_clip):
+		busy = 0.0
+		if dummy: animator.play("Dummy_Idle"))
 	_stylize()
 	sparks = _particles(Color("ffc865"), 18, 0.35, Vector3(0, -6, 0), 3.2)
 	steam = _particles(Color(0.86, 0.95, 0.97, 0.7), 14, 0.7, Vector3(0, 1.2, 0), 1.6)
@@ -86,6 +57,8 @@ func _stylize() -> void:
 			var source = node.get_active_material(surface)
 			if not source is BaseMaterial3D: continue
 			var toon := _toon(source.albedo_color, outline)
+			if not toons.has(source.resource_name): toons[source.resource_name] = []
+			toons[source.resource_name].append(toon)
 			toon.metallic = source.metallic * 0.45
 			toon.roughness = clampf(source.roughness, 0.28, 0.68)
 			if source.emission_enabled:
@@ -161,7 +134,9 @@ static func _has_any(text: String, words: Array) -> bool:
 	return words.any(func(word): return text.contains(word))
 
 func set_equipment(equipment: Dictionary, items: Array) -> void:
-	var gear := variants(equipment, items)
+	_show_gear(variants(equipment, items))
+
+func _show_gear(gear: Array) -> void:
 	for i in 3:
 		nodes["Weapon_%d" % i].visible = gear[0] == i
 		nodes["Headgear_%d" % i].visible = gear[1] == i
@@ -171,6 +146,9 @@ func set_equipment(equipment: Dictionary, items: Array) -> void:
 	suit_material.albedo_color = SUIT_COLORS[gear[2]]
 
 func perform(kind: String) -> void:
+	if dummy:
+		if kind in ["hit","guard"]: animator.play("Dummy_Hit", 0.05, 1.6)
+		return
 	if not ACTIONS.has(kind) or down or not animator.has_animation(ACTIONS[kind][0]): return
 	var action: Array = ACTIONS[kind]
 	down = kind == "down"
@@ -183,28 +161,63 @@ func _burst(particles: GPUParticles3D, delay: float) -> void:
 	await get_tree().create_timer(delay).timeout
 	if is_instance_valid(particles): particles.restart()
 
-func hit_stop(seconds: float = 0.06) -> void:
-	freeze = seconds
-
-# Render at physical pixels (window stretch x canvas scale) so the figure stays crisp on retina and when scaled up.
-func _sync_resolution() -> void:
-	if not is_inside_tree(): return
-	var oversample := clampf(get_global_transform_with_canvas().get_scale().x * get_viewport().get_final_transform().get_scale().x, 2.0, 4.0)
-	var target := Vector2i((size * oversample).round())
-	if target.x > 0 and target.y > 0 and viewport.size != target:
-		viewport.size = target
-
-func _draw() -> void:
-	draw_texture_rect(viewport.get_texture(), Rect2(Vector2.ZERO, size), false)
 
 func _process(delta: float) -> void:
-	_sync_resolution()
-	queue_redraw()
+	super(delta)
 	model.rotation.y = deg_to_rad(-150.0 if facing_left else -30.0)
 	sparks.position.x = -0.55 if facing_left else 0.55
 	sparks.process_material.direction.x = -1.0 if facing_left else 1.0
 	freeze = maxf(0.0, freeze - delta)
 	animator.speed_scale = 0.0 if freeze > 0.0 else 1.0
-	if busy > 0.0 or down: return
+	if busy > 0.0 or down or dummy: return
 	var loop := "Walk" if moving else "Idle"
 	if animator.current_animation != loop: animator.play(loop, 0.12)
+
+# NPCs and human foes reuse the hero rig: fixed gear, recoloured cloth/hair/skin, body proportions and a few head props.
+func apply_variant(spec: Dictionary) -> void:
+	variant = spec
+	if spec.get("dummy", false):
+		dummy = true
+		for child in model.get_children():
+			if child is Node3D: child.visible = child.name == "TargetDummyRoot"
+		nodes["TargetDummyRoot"].visible = true
+		nodes["TargetDummyRoot"].position = Vector3.ZERO
+		animator.get_animation("Dummy_Idle").loop_mode = Animation.LOOP_LINEAR
+		animator.play("Dummy_Idle")
+		return
+	_show_gear(spec.get("gear", [0,0,0,0]))
+	nodes["BoilerPack"].visible = spec.get("pack", true)
+	for material_name in spec.get("colors", {}):
+		var color: Color = Color(spec.colors[material_name])
+		if material_name == "suit":
+			suit_material.albedo_color = color
+		for toon in toons.get(material_name, []):
+			toon.albedo_color = color
+	model.scale = spec.get("build", Vector3.ONE)
+	for extra in spec.get("extras", []):
+		_attach(extra, Color(spec.get("extra_color", "e9e4d8")))
+
+func _attach(kind: String, color: Color) -> void:
+	var skeleton: Skeleton3D = nodes["Head"].get_parent() if nodes.has("Head") else null
+	for node in nodes.values():
+		if node is Skeleton3D and node.find_bone("Head") >= 0: skeleton = node
+	if skeleton == null: return
+	var mount := BoneAttachment3D.new()
+	mount.bone_name = "Torso" if kind == "wings" else "Head"
+	skeleton.add_child(mount)
+	# Rig faces +X; the head bone sits at the neck with the blocky head centred ~0.2 above it.
+	var parts: Array = {
+		"beard":[[SphereMesh, Vector3(0.21, 0.06, 0.0), Vector3(0.14, 0.2, 0.28)]],
+		"hood":[[SphereMesh, Vector3(-0.03, 0.24, 0.0), Vector3(0.56, 0.56, 0.62)]],
+		"visor":[[BoxMesh, Vector3(0.24, 0.21, 0.0), Vector3(0.05, 0.08, 0.42)]],
+		"crown":[[CylinderMesh, Vector3(0.0, 0.47, 0.0), Vector3(0.36, 0.08, 0.36)], [PrismMesh, Vector3(0.0, 0.56, -0.12), Vector3(0.08, 0.16, 0.08)], [PrismMesh, Vector3(0.0, 0.56, 0.12), Vector3(0.08, 0.16, 0.08)], [PrismMesh, Vector3(0.0, 0.6, 0.0), Vector3(0.09, 0.22, 0.09)]],
+		"wings":[[PrismMesh, Vector3(-0.22, 0.15, -0.28), Vector3(0.05, 0.6, 0.3)], [PrismMesh, Vector3(-0.22, 0.15, 0.28), Vector3(0.05, 0.6, 0.3)]],
+	}.get(kind, [])
+	var glow := 1.4 if kind in ["visor","wings","crown"] else 0.0
+	for part in parts:
+		var mesh_instance := MeshInstance3D.new()
+		mesh_instance.mesh = part[0].new()
+		mesh_instance.position = part[1]
+		mesh_instance.scale = part[2]
+		mesh_instance.material_override = Stage3D.toon(color, glow)
+		mount.add_child(mesh_instance)

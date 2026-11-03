@@ -31,8 +31,11 @@ func _physics_process(_delta: float) -> void:
 	hero.moving = direction.length_squared() > 0.0
 	if direction.x != 0.0: hero.facing_left = direction.x < 0.0
 	# Oblique hub: nearer the camera reads larger, matching the painted floor perspective.
-	hero.scale = Vector2.ONE * (lerpf(1.25, 1.65, clampf((position.y - 262.0) / 210.0, 0.0, 1.0)) if depth_scaled else 1.0)
+	hero.scale = Vector2.ONE * (depth_scale(position.y) if depth_scaled else 1.0)
 	queue_redraw()
+
+static func depth_scale(y: float) -> float:
+	return lerpf(1.25, 1.65, clampf((y - 262.0) / 210.0, 0.0, 1.0))
 
 func _draw() -> void:
 	draw_ellipse(Vector2(0, 10), 15.0, 6.0, Color(0, 0, 0, 0.3))

@@ -111,7 +111,33 @@ func configure(catalog: Dictionary, session: Dictionary, spawn: String = "entry"
 	if room.fast_travel and room.id != "R01":
 		markers.append({"kind":"fast_travel","id":"R01","label":"รถรางกลับโรงซ่อม","name":"รถรางกลับโรงซ่อม","position":CENTER_PIPE if oblique else Vector2(200,400)})
 	if oblique and not hub: _place_on_floor()
+	_spawn_figures()
 	queue_redraw()
+
+# People, foes and props stand in the room as 3D figures, y-sorted with the player.
+func _spawn_figures() -> void:
+	y_sort_enabled = true
+	for marker in markers:
+		var key: String = {"npc":marker.id,"encounter":marker.get("actor_id",""),"training":"dummy","rest":"rest","shop":"shop","objective":"objective"}.get(marker.kind,"")
+		if not Roster3D.has(key): continue
+		var figure := Roster3D.create(key)
+		var side := 120.0 if marker.get("boss",false) else 96.0
+		figure.size = Vector2(side,side)
+		figure.position = Vector2(-side*0.5,-side*0.925)
+		figure.pivot_offset = Vector2(side*0.5,side*0.925)
+		figure.facing_left = marker.kind == "encounter" or marker.position.x > 480
+		if oblique: figure.scale = Vector2.ONE*SteamPlayer.depth_scale(marker.position.y)
+		var anchor := Node2D.new()
+		anchor.position = marker.position
+		anchor.add_child(figure)
+		add_child(anchor)
+		marker["figure"] = anchor
+	_tint_cleared()
+
+func _tint_cleared() -> void:
+	for marker in markers:
+		if marker.has("figure") and marker.kind == "encounter":
+			marker.figure.modulate = Color(0.65,0.75,0.65,0.65) if progress.get("first_clears",{}).has(marker.id) else Color.WHITE
 
 # Oblique rooms reuse the content order above but put each marker on a painted floor slot or wall valve.
 func _place_on_floor() -> void:
@@ -181,6 +207,7 @@ func _room_name(id: String) -> String:
 func refresh(session: Dictionary) -> void:
 	progress = session
 	if player != null: player.hero.set_equipment(progress.player.get("equipment",{}),content.items)
+	_tint_cleared()
 	queue_redraw()
 
 func _physics_process(_delta: float) -> void:
@@ -266,7 +293,9 @@ func _draw_markers() -> void:
 		draw_set_transform(point*(1.0-k),0,Vector2(k,k))
 		if marker.id == nearby.get("id", ""):
 			draw_arc(point,27,0,TAU,32,Color("f1d9a0"),2)
-		if marker.kind == "npc":
+		if marker.has("figure"):
+			pass
+		elif marker.kind == "npc":
 			ActorArt.paint(self,marker.id,point+Vector2(0,18),64 if oblique else 54)
 		elif marker.kind == "encounter":
 			draw_ellipse(point+Vector2(0,15),21,7,color.darkened(0.5))
@@ -307,5 +336,5 @@ func _draw_markers() -> void:
 			draw_arc(point,14,0,TAU,24,color,3)
 			draw_line(point-Vector2(6,0),point+Vector2(6,0),color,3)
 		# Oblique rooms label above the head so names never fall under the bottom bar.
-		draw_string(font, point+Vector2(-70,-74 if oblique else 43),marker.label,HORIZONTAL_ALIGNMENT_CENTER,140,14,Color("e6dfc9"))
+		draw_string(font, point+Vector2(-70,(-100 if marker.has("figure") else -74) if oblique else 43),marker.label,HORIZONTAL_ALIGNMENT_CENTER,140,14,Color("e6dfc9"))
 		draw_set_transform(Vector2.ZERO)

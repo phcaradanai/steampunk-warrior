@@ -92,7 +92,7 @@ func _return(actor: ActorPortrait) -> void:
 	await back.finished
 	if is_instance_valid(actor) and actor.hero != null:
 		actor.hero.moving = false
-		actor.hero.facing_left = false
+		actor.hero.facing_left = actor.mirror
 
 func _strike(actor: ActorPortrait, payload: Dictionary) -> void:
 	if actor.hero != null:
@@ -124,7 +124,8 @@ func _impact(event: Dictionary, portraits: Dictionary) -> void:
 	var target: ActorPortrait = portraits[payload.target_id]
 	if target.hero != null and event.type == "damage":
 		target.hero.perform("guard" if payload.get("shielded",false) else "hit")
-	elif event.type == "damage" and payload.get("source_id","") == "hero" and portraits.has("hero") and portraits.hero.hero != null:
+	# The player's own blows freeze its clip for a beat and throw sparks, whatever the target is made of.
+	if event.type == "damage" and payload.get("source_id","") == "hero" and payload.target_id != "hero" and portraits.has("hero") and portraits.hero.hero != null:
 		portraits.hero.hero.hit_stop()
 		_impact_3d(target)
 	var point := _anchor(target, 0.5)

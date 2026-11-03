@@ -50,6 +50,14 @@
 ```bash
 /Applications/Blender.app/Contents/MacOS/Blender --background --python blender/build_deer.py
 ```
+หน่อรากแก้วที่บอสเรียกออกมา (ส่งออก `game/art/characters/sprout.glb`):
+```bash
+/Applications/Blender.app/Contents/MacOS/Blender --background --python blender/build_sprout.py
+```
+บอส B06 ราชินีเอเธอร์ ตั๊กแตนตำข้าวทองเหลือง (ส่งออก `game/art/characters/mantis.glb`):
+```bash
+/Applications/Blender.app/Contents/MacOS/Blender --background --python blender/build_mantis.py
+```
 
 - **โครงสร้างโมเดล Blender 3D สไตล์ SD Steampunk (`vesper_warrior.blend` / `vesper_warrior.glb`)**:
   - ออกแบบสัดส่วนสไตล์ **SD (Super-Deformed ~2.2 หัว)** สำหรับตัวละคร Steampunk Warrior: ศีรษะและดวงตากลมโตอ่านอารมณ์ชัด ลำตัวกะทัดรัดพร้อมกระเป๋าคาดเอว ปลอกแขน/ปลอกขาทรงบาน (Flared Gauntlets & Greaves) ฝาครอบข้อเท้าทรงกลม รองเท้าบูทฐานกว้างมั่นคง และอาวุธ/ถังไอน้ำขนาดใหญ่พิเศษ (Oversized Silhouette)

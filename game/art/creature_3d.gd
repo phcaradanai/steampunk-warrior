@@ -1,7 +1,7 @@
 class_name Creature3D
 extends Stage3D
 # Mutants and world props built from toon primitives and animated in code, matching the hero's outline style.
-# Mutants N01-N09 and bosses B01/B03 are Blender GLBs (prototypes/character-lab/blender/build_<kind>.py) whose named pivots the same code animates.
+# Mutants N01-N09, bosses B01/B03/B06 and the root summon are Blender GLBs (prototypes/character-lab/blender/build_<kind>.py) whose named pivots the same code animates.
 # Local axes before the facing turn: +X is forward, +Y up, +Z toward the viewer.
 
 var kind: String = ""
@@ -29,6 +29,8 @@ const HERON := preload("res://art/characters/heron.glb")
 const WOLF := preload("res://art/characters/wolf.glb")
 const CROC := preload("res://art/characters/croc.glb")
 const DEER := preload("res://art/characters/deer.glb")
+const SPROUT := preload("res://art/characters/sprout.glb")
+const MANTIS := preload("res://art/characters/mantis.glb")
 
 func build(creature: String, colors: Dictionary) -> Creature3D:
 	kind = creature
@@ -86,11 +88,19 @@ func _build_rat() -> void:
 func _load_figure(scene: PackedScene) -> void:
 	var figure := scene.instantiate()
 	body.add_child(figure)
+	# Palette variants (N24 off the wolf, N25 off the heron): "fur" recolours every surface sharing the
+	# Body mesh's material, "glow" recolours every emissive surface.
+	var hide_name := ""
+	var main := figure.find_child("Body") as MeshInstance3D
+	if main != null and main.get_active_material(0) != null: hide_name = main.get_active_material(0).resource_name
 	for node in figure.find_children("*", "MeshInstance3D", true, false):
 		for surface in node.mesh.get_surface_count():
 			var source := node.get_active_material(surface) as BaseMaterial3D
 			if source == null: continue
-			node.set_surface_override_material(surface, Stage3D.toon(source.albedo_color, source.emission_energy_multiplier if source.emission_enabled else 0.0))
+			var color := source.albedo_color
+			if source.emission_enabled and palette.has("glow"): color = Color(palette.glow)
+			elif source.resource_name == hide_name and palette.has("fur"): color = Color(palette.fur)
+			node.set_surface_override_material(surface, Stage3D.toon(color, source.emission_energy_multiplier if source.emission_enabled else 0.0))
 	head = figure.find_child("Head")
 	tail = figure.find_child("Tail")
 	for leg in ["Leg_FL", "Leg_FR", "Leg_HR", "Leg_HL"]:
@@ -117,6 +127,9 @@ func _build_croc() -> void:
 func _build_deer() -> void:
 	_load_figure(DEER)
 
+func _build_mantis() -> void:
+	_load_figure(MANTIS)
+
 func _build_bat() -> void:
 	# Lower than the old 0.9 so the raised wings stay inside the camera frame.
 	hover = 0.45
@@ -135,11 +148,7 @@ func _build_heron() -> void:
 	_load_figure(HERON)
 
 func _build_sprout() -> void:
-	_part(body, CylinderMesh.new(), Vector3(0, 0.3, 0), Vector3(0.1, 0.6, 0.1), Color("6b4a2a"))
-	for i in 3:
-		_part(body, PrismMesh.new(), Vector3(0.0, 0.4 + i * 0.12, 0.0), Vector3(0.3, 0.05, 0.12), Color("4caf50"), 0.0, Vector3(90, i * 60, 0))
-	_crystal(body, Vector3(0, 0.75, 0), 0.32, _color("glow", "7fe8ff"))
-	head = body
+	_load_figure(SPROUT)
 
 # ---------------------------------------------------------------- world props
 func _build_bed() -> void:

@@ -14,6 +14,20 @@ var blocked: bool = false
 var font: Font = preload("res://art/fonts/NotoSansThai.ttf")
 var walls: Array[Rect2] = []
 var floors: Texture2D = preload("res://art/environments/floors.png")
+var art: Texture2D
+var rims: Sprite2D
+var hub: bool = false
+var oblique: bool = false
+# Pipe mouths are painted at the same three wall spots in every room (prototypes/environments/build_backdrops.py).
+const LEFT_PIPE := Vector2(231,300)
+const CENTER_PIPE := Vector2(480,300)
+const RIGHT_PIPE := Vector2(729,300)
+const HUB_PIPES := {"R02":LEFT_PIPE,"P01":CENTER_PIPE,"P02":RIGHT_PIPE}
+# Wall valve wheels beside the left pipe and beside the centre (tram) or right pipe.
+const VALVES := [Vector2(328,300),Vector2(569,300),Vector2(810,300)]
+const HUB_FLOOR := 262.0
+# Logical room is 960x480; the screen shows it at this scale with the art running past both sides.
+const VIEW_SCALE := 520.0/480.0
 
 func configure(catalog: Dictionary, session: Dictionary, spawn: String = "entry") -> void:
 	content = catalog
@@ -21,7 +35,11 @@ func configure(catalog: Dictionary, session: Dictionary, spawn: String = "entry"
 	for candidate in content.rooms:
 		if candidate.id == progress.room_id:
 			room = candidate
-	walls = RoomLayout.walls(room.id)
+	hub = not room.get("pipes", []).is_empty()
+	var art_path := "res://art/environments/hub.png" if hub else "res://art/environments/room_%s.png" % room.id
+	oblique = ResourceLoader.exists(art_path)
+	walls = RoomLayout.oblique_walls(room.id) if oblique else RoomLayout.walls(room.id)
+	if oblique: art = load(art_path)
 	for rect in walls:
 		var body := StaticBody2D.new()
 		var collision := CollisionShape2D.new()
@@ -33,15 +51,33 @@ func configure(catalog: Dictionary, session: Dictionary, spawn: String = "entry"
 		add_child(body)
 	player = SteamPlayer.new()
 	player.class_id = progress.player.class_id
+	player.hero.set_equipment(progress.player.get("equipment",{}),content.items)
 	player.position = Vector2(850,240) if spawn == "right" else Vector2(110,240)
+	if hub: player.position = HUB_PIPES.R02 + Vector2(0,40) if spawn == "left" else Vector2(480,410)
+	elif oblique: player.position = (RIGHT_PIPE if spawn == "right" else LEFT_PIPE) + Vector2(0,40)
+	player.depth_scaled = oblique
 	add_child(player)
 	for exit in room.exits:
 		var right: bool = int(exit.to.substr(1)) > int(room.id.substr(1))
-		markers.append({"kind":"exit","id":exit.to,"label":"ไป " + _room_name(exit.to),"position":Vector2(900,240) if right else Vector2(60,240)})
+		var at := Vector2(900,240) if right else Vector2(60,240)
+		var pipe_at: Vector2 = HUB_PIPES.get(exit.to,at) if hub else (RIGHT_PIPE if right else LEFT_PIPE) if oblique else at
+		markers.append({"kind":"exit","id":exit.to,"label":"ท่อไป " + _room_name(exit.to),"name":("ท่อไป " if hub else "→ " if right else "← ") + _room_name(exit.to),"position":pipe_at})
+	var policy := WorldController.new(content)
+	for line in room.get("pipes", []):
+		var detail := policy.pipe(line.id)
+		var next := policy.pipe_next(detail, progress)
+		var stage: int = line.encounters.find(next) + 1
+		var text: String = line.name + " · " + line.line
+		if not policy.pipe_open(detail, progress):
+			text += " · ปิด: ผ่าน " + _encounter_name(line.requires) + " ก่อน"
+		else:
+			text += " · ระดับ %d/%d · ถัดไป: %s" % [stage, line.encounters.size(), _encounter_name(next)]
+		markers.append({"kind":"pipe","id":line.id,"label":text,"name":line.name,"position":HUB_PIPES.get(line.id,Vector2(480,300)),"encounter":next})
+	var npc_slots: Array[Vector2] = [Vector2(330,360),Vector2(630,360),Vector2(200,330),Vector2(760,330)]
 	for npc in content.story.npcs:
 		if room.id in npc.get("rooms", [npc.room]):
 			var count: int = markers.filter(func(m): return m.kind == "npc").size()
-			markers.append({"kind":"npc","id":npc.id,"label":npc.name,"position":Vector2(300 + count*145,140)})
+			markers.append({"kind":"npc","id":npc.id,"label":npc.name,"position":npc_slots[count%4] if hub else Vector2(300 + count*145,140)})
 	for quest in content.story.quests:
 		if quest.room == room.id:
 			markers.append({"kind":"objective","id":quest.object_id,"label":quest.object_name,"position":Vector2(420,100)})
@@ -58,13 +94,82 @@ func configure(catalog: Dictionary, session: Dictionary, spawn: String = "entry"
 			markers.append({"kind":"encounter","id":encounter.id,"label":encounter.name,"position":slots[index],"boss":not encounter.boss_id.is_empty(),"actor_id":encounter.enemies[0]})
 			index += 1
 	if room.id == "R01":
-		markers.append({"kind":"rest","id":"rest","label":"พักเต็มพลัง ฟรี","position":Vector2(450,350)})
-		markers.append({"kind":"training","id":"training","label":"โรงฝึกหม้อน้ำ","position":Vector2(640,145)})
+		markers.append({"kind":"rest","id":"rest","label":"พักเต็มพลัง ฟรี","position":Vector2(110,430) if hub else Vector2(450,350)})
+		markers.append({"kind":"training","id":"training","label":"โรงฝึกหม้อน้ำ","position":Vector2(860,430) if hub else Vector2(640,145)})
+	if oblique:
+		rims = Sprite2D.new()
+		rims.texture = load(art_path.replace(".png","_rims.png"))
+		rims.centered = false
+		rims.position = Vector2(-120,0)/VIEW_SCALE
+		rims.scale = Vector2.ONE*1280.0/rims.texture.get_width()/VIEW_SCALE
+		rims.z_index = 2
+		rims.visible = false
+		add_child(rims)
 	if room.id in ["R02","R05","R07","R09","R11"]:
 		markers.append({"kind":"shop","id":"shop","label":"ร้านอุปกรณ์","position":Vector2(620,405)})
 	if room.fast_travel and room.id != "R01":
-		markers.append({"kind":"fast_travel","id":"R01","label":"รถรางกลับโรงซ่อม","position":Vector2(200,400)})
+		markers.append({"kind":"fast_travel","id":"R01","label":"รถรางกลับโรงซ่อม","name":"รถรางกลับโรงซ่อม","position":CENTER_PIPE if oblique else Vector2(200,400)})
+	if oblique and not hub: _place_on_floor()
 	queue_redraw()
+
+# Oblique rooms reuse the content order above but put each marker on a painted floor slot or wall valve.
+func _place_on_floor() -> void:
+	var slots: Array = RoomLayout.oblique().slots
+	var next_slot := 0
+	var valve := 0
+	for marker in markers:
+		if marker.kind in ["exit","fast_travel","pipe"]: continue
+		if marker.kind == "environment":
+			marker.position = VALVES[valve] if valve == 0 or room.fast_travel else VALVES[2]
+			valve += 1
+			continue
+		while next_slot < slots.size() - 1 and walls.slice(4).any(func(rect): return _hides(rect,Vector2(slots[next_slot][0],slots[next_slot][1]))):
+			next_slot += 1
+		marker.position = Vector2(slots[next_slot][0],slots[next_slot][1])
+		next_slot += 1
+
+# Props are part of the backdrop, so nothing may stand on one or just behind it where it would draw on top.
+func _hides(rect: Rect2, slot: Vector2) -> bool:
+	return rect.grow(12).has_point(slot) or (absf(slot.x - rect.get_center().x) < 90 and slot.y < rect.position.y and rect.position.y - slot.y < 110)
+
+func _encounter_name(id: String) -> String:
+	for candidate in content.encounters:
+		if candidate.id == id:
+			return candidate.name
+	return id
+
+# Walk up the ramp, turn into the mouth and vanish behind the rim before the caller changes scene.
+func enter_pipe(marker: Dictionary) -> void:
+	blocked = true
+	var mouth: Vector2 = marker.position
+	var walk := create_tween()
+	player.hero.moving = true
+	player.hero.facing_left = mouth.x < player.position.x
+	walk.tween_property(player,"position",mouth+Vector2(0,8),clampf(player.position.distance_to(mouth)/220.0,0.12,0.5))
+	await walk.finished
+	if is_instance_valid(rims): rims.visible = true
+	player.hero.moving = false
+	player.hero.perform("enter_pipe")
+	var steam := CPUParticles2D.new()
+	steam.position = mouth+Vector2(0,-30)
+	steam.amount = 24
+	steam.one_shot = true
+	steam.explosiveness = 0.8
+	steam.lifetime = 0.7
+	steam.direction = Vector2.UP
+	steam.spread = 70
+	steam.initial_velocity_min = 40
+	steam.initial_velocity_max = 110
+	steam.scale_amount_min = 6
+	steam.scale_amount_max = 12
+	steam.color = Color(0.9,0.95,0.97,0.55)
+	steam.z_index = 3
+	add_child(steam)
+	steam.emitting = true
+	var inside := create_tween().set_parallel()
+	inside.tween_property(player,"position",mouth+Vector2(0,-18),0.45).set_ease(Tween.EASE_IN)
+	inside.tween_property(player,"modulate",Color(0.25,0.3,0.3,0.0),0.45).set_ease(Tween.EASE_IN)
+	await inside.finished
 
 func _room_name(id: String) -> String:
 	for candidate in content.rooms:
@@ -74,6 +179,7 @@ func _room_name(id: String) -> String:
 
 func refresh(session: Dictionary) -> void:
 	progress = session
+	if player != null: player.hero.set_equipment(progress.player.get("equipment",{}),content.items)
 	queue_redraw()
 
 func _physics_process(_delta: float) -> void:
@@ -103,8 +209,13 @@ func activate_nearest() -> void:
 		marker_selected.emit(nearby)
 
 func _draw() -> void:
+	var span := Rect2(Vector2(-120,0)/VIEW_SCALE,Vector2(1280,520)/VIEW_SCALE)
+	if oblique:
+		draw_texture_rect(art,span,false)
+		_draw_markers()
+		return
 	var palette: Dictionary = {"hub":"27383b","canal":"243d3b","rail":"363632","garden":"294137","coal":"333337","foundry":"43332b","archive":"333c41","reactor":"234444"}
-	draw_rect(Rect2(0,0,960,480), Color(palette.get(room.get("palette", "hub"), "27383b")))
+	draw_rect(span, Color(palette.get(room.get("palette", "hub"), "27383b")))
 	var floor_index: int = {"hub":0,"canal":1,"rail":2,"garden":3,"coal":4,"foundry":4,"archive":5,"reactor":5}.get(room.get("palette","hub"),0)
 	var cell := floors.get_size()/Vector2(2,3)
 	# Recorded panel boundaries follow the generated source, not an assumed equal grid.
@@ -112,7 +223,7 @@ func _draw() -> void:
 	var row_ends := [395.0,804.0,1254.0]
 	var row_index := floor_index/2
 	var source := Rect2(Vector2((floor_index%2)*cell.x+3,row_starts[row_index]+3),Vector2(cell.x-6,row_ends[row_index]-row_starts[row_index]-6))
-	draw_texture_rect_region(floors,Rect2(0,0,960,480),source,Color(0.58,0.62,0.60))
+	draw_texture_rect_region(floors,span,source,Color(0.58,0.62,0.60))
 	for rect in walls:
 		draw_rect(rect,Color("17282b"))
 		draw_rect(rect,Color("677361"),false,2)
@@ -122,6 +233,9 @@ func _draw() -> void:
 				draw_line(Vector2(rect.position.x+6,y),Vector2(rect.end.x-6,y),Color("8d7447"),2)
 		for x in range(int(rect.position.x)+8,int(rect.end.x),24):
 			draw_circle(Vector2(x,rect.position.y+6),2,Color("b18b55"))
+	_draw_markers()
+
+func _draw_markers() -> void:
 	for marker in markers:
 		var point: Vector2 = marker.position
 		var color := Color("c2a66c")
@@ -131,10 +245,28 @@ func _draw() -> void:
 				color = Color("678e78")
 		elif marker.kind in ["rest","objective"]:
 			color = Color("80b4a5")
+		if oblique and marker.kind in ["exit","pipe","fast_travel"]:
+			# The pipe mouth itself is painted; show a floor glow and a name plate above the rim.
+			if marker.id == nearby.get("id", ""):
+				draw_ellipse(point+Vector2(0,10),46,12,Color(1,0.85,0.5,0.35))
+			var plate := Rect2(point+Vector2(-120,-224),Vector2(240,26))
+			draw_rect(plate,Color(0.05,0.07,0.07,0.78))
+			draw_string(font,plate.position+Vector2(0,19),marker.get("name",marker.label),HORIZONTAL_ALIGNMENT_CENTER,240,16,Color("f1d9a0") if marker.id == nearby.get("id","") else Color("e6dfc9"))
+			continue
+		if oblique and marker.kind == "environment":
+			# The valve wheel is painted on the wall above; show its state lamp and a floor cue.
+			var on: bool = progress.world_flags.get("environment:"+marker.id,false)
+			draw_circle(point+Vector2(0,-64),7,Color("80e0a8") if on else Color("e0a050"))
+			if marker.id == nearby.get("id", ""): draw_ellipse(point+Vector2(0,10),34,10,Color(1,0.85,0.5,0.35))
+			draw_string(font,point+Vector2(-80,28),marker.label,HORIZONTAL_ALIGNMENT_CENTER,160,13,Color("e6dfc9"))
+			continue
+		# Oblique rooms are seen from further back, so floor markers draw larger around their own point.
+		var k := 1.5 if oblique else 1.0
+		draw_set_transform(point*(1.0-k),0,Vector2(k,k))
 		if marker.id == nearby.get("id", ""):
 			draw_arc(point,27,0,TAU,32,Color("f1d9a0"),2)
 		if marker.kind == "npc":
-			ActorArt.paint(self,marker.id,point+Vector2(0,18),54)
+			ActorArt.paint(self,marker.id,point+Vector2(0,18),64 if oblique else 54)
 		elif marker.kind == "encounter":
 			draw_ellipse(point+Vector2(0,15),21,7,color.darkened(0.5))
 			ActorArt.paint(self,marker.actor_id,point+Vector2(0,18),64 if marker.boss else 48,true,Color(0.65,0.75,0.65,0.65) if progress.get("first_clears",{}).has(marker.id) else Color.WHITE)
@@ -149,8 +281,11 @@ func _draw() -> void:
 				draw_line(point,point+Vector2.from_angle(angle)*15,brass,3)
 			draw_circle(point,5,brass)
 		elif marker.kind in ["exit","fast_travel"]:
-			draw_rect(Rect2(point-Vector2(17,25),Vector2(34,50)),color.darkened(0.6))
-			draw_rect(Rect2(point-Vector2(17,25),Vector2(34,50)),color,false,2)
+			# Rooms connect through pipe mouths instead of doors.
+			draw_circle(point+Vector2(0,-6),24,Color("0d1416"))
+			draw_arc(point+Vector2(0,-6),24,0,TAU,32,color,5)
+			for i in range(8):
+				draw_circle(point+Vector2(0,-6)+Vector2.from_angle(i*TAU/8)*24,2,color.lightened(0.3))
 		elif marker.kind == "training":
 			draw_line(point+Vector2(0,-18),point+Vector2(0,18),Color("9b7950"),7)
 			draw_line(point+Vector2(-20,-5),point+Vector2(20,-5),Color("9b7950"),6)
@@ -171,3 +306,4 @@ func _draw() -> void:
 			draw_arc(point,14,0,TAU,24,color,3)
 			draw_line(point-Vector2(6,0),point+Vector2(6,0),color,3)
 		draw_string(font, point+Vector2(-70,43),marker.label,HORIZONTAL_ALIGNMENT_CENTER,140,14,Color("e6dfc9"))
+		draw_set_transform(Vector2.ZERO)

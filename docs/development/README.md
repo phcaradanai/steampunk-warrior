@@ -24,3 +24,13 @@ Current stage: task6 slice,not full release. Full campaign/productionart/audio/s
 ## Full desktop build,2026-10-28
 
 Full game delivered atgame/builds/macos/SteampunkWarrior.zip;Windows export atgame/builds/windows/SteampunkWarrior-Windows.zip(runtime unverified). Final suite1136/1136;native controls15/15,playable12/12,actual release NewGame/save/relaunch/ending/postgame observed. Canonical evidence,decisions and platform limits:docs/release/desktop-checklist.md. Existing historical slice notes above are superseded by that acceptance report.
+
+## Hub pipes and combat stage slice, 2026-11-03
+
+First slice of the reference-feel pass from `docs/research/2026-10-28-visual-feel-rea.md`: R01 is now an oblique hub with three painted pipe mouths (R02 market, P01 drain line, P02 rail line). Lines live in `rooms.json` R01 `pipes`; each line's progress is derived from `first_clears`, P02 opens after E03, and a cleared line replays its last normal fight. Walking into a pipe plays the entry (rim overlay, steam, fade) before the scene changes. Combat is a shared-ground stage over an arena backdrop: melee moves dash to the target, numbers/sound/bars land on contact, ranged skills fire a bolt. Every encounter has two `drops` candidates; the first clear awards one, shown as loot on the stage and in the result modal.
+
+Backdrops are rendered by `prototypes/environments/build_backdrops.py` (headless Blender) into `game/art/environments/{hub,hub_rims,arena_canal,arena_rail}.png`. Slice captures: `CAPTURE_DIR=<dir> Godot --path game --script res://tests/capture_slice.gd`.
+
+Follow-up the same day: every room R02–R12 is now an oblique painted room (`room_Rxx.png` + `_rims.png`). Exits sit at the left/right pipe mouths, fast travel uses the centre tram pipe, dead ends show a bolted hatch, and valves are the painted wheels by the pipes. Marker slots and the two prop obstacles per room come from `game/data/room_props.json`, which both `RoomLayout.oblique_walls` and the Blender builder read. Arenas exist per palette (canal, rail, garden, coal, foundry, archive, reactor); hub fights and training use rail. `capture_rooms.gd` captures every room and one enemy turn per arena theme.
+
+Still open: props are baked into the backdrop, so the hero walking behind a prop draws over it (markers avoid those spots); enemies remain 2D art beside the 3D hero; R02 market has no shop-stall interaction beyond the existing shop marker.

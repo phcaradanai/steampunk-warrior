@@ -56,7 +56,9 @@ func _initialize() -> void:
 		var interact = scene.find_child("Interact",true,false)
 		check(interact != null and not interact.disabled,"nearby exit enables real interaction control")
 		interact.pressed.emit()
-		await process_frame
+		for _i in range(120):
+			if scene.session.state.room_id == room_id and scene.world != null and scene.world.room.id == room_id: break
+			await process_frame
 		check(scene.session.state.room_id == room_id,"actual exit travels to " + room_id)
 	for marker in scene.world.markers:
 		if marker.kind == "encounter" and marker.id == "E01":

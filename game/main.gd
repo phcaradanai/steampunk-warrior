@@ -133,42 +133,63 @@ func _new_game(class_id: String) -> void:
 func _show_world() -> void:
 	_clear_screen("world")
 	var room: Dictionary = catalog.get_entry("rooms",session.state.room_id)
-	var heading := UIBuilder.label(screen,room.name,32,Color("e7c588"))
-	heading.position = Vector2(24,18)
-	heading.size = Vector2(710,50)
-	var toolbar := HBoxContainer.new()
-	toolbar.position = Vector2(780,24)
-	toolbar.size = Vector2(460,44)
-	screen.add_child(toolbar)
-	UIBuilder.button(toolbar,"บันทึก",_show_save_slots,"OpenSave")
-	UIBuilder.button(toolbar,"ตั้งค่า",_show_settings,"OpenSettings")
-	UIBuilder.button(toolbar,"บทคุย",_show_backlog,"OpenBacklog")
-	status_line = UIBuilder.label(screen,"นครเวสเปอร์ · สำรวจเครื่องจักร คุยกับผู้คน และเลือกการต่อสู้",16,Color("8fb4a6"))
-	status_line.position = Vector2(26,80)
-	status_line.size = Vector2(1210,45)
-	var side := VBoxContainer.new()
-	side.position = Vector2(24,150)
-	side.size = Vector2(230,480)
-	side.add_theme_constant_override("separation",10)
-	screen.add_child(side)
-	hud = UIBuilder.label(side,"",18)
-	UIBuilder.label(side,room.purpose,16,Color("a7b6a5"))
-	UIBuilder.button(side,"กระเป๋าและอุปกรณ์",_show_inventory,"OpenInventory")
-	UIBuilder.button(side,"สกิลและค่าสถานะ",_show_skills)
-	UIBuilder.button(side,"สมุดภารกิจ",_show_quests)
+	# Scene fills the top ~72% like the reference; stats and commands live in one bar underneath.
 	world = WorldView.new()
-	world.position = Vector2(280,150)
+	world.position = Vector2(120,0)
+	world.scale = Vector2.ONE*WorldView.VIEW_SCALE
 	world.configure(catalog.data,session.snapshot(),session.state.checkpoint.get("spawn_id","entry"))
 	world.marker_selected.connect(_interact)
 	world.nearby_changed.connect(_nearby_changed)
 	screen.add_child(world)
-	interact_button = UIBuilder.button(screen,"เข้าใกล้สิ่งที่ต้องการ แล้วกด E หรือคลิกที่นี่",_activate,"Interact")
-	interact_button.position = Vector2(280,650)
-	interact_button.size = Vector2(960,48)
+	var banner := ColorRect.new()
+	banner.color = Color(0.03,0.05,0.05,0.72)
+	banner.position = Vector2(0,0)
+	banner.size = Vector2(1280,70)
+	screen.add_child(banner)
+	var heading := UIBuilder.label(screen,room.name,28,Color("e7c588"))
+	heading.position = Vector2(24,4)
+	heading.size = Vector2(700,40)
+	status_line = UIBuilder.label(screen,"นครเวสเปอร์ · เดินเข้าใกล้ปากท่อแล้วกด E เพื่อเข้าสาย",15,Color("8fb4a6"))
+	status_line.position = Vector2(26,40)
+	status_line.size = Vector2(760,28)
+	var toolbar := HBoxContainer.new()
+	toolbar.position = Vector2(900,14)
+	toolbar.size = Vector2(360,44)
+	screen.add_child(toolbar)
+	UIBuilder.button(toolbar,"บันทึก",_show_save_slots,"OpenSave")
+	UIBuilder.button(toolbar,"ตั้งค่า",_show_settings,"OpenSettings")
+	UIBuilder.button(toolbar,"บทคุย",_show_backlog,"OpenBacklog")
+	var bar := PanelContainer.new()
+	bar.position = Vector2(0,520)
+	bar.size = Vector2(1280,200)
+	var frame := StyleBoxFlat.new()
+	frame.bg_color = Color("15201f")
+	frame.border_color = Color("8d7447")
+	frame.border_width_top = 4
+	frame.set_corner_radius_all(0)
+	bar.add_theme_stylebox_override("panel",frame)
+	screen.add_child(bar)
+	hud = UIBuilder.label(screen,"",17)
+	hud.position = Vector2(24,532)
+	hud.size = Vector2(300,180)
+	var middle := VBoxContainer.new()
+	middle.position = Vector2(340,534)
+	middle.size = Vector2(640,170)
+	middle.add_theme_constant_override("separation",8)
+	screen.add_child(middle)
+	interact_button = UIBuilder.button(middle,"เข้าใกล้สิ่งที่ต้องการ แล้วกด E หรือคลิกที่นี่",_activate,"Interact")
+	interact_button.custom_minimum_size = Vector2(640,52)
 	interact_button.disabled = true
-	control_hint = UIBuilder.label(screen,_control_hint_text(),14,Color("8fa497"))
-	control_hint.position = Vector2(24,650)
-	control_hint.size = Vector2(230,60)
+	UIBuilder.label(middle,room.purpose,15,Color("a7b6a5"))
+	control_hint = UIBuilder.label(middle,_control_hint_text(),14,Color("8fa497"))
+	var side := VBoxContainer.new()
+	side.position = Vector2(1000,534)
+	side.size = Vector2(256,170)
+	side.add_theme_constant_override("separation",8)
+	screen.add_child(side)
+	UIBuilder.button(side,"กระเป๋าและอุปกรณ์",_show_inventory,"OpenInventory")
+	UIBuilder.button(side,"สกิลและค่าสถานะ",_show_skills)
+	UIBuilder.button(side,"สมุดภารกิจ",_show_quests)
 	_refresh_hud()
 	_check_pending_ending.call_deferred()
 
@@ -214,11 +235,28 @@ func _commit(kind: String, payload: Dictionary = {}) -> Dictionary:
 
 func _interact(marker: Dictionary) -> void:
 	match marker.kind:
+		"pipe":
+			var line := world_policy.pipe(marker.id)
+			var next := world_policy.pipe_next(line,session.state)
+			var allowed := world_policy.can_start_encounter(next,session.state,marker.id)
+			if not allowed.ok:
+				_message(allowed.reason)
+				return
+			var view := world
+			await view.enter_pipe(marker)
+			if world != view: return
+			_start_encounter(next,marker.id,marker.position+Vector2(0,40))
 		"exit", "fast_travel":
 			if not world_policy.can_travel(session.state.room_id,marker.id,session.state):
 				_message("ทางยังไม่เปิด ผ่านบอสของเขตก่อนหน้าก่อน")
 				return
 			var spawn := "right" if int(marker.id.substr(1)) < int(session.state.room_id.substr(1)) and marker.id != "R01" else "entry"
+			# Returning to the hub lands in front of the pipe the player came through.
+			if marker.id == "R01" and session.state.room_id == "R02": spawn = "left"
+			elif marker.kind == "fast_travel": spawn = "entry"
+			var view := world
+			await view.enter_pipe(marker)
+			if world != view: return
 			world_policy.enter_room(marker.id,spawn)
 			_show_world()
 			_autosave()
@@ -472,13 +510,14 @@ func _confirm_encounter(id: String) -> void:
 			UIBuilder.label(modal_body,"Cure ยังไม่เปิด ต้องช่วยตัวอย่างที่ยังมีชีวิตและส่งคำสั่งต้นฉบับ หากเลือกทำลายรังแล้วจะปิดในเซฟนี้",18)
 	UIBuilder.button(modal_body,"เริ่มต่อสู้",_start_encounter.bind(id),"ConfirmEncounter")
 
-func _start_encounter(id: String) -> void:
+func _start_encounter(id: String, pipe_id: String = "", resume_at: Vector2 = Vector2.INF) -> void:
 	combat = CombatController.new(catalog.data)
-	var result := combat.start(id,session.snapshot(),randi())
+	var result := combat.start(id,session.snapshot(),randi(),pipe_id)
 	if not result.ok:
 		_message(result.reason)
+		if is_instance_valid(world): _show_world()
 		return
-	return_position = world.player.position
+	return_position = world.player.position if resume_at == Vector2.INF else resume_at
 	_autosave()
 	_show_combat()
 
@@ -523,6 +562,16 @@ func _finish_combat() -> void:
 	for event in result.events:
 		if event.type == "battle_won":
 			UIBuilder.label(modal_body,"XP +%d · เงิน +%d" % [event.payload.xp,event.payload.gold],24)
+			var drop := catalog.get_entry("items",event.payload.get("drop",""))
+			if not drop.is_empty():
+				var row := HBoxContainer.new()
+				modal_body.add_child(row)
+				var icon := TextureRect.new()
+				icon.texture = UIBuilder.item_icon(drop)
+				icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+				icon.custom_minimum_size = Vector2(40,40)
+				row.add_child(icon)
+				UIBuilder.label(row,"ของตก: " + drop.name,22,Color("f1d9a0")).autowrap_mode = TextServer.AUTOWRAP_OFF
 		elif event.type == "training_settled":
 			UIBuilder.label(modal_body,"เก็บเป้าหมายสำเร็จแล้ว · XP +%d" % event.payload.xp,24)
 	if not won:

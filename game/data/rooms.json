@@ -12,7 +12,40 @@
     ],
     "fast_travel": true,
     "palette": "hub",
-    "hazard": ""
+    "hazard": "",
+    "pipes": [
+      {
+        "id": "P01",
+        "name": "ท่อระบายน้ำ",
+        "line": "สายสัตว์กลายพันธุ์",
+        "theme": "canal",
+        "requires": "",
+        "encounters": [
+          "E01",
+          "E02",
+          "E03",
+          "E04",
+          "E05",
+          "E06"
+        ]
+      },
+      {
+        "id": "P02",
+        "name": "ท่อขนส่งถ่านหิน",
+        "line": "สายขบวนเหล็ก",
+        "theme": "rail",
+        "requires": "E03",
+        "encounters": [
+          "E07",
+          "E08",
+          "E09",
+          "E10",
+          "E11",
+          "E12",
+          "E13"
+        ]
+      }
+    ]
   },
   {
     "id": "R02",

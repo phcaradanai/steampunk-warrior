@@ -53,6 +53,9 @@ func prepare(destination: String) -> bool:
 		for potion in ["life","focus"]:
 			while session.state.player.potions[potion] < (15 if potion == "life" else 10) and session.state.player.currency >= 20:
 				if not commit("inventory",{"request":{"kind":"potion_buy","potion":potion}}).ok: return false
+	# Battle drops that were not equipped above become sale income, keeping the bag open for purchases.
+	while not session.state.player.items.is_empty():
+		if not commit("inventory",{"request":{"kind":"sell","index":0}}).ok: return false
 	if not travel("R01"): return false
 	if not commit("rest").ok: return false
 	return travel(destination)

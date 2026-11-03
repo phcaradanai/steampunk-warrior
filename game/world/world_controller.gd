@@ -56,12 +56,39 @@ func enter_room(room_id: String, spawn_id: String) -> void:
 	next.checkpoint = {"room_id":room_id,"spawn_id":spawn_id}
 	session.state = next
 
-func can_start_encounter(encounter_id: String, progress: Dictionary) -> Dictionary:
+func pipe(pipe_id: String) -> Dictionary:
+	for room in content.get("rooms", []):
+		for candidate in room.get("pipes", []):
+			if candidate.id == pipe_id:
+				return candidate.merged({"room":room.id})
+	return {}
+
+# A pipe line remembers its own progress through first_clears; a cleared line farms its last normal fight.
+func pipe_next(line: Dictionary, progress: Dictionary) -> String:
+	var farm := ""
+	for id in line.get("encounters", []):
+		if not progress.get("first_clears", {}).has(id):
+			return id
+		if _entry("encounters", id).boss_id.is_empty():
+			farm = id
+	return farm
+
+func pipe_open(line: Dictionary, progress: Dictionary) -> bool:
+	return line.get("requires", "").is_empty() or progress.get("first_clears", {}).has(line.requires)
+
+func can_start_encounter(encounter_id: String, progress: Dictionary, pipe_id: String = "") -> Dictionary:
 	var encounter := _entry("encounters", encounter_id)
+	var line := pipe(pipe_id)
 	var reason := ""
 	if encounter.is_empty():
 		reason = "ไม่รู้จักการต่อสู้"
-	elif progress.get("room_id", "") != encounter.room:
+	elif not pipe_id.is_empty() and (line.is_empty() or progress.get("room_id", "") != line.room):
+		reason = "ต้องยืนที่ปากท่อนั้นก่อน"
+	elif not pipe_id.is_empty() and not pipe_open(line, progress):
+		reason = "ท่อยังปิด ผ่าน " + _entry("encounters", line.requires).get("name", line.requires) + " ก่อน"
+	elif not pipe_id.is_empty() and pipe_next(line, progress) != encounter_id:
+		reason = "ท่อนี้นำไปสู่คู่ต่อสู้ลำดับอื่น"
+	elif pipe_id.is_empty() and progress.get("room_id", "") != encounter.room:
 		reason = "ต้องไปยังพื้นที่นั้นก่อน"
 	elif progress.get("player", {}).get("energy", 0) <= 0:
 		reason = "พลังงานหมด กลับโรงซ่อมพักฟรีได้"
@@ -69,7 +96,7 @@ func can_start_encounter(encounter_id: String, progress: Dictionary) -> Dictiona
 		reason = "พักฟื้นก่อนเริ่มต่อสู้"
 	elif not encounter.boss_id.is_empty() and progress.get("first_clears", {}).has(encounter.id) and not progress.get("world_flags", {}).get("postgame", false):
 		reason = "บอสนี้ผ่านแล้ว เล่นซ้ำหลังจบเรื่อง"
-	elif not encounter.requires.is_empty() and not progress.get("first_clears", {}).has(encounter.requires):
+	elif pipe_id.is_empty() and not encounter.requires.is_empty() and not progress.get("first_clears", {}).has(encounter.requires):
 		var previous := _entry("encounters", encounter.requires)
 		if previous.is_empty() or previous.get("optional_bypass", "").is_empty() or not progress.get("world_flags", {}).get(previous.optional_bypass, false):
 			reason = "ผ่านเหตุการณ์ก่อนหน้าหรือหาทางเลือกก่อน"

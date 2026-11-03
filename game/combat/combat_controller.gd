@@ -7,6 +7,8 @@ var encounter: Dictionary = {}
 var learned: Dictionary = {}
 var completed: Array[String] = []
 var training_id: String = ""
+var pipe_id: String = ""
+var first_clear: bool = false
 var busy: bool = false
 var run_id: String = ""
 var sequence: int = 0
@@ -28,7 +30,7 @@ func _result(ok: bool, reason: String = "", events: Array = []) -> Dictionary:
 func _hero(player: Dictionary) -> Dictionary:
 	var progression := Progression.new(content)
 	var hero := progression.derive(player, content)
-	hero.merge({"id":"hero","name":"คุณ","side":"player","class_id":player.class_id,"hp":player.current_hp,"fp":player.current_fp,"pressure":0,"statuses":{},"cooldowns":{},"potions":player.potions.duplicate(true)}, true)
+	hero.merge({"id":"hero","name":"คุณ","side":"player","class_id":player.class_id,"hp":player.current_hp,"fp":player.current_fp,"pressure":0,"statuses":{},"cooldowns":{},"potions":player.potions.duplicate(true),"equipment":player.get("equipment",{}).duplicate()}, true)
 	return hero
 
 func _begin(actors: Array, progress: Dictionary, seed_value: int) -> void:
@@ -46,13 +48,15 @@ func _begin(actors: Array, progress: Dictionary, seed_value: int) -> void:
 		if actor.side == "enemy":
 			actor["intent"] = _plan_intent(actor)
 
-func start(encounter_id: String, progress: Dictionary, seed_value: int = 1) -> Dictionary:
+func start(encounter_id: String, progress: Dictionary, seed_value: int = 1, pipe_id_value: String = "") -> Dictionary:
 	var policy := WorldController.new(content)
-	var allowed := policy.can_start_encounter(encounter_id, progress)
+	var allowed := policy.can_start_encounter(encounter_id, progress, pipe_id_value)
 	if not allowed.ok:
 		return _result(false, allowed.reason)
 	encounter = _entry("encounters", encounter_id)
 	training_id = ""
+	pipe_id = pipe_id_value
+	first_clear = not progress.get("first_clears", {}).has(encounter_id)
 	var actors: Array = [_hero(progress.player)]
 	for i in range(encounter.enemies.size()):
 		var definition := _entry("enemies", encounter.enemies[i])
@@ -80,6 +84,7 @@ func start_training(tier_id: String, progress: Dictionary, seed_value: int = 1) 
 	if not allowed.ok:
 		return _result(false, allowed.reason)
 	training_id = tier_id
+	pipe_id = ""
 	encounter = {}
 	var hero := _hero(progress.player)
 	hero.max_hp = 5000

@@ -33,6 +33,11 @@ func _entry(kind: String, id: String) -> Dictionary:
 func _reject(reason: String) -> Dictionary:
 	return {"ok":false,"reason":reason,"state":snapshot(),"events":[]}
 
+# Every victory drops one candidate, picked from the unique result id so a replayed request cannot reroll it.
+static func pick_drop(encounter: Dictionary, result_id: String) -> String:
+	var drops: Array = encounter.get("drops", [])
+	return drops[absi(hash(result_id)) % drops.size()] if not drops.is_empty() else ""
+
 func commit_result(kind: String, payload: Dictionary) -> Dictionary:
 	var id: String = str(payload.get("id", ""))
 	if state.is_empty() or id.is_empty() or id in recent_commits or state.get("claimed_rewards", {}).has(id):
@@ -55,6 +60,10 @@ func commit_result(kind: String, payload: Dictionary) -> Dictionary:
 				for item in content.get("items", []):
 					if item.source == "boss:" + encounter.boss_id:
 						gear.append(item.id)
+		# Drops come once per stage like the reference's one-way gateway counter; replays farm gold and XP only.
+		var drop := pick_drop(encounter, id) if first else ""
+		if not drop.is_empty():
+			gear.append(drop)
 		var reward := inventory.transact(next.player, {"kind":"reward","items":gear}, content)
 		if not reward.ok:
 			return _reject(reward.reason)
@@ -72,7 +81,7 @@ func commit_result(kind: String, payload: Dictionary) -> Dictionary:
 		if payload.has("potions"):
 			next.player.potions = payload.potions.duplicate(true)
 		claim_reward = true
-		events.append({"id":id,"type":"battle_won","payload":{"encounter_id":encounter.id,"xp":xp,"gold":encounter.gold,"first":first}})
+		events.append({"id":id,"type":"battle_won","payload":{"encounter_id":encounter.id,"xp":xp,"gold":encounter.gold,"first":first,"drop":drop}})
 	elif kind == "battle_lost" or kind == "retreat":
 		var stats := progression.derive(next.player, content)
 		next.player.current_hp = stats.max_hp

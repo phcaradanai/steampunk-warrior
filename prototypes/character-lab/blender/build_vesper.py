@@ -713,15 +713,50 @@ def build_vesper_meshes(arm_obj, char_col, equip_col):
     w1.add_cylinder(0.046, 0.26, wpos("WeaponMount", 0.02, 0.12, 0.72), rot_deg=(0, 90, 0), mat="Mat_Copper", bone="WeaponMount")
     w1.build_object(arm_obj, equip_col)
 
+    # Weapon_2 = gun family (roster gear 2): grip at the hand, boiler tank under a long barrel, glowing muzzle coil.
     w2 = MeshPartBuilder("Weapon_2")
-    w2.add_cylinder(0.028, 0.19, wpos("WeaponMount", 0, 0, -0.03), mat="Mat_LeatherDark", bone="WeaponMount")
-    w2.add_box((0.15, 0.05, 0.04), wpos("WeaponMount", 0.02, 0, 0.07), mat="Mat_Brass", bone="WeaponMount", bevel=0.008)
-    w2.add_box((0.038, 0.05, 0.19), wpos("WeaponMount", 0.088, 0, -0.02), mat="Mat_Brass", bone="WeaponMount", bevel=0.008)
-    w2.add_cylinder(0.068, 0.045, wpos("WeaponMount", 0.01, 0, 0.08), rot_deg=(90, 0, 0), mat="Mat_Copper", bone="WeaponMount")
-    w2.add_box((0.092, 0.024, 0.70), wpos("WeaponMount", -0.01, 0, 0.44), rot_deg=(0, -4, 0), mat="Mat_Steel", bone="WeaponMount", bevel=0.005, taper_top_x=0.68)
-    w2.add_box((0.065, 0.020, 0.21), wpos("WeaponMount", -0.04, 0, 0.86), rot_deg=(0, -12, 0), mat="Mat_Steel", bone="WeaponMount", bevel=0.004, taper_top_x=0.08)
-    w2.add_box((0.022, 0.028, 0.62), wpos("WeaponMount", 0.02, 0, 0.42), rot_deg=(0, -4, 0), mat="Mat_CyanGlow", bone="WeaponMount", bevel=0.002)
+    w2.add_box((0.07, 0.05, 0.20), wpos("WeaponMount", -0.01, 0, -0.03), rot_deg=(0, 10, 0), mat="Mat_LeatherDark", bone="WeaponMount", bevel=0.010)
+    w2.add_box((0.13, 0.075, 0.30), wpos("WeaponMount", 0.02, 0, 0.19), mat="Mat_Brass", bone="WeaponMount", bevel=0.012)
+    w2.add_box((0.05, 0.05, 0.10), wpos("WeaponMount", 0.015, 0, 0.065), mat="Mat_DarkIron", bone="WeaponMount", bevel=0.006)
+    w2.add_cylinder(0.034, 0.58, wpos("WeaponMount", 0.04, 0, 0.62), mat="Mat_Steel", bone="WeaponMount", segments=12)
+    w2.add_cylinder(0.052, 0.07, wpos("WeaponMount", 0.04, 0, 0.90), mat="Mat_Brass", bone="WeaponMount", segments=12)
+    w2.add_cylinder(0.044, 0.03, wpos("WeaponMount", 0.04, 0, 0.945), mat="Mat_CyanGlow", bone="WeaponMount", segments=12)
+    w2.add_cylinder(0.062, 0.34, wpos("WeaponMount", -0.06, 0, 0.50), mat="Mat_Copper", bone="WeaponMount", segments=12)
+    w2.add_cylinder(0.068, 0.04, wpos("WeaponMount", -0.06, 0, 0.35), mat="Mat_Brass", bone="WeaponMount", segments=12)
+    w2.add_cylinder(0.068, 0.04, wpos("WeaponMount", -0.06, 0, 0.65), mat="Mat_Brass", bone="WeaponMount", segments=12)
+    w2.add_box((0.03, 0.03, 0.05), wpos("WeaponMount", 0.09, 0, 0.82), mat="Mat_DarkIron", bone="WeaponMount", bevel=0.004)
+    w2.add_box((0.022, 0.030, 0.44), wpos("WeaponMount", 0.07, 0, 0.58), mat="Mat_CyanGlow", bone="WeaponMount", bevel=0.002)
     w2.build_object(arm_obj, equip_col)
+
+    # Weapon_4 = polearm family (gear 4; 3 stays "none" for NPCs): long shaft, tapered spear head, brass collar and coil.
+    w4 = MeshPartBuilder("Weapon_4")
+    w4.add_cylinder(0.030, 1.30, wpos("WeaponMount", 0, 0, 0.55), mat="Mat_LeatherDark", bone="WeaponMount")
+    w4.add_cylinder(0.044, 0.07, wpos("WeaponMount", 0, 0, -0.10), mat="Mat_Brass", bone="WeaponMount")
+    w4.add_cylinder(0.040, 0.10, wpos("WeaponMount", 0, 0, 0.14), mat="Mat_Brass", bone="WeaponMount")
+    for i in range(4):
+        w4.add_cylinder(0.046, 0.022, wpos("WeaponMount", 0, 0, 0.78 + i * 0.045), mat="Mat_Copper", bone="WeaponMount")
+    w4.add_cylinder(0.052, 0.07, wpos("WeaponMount", 0, 0, 1.17), mat="Mat_Brass", bone="WeaponMount")
+    w4.add_box((0.15, 0.030, 0.36), wpos("WeaponMount", 0, 0, 1.38), mat="Mat_Steel", bone="WeaponMount", bevel=0.006, taper_top_x=0.06)
+    w4.add_box((0.034, 0.036, 0.30), wpos("WeaponMount", 0, 0, 1.36), mat="Mat_CyanGlow", bone="WeaponMount", bevel=0.002)
+    for side in (-1, 1):
+        w4.add_box((0.05, 0.026, 0.13), wpos("WeaponMount", 0.08 * side, 0, 1.22), rot_deg=(0, -28 * side, 0), mat="Mat_Steel", bone="WeaponMount", bevel=0.004, taper_top_x=0.3)
+    w4.build_object(arm_obj, equip_col)
+
+    # Weapon_5 = staff family (gear 5): shaft with a brass cage holding a glowing core, copper coil below.
+    w5 = MeshPartBuilder("Weapon_5")
+    w5.add_cylinder(0.028, 1.12, wpos("WeaponMount", 0, 0, 0.46), mat="Mat_Wood", bone="WeaponMount")
+    w5.add_cylinder(0.042, 0.07, wpos("WeaponMount", 0, 0, -0.10), mat="Mat_Brass", bone="WeaponMount")
+    w5.add_cylinder(0.038, 0.10, wpos("WeaponMount", 0, 0, 0.14), mat="Mat_Brass", bone="WeaponMount")
+    for i in range(5):
+        w5.add_cylinder(0.042, 0.02, wpos("WeaponMount", 0, 0, 0.70 + i * 0.05), mat="Mat_Copper", bone="WeaponMount")
+    w5.add_cylinder(0.060, 0.06, wpos("WeaponMount", 0, 0, 1.03), mat="Mat_Brass", bone="WeaponMount")
+    w5.add_sphere(0.105, (1, 1, 1), wpos("WeaponMount", 0, 0, 1.18), mat="Mat_CyanGlow", bone="WeaponMount")
+    for ang in (0, 90, 180, 270):
+        r = math.radians(ang)
+        w5.add_box((0.026, 0.026, 0.26), wpos("WeaponMount", math.cos(r) * 0.115, math.sin(r) * 0.115, 1.18), rot_deg=(0, 0, 0), mat="Mat_Brass", bone="WeaponMount", bevel=0.004)
+    w5.add_cylinder(0.12, 0.022, wpos("WeaponMount", 0, 0, 1.18), rot_deg=(0, 0, 0), mat="Mat_Brass", bone="WeaponMount", segments=16, r_top=0.12)
+    w5.add_sphere(0.036, (1, 1, 1), wpos("WeaponMount", 0, 0, 1.34), mat="Mat_Brass", bone="WeaponMount")
+    w5.build_object(arm_obj, equip_col)
 
     # --------------------------------------------------------------------------
     # 5. SD HEADGEARS (Headgear_0, Headgear_1, Headgear_2)
@@ -814,6 +849,19 @@ def build_vesper_meshes(arm_obj, char_col, equip_col):
     sh2.add_cylinder(0.11, 0.064, wpos("ShieldMount", 0.02, 0.072, -0.02), rot_deg=(90, 0, 0), mat="Mat_Steel", bone="ShieldMount", segments=10)
     sh2.add_sphere(0.068, (1.0, 0.65, 1.0), wpos("ShieldMount", 0.02, 0.09, -0.02), mat="Mat_CyanGlow", bone="ShieldMount")
     sh2.build_object(arm_obj, equip_col)
+    # Shield_3 = tower style: tall full-cover slab with a viewport slit and rivet studs.
+    sh3 = MeshPartBuilder("Shield_3")
+    sh3.add_box((0.40, 0.06, 0.86), wpos("ShieldMount", 0.02, 0.06, -0.06), mat="Mat_SteelDark", bone="ShieldMount", bevel=0.018, taper_top_x=0.86)
+    sh3.add_box((0.43, 0.07, 0.06), wpos("ShieldMount", 0.02, 0.065, 0.37), mat="Mat_Brass", bone="ShieldMount", bevel=0.008)
+    sh3.add_box((0.43, 0.07, 0.06), wpos("ShieldMount", 0.02, 0.065, -0.49), mat="Mat_Brass", bone="ShieldMount", bevel=0.008)
+    sh3.add_box((0.05, 0.07, 0.86), wpos("ShieldMount", 0.215, 0.065, -0.06), mat="Mat_Brass", bone="ShieldMount", bevel=0.008)
+    sh3.add_box((0.05, 0.07, 0.86), wpos("ShieldMount", -0.175, 0.065, -0.06), mat="Mat_Brass", bone="ShieldMount", bevel=0.008)
+    sh3.add_box((0.22, 0.075, 0.045), wpos("ShieldMount", 0.02, 0.07, 0.24), mat="Mat_CyanGlow", bone="ShieldMount", bevel=0.004)
+    sh3.add_cylinder(0.085, 0.075, wpos("ShieldMount", 0.02, 0.075, -0.18), rot_deg=(90, 0, 0), mat="Mat_Copper", bone="ShieldMount")
+    for zz in (0.0, -0.36):
+        for xx in (-0.11, 0.15):
+            sh3.add_cylinder(0.022, 0.08, wpos("ShieldMount", xx, 0.075, zz), rot_deg=(90, 0, 0), mat="Mat_Brass", bone="ShieldMount", segments=8)
+    sh3.build_object(arm_obj, equip_col)
 
 
 # ==============================================================================
@@ -881,6 +929,46 @@ def ik_2bone_angles(root_xy, target_xy, seg_len, bend_sign):
     return ang1, ang2
 
 
+# Keyframed poses for the skill-type clips: t -> (hand dx, dy from shoulder anchor, weapon angle, wrist,
+# off-hand dx, dy from the far shoulder, torso lean, torso twist, crouch (m), recoil kick, hip lift (m)).
+REST_POSE = (22.0, 31.0, 0.72, 0.0, -28.0, 30.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+CLIP_KEYS = {
+    # Raise, hold the aim, fire at 0.46 (muzzle flips up, torso kicks back), settle, lower.
+    "Shoot": [(0.0, REST_POSE), (0.22, (42.0, 4.0, 1.55, -0.12, 22.0, 8.0, 6.0, 0.10, 0.02, 0.0, 0.0)),
+              (0.42, (42.0, 4.0, 1.55, -0.12, 22.0, 8.0, 6.0, 0.10, 0.02, 0.0, 0.0)),
+              (0.46, (36.0, 0.0, 1.85, -0.20, 18.0, 8.0, 2.0, 0.04, 0.02, 0.6, 0.0)),
+              (0.60, (42.0, 5.0, 1.60, -0.12, 22.0, 8.0, 5.0, 0.10, 0.02, 0.1, 0.0)),
+              (0.78, (40.0, 6.0, 1.55, -0.10, 22.0, 8.0, 4.0, 0.08, 0.02, 0.0, 0.0)), (1.0, REST_POSE)],
+    # Gather at the chest, charge both hands overhead, sweep forward to release at 0.58.
+    "Cast": [(0.0, REST_POSE), (0.18, (14.0, 6.0, 0.40, 0.10, 14.0, 6.0, -5.0, -0.08, 0.03, 0.0, 0.0)),
+             (0.50, (18.0, -30.0, 0.30, 0.20, 10.0, -28.0, -9.0, -0.18, 0.04, 0.0, 0.0)),
+             (0.58, (44.0, 0.0, 1.45, -0.20, 30.0, 2.0, 14.0, 0.30, 0.03, 0.15, 0.0)),
+             (0.72, (44.0, 4.0, 1.40, -0.20, 30.0, 6.0, 10.0, 0.25, 0.03, 0.0, 0.0)), (1.0, REST_POSE)],
+    # Hunch over, press the injector against the chest at 0.42, then open the arms and stand tall in a glow.
+    "Heal": [(0.0, REST_POSE), (0.30, (-9.0, 10.0, 0.10, 0.50, 6.0, 12.0, 8.0, -0.10, 0.03, 0.0, 0.0)),
+             (0.46, (-9.0, 10.0, 0.10, 0.50, 6.0, 12.0, 9.0, -0.10, 0.03, 0.0, 0.0)),
+             (0.64, (26.0, -16.0, 0.50, 0.0, -22.0, -14.0, -7.0, 0.0, 0.0, 0.0, 0.035)),
+             (0.82, (26.0, -14.0, 0.50, 0.0, -22.0, -12.0, -6.0, 0.0, 0.0, 0.0, 0.03)), (1.0, REST_POSE)],
+    # Brace in a crouch with fists to the chest, burst upward at 0.5 with arms thrown open.
+    "Buff": [(0.0, REST_POSE), (0.36, (8.0, 14.0, 0.30, 0.0, 8.0, 14.0, 10.0, 0.0, 0.07, 0.0, 0.0)),
+             (0.50, (30.0, -26.0, 0.35, -0.20, -16.0, -30.0, -12.0, -0.10, 0.0, 0.0, 0.03)),
+             (0.74, (30.0, -22.0, 0.35, -0.20, -16.0, -26.0, -9.0, -0.08, 0.0, 0.0, 0.02)), (1.0, REST_POSE)],
+}
+CLIP_CONTACT = {"Shoot": 0.46, "Cast": 0.58, "Heal": 0.46, "Buff": 0.50}
+
+
+def clip_pose(mode, t_norm):
+    keys = CLIP_KEYS.get(mode)
+    if keys is None:
+        return None
+    for (t0, p0), (t1, p1) in zip(keys, keys[1:]):
+        if t0 <= t_norm <= t1:
+            k = (t_norm - t0) / max(1e-6, t1 - t0)
+            k = k * k * (3.0 - 2.0 * k)
+            return [a + (b - a) * k for a, b in zip(p0, p1)]
+    return list(keys[-1][1])
+
+
 def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0, swing=None):
     """
     Implements the 10 Natural Animation Principles:
@@ -899,6 +987,9 @@ def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0, swing=None):
     if mode in ("Attack", "Skill_Stab", "Skill_Steam") and (t_norm < 0.25 or t_norm > 0.75):
         walk = 1.0
     loco = max(walk, run)
+    cp = clip_pose(mode, t_norm)
+    if cp is not None:
+        recoil += cp[9]
 
     # 1. Weight, Balance & Vertical Bounce (Down on contact absorption, Up on passing push-off)
     idle_breath = math.sin(phase) * 0.012 if mode in ("Idle", "Turn_Look") else 0.0
@@ -920,6 +1011,9 @@ def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0, swing=None):
             jump_z = -0.105 * math.sin(l_t * math.pi) * (1.0 - l_t * 0.5)
 
     down_drop = -0.18 * recoil if mode == "Down" else 0.0
+    # Net hip drop in metres for the skill clips; the ankles are lowered by the same amount so the feet stay planted.
+    hip_drop = (cp[8] - cp[10]) if cp is not None else 0.0
+    down_drop -= hip_drop
 
     # Lateral Center-of-Gravity Shift over supporting stance leg
     cog_shift_y = -math.sin(phase) * (0.022 * walk + 0.032 * run)
@@ -944,6 +1038,8 @@ def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0, swing=None):
     elif strike > 0.0:
         torso_lean += strike * 16.5
     torso_lean -= recoil * 12.0
+    if cp is not None:
+        torso_lean += cp[6]
     if mode == "Guard":
         torso_lean -= 4.5
 
@@ -958,6 +1054,8 @@ def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0, swing=None):
         torso_twist += strike * 0.36
     elif mode == "Turn_Look":
         torso_twist = math.sin(phase - 0.2) * 0.28
+    if cp is not None:
+        torso_twist += cp[7]
 
     rots = {}
     locs = {
@@ -991,7 +1089,7 @@ def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0, swing=None):
 
     # Ambient Mechanical Valve Rotation (seamless oscillation in loops; high-speed spin on Skill_Steam)
     valve_ang = math.sin(phase) * 0.85 + math.sin(phase * 2.0) * 0.35
-    if mode == "Skill_Steam":
+    if mode in ("Skill_Steam", "Cast", "Buff"):
         valve_ang = t_norm * math.tau * 3.0
     rots["SteamValve"] = (valve_ang, 0.0, 0.0)
 
@@ -1012,7 +1110,7 @@ def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0, swing=None):
 
     brow_z = 0.0
     brow_tilt = 0.0  # positive = angry/focused inward V-furrow; negative = sad/worried/surprised
-    if mode in ("Attack", "Skill_Stab", "Skill_Steam", "Guard", "Run"):
+    if mode in ("Attack", "Skill_Stab", "Skill_Steam", "Guard", "Run", "Shoot", "Cast", "Buff"):
         brow_tilt = 0.22
         brow_z = -0.006
     elif mode == "Turn_Look":
@@ -1037,7 +1135,7 @@ def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0, swing=None):
         leg_root = (hip_2d[0] + side * 4.5, hip_2d[1])
         # Asymmetric martial arts idle stance
         idle_st = (side * 10.5 + (2.5 if side == 1 else -2.0), 0.0)
-        if abs(strike) > 0.1 or swing is not None:
+        if abs(strike) > 0.1 or swing is not None or cp is not None:
             idle_st = (side * 14.0 + (6.0 if side == 1 else -4.0), 0.0)
 
         stride_amp = 24.5 if run > 0.5 else 19.5
@@ -1057,7 +1155,7 @@ def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0, swing=None):
         elif mode == "Down":
             fx, fy = side * 16.0 - 10.0, 2.0
 
-        ankle = (fx - 1.0, fy - 5.0)
+        ankle = (fx - 1.0, fy - 5.0 - hip_drop * 100.0)
         t_ang, s_ang = ik_2bone_angles(leg_root, ankle, 28.0, -1.0)
         lift_ratio = max(0.0, min(1.0, -fy / max(1.0, lift_amp)))
 
@@ -1134,6 +1232,10 @@ def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0, swing=None):
         hand = [arm_root[0] + 18.0, arm_root[1] + 22.0]
         w_angle = 1.45
 
+    if cp is not None:
+        hand = [arm_root[0] + cp[0], arm_root[1] + cp[1]]
+        w_angle = cp[2]
+        wrist_Snap = cp[3]
     dx, dy = hand[0] - arm_root[0], hand[1] - arm_root[1]
     dlen = math.hypot(dx, dy)
     if dlen > 47.5:
@@ -1165,6 +1267,8 @@ def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0, swing=None):
         b_hand = [b_hand[0] + (sh_2d[0] - 18.0 - b_hand[0]) * k, b_hand[1] + (sh_2d[1] + 20.0 - b_hand[1]) * k]
     elif mode == "Hit":
         b_hand = [sh_2d[0] - 22.0, sh_2d[1] + 12.0]
+    if cp is not None:
+        b_hand = [sh_2d[0] + cp[4], sh_2d[1] + cp[5]]
     bu_ang, bf_ang = ik_2bone_angles(back_root, b_hand, 24.0, 1.0)
     sh_l_ang = bu_ang - torso_pitch
     el_l_ang = bf_ang
@@ -1214,6 +1318,10 @@ def build_vesper_actions(arm_obj, dummy_obj):
         ("Attack", 40, False),
         ("Skill_Stab", 36, False),
         ("Skill_Steam", 36, False),
+        ("Shoot", 28, False),
+        ("Cast", 40, False),
+        ("Heal", 36, False),
+        ("Buff", 32, False),
         ("Guard", 28, False),
         ("Hit", 24, False),
         ("Down", 32, False),
@@ -1226,7 +1334,7 @@ def build_vesper_actions(arm_obj, dummy_obj):
         arm_obj.animation_data.action = act
 
         # Strikes sweep fast; key every frame so no joint turns far enough between keys to take the short way round.
-        step = 1 if act_name in ("Attack", "Skill_Stab", "Skill_Steam") else 2
+        step = 1 if act_name in ("Attack", "Skill_Stab", "Skill_Steam", "Shoot", "Cast") else 2
         frames = list(range(1, end_f + 1, step))
         if end_f not in frames:
             frames.append(end_f)
@@ -1350,12 +1458,12 @@ def build_studio_lighting_and_cameras(env_col, arm_obj):
 
 
 def set_active_gear(weapon_idx=0, headgear_idx=0, suit_idx=0, shield_idx=2):
-    for i in range(3):
+    for i in range(6):
         for prefix, sel in (("Weapon", weapon_idx), ("Headgear", headgear_idx), ("Suit", suit_idx)):
             obj = bpy.data.objects.get(f"{prefix}_{i}")
             if obj:
                 obj.hide_render = (i != sel)
-    for i in (1, 2):
+    for i in (1, 2, 3):
         obj = bpy.data.objects.get(f"Shield_{i}")
         if obj:
             obj.hide_render = (i != shield_idx)
@@ -1434,6 +1542,8 @@ def render_verification_previews(arm_obj, dummy_obj, cam_obj, cin_obj):
         ("gear_0_machinist.png", (0, 0, 0, 2)),
         ("gear_1_boiler_knight.png", (1, 1, 1, 1)),
         ("gear_2_steam_officer.png", (2, 2, 2, 2)),
+        ("gear_3_lancer.png", (4, 1, 0, 3)),
+        ("gear_4_staff_adept.png", (5, 0, 2, 1)),
     ]
     arm_obj.rotation_euler = (0.0, 0.0, math.radians(-32.0))
     for fname, (w_i, h_i, s_i, sh_i) in loadouts:
@@ -1450,9 +1560,14 @@ def render_verification_previews(arm_obj, dummy_obj, cam_obj, cin_obj):
         ("anim_3_attack_cleave.png", "Attack", 23, -28.0),
         ("anim_4_guard_block.png", "Guard", 14, -32.0),
         ("anim_5_pipe_turn.png", "Enter_Pipe", 36, -24.0),
+        ("anim_6_shoot_aim.png", "Shoot", 8, -28.0),
+        ("anim_7_cast_release.png", "Cast", 24, -28.0),
+        ("anim_8_heal_inject.png", "Heal", 15, -28.0),
+        ("anim_9_buff_burst.png", "Buff", 16, -28.0),
     ]
     for fname, act_name, frame_num, yaw_deg in anim_shots:
         act = bpy.data.actions[act_name]
+        set_active_gear(2 if act_name == "Shoot" else 0, 0, 0, 2)
         arm_obj.animation_data.action = act
         arm_obj.animation_data.action_slot = act.slots[0]
         arm_obj.rotation_euler = (0.0, 0.0, math.radians(yaw_deg))
@@ -1583,6 +1698,7 @@ def validate_pipeline(arm_obj, dummy_obj, env_info, export_col):
     required_actions = [
         "Idle", "Walk", "Run", "Jump_Land", "Turn_Look",
         "Attack", "Skill_Stab", "Skill_Steam", "Guard", "Hit", "Down", "Enter_Pipe",
+        "Shoot", "Cast", "Heal", "Buff",
     ]
     for act_name in required_actions:
         assert act_name in bpy.data.actions, f"Missing required Action: {act_name}"

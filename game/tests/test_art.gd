@@ -21,6 +21,27 @@ func run(t) -> bool:
 	_clip_smoothness(t)
 	_npc_roles(t)
 	_item_icons(t)
+	# Hero gear comes from each item's `model`; skill clips exist in the GLB.
+	var items: Array = JSON.parse_string(FileAccess.get_file_as_string("res://data/items.json"))
+	var families := {}
+	for item in items:
+		if item.slot == "weapon":
+			t.check(Hero3D.WEAPON_INDEX.has(item.get("model","")), "weapon %s has a valid model" % item.id)
+			families[item.model] = true
+			t.check(Hero3D.variants({"weapon":item.id}, items)[0] == Hero3D.WEAPON_INDEX[item.model], "%s picks the %s mesh" % [item.id, item.model])
+		elif item.slot == "shield":
+			t.check(Hero3D.SHIELD_INDEX.has(item.get("model","")), "shield %s has a valid model" % item.id)
+			t.check(Hero3D.variants({"shield":item.id}, items)[3] == Hero3D.SHIELD_INDEX[item.model], "%s picks the %s mesh" % [item.id, item.model])
+	t.check(families.size() == 5, "all five weapon families are used")
+	var hero := Hero3D.new()
+	for clip in Hero3D.ACTIONS.values():
+		t.check(hero.animator.has_animation(clip[0]), "GLB has clip " + clip[0])
+	for skill in JSON.parse_string(FileAccess.get_file_as_string("res://data/skills.json")):
+		if skill.kind != "active": continue
+		t.check(Hero3D.ACTIONS.has(skill.get("clip","")) and hero.animator.has_animation(Hero3D.ACTIONS[skill.clip][0]), "skill %s has a clip in the GLB" % skill.id)
+	for kind in ["shoot","cast","heal","buff"]:
+		t.check(Hero3D.CONTACT.has(Hero3D.ACTIONS[kind][0]), "contact time for " + kind)
+	hero.free()
 	return true
 
 # Every item maps to a real icon; within one slot and tier at most 2 items may share art.

@@ -280,8 +280,19 @@ func _on_impact(event: Dictionary) -> void:
 		hp_texts[id].text = _hp_text(seen)
 	if barrier_bars.has(id) and is_instance_valid(barrier_bars[id]):
 		barrier_bars[id].create_tween().tween_property(barrier_bars[id],"value",float(seen.barrier),0.18)
+	_show_phase(id, seen.hp)
 	if seen.hp <= 0 and portraits.has(id):
 		_fall(portraits[id])
+
+# Boss phase visuals follow the HP the player has seen (same thresholds as the resolver); only Creature3D with set_phase reacts, and phases never step back.
+func _show_phase(id: String, hp: int) -> void:
+	if not portraits.has(id) or not is_instance_valid(portraits[id]) or portraits[id].hero == null or not portraits[id].hero.has_method("set_phase"): return
+	for actor in controller.state.actors:
+		if actor.id != id or not actor.get("boss",false): continue
+		var phase := 0
+		for threshold in actor.get("phase_thresholds",[]):
+			if float(hp) / maxf(1.0,float(actor.max_hp)) <= float(threshold): phase += 1
+		portraits[id].hero.set_phase(maxi(phase,portraits[id].hero.phase))
 
 func _fall(portrait: ActorPortrait) -> void:
 	portrait.alive = false
@@ -304,6 +315,7 @@ func _plates() -> void:
 	# Between strikes the resolver is authoritative again (FP, pressure, statuses, deaths without a blow).
 	_sync_shown()
 	for actor in controller.state.actors:
+		_show_phase(actor.id, int(actor.hp))
 		if actor.hp <= 0 and portraits.has(actor.id): _fall(portraits[actor.id])
 	hp_bars.clear()
 	hp_texts.clear()

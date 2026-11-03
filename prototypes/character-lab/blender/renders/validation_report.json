@@ -11,15 +11,16 @@
       "io_scene_fbx",
       "io_scene_gltf2",
       "cycles",
+      "bl_pkg",
       "pose_library",
-      "bl_pkg"
+      "blender_mcp"
     ]
   },
   "style": "SD (Super-Deformed ~2.2-head) Steampunk Warrior",
   "geometry_qa": {
-    "meshes_checked": 19,
-    "total_vertices": 12412,
-    "total_triangles": 23948,
+    "meshes_checked": 22,
+    "total_vertices": 15392,
+    "total_triangles": 29736,
     "degenerate_faces": 0,
     "unapplied_transforms": 0,
     "missing_uv_meshes": [],
@@ -81,6 +82,22 @@
       },
       {
         "name": "Enter_Pipe",
+        "fcurves": 186
+      },
+      {
+        "name": "Shoot",
+        "fcurves": 186
+      },
+      {
+        "name": "Cast",
+        "fcurves": 186
+      },
+      {
+        "name": "Heal",
+        "fcurves": 186
+      },
+      {
+        "name": "Buff",
         "fcurves": 186
       }
     ],

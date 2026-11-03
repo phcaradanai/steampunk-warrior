@@ -16,6 +16,19 @@ var clock: float = 0.0
 var action: String = ""
 var action_time: float = 0.0
 var hover: float = 0.0
+# Boss phase overlays (set_phase): -1 until first applied; only the B06 mantis has any.
+var phase: int = -1
+var fx: Node3D
+var _emissives: Array = []
+var _plates: Array = []
+var _smoke: CPUParticles3D
+var _smoke_on := false
+var _light: OmniLight3D
+var _halo: MeshInstance3D
+var _core: Node3D
+var _rim: Node3D
+var _extent := Vector2.ZERO
+var _extent_left := false
 const STRIKE := 0.8
 const STRIKE_CONTACT := 0.48
 const RAT := preload("res://art/characters/rat.glb")
@@ -101,6 +114,7 @@ func _load_figure(scene: PackedScene) -> void:
 			if source.emission_enabled and palette.has("glow"): color = Color(palette.glow)
 			elif source.resource_name == hide_name and palette.has("fur"): color = Color(palette.fur)
 			node.set_surface_override_material(surface, Stage3D.toon(color, source.emission_energy_multiplier if source.emission_enabled else 0.0))
+			if source.emission_enabled: _emissives.append([node, surface, color, source.emission_energy_multiplier])
 	head = figure.find_child("Head")
 	tail = figure.find_child("Tail")
 	for leg in ["Leg_FL", "Leg_FR", "Leg_HR", "Leg_HL"]:
@@ -129,6 +143,7 @@ func _build_deer() -> void:
 
 func _build_mantis() -> void:
 	_load_figure(MANTIS)
+	set_phase(0)
 
 func _build_bat() -> void:
 	# Lower than the old 0.9 so the raised wings stay inside the camera frame.
@@ -149,6 +164,151 @@ func _build_heron() -> void:
 
 func _build_sprout() -> void:
 	_load_figure(SPROUT)
+
+# ---------------------------------------------------------------- boss phases
+# B06: bio-armour (green crystal shell) -> smoke (broken shell, dark aether haze, dim glow) -> open core (armour gone, bright thorax core).
+const PHASE_GLOW := [1.0, 0.4, 2.4]
+const PHASE_LIGHT := [[Color("6fe08a"), 0.7], [Color("4a3a6a"), 0.25], [Color("ffe6a0"), 2.6]]
+
+func set_phase(n: int) -> void:
+	if kind != "mantis" or n == phase: return
+	var changed := phase >= 0
+	phase = clampi(n, 0, 2)
+	if fx == null: _build_phase_fx()
+	for shard in _plates:
+		shard.visible = phase < 2
+		shard.material_override = Stage3D.toon(Color("2fc06a") if phase == 0 else Color("3a2f4a"), 0.9 if phase == 0 else 0.15)
+		shard.scale = shard.get_meta("rest") * (1.0 if phase == 0 else 0.55)
+	for entry in _emissives:
+		var color: Color = entry[2].lerp(Color.WHITE, 0.4) if phase == 2 else entry[2]
+		entry[0].set_surface_override_material(entry[1], Stage3D.toon(color, entry[3] * PHASE_GLOW[phase]))
+	_core.visible = phase == 2
+	_rim.visible = phase == 2
+	_halo.visible = phase == 2
+	_smoke_on = phase == 1
+	_light.light_color = PHASE_LIGHT[phase][0]
+	_light.light_energy = PHASE_LIGHT[phase][1]
+	if changed and is_inside_tree(): _burst()
+
+func _build_phase_fx() -> void:
+	fx = Node3D.new()
+	body.add_child(fx)
+	_core = body.find_child("Core", true, false)
+	_rim = body.find_child("Core_Rim", true, false)
+	var center: Vector3 = _core.mesh.get_aabb().get_center()
+	# Armour shards ride the dorsal ridge, over the thorax core and on the flanks.
+	var spots: Array = [Vector3(0.3, 0.8, 0), Vector3(0.2, 0.76, 0.1), Vector3(0.2, 0.76, -0.1), Vector3(-0.1, 0.7, 0)]
+	for x in [-0.29, -0.5, -0.67, -0.89, -1.06]: spots.append(Vector3(x, 0.72 - (absf(x) - 0.3) * 0.12, 0))
+	for x in [-0.4, -0.8]:
+		spots.append(Vector3(x, 0.66, 0.17))
+		spots.append(Vector3(x, 0.66, -0.17))
+	for spot in spots:
+		var rest := Vector3(0.08, 0.2 - maxf(0.0, -spot.x - 0.3) * 0.08, 0.08)
+		var shard := _part(fx, PrismMesh.new(), spot + Vector3(0, rest.y * 0.45, 0), rest, Color("2fc06a"), 0.9, Vector3(0, 0, randf_range(-14, 14)))
+		shard.set_meta("rest", rest)
+		_plates.append(shard)
+	_halo = MeshInstance3D.new()
+	var sphere := SphereMesh.new()
+	sphere.radius = 0.19
+	sphere.height = 0.38
+	_halo.mesh = sphere
+	var glow := StandardMaterial3D.new()
+	glow.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	glow.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+	glow.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	glow.albedo_color = Color(1.0, 0.85, 0.45, 0.55)
+	_halo.material_override = glow
+	_halo.position = center
+	_core.get_parent().add_child(_halo)
+	_light = OmniLight3D.new()
+	_light.position = center + Vector3(0, 0.15, 0.25)
+	_light.omni_range = 2.5
+	fx.add_child(_light)
+	_smoke = CPUParticles3D.new()
+	var puff := QuadMesh.new()
+	puff.size = Vector2(0.5, 0.5)
+	var haze := StandardMaterial3D.new()
+	haze.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	haze.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	haze.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+	haze.vertex_color_use_as_albedo = true
+	haze.albedo_texture = _soft_dot()
+	puff.material = haze
+	_smoke.mesh = puff
+	_smoke.position = Vector3(-0.25, 0.55, 0)
+	_smoke.amount = 36
+	_smoke.lifetime = 2.4
+	_smoke.preprocess = 2.4
+	_smoke.emission_shape = CPUParticles3D.EMISSION_SHAPE_SPHERE
+	_smoke.emission_sphere_radius = 0.7
+	_smoke.direction = Vector3.UP
+	_smoke.spread = 25.0
+	_smoke.initial_velocity_min = 0.1
+	_smoke.initial_velocity_max = 0.3
+	_smoke.gravity = Vector3(0.05, 0.12, 0)
+	_smoke.scale_amount_min = 0.8
+	_smoke.scale_amount_max = 1.6
+	var fade := Gradient.new()
+	fade.set_color(0, Color(0.16, 0.1, 0.24, 0.0))
+	fade.set_color(1, Color(0.1, 0.07, 0.16, 0.0))
+	fade.add_point(0.3, Color(0.1, 0.06, 0.16, 0.75))
+	_smoke.color_ramp = fade
+	_smoke.emitting = false
+	fx.add_child(_smoke)
+
+func _soft_dot() -> Texture2D:
+	var ramp := Gradient.new()
+	ramp.set_color(0, Color.WHITE)
+	ramp.set_color(1, Color(1, 1, 1, 0))
+	var texture := GradientTexture2D.new()
+	texture.gradient = ramp
+	texture.fill = GradientTexture2D.FILL_RADIAL
+	texture.fill_from = Vector2(0.5, 0.5)
+	texture.fill_to = Vector2(1.0, 0.5)
+	texture.width = 64
+	texture.height = 64
+	return texture
+
+# Short radial spray on every phase change, tinted by the phase being entered.
+func _burst() -> void:
+	var spray := CPUParticles3D.new()
+	var mote := SphereMesh.new()
+	mote.radius = 0.05
+	mote.height = 0.1
+	var tint := StandardMaterial3D.new()
+	tint.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	tint.albedo_color = [Color("9cffb0"), Color("a58ad0"), Color("fff0b0")][phase]
+	mote.material = tint
+	spray.mesh = mote
+	spray.position = Vector3(0.1, 0.65, 0)
+	spray.one_shot = true
+	spray.explosiveness = 1.0
+	spray.amount = 40
+	spray.lifetime = 0.7
+	spray.spread = 180.0
+	spray.direction = Vector3.UP
+	spray.initial_velocity_min = 1.0
+	spray.initial_velocity_max = 2.6
+	spray.gravity = Vector3.ZERO
+	fx.add_child(spray)
+	spray.emitting = true
+	get_tree().create_timer(1.2).timeout.connect(spray.queue_free)
+
+# Horizontal screen extent of the figure's meshes, in world units from the model origin (the camera looks straight down -Z, so world x is screen x).
+func extent_x() -> Vector2:
+	if _extent != Vector2.ZERO and _extent_left == facing_left: return _extent
+	var turn := Transform3D(Basis(Vector3.UP, deg_to_rad(-150.0 if facing_left else -30.0)), Vector3.ZERO) * model.global_transform.affine_inverse()
+	var low := INF
+	var high := -INF
+	for node in body.find_children("*", "MeshInstance3D", true, false):
+		if fx != null and (fx.is_ancestor_of(node) or node == _halo): continue
+		var box: AABB = (turn * node.global_transform) * node.mesh.get_aabb()
+		low = minf(low, box.position.x)
+		high = maxf(high, box.end.x)
+	if low > high: return Vector2(-0.5, 0.5)
+	_extent = Vector2(low, high)
+	_extent_left = facing_left
+	return _extent
 
 # ---------------------------------------------------------------- world props
 func _build_bed() -> void:
@@ -184,6 +344,8 @@ func _process(delta: float) -> void:
 		freeze -= delta
 		return
 	clock += delta
+	# Particle emission needs the tree, so it follows the phase from here rather than from set_phase.
+	if _smoke != null and _smoke.emitting != _smoke_on: _smoke.emitting = _smoke_on
 	action_time += delta
 	var go := moving or running
 	var stride := sin(clock * (13.0 if running else 11.0 if moving else 2.2))

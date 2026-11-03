@@ -82,7 +82,7 @@ static func room_track(room_id: String) -> String:
 	return AREA_TRACKS.get(room_id, "city")
 
 # Sound for one combat event: element picks the hit, skill/action kind picks the swing.
-static func sfx_for(event: Dictionary) -> String:
+static func sfx_for(event: Dictionary, target_max_hp: int = 0) -> String:
 	var p: Dictionary = event.payload
 	if event.type == "heal": return "heal"
 	if event.type == "damage":
@@ -91,7 +91,10 @@ static func sfx_for(event: Dictionary) -> String:
 			"electric": return "electric"
 			"thermal", "Heated": return "burn"
 			"chemical": return "acid"
-		return "heavy" if int(p.get("amount",0)) >= HEAVY_HIT else "metal"
+		var amount := int(p.get("amount",0))
+		# 25% of max HP as an integer test; without a max HP, fall back to the flat threshold.
+		var heavy := amount * 4 >= target_max_hp if target_max_hp > 0 else amount >= HEAVY_HIT
+		return "heavy" if heavy else "metal"
 	if event.type == "action":
 		var skill: String = p.get("skill_id","")
 		match p.kind:
@@ -107,9 +110,15 @@ static func sfx_for(event: Dictionary) -> String:
 	return ""
 
 func combat_events(events: Array) -> void:
+	var scene := get_tree().current_scene
+	var combat = scene.get("combat") if scene != null else null
 	for event in events:
 		if played_events.has(event.id): continue
 		played_events[event.id] = true
-		var id := sfx_for(event)
+		var max_hp := 0
+		if combat != null and event.type == "damage":
+			for actor in combat.state.get("actors", []):
+				if actor.id == event.payload.get("target_id",""): max_hp = int(actor.max_hp)
+		var id := sfx_for(event, max_hp)
 		if id != "": play_sfx(id)
 	if played_events.size() > 2048: played_events.clear()

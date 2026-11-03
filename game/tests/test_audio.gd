@@ -31,6 +31,8 @@ func run(t) -> bool:
 		var id := GameAudio.sfx_for({"type":"damage","payload":{"type":type,"amount":3}})
 		t.check(id in GameAudio.SFX,"damage type has an effect: "+type)
 	t.check(GameAudio.sfx_for({"type":"damage","payload":{"type":"physical","amount":99}}) == "heavy","heavy blow has its own effect")
+	t.check(GameAudio.sfx_for({"type":"damage","payload":{"type":"physical","amount":20}},60) == "heavy","hit of 25% max HP is heavy")
+	t.check(GameAudio.sfx_for({"type":"damage","payload":{"type":"physical","amount":30}},400) == "metal","hit under 25% max HP is metal")
 	t.check(GameAudio.sfx_for({"type":"damage","payload":{"type":"physical","amount":99,"shielded":true}}) == "shield","guarded blow uses shield")
 	t.check(GameAudio.sfx_for({"type":"heal","payload":{}}) == "heal","heal has an effect")
 	for kind in ["attack","guard","vent","retreat"]:

@@ -7,9 +7,15 @@ const OUTLINE := Color("101b20")
 const SUIT_COLORS := [Color("88583e"), Color("b48c4e"), Color("32526e")]
 const LIMB_MESHES := ["UpperArm_R", "UpperArm_L", "ThighMesh_R", "ThighMesh_L"]
 # Clip speed lifts the authored 1.5-1.7s actions into the combat pump's 0.36s turn rhythm.
-const ACTIONS := {"attack":["Attack",1.15], "skill_stab":["Skill_Stab",1.1], "skill_steam":["Skill_Steam",1.1], "guard":["Guard",1.2], "hit":["Hit",1.25], "down":["Down",1.0], "vent":["Skill_Steam",1.1], "enter_pipe":["Enter_Pipe",1.4]}
+const ACTIONS := {"attack":["Attack",1.15], "skill_stab":["Skill_Stab",1.1], "skill_steam":["Skill_Steam",1.1], "guard":["Guard",1.2], "hit":["Hit",1.25], "down":["Down",1.0], "vent":["Skill_Steam",1.1], "enter_pipe":["Enter_Pipe",1.4], "shoot":["Shoot",1.1], "cast":["Cast",1.1], "heal":["Heal",1.1], "buff":["Buff",1.1]}
 # Clip time where the blade or nozzle reaches full extension, read from the Shoulder_R rotation peaks.
-const CONTACT := {"Attack":0.92, "Skill_Stab":0.85, "Skill_Steam":0.84}
+const CONTACT := {"Attack":0.92, "Skill_Stab":0.85, "Skill_Steam":0.84, "Shoot":0.52, "Cast":0.94, "Heal":0.67, "Buff":0.65}
+# Gear mesh index per weapon/shield `model` in items.json. Weapon index 3 stays "none" for NPCs (roster_3d.gd).
+const WEAPON_INDEX := {"blade":0, "blunt":1, "gun":2, "polearm":4, "staff":5}
+const SHIELD_INDEX := {"plate":1, "light":2, "tower":3}
+const WEAPON_NODES := [0, 1, 2, 4, 5]
+const TIER_COLORS := ["8a9490","6fbf73","5ab4e0","b07ce0","e3b858"]
+const TIERED := {"Mat_Steel":0.4, "Mat_SteelDark":0.3, "Mat_Brass":0.18}
 
 var model: Node3D
 var animator: AnimationPlayer
@@ -21,6 +27,9 @@ var steam: GPUParticles3D
 var toons: Dictionary = {}
 var variant: Dictionary = {}
 var dummy: bool = false
+var weapon_model: String = "blade"
+# [toon, base colour, GLB material name] per weapon mesh, so a tier tint never accumulates.
+var weapon_toons: Dictionary = {}
 
 func _init() -> void:
 	super()
@@ -61,6 +70,9 @@ func _stylize() -> void:
 			var toon := _toon(source.albedo_color, outline)
 			if not toons.has(source.resource_name): toons[source.resource_name] = []
 			toons[source.resource_name].append(toon)
+			if node.name.begins_with("Weapon_"):
+				if not weapon_toons.has(node.name): weapon_toons[node.name] = []
+				weapon_toons[node.name].append([toon, toon.albedo_color, source.resource_name])
 			toon.metallic = source.metallic * 0.45
 			toon.roughness = clampf(source.roughness, 0.28, 0.68)
 			if source.emission_enabled:
@@ -118,33 +130,59 @@ func _particles(color: Color, amount: int, life: float, gravity: Vector3, veloci
 	viewport.add_child(particles)
 	return particles
 
+# gear = [weapon mesh, head, suit, shield mesh]. Weapons and shields come from the item's `model` field;
+# the name keywords are only a fallback for items without one.
 static func variants(equipment: Dictionary, items: Array) -> Array:
-	# shortcut: the model has 3 meshes per slot, so 62 items share them by name family; add meshes to split guns/spears.
-	var names := {}
+	var worn := {}
 	for item in items:
-		if equipment.values().has(item.id): names[item.slot] = [item.name, int(item.tier)]
-	var weapon: String = names.get("weapon", [""])[0]
-	var head: String = names.get("head", [""])[0]
-	var suit: String = names.get("suit", [""])[0]
+		if equipment.values().has(item.id): worn[item.slot] = item
+	var head: String = worn.get("head", {}).get("name", "")
+	var suit: String = worn.get("suit", {}).get("name", "")
 	return [
-		1 if _has_any(weapon, ["ค้อน", "กระบอง", "ประแจ", "ขวาน"]) else 0 if weapon.is_empty() or _has_any(weapon, ["ดาบ", "มีด", "เคียว", "เลื่อย", "กรงเล็บ"]) else 2,
+		_weapon_index(worn.get("weapon", {})),
 		1 if head.contains("หมวก") else 2 if _has_any(head, ["หน้ากาก", "กระบัง"]) else 0,
 		1 if suit.contains("เกราะ") else 2 if suit.begins_with("ชุด") else 0,
-		0 if not names.has("shield") else 1 if names.shield[1] <= 2 else 2]
+		_shield_index(worn.get("shield", {}))]
+
+static func _weapon_index(item: Dictionary) -> int:
+	if item.is_empty(): return 0
+	if WEAPON_INDEX.has(item.get("model", "")): return WEAPON_INDEX[item.model]
+	var name: String = item.name
+	if _has_any(name, ["ค้อน", "กระบอง", "ประแจ", "ขวาน"]): return 1
+	if name.contains("ปืน"): return 2
+	if _has_any(name, ["หอก", "ทวน"]): return 4
+	if name.contains("คทา"): return 5
+	return 0
+
+static func _shield_index(item: Dictionary) -> int:
+	if item.is_empty(): return 0
+	if SHIELD_INDEX.has(item.get("model", "")): return SHIELD_INDEX[item.model]
+	return 1 if int(item.get("tier", 1)) <= 2 else 2
 
 static func _has_any(text: String, words: Array) -> bool:
 	return words.any(func(word): return text.contains(word))
 
 func set_equipment(equipment: Dictionary, items: Array) -> void:
 	_show_gear(variants(equipment, items))
+	var tier := 0
+	for item in items:
+		if item.slot == "weapon" and equipment.values().has(item.id): tier = int(item.tier)
+	_tint_weapons(tier)
+
+# Subtle tier tint on the weapon's metal so it still reads as steel/brass.
+func _tint_weapons(tier: int) -> void:
+	var tint := Color(TIER_COLORS[clampi(tier - 1, 0, 4)])
+	for entries in weapon_toons.values():
+		for entry in entries:
+			entry[0].albedo_color = entry[1].lerp(tint, TIERED.get(entry[2], 0.0)) if tier > 0 else entry[1]
 
 func _show_gear(gear: Array) -> void:
 	for i in 3:
-		nodes["Weapon_%d" % i].visible = gear[0] == i
 		nodes["Headgear_%d" % i].visible = gear[1] == i
 		nodes["Suit_%d" % i].visible = gear[2] == i
-	nodes["Shield_1"].visible = gear[3] == 1
-	nodes["Shield_2"].visible = gear[3] == 2
+	for i in WEAPON_NODES: nodes["Weapon_%d" % i].visible = gear[0] == i
+	for i in [1, 2, 3]: nodes["Shield_%d" % i].visible = gear[3] == i
+	weapon_model = str(WEAPON_INDEX.find_key(gear[0])) if WEAPON_INDEX.values().has(gear[0]) else "none"
 	suit_material.albedo_color = SUIT_COLORS[gear[2]]
 
 func perform(kind: String) -> void:
@@ -156,7 +194,7 @@ func perform(kind: String) -> void:
 	down = kind == "down"
 	busy = 1.0
 	animator.play(action[0], 0.08, action[1])
-	if kind in ["attack", "skill_stab"]: _burst(sparks, 0.12)
+	if kind in ["attack", "skill_stab", "shoot"]: _burst(sparks, 0.12)
 	elif kind in ["skill_steam", "vent"]: _burst(steam, 0.18)
 
 func _burst(particles: GPUParticles3D, delay: float) -> void:

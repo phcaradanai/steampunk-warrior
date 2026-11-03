@@ -80,7 +80,8 @@ func _initialize() -> void:
 		return
 	confirm.pressed.emit()
 	await capture("combat")
-	for _step in range(160):
+	# Time budget, not a rule: ~8.5 s of real-time fight with title card and contact-synced clips.
+	for _step in range(400):
 		await create_timer(0.05).timeout
 		if scene.screen_mode == "world":
 			break

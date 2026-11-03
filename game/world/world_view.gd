@@ -210,6 +210,7 @@ func _encounter_name(id: String) -> String:
 # Walk up the ramp, turn into the mouth and vanish behind the rim before the caller changes scene.
 func enter_pipe(marker: Dictionary) -> void:
 	blocked = true
+	if is_inside_tree(): get_tree().call_group("game_audio","play_sfx","whoosh")
 	var mouth: Vector2 = marker.position
 	var walk := create_tween()
 	player.hero.moving = true

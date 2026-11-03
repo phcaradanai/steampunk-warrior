@@ -41,14 +41,15 @@ func play_events(events: Array, portraits: Dictionary, options: Dictionary) -> v
 		if event.type == "action" and portraits.has(payload.actor_id):
 			var actor: ActorPortrait = portraits[payload.actor_id]
 			var target := _first_target(events, index, payload.actor_id, portraits)
-			var melee: bool = payload.kind == "attack" or (payload.kind == "skill" and payload.skill_id in MELEE_SKILLS)
+			var gunner: bool = payload.kind == "attack" and actor.hero != null and actor.hero.get("weapon_model") == "gun"
+			var melee: bool = (payload.kind == "attack" and not gunner) or (payload.kind == "skill" and payload.skill_id in MELEE_SKILLS)
 			if target != null and melee and is_inside_tree():
 				await _dash(actor, target)
 				mover = actor
 			_strike(actor, payload)
 			_sound(event)
 			# Damage, numbers and the target's flinch wait for the blow to actually land in the clip.
-			var timing: Vector2 = actor.hero.strike_timing(_hero_action(payload)) if actor.hero != null else Vector2(0.18, 0.15)
+			var timing: Vector2 = actor.hero.strike_timing(_hero_action(payload, actor.hero)) if actor.hero != null else Vector2(0.18, 0.15)
 			recover = timing.y
 			if target != null and is_inside_tree():
 				await get_tree().create_timer(timing.x).timeout
@@ -69,13 +70,23 @@ func _first_target(events: Array, from: int, actor_id: String, portraits: Dictio
 			return portraits[payload.target_id]
 	return null
 
+# Where the attacker's frame must sit to stand at the target's front edge; wide figures (B06 wings and blades) are measured from their meshes, not the frame.
+func _dash_spot(actor: ActorPortrait, target: ActorPortrait, side: float) -> Vector2:
+	var half := float(target.get_meta("body",target.size.x))*0.32
+	var edge := half*side
+	if target.hero is Creature3D and target.hero.size.y > 0.0:
+		# Stage3D frames model y in 2.0 world units, so the frame height gives pixels per unit.
+		var span: Vector2 = target.hero.extent_x() * (target.hero.size.y / target.hero.camera.size)
+		edge = span.y if side > 0 else span.x
+	# Stop a weapon's reach short of the edge so the weapon, not the torso, makes contact.
+	var reach := edge + float(actor.get_meta("body",actor.size.x))*0.28*side
+	return Vector2(target.position.x + target.size.x*0.5 + reach - actor.size.x*0.5, target.position.y + target.get_meta("feet",target.size.y) - actor.get_meta("feet",actor.size.y))
+
 func _dash(actor: ActorPortrait, target: ActorPortrait) -> void:
 	if not is_instance_valid(actor) or not is_instance_valid(target): return
 	var home: Vector2 = actor.get_meta("home", actor.position)
 	var side := -1.0 if target.position.x > home.x else 1.0
-	# Stop a body's width short of the target so the weapon, not the torso, makes contact.
-	var reach := (float(target.get_meta("body",target.size.x))*0.32 + float(actor.get_meta("body",actor.size.x))*0.28)*side
-	var spot := Vector2(target.position.x + target.size.x*0.5 + reach - actor.size.x*0.5, target.position.y + target.get_meta("feet",target.size.y) - actor.get_meta("feet",actor.size.y))
+	var spot := _dash_spot(actor, target, side)
 	if actor.hero != null:
 		actor.hero.facing_left = side > 0
 		actor.hero.running = true
@@ -99,7 +110,7 @@ func _return(actor: ActorPortrait) -> void:
 
 func _strike(actor: ActorPortrait, payload: Dictionary) -> void:
 	if actor.hero != null:
-		actor.hero.perform(_hero_action(payload))
+		actor.hero.perform(_hero_action(payload, actor.hero))
 	elif payload.kind in ["attack","skill"]:
 		# 2D foes lunge and lean into the swing; the hero's 3D clip carries its own wind-up.
 		var lean := actor.create_tween()
@@ -226,6 +237,13 @@ func _label(text: String, font_size: int, color: Color) -> Label:
 	add_child(label)
 	return label
 
-func _hero_action(payload: Dictionary) -> String:
+# skills.json `clip` names the hero action; a gun in hand turns the basic attack into a shot.
+static var _clips: Dictionary = {}
+
+func _hero_action(payload: Dictionary, hero: Stage3D = null) -> String:
+	if payload.kind == "attack": return "shoot" if hero != null and hero.get("weapon_model") == "gun" else "attack"
 	if payload.kind != "skill": return payload.kind
-	return "skill_stab" if payload.skill_id in STAB_SKILLS else "skill_steam"
+	if _clips.is_empty():
+		for skill in JSON.parse_string(FileAccess.get_file_as_string("res://data/skills.json")):
+			if skill.has("clip"): _clips[skill.id] = skill.clip
+	return _clips.get(payload.skill_id, "skill_stab" if payload.skill_id in STAB_SKILLS else "skill_steam")

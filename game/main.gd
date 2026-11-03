@@ -587,6 +587,26 @@ func _show_skills() -> void:
 			if rank == 0: tile.modulate = Color(1,1,1,0.55)
 	if session.state.room_id == "R01":
 		UIBuilder.button(left,"คืนแต้มสกิลฟรี (คงสกิลเริ่มอาชีพ)",_grow.bind("respec",{}),"Respec")
+	# Prerequisite links, drawn over the board once the tiles have their final positions.
+	var links := Control.new()
+	links.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	links.top_level = true
+	left.add_child(links)
+	links.draw.connect(func():
+		# Only the picked skill's chain: what it needs (amber) and what it unlocks (blue). All links at once tangle.
+		for skill in catalog.data.skills:
+			for parent_id in skill.parents:
+				if skill.id != skill_pick and parent_id != skill_pick: continue
+				var child = modal_body.find_child("Skill_"+skill.id,true,false)
+				var parent = modal_body.find_child("Skill_"+parent_id,true,false)
+				if child == null or parent == null: continue
+				var a: Vector2 = parent.get_global_rect().get_center()
+				var b: Vector2 = child.get_global_rect().get_center()
+				links.draw_line(a,b,Color(0,0,0,0.5),7.0)
+				links.draw_line(a,b,Color("e3b858") if skill.id == skill_pick else Color("80cde1"),3.0)
+				links.draw_circle(b,5,Color("e3b858") if skill.id == skill_pick else Color("80cde1")))
+	links.set_deferred("size",get_viewport_rect().size)
+	(func(): await get_tree().process_frame; if is_instance_valid(links): links.queue_redraw()).call_deferred()
 	var skill := catalog.get_entry("skills",skill_pick)
 	var rank: int = int(p.skill_ranks.get(skill.id,0))
 	UIBuilder.label(detail,skill.name,22,Color("f1d9a0"))
@@ -672,6 +692,7 @@ func _finish_combat() -> void:
 	var kind := "training_settle" if not combat.training_id.is_empty() else ("battle_won" if combat.state.outcome == "victory" else "battle_lost")
 	if combat.state.outcome == "retreat" and combat.training_id.is_empty():
 		kind = "retreat"
+	var before: Dictionary = session.snapshot()
 	var result := session.commit_result(kind,combat.result_payload())
 	_record_reward_notices(result.get("events",[]))
 	var practice: bool = not combat.training_id.is_empty()
@@ -686,24 +707,143 @@ func _finish_combat() -> void:
 	if combat.encounter.get("boss_id", "") == "B06" and won:
 		_show_ending_choices()
 		return
-	_open_modal("จบการฝึก" if practice else ("ผ่านการต่อสู้" if won else "กลับสู่จุดพัก"))
-	for event in result.events:
-		if event.type == "battle_won":
-			UIBuilder.label(modal_body,"XP +%d · เงิน +%d" % [event.payload.xp,event.payload.gold],24)
-			var drop := catalog.get_entry("items",event.payload.get("drop",""))
-			if not drop.is_empty():
-				var row := HBoxContainer.new()
-				modal_body.add_child(row)
-				var icon := TextureRect.new()
-				icon.texture = UIBuilder.item_icon(drop)
-				icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-				icon.custom_minimum_size = Vector2(40,40)
-				row.add_child(icon)
-				UIBuilder.label(row,"ของตก: " + drop.name,22,Color("f1d9a0")).autowrap_mode = TextServer.AUTOWRAP_OFF
-		elif event.type == "training_settled":
-			UIBuilder.label(modal_body,"เก็บเป้าหมายสำเร็จแล้ว · XP +%d" % event.payload.xp,24)
+	if won and not practice:
+		_settle_victory(before,result)
+		return
 	if not won:
-		UIBuilder.label(modal_body,"ฟื้น HP/FP แล้ว พลังงานลด4 เปลี่ยนอุปกรณ์หรือกลับโรงซ่อมพักฟรีก่อนลองใหม่ได้",20)
+		_show_defeat()
+		return
+	_open_modal("จบการฝึก")
+	for event in result.events:
+		if event.type == "training_settled":
+			UIBuilder.label(modal_body,"เก็บเป้าหมายสำเร็จแล้ว · XP +%d" % event.payload.xp,24)
+
+# ---------------------------------------------------------------- settlement
+# Same order as the reference's settlement: spoils count into totals, then level-up gains, then the attribute
+# choice the player must make, then the skill board. Our own layout and wording.
+var settle_tween: Tween
+var settle_points: int = 0
+
+func _settle_victory(before: Dictionary, result: Dictionary) -> void:
+	var won: Dictionary = {}
+	var levels := 0
+	for event in result.events:
+		if event.type == "battle_won": won = event.payload
+		elif event.type == "level_up": levels += 1
+	var p: Dictionary = session.state.player
+	_open_modal("ชนะ!", false)
+	var counts := GridContainer.new()
+	counts.columns = 2
+	counts.add_theme_constant_override("h_separation",24)
+	modal_body.add_child(counts)
+	counts.child_entered_tree.connect(func(node): if node is Label: node.autowrap_mode = TextServer.AUTOWRAP_OFF)
+	UIBuilder.label(counts,"เงินที่ได้",20,Color("e3b858"))
+	var gold_gain := UIBuilder.label(counts,"%d" % won.get("gold",0),22,Color("e3b858"))
+	UIBuilder.label(counts,"เงินรวม",20,Color("e3b858"))
+	var gold_total := UIBuilder.label(counts,"%d" % before.player.currency,22)
+	UIBuilder.label(counts,"XP ที่ได้",20,Color("9fd8ff"))
+	var xp_gain := UIBuilder.label(counts,"%d" % won.get("xp",0),22,Color("9fd8ff"))
+	var xp_row := HBoxContainer.new()
+	modal_body.add_child(xp_row)
+	var xp_level := UIBuilder.label(xp_row,"Lv %d" % before.player.level,18,Color("9fd8ff"))
+	xp_level.autowrap_mode = TextServer.AUTOWRAP_OFF
+	xp_level.custom_minimum_size.x = 70
+	var xp_bar := UIBuilder.bar(xp_row,before.player.xp,session.progression.xp_to_next(int(before.player.level)),Color("9fd8ff"),14)
+	xp_bar.custom_minimum_size.x = 420
+	xp_bar.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	var drop := catalog.get_entry("items",won.get("drop",""))
+	if not drop.is_empty():
+		var row := HBoxContainer.new()
+		modal_body.add_child(row)
+		var icon := TextureRect.new()
+		icon.texture = UIBuilder.item_icon(drop)
+		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		icon.custom_minimum_size = Vector2(48,48)
+		row.add_child(icon)
+		UIBuilder.label(row,"ของตก: " + drop.name + "  ·  " + UIBuilder.item_description(drop),20,Color("f1d9a0")).autowrap_mode = TextServer.AUTOWRAP_OFF
+	if not reward_notice.is_empty(): UIBuilder.label(modal_body,reward_notice,15,Color("95c5b1"))
+	# Spoils drain from the "gained" counters into the totals; the XP bar fills and wraps on each level gained.
+	settle_tween = create_tween().set_parallel(true)
+	settle_tween.tween_method(func(v: float):
+		gold_gain.text = "%d" % roundi(won.get("gold",0)*(1.0-v))
+		gold_total.text = "%d" % roundi(before.player.currency + (p.currency-before.player.currency)*v), 0.0, 1.0, 1.0)
+	var xp_track := create_tween()
+	var level: int = before.player.level
+	var start: float = before.player.xp
+	while level < int(p.level):
+		var cap := session.progression.xp_to_next(level)
+		xp_track.tween_method(func(v: float): xp_bar.max_value = cap; xp_bar.value = v, start, float(cap), 0.5)
+		level += 1
+		var shown_level := level
+		xp_track.tween_callback(func(): xp_level.text = "Lv %d" % shown_level; xp_bar.value = 0)
+		start = 0.0
+	var last_cap := session.progression.xp_to_next(int(p.level))
+	xp_track.tween_method(func(v: float): xp_bar.max_value = last_cap; xp_bar.value = v, start, float(p.xp), 0.5)
+	settle_tween.tween_method(func(v: float): xp_gain.text = "%d" % roundi(won.get("xp",0)*(1.0-v)), 0.0, 1.0, 1.0)
+	_settle_continue(func():
+		xp_track.kill()
+		if levels > 0: _settle_level_up(before,levels)
+		else: _close_modal(true))
+
+# Continue first finishes any running count, then moves on, so a quick player can skip the animation.
+func _settle_continue(next_step: Callable) -> void:
+	var button := UIBuilder.button(modal_body,"ต่อไป  [Enter]",func():
+		if settle_tween != null and settle_tween.is_running():
+			settle_tween.custom_step(10.0)
+			return
+		next_step.call(),"ContinueSettle")
+	UIBuilder.hotkey(button,KEY_ENTER)
+	button.grab_focus.call_deferred()
+
+func _settle_level_up(before: Dictionary, levels: int) -> void:
+	var p: Dictionary = session.state.player
+	var old := session.progression.derive(before.player,catalog.data)
+	var now := session.progression.derive(p,catalog.data)
+	_open_modal("เลเวลอัป!  เลเวล %d" % p.level, false)
+	for line in [["HP สูงสุด",now.max_hp-old.max_hp,Color("83dcb3")],["FP สูงสุด",now.max_fp-old.max_fp,Color("9fd8ff")],["แต้มค่าสถานะ",2*levels,Color("e3b858")],["แต้มสกิล",levels,Color("c27bff")]]:
+		if line[1] != 0: UIBuilder.label(modal_body,"%s  +%d" % [line[0],line[1]],24,line[2])
+	settle_points = 2*levels
+	_settle_continue(func(): _settle_attributes(levels))
+
+func _settle_attributes(levels: int) -> void:
+	var p: Dictionary = session.state.player
+	_open_modal("เลือกค่าสถานะที่จะเพิ่ม  ·  เหลือ %d แต้ม" % mini(settle_points,int(p.attribute_points)), false)
+	var tiles := HBoxContainer.new()
+	tiles.add_theme_constant_override("separation",16)
+	modal_body.add_child(tiles)
+	var names: Dictionary = {"VIT":["heal","ความทนทาน · HP สูงสุด +6"],"STR":["weapon","กำลัง · โจมตีกายภาพ +2"],"INT":["electric","เทคโนโลยี · เทค +2, FP สูงสุด +4"],"AGI":["energy","ความคล่อง · ความเร็วลำดับเทิร์น +1"]}
+	for attribute in ["VIT","STR","INT","AGI"]:
+		var cell := VBoxContainer.new()
+		cell.custom_minimum_size.x = 200
+		tiles.add_child(cell)
+		var tile := _tile(cell,load("res://art/icons/%s.svg" % names[attribute][0]),names[attribute][1],"%s %d" % [attribute,p.base_attributes[attribute]],false,func():
+			if settle_points > 0 and _commit("allocate_attribute",{"attribute":attribute}).ok:
+				settle_points -= 1
+			_settle_attributes(levels),"Settle_"+attribute)
+		tile.custom_minimum_size = Vector2(110,110)
+		tile.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		tile.disabled = settle_points <= 0
+		UIBuilder.label(cell,names[attribute][1],14,Color("a7b9ac")).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	UIBuilder.label(modal_body,"ใช้แต้มที่ได้จากเลเวลนี้ให้หมดก่อนไปต่อ" if settle_points > 0 else "เรียบร้อย ต่อไปเลือกสกิล",16,Color("8fb4a6"))
+	_settle_continue(func():
+		if settle_points > 0: return
+		_show_skills())
+	modal_body.find_child("ContinueSettle",true,false).disabled = settle_points > 0
+
+func _show_defeat() -> void:
+	_open_modal("แพ้")
+	UIBuilder.label(modal_body,"ฟื้น HP/FP แล้ว พลังงานลด4 · กลับมาที่จุดพัก",20)
+	var retry_id: String = combat.encounter.get("id","")
+	var allowed := world_policy.can_start_encounter(retry_id,session.state,combat.pipe_id)
+	var row := HBoxContainer.new()
+	row.add_theme_constant_override("separation",12)
+	modal_body.add_child(row)
+	var retry := UIBuilder.button(row,"ลองใหม่",func():
+		_close_modal(true)
+		_start_encounter(retry_id,combat.pipe_id,return_position),"RetryFight")
+	retry.disabled = not allowed.ok
+	retry.tooltip_text = "สู้คู่ต่อสู้เดิมอีกครั้งทันที" if allowed.ok else allowed.reason
+	UIBuilder.button(row,"กลับ",_close_modal.bind(false),"LeaveDefeat").tooltip_text = "ปรับอุปกรณ์หรือพักก่อนแล้วค่อยกลับมา"
 
 func _show_ending_choices() -> void:
 	_open_modal("เสียงของเมืองอยู่ในมือคุณ",false)

@@ -18,6 +18,8 @@ var stage: Control
 var ui: Control
 var wait_label: Label
 var plates: Control
+var target_marker: Control
+var clock: float = 0.0
 # HP and barrier as the player sees them: they change when a blow lands on screen, not when the resolver decides.
 var shown: Dictionary = {}
 var hp_bars: Dictionary = {}
@@ -51,8 +53,14 @@ func _ready() -> void:
 	_title_card()
 	_pump.call_deferred()
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	clock += delta
 	if is_instance_valid(stage): stage.queue_redraw()
+	if is_instance_valid(target_marker) and portraits.has(selected_target):
+		var foe: ActorPortrait = portraits[selected_target]
+		target_marker.visible = controller.is_player_turn() and not paused and not settled and foe.alive and feedback.playing == 0
+		var top: float = foe.hero.top_fraction() if foe.hero != null else 0.1
+		target_marker.position = foe.position + Vector2(foe.size.x*0.5, foe.size.y*top - 18.0 + sin(clock*5.0)*6.0)
 	if is_instance_valid(wait_label):
 		wait_label.visible = not settled and (feedback.playing > 0 or not controller.is_player_turn())
 
@@ -126,6 +134,13 @@ func _build_stage() -> void:
 		portrait.set_meta("home",portrait.position)
 		stage.add_child(portrait)
 		portraits[actor.id] = portrait
+	# Bobbing arrow over the chosen foe while it is the player's turn.
+	target_marker = Control.new()
+	target_marker.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	target_marker.draw.connect(func():
+		target_marker.draw_colored_polygon(PackedVector2Array([Vector2(-14,-10),Vector2(14,-10),Vector2(0,8)]),Color("f1d9a0"))
+		target_marker.draw_polyline(PackedVector2Array([Vector2(-14,-10),Vector2(14,-10),Vector2(0,8),Vector2(-14,-10)]),Color("0b1214"),2.0))
+	stage.add_child(target_marker)
 	wait_label = UIBuilder.label(stage,"…กำลังออกท่า…",18,Color("f1d9a0"))
 	wait_label.position = Vector2(540,500)
 	wait_label.size = Vector2(200,30)

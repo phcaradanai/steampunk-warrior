@@ -270,6 +270,18 @@ func _process(delta: float) -> void:
 func strike_timing(_kind: String) -> Vector2:
 	return Vector2(STRIKE_CONTACT, 0.2)
 
+var _top := -1.0
+
+func top_fraction() -> float:
+	if _top < 0.0:
+		var highest := 0.0
+		for node in model.find_children("*","MeshInstance3D",true,false):
+			var box: AABB = (model.global_transform.affine_inverse() * node.global_transform) * node.mesh.get_aabb()
+			highest = maxf(highest, box.end.y)
+		# Camera frames model y from -0.15 to 1.85.
+		_top = clampf(1.0 - (highest + hover + 0.15) / 2.0, 0.0, 0.9)
+	return _top
+
 func end_action() -> void:
 	_settle()
 

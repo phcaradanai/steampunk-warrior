@@ -59,6 +59,10 @@ func _process(_delta: float) -> void:
 	_sync_resolution()
 	queue_redraw()
 
+# Height of the figure's top as a fraction of the control, measured from the top edge (for markers above heads).
+func top_fraction() -> float:
+	return 0.1
+
 func perform(_kind: String) -> void:
 	pass
 

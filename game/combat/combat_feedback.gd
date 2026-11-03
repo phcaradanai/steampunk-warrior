@@ -142,8 +142,9 @@ func _impact(event: Dictionary, portraits: Dictionary) -> void:
 	bursts.append({"point":point,"color":color,"life":.32,"shielded":payload.get("shielded",false)})
 	trauma = 1.0 if event.type == "damage" else trauma
 	if flash_enabled:
-		target.modulate = Color(1.6,1.45,1.25)
-		target.create_tween().tween_property(target,"modulate",Color.WHITE,.18)
+		# Whole-figure flash so the blow reads at a glance, then fade back.
+		target.modulate = Color(2.6,2.4,1.9)
+		target.create_tween().tween_property(target,"modulate",Color.WHITE,.24).set_ease(Tween.EASE_OUT)
 	var away := 1.0 if target.mirror else -1.0
 	var recoil := target.create_tween()
 	recoil.tween_property(target,"motion_offset",Vector2(10*away,0),.055)

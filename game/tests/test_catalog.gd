@@ -18,6 +18,11 @@ func run(t) -> bool:
 	# Building figures headless spams dummy-renderer material errors; capture_roster.gd builds them for real.
 	for enemy in catalog.data.enemies:
 		t.check(Roster3D.has(enemy.id), "enemy %s has a Roster3D figure" % enemy.id)
+	# A creature kind with no builder only fails at render time, so check the builders exist.
+	var kit := Creature3D.new()
+	for id in Roster3D.CREATURES:
+		t.check(kit.has_method("_build_" + Roster3D.CREATURES[id][0]), "creature %s kind %s has a builder" % [id, Roster3D.CREATURES[id][0]])
+	kit.free()
 	for encounter in catalog.data.encounters:
 		for enemy_id in encounter.enemies:
 			t.check(catalog.get_entry("enemies", enemy_id).has("id"), "%s references existing enemy %s" % [encounter.id, enemy_id])

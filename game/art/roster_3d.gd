@@ -29,6 +29,12 @@ const PEOPLE := {
 	"N17":{"gear":[0,0,2,0],"pack":false,"colors":{COAT:"5a2a5a","suit":"5a2a5a",HAIR:"a03030"}},
 	"N18":{"gear":[2,0,2,0],"pack":false,"colors":{COAT:"dcd6c4","suit":"dcd6c4"},"extras":["visor"],"extra_color":"b7f04a"},
 	"N19":{"gear":[1,1,1,1],"pack":true,"colors":{"suit":"4a4a4a"},"build":Vector3(1.25,1.02,1.25)},
+	# Late-game foes (R09-R12): heavier builds and gear mixes so none reads as an NPC or an early guard.
+	"N20":{"gear":[1,1,0,0],"pack":true,"colors":{LEATHER:"2a2a2e","suit":"2a2a2e",HAIR:"1a1a1a",SKIN:"7a6a5a","Mat_Brass":"4a3e34","Mat_Copper":"3a3a3e"},"build":Vector3(0.95,0.9,0.95),"extras":["visor"],"extra_color":"ff8a3a"},
+	"N21":{"gear":[1,2,1,2],"pack":true,"colors":{"suit":"7a5a3a",LEATHER:"7a5a3a",SKIN:"8a8a90","Mat_Brass":"6a6a74","Mat_Copper":"3a3a44"},"build":Vector3(1.4,1.1,1.4),"extras":["visor"],"extra_color":"ff4a2a"},
+	"N22":{"gear":[0,0,2,1],"pack":false,"colors":{COAT:"d8c898","suit":"d8c898",HAIR:"b8b4ac","Mat_Brass":"d8d0b8","Mat_Copper":"8a7a5a"},"build":Vector3(0.9,1.1,0.9),"extras":["beard","visor"],"extra_color":"ffe08a"},
+	"N23":{"gear":[2,1,1,1],"pack":false,"colors":{"suit":"34343c",LEATHER:"34343c","Mat_Brass":"3a3a44","Mat_Copper":"2a2a30"},"build":Vector3(1.12,1.0,1.12),"extras":["visor"],"extra_color":"ff3a3a"},
+	"N26":{"gear":[1,1,1,2],"pack":true,"colors":{"suit":"9aa8c0",LEATHER:"6a5a8a","Mat_Brass":"7a5aa8","Mat_Copper":"5a4a8a"},"build":Vector3(1.3,1.08,1.3),"extras":["hood","visor"],"extra_color":"c27bff"},
 	"B02":{"gear":[0,1,1,2],"pack":true,"colors":{"suit":"26364a",COAT:"26364a"},"build":Vector3(1.3,1.05,1.3),"extras":["visor"],"extra_color":"ffcf4a"},
 	"B04":{"gear":[1,2,1,0],"pack":true,"colors":{"suit":"8a3a1a",LEATHER:"8a3a1a"},"build":Vector3(1.35,1.0,1.35),"extras":["beard"],"extra_color":"ff8a3a"},
 	"B05":{"gear":[2,0,2,0],"pack":false,"colors":{COAT:"4a5a7a","suit":"4a5a7a"},"extras":["hood","visor"],"extra_color":"9fb8ff"},
@@ -38,6 +44,7 @@ const PEOPLE := {
 const CREATURES := {
 	"N01":["rat",{}], "N02":["dog",{}], "N03":["bat",{}], "N04":["centipede",{}], "N05":["beetle",{}],
 	"N06":["spider",{}], "N07":["boar",{}], "N08":["heron",{}], "N09":["wolf",{"fur":"5a4a3a"}],
+	"N24":["hound",{"fur":"4a6a3a","glow":"b7f04a"}], "N25":["heron",{"fur":"b48aff","glow":"ffcf4a"}],
 	"B01":["croc",{}], "B03":["deer",{}], "root":["sprout",{}],
 	"rest":["bed",{}], "shop":["cart",{}], "objective":["crate",{}],
 }

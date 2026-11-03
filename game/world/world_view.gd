@@ -22,7 +22,7 @@ var oblique: bool = false
 const LEFT_PIPE := Vector2(231,300)
 const CENTER_PIPE := Vector2(480,300)
 const RIGHT_PIPE := Vector2(729,300)
-const HUB_PIPES := {"R02":LEFT_PIPE,"P01":CENTER_PIPE,"P02":RIGHT_PIPE}
+const HUB_PIPES := {"R02":LEFT_PIPE,"P01":CENTER_PIPE,"junction":RIGHT_PIPE}
 # Wall valve wheels beside the left pipe and beside the centre (tram) or right pipe.
 const VALVES := [Vector2(328,300),Vector2(569,300),Vector2(810,300)]
 const HUB_FLOOR := 262.0
@@ -67,16 +67,29 @@ func configure(catalog: Dictionary, session: Dictionary, spawn: String = "entry"
 		var pipe_at: Vector2 = HUB_PIPES.get(exit.to,at) if hub else (RIGHT_PIPE if right else LEFT_PIPE) if oblique else at
 		markers.append({"kind":"exit","id":exit.to,"label":"ท่อไป " + _room_name(exit.to),"name":("ท่อไป " if hub else "→ " if right else "← ") + _room_name(exit.to),"position":pipe_at})
 	var policy := WorldController.new(content)
+	var junction: Array = []
+	var junction_pending := false
 	for line in room.get("pipes", []):
 		var detail := policy.pipe(line.id)
 		var next := policy.pipe_next(detail, progress)
 		var stage: int = line.encounters.find(next) + 1
+		var pending: bool = not policy.pipe_pending_rooms(detail, progress).is_empty()
 		var text: String = line.name + " · " + line.line
 		if not policy.pipe_open(detail, progress):
 			text += " · ปิด: ผ่าน " + _encounter_name(line.requires) + " ก่อน"
 		else:
 			text += " · ระดับ %d/%d · ถัดไป: %s" % [stage, line.encounters.size(), _encounter_name(next)]
-		markers.append({"kind":"pipe","id":line.id,"label":text,"name":line.name,"position":HUB_PIPES.get(line.id,Vector2(480,300)),"encounter":next})
+			if pending: text += " · ห้องยังมีภารกิจหรือวาล์ว"
+		if line.id == "P01":
+			markers.append({"kind":"pipe","id":line.id,"label":text,"name":line.name,"position":HUB_PIPES.P01,"encounter":next,"pending":pending})
+		else:
+			junction.append(line.name)
+			junction_pending = junction_pending or (pending and policy.pipe_open(detail, progress))
+	var open_count := 0
+	for line in room.get("pipes", []):
+		if line.id != "P01" and policy.pipe_open(policy.pipe(line.id), progress): open_count += 1
+	if not junction.is_empty():
+		markers.append({"kind":"junction","id":"junction","label":"ทางแยกท่อ · " + " / ".join(junction),"name":"ทางแยกท่อ · เปิด %d/%d สาย" % [open_count,junction.size()],"position":HUB_PIPES.junction,"pending":junction_pending})
 	var npc_slots: Array[Vector2] = [Vector2(330,360),Vector2(630,360),Vector2(200,330),Vector2(760,330)]
 	for npc in content.story.npcs:
 		if room.id in npc.get("rooms", [npc.room]):
@@ -148,7 +161,7 @@ func _place_on_floor() -> void:
 	var next_slot := 0
 	var valve := 0
 	for marker in markers:
-		if marker.kind in ["exit","fast_travel","pipe"]: continue
+		if marker.kind in ["exit","fast_travel","pipe","junction"]: continue
 		if marker.kind == "environment":
 			marker.position = VALVES[valve] if valve == 0 or room.fast_travel else VALVES[2]
 			valve += 1
@@ -285,13 +298,13 @@ static func _badge_icon(name: String) -> Texture2D:
 
 static func marker_icon(marker: Dictionary) -> String:
 	if marker.kind == "exit": return "exit_right" if marker.get("name","").begins_with("→") else "exit_left"
-	return {"pipe":"fight","fast_travel":"travel","npc":"talk","encounter":"fight","environment":"valve","objective":"objective","rest":"rest","training":"train","shop":"shop"}.get(marker.kind,"hand")
+	return {"pipe":"fight","junction":"pipe","fast_travel":"travel","npc":"talk","encounter":"fight","environment":"valve","objective":"objective","rest":"rest","training":"train","shop":"shop"}.get(marker.kind,"hand")
 
 # Mobile style: every interactable wears a small picture badge; its words appear only when the hero is close.
 func _draw_badge(marker: Dictionary, point: Vector2) -> void:
 	var near: bool = marker.id == nearby.get("id","")
 	var height := 0.55 if marker.kind in ["rest","shop","objective"] else 0.9
-	var lift := 210.0 if marker.kind in ["exit","pipe","fast_travel"] else 78.0 if marker.kind == "environment" else 96.0*height*SteamPlayer.depth_scale(point.y)*(1.25 if marker.get("boss",false) else 1.0) + 8.0
+	var lift := 210.0 if marker.kind in ["exit","pipe","junction","fast_travel"] else 78.0 if marker.kind == "environment" else 96.0*height*SteamPlayer.depth_scale(point.y)*(1.25 if marker.get("boss",false) else 1.0) + 8.0
 	if near: draw_ellipse(point+Vector2(0,10),46,12,Color(1,0.85,0.5,0.35))
 	var badge := point - Vector2(0,lift)
 	var radius := 17.0 if near else 13.0
@@ -302,11 +315,15 @@ func _draw_badge(marker: Dictionary, point: Vector2) -> void:
 		draw_circle(badge+Vector2(radius*0.8,-radius*0.8),4,Color("80e0a8") if progress.world_flags.get("environment:"+marker.id,false) else Color("e0a050"))
 	var icon := _badge_icon(marker_icon(marker))
 	draw_texture_rect(icon,Rect2(badge-Vector2.ONE*radius*0.72,Vector2.ONE*radius*1.44),false)
+	if marker.get("pending",false):
+		draw_circle(badge+Vector2(radius*0.8,-radius*0.8),4,Color("e0a050"))
 	if near:
-		var text: String = marker.get("name",marker.label) if marker.kind in ["exit","pipe","fast_travel"] else marker.label
-		var width := 300.0
-		draw_rect(Rect2(badge+Vector2(-width*0.5,-radius-30),Vector2(width,24)),Color(0.04,0.08,0.09,0.8))
-		draw_string(font,badge+Vector2(-width*0.5,-radius-12),text,HORIZONTAL_ALIGNMENT_CENTER,width,15,Color("f1d9a0"))
+		var text: String = marker.get("name",marker.label) if marker.kind in ["exit","pipe","junction","fast_travel"] else marker.label
+		var width := clampf(text.length()*11.0,300.0,560.0)
+		# Hub mouth badges sit under the room title banner, so their label hangs below the icon.
+		var drop: float = radius + 8 if marker.kind in ["pipe","junction"] else -radius - 30
+		draw_rect(Rect2(badge+Vector2(-width*0.5,drop),Vector2(width,24)),Color(0.04,0.08,0.09,0.8))
+		draw_string(font,badge+Vector2(-width*0.5,drop+18),text,HORIZONTAL_ALIGNMENT_CENTER,width,15,Color("f1d9a0"))
 
 func _draw_markers() -> void:
 	for marker in markers:

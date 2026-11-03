@@ -24,6 +24,21 @@ func _initialize() -> void:
 	scene._new_game("C01")
 	await wait(0.4)
 	await capture("hub")
+	for id in ["E01","E02","E03","E04","E05"]: scene.session.state.first_clears[id] = true
+	scene._show_world()
+	await wait(0.3)
+	for marker in scene.world.markers:
+		if marker.kind == "junction":
+			scene.world.player.position = marker.position + Vector2(-40,30)
+			await wait(0.3)
+			await capture("hub_junction_badge")
+			scene._show_junction(marker)
+	await wait(0.4)
+	await capture("junction_chooser")
+	scene._close_modal(true)
+	scene.session.state.first_clears.clear()
+	scene._show_world()
+	await wait(0.3)
 	for marker in scene.world.markers:
 		if marker.id == "P01": scene.world.player.position = marker.position + Vector2(60,70)
 	await wait(0.2)

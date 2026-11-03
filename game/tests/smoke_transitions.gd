@@ -40,6 +40,45 @@ func travel(destination: String, code: int = KEY_E) -> void:
 	check(scene.session.state.room_id == destination and scene.world.room.id == destination,"input changes actual scene: "+destination)
 	check(scene.saves.load_slot("autosave").get("state",{}).get("room_id","") == destination,"transition autosave matches: "+destination)
 
+# Right-hand hub mouth: keyboard opens the chooser, focus lands on an open line, Enter starts its fight.
+func junction() -> void:
+	for id in ["E01","E02","E03"]: scene.session.state.first_clears[id] = true
+	scene.world.refresh(scene.session.snapshot())
+	for marker in scene.world.markers:
+		if marker.kind == "junction": scene.world.player.position = marker.position+Vector2(-35,0)
+	await physics_frame
+	await process_frame
+	check(scene.world.nearby.get("kind","") == "junction","junction mouth is the nearest marker")
+	key(KEY_E,true)
+	await process_frame
+	key(KEY_E,false)
+	for _i in range(10): await process_frame
+	check(is_instance_valid(scene.modal) and scene.modal.find_child("Line_P05",true,false) != null,"junction chooser lists every later line")
+	var focused := root.gui_get_focus_owner()
+	check(focused != null and focused.name == "Line_P02","keyboard focus starts on the first open line")
+	key(KEY_RIGHT,true)
+	await process_frame
+	key(KEY_RIGHT,false)
+	await process_frame
+	var locked := root.gui_get_focus_owner()
+	check(locked != null and locked.name == "Line_P03","arrow keys move between line tiles")
+	key(KEY_ENTER,true)
+	await process_frame
+	key(KEY_ENTER,false)
+	await process_frame
+	check(scene.screen_mode == "world" and scene.combat == null,"a closed line does not start a fight")
+	key(KEY_LEFT,true)
+	await process_frame
+	key(KEY_LEFT,false)
+	await process_frame
+	key(KEY_ENTER,true)
+	await process_frame
+	key(KEY_ENTER,false)
+	for _i in range(200):
+		if scene.combat != null: break
+		await process_frame
+	check(scene.combat != null and scene.combat.pipe_id == "P02","Enter on an open line enters the pipe and starts its fight")
+
 func _initialize() -> void:
 	await process_frame
 	create_timer(30).timeout.connect(func():printerr("FAIL: transition smoke timed out");quit(1))
@@ -52,6 +91,7 @@ func _initialize() -> void:
 	await process_frame
 	await process_frame
 	scene._new_game("C01")
+	for chapter in scene.catalog.data.story.chapters: scene.session.state.world_flags["story:open:" + chapter.id] = true # chapter pages are covered by smoke_story
 	await process_frame
 	for marker in scene.world.markers:
 		if marker.id == "R02": scene.world.player.position = marker.position+Vector2(35,0)
@@ -76,6 +116,7 @@ func _initialize() -> void:
 	for boss in ["B01","B02","B03","B04","B05"]: scene.session.state.first_clears[boss] = true
 	for index in range(2,13): await travel("R%02d" % index,KEY_E if index%2 == 0 else KEY_SPACE)
 	for index in range(11,0,-1): await travel("R%02d" % index,KEY_SPACE if index%2 == 0 else KEY_E)
+	await junction()
 	scene.queue_free()
 	await create_timer(.2).timeout
 	for filename in DirAccess.get_files_at(directory): DirAccess.remove_absolute(directory.path_join(filename))

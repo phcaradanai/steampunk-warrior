@@ -39,6 +39,11 @@ func _initialize() -> void:
 		return
 	profession.pressed.emit()
 	await process_frame
+	check(scene.find_child("StoryScreen",true,false) != null and scene.find_child("StorySkip",true,false) != null,"class choice opens the intro pages with a skip button")
+	scene.find_child("StorySkip",true,false).pressed.emit()
+	await process_frame
+	check(scene.find_child("StoryScreen",true,false) == null and not scene.world.blocked,"skipping the intro hands control to the world")
+	for chapter in scene.catalog.data.story.chapters: scene.session.state.world_flags["story:open:" + chapter.id] = true # chapter pages are covered by smoke_story
 	await capture("world")
 	check(scene.screen_mode == "world" and scene.session.state.room_id == "R01","selected character enters actual world")
 	var position_before: Vector2 = scene.world.player.position

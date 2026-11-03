@@ -2,7 +2,7 @@ class_name ContentCatalog
 extends RefCounted
 
 const KINDS: Array[String] = ["classes", "skills", "items", "enemies", "encounters", "rooms", "training", "story"]
-const EXPECTED: Dictionary = {"classes": 5, "skills": 22, "items": 62, "enemies": 25, "encounters": 36, "rooms": 12, "training": 4}
+const EXPECTED: Dictionary = {"classes": 5, "skills": 22, "items": 62, "enemies": 32, "encounters": 36, "rooms": 12, "training": 4}
 var data: Dictionary = {}
 var load_errors: Array[String] = []
 

@@ -10,9 +10,19 @@ func run(t) -> bool:
 	t.check(catalog.validate_all().is_empty(), "complete content references validate: " + str(catalog.validate_all()))
 	for pair in [["classes", 5], ["skills", 22], ["items", 62], ["rooms", 12], ["training", 4], ["encounters", 36]]:
 		t.check(catalog.data.get(pair[0], []).size() == pair[1], "%s content count" % pair[0])
-	t.check(catalog.data.get("enemies", []).size() == 25, "19 enemy archetypes plus six bosses")
+	t.check(catalog.data.get("enemies", []).size() == 32, "26 enemy archetypes plus six bosses")
 	t.check(catalog.get_entry("skills", "S22").get("pressure_delta") == -40, "phase vent definition available to real consumers")
 	t.check(catalog.get_entry("items", "W26").get("source") == "boss:B06", "extra weapon has deterministic source")
+	# Late fights (R10-R12) must not recycle the chapter 1-2 mutants N01-N09; every foe needs a figure.
+	var early := ["N01","N02","N03","N04","N05","N06","N07","N08","N09"]
+	# Building figures headless spams dummy-renderer material errors; capture_roster.gd builds them for real.
+	for enemy in catalog.data.enemies:
+		t.check(Roster3D.has(enemy.id), "enemy %s has a Roster3D figure" % enemy.id)
+	for encounter in catalog.data.encounters:
+		for enemy_id in encounter.enemies:
+			t.check(catalog.get_entry("enemies", enemy_id).has("id"), "%s references existing enemy %s" % [encounter.id, enemy_id])
+			if encounter.room in ["R10","R11","R12"]:
+				t.check(not early.has(enemy_id), "%s in %s does not reuse early foe %s" % [encounter.id, encounter.room, enemy_id])
 	var original: Dictionary = catalog.data.duplicate(true)
 	catalog.data.skills.append(catalog.data.skills[0].duplicate(true))
 	t.check(not catalog.validate_all().is_empty(), "duplicate IDs rejected")

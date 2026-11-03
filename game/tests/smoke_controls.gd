@@ -65,6 +65,9 @@ func _initialize() -> void:
 	key(KEY_ENTER,false)
 	await process_frame
 	check(scene.screen_mode == "world","keyboard Enter confirms focused class")
+	scene.find_child("StorySkip",true,false).pressed.emit()
+	await process_frame
+	for chapter in scene.catalog.data.story.chapters: scene.session.state.world_flags["story:open:" + chapter.id] = true # chapter pages are covered by smoke_story
 	check("L" in scene.control_hint.text,"world hints follow the rebound movement key")
 	if scene.screen_mode != "world":
 		quit(1)

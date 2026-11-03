@@ -141,7 +141,7 @@ func _show_classes() -> void:
 
 # One selectable card per class: a Button (keeps the Class_Cxx name and focus) with non-clickable content over it.
 func _class_card(parent: Control, profession: Dictionary) -> Button:
-	var card := UIBuilder.button(parent,"",_new_game.bind(profession.id),"Class_" + profession.id)
+	var card := UIBuilder.button(parent,"",_start_adventure.bind(profession.id),"Class_" + profession.id)
 	card.custom_minimum_size = Vector2(0,540)
 	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var content := VBoxContainer.new()
@@ -179,6 +179,13 @@ func _new_game(class_id: String) -> void:
 		backlog.clear()
 		_show_world()
 		_autosave()
+
+# The class screen's entry: a new game, then the intro pages over the world.
+func _start_adventure(class_id: String) -> void:
+	_new_game(class_id)
+	if screen_mode == "world":
+		var service := DialogueService.new(catalog.data)
+		_play_story(service.intro_pages(),Callable(),"เริ่มการเดินทาง")
 
 func _show_world() -> void:
 	_clear_screen("world")
@@ -246,6 +253,7 @@ func _show_world() -> void:
 	control_hint = UIBuilder.label(hint_panel,_control_hint_text(),14,Color("c8d6cc"))
 	_refresh_hud()
 	_check_pending_ending.call_deferred()
+	_check_chapter_opening.call_deferred()
 
 func _refresh_hud() -> void:
 	if session == null or session.state.is_empty():
@@ -303,17 +311,8 @@ func _commit(kind: String, payload: Dictionary = {}) -> Dictionary:
 
 func _interact(marker: Dictionary) -> void:
 	match marker.kind:
-		"pipe":
-			var line := world_policy.pipe(marker.id)
-			var next := world_policy.pipe_next(line,session.state)
-			var allowed := world_policy.can_start_encounter(next,session.state,marker.id)
-			if not allowed.ok:
-				_message(allowed.reason)
-				return
-			var view := world
-			await view.enter_pipe(marker)
-			if world != view: return
-			_start_encounter(next,marker.id,marker.position+Vector2(0,40))
+		"pipe": await _enter_pipe_line(marker.id,marker.position)
+		"junction": _show_junction(marker)
 		"exit", "fast_travel":
 			if not world_policy.can_travel(session.state.room_id,marker.id,session.state):
 				_message("ทางยังไม่เปิด ผ่านบอสของเขตก่อนหน้าก่อน")
@@ -341,6 +340,76 @@ func _interact(marker: Dictionary) -> void:
 		"shop": _show_shop()
 		"training": _show_training()
 		"encounter": _confirm_encounter(marker.id)
+
+func _enter_pipe_line(line_id: String, mouth: Vector2) -> void:
+	var line := world_policy.pipe(line_id)
+	var next := world_policy.pipe_next(line,session.state)
+	var allowed := world_policy.can_start_encounter(next,session.state,line_id)
+	if not allowed.ok:
+		_message(allowed.reason)
+		return
+	var opening := DialogueService.new(catalog.data).opening_for_pipe(line_id,session.state)
+	if not opening.is_empty():
+		_mark_story([opening.flag])
+		_play_story(opening.pages,_enter_pipe_line.bind(line_id,mouth))
+		return
+	if not catalog.get_entry("encounters",next).get("boss_id","").is_empty():
+		_confirm_encounter(next,line_id,mouth)
+		return
+	await _dive_and_fight(next,line_id,mouth)
+
+func _dive_and_fight(encounter_id: String, line_id: String, mouth: Vector2) -> void:
+	var view := world
+	await view.enter_pipe({"position":mouth})
+	if world != view: return
+	_start_encounter(encounter_id,line_id,mouth+Vector2(0,40))
+
+# The right-hand mouth: every open line except P01 (which has the centre mouth), one tile each.
+func _show_junction(marker: Dictionary) -> void:
+	_open_modal("ทางแยกท่อ · เลือกสาย")
+	var parts := _modal_split()
+	var detail: VBoxContainer = parts[1]
+	var grid := _grid(parts[0],"สายท่อที่เชื่อมกับทางแยก",4)
+	var first: Button
+	for line in catalog.data.rooms.filter(func(r): return r.id == "R01")[0].pipes:
+		if line.id == "P01": continue
+		var info := world_policy.pipe(line.id)
+		var open := world_policy.pipe_open(info,session.state)
+		var tile := _tile(grid,load("res://art/icons/pipe.svg"),line.name,("%s\nLv%d" % [line.id,int(line.level)]) if open else "%s\nปิด" % line.id,false,_junction_go.bind(line.id,marker.position),"Line_"+line.id)
+		if not open: tile.modulate = Color(1,1,1,0.5)
+		var show := _junction_detail.bind(detail,info)
+		tile.focus_entered.connect(show)
+		tile.mouse_entered.connect(show)
+		if first == null: first = tile; show.call()
+	focus_hint = "Line_P02"
+
+func _junction_detail(detail: VBoxContainer, line: Dictionary) -> void:
+	for child in detail.get_children():
+		detail.remove_child(child)
+		child.queue_free()
+	var progress := session.state
+	var next := world_policy.pipe_next(line,progress)
+	UIBuilder.label(detail,line.name,22,Color("e7c588"))
+	UIBuilder.label(detail,"%s · ธีม %s · ระดับแนะนำ %d" % [line.line,line.theme,int(line.level)],15,Color("a7b9ac"))
+	if not world_policy.pipe_open(line,progress):
+		UIBuilder.label(detail,"ปิดอยู่ ผ่าน "+catalog.get_entry("encounters",line.requires).name+" ในสายก่อนหน้าเพื่อเปิด",17,Color("e6b984"))
+		return
+	UIBuilder.label(detail,"คู่ต่อสู้ถัดไป: "+catalog.get_entry("encounters",next).name,18)
+	UIBuilder.label(detail,"ความคืบหน้า %d/%d" % [line.encounters.filter(func(id): return progress.first_clears.has(id)).size(),line.encounters.size()],16,Color("c8d6cc"))
+	var gate := world_policy.pipe_boss_gate(line,next,progress)
+	if not gate.is_empty(): UIBuilder.label(detail,gate,16,Color("e6b984"))
+	elif not world_policy.pipe_pending_rooms(line,progress).is_empty():
+		UIBuilder.label(detail,"ห้องของสายนี้ยังมีภารกิจหรือวาล์วที่ยังไม่ได้แตะ",15,Color("95c5b1"))
+	UIBuilder.label(detail,"กดยืนยันที่ช่องสายเพื่อเข้าท่อ",14,Color("8fb4a6"))
+
+func _junction_go(line_id: String, mouth: Vector2) -> void:
+	var line := world_policy.pipe(line_id)
+	var allowed := world_policy.can_start_encounter(world_policy.pipe_next(line,session.state),session.state,line_id)
+	if not allowed.ok:
+		_message(allowed.reason)
+		return
+	_close_modal(true)
+	await _enter_pipe_line(line_id,mouth)
 
 func _open_modal(title: String, allow_close: bool = true) -> void:
 	if not is_instance_valid(modal):
@@ -412,6 +481,7 @@ func _close_modal(force: bool = false) -> void:
 		combat_view.paused = false
 	_restore_focus.call_deferred(focus_return)
 	if not force and back.is_valid(): back.call_deferred()
+	if not force and not pending_story.is_empty(): _flush_story.call_deferred()
 
 func _talk_npc(npc_id: String) -> void:
 	for quest in catalog.data.story.quests:
@@ -690,8 +760,8 @@ func _show_training() -> void:
 		var button := UIBuilder.button(modal_body,tier.name + " — " + tier.focus,_start_training.bind(tier.id),"Training_"+tier.id)
 		button.disabled = not service.start(tier.id,session.state).ok
 
-func _confirm_encounter(id: String) -> void:
-	var allowed := world_policy.can_start_encounter(id,session.state)
+func _confirm_encounter(id: String, pipe_id: String = "", mouth: Vector2 = Vector2.INF) -> void:
+	var allowed := world_policy.can_start_encounter(id,session.state,pipe_id)
 	if not allowed.ok:
 		_message(allowed.reason)
 		return
@@ -699,6 +769,8 @@ func _confirm_encounter(id: String) -> void:
 	_open_modal(encounter.name)
 	if not encounter.boss_id.is_empty():
 		UIBuilder.label(modal_body,catalog.data.story.boss_intros.get(encounter.boss_id,""),20,Color("d9c8a0"))
+		var pre_line: String = catalog.data.story.get("boss_lines",{}).get(encounter.boss_id,{}).get("pre_line","")
+		if not pre_line.is_empty(): UIBuilder.label(modal_body,pre_line,20,Color("f0b8a0")).name = "BossPreLine"
 	var room := catalog.get_entry("rooms",encounter.room)
 	if not room.hazard.is_empty() and WorldController.hazard_active(room.id,session.state.world_flags):
 		UIBuilder.label(modal_body,"อันตรายเริ่มไฟต์: "+{"Wet":"ทั้งสองฝ่ายเปียก2เทิร์น ไฟฟ้าจะแรงขึ้น","Corroded":"เกราะคุณผุ2เทิร์น","Heated":"คุณร้อนจัด2เทิร์น"}[room.hazard]+" · ปรับวาล์วในห้องเพื่อลดอันตรายได้",18,Color("e6b984"))
@@ -708,7 +780,12 @@ func _confirm_encounter(id: String) -> void:
 		var service := DialogueService.new(catalog.data)
 		if not "Cure" in service.get_ending_options(session.state):
 			UIBuilder.label(modal_body,"Cure ยังไม่เปิด ต้องช่วยตัวอย่างที่ยังมีชีวิตและส่งคำสั่งต้นฉบับ หากเลือกทำลายรังแล้วจะปิดในเซฟนี้",18)
-	UIBuilder.button(modal_body,"เริ่มต่อสู้",_start_encounter.bind(id),"ConfirmEncounter")
+	if pipe_id.is_empty():
+		UIBuilder.button(modal_body,"เริ่มต่อสู้",_start_encounter.bind(id),"ConfirmEncounter")
+	else:
+		UIBuilder.button(modal_body,"เริ่มต่อสู้",func():
+			_close_modal(true)
+			_dive_and_fight(id,pipe_id,mouth),"ConfirmEncounter")
 
 func _start_encounter(id: String, pipe_id: String = "", resume_at: Vector2 = Vector2.INF) -> void:
 	combat = CombatController.new(catalog.data)
@@ -756,8 +833,11 @@ func _finish_combat() -> void:
 		_message(result.reason)
 		return
 	_autosave()
-	if combat.encounter.get("boss_id", "") == "B06" and won:
-		_show_ending_choices()
+	var boss_id: String = combat.encounter.get("boss_id", "")
+	if won and not practice and not boss_id.is_empty() and not before.first_clears.has(boss_id):
+		pending_story = DialogueService.new(catalog.data).boss_story(boss_id,session.state)
+	if boss_id == "B06" and won:
+		_flush_story(_show_ending_choices)
 		return
 	if won and not practice:
 		_settle_victory(before,result)
@@ -835,7 +915,9 @@ func _settle_victory(before: Dictionary, result: Dictionary) -> void:
 	_settle_continue(func():
 		xp_track.kill()
 		if levels > 0: _settle_level_up(before,levels)
-		else: _close_modal(true))
+		else:
+			_close_modal(true)
+			_flush_story())
 
 # Continue first finishes any running count, then moves on, so a quick player can skip the animation.
 func _settle_continue(next_step: Callable) -> void:
@@ -901,21 +983,76 @@ func _show_ending_choices() -> void:
 	_open_modal("เสียงของเมืองอยู่ในมือคุณ",false)
 	var service := DialogueService.new(catalog.data)
 	for id in service.get_ending_options(session.state):
-		for ending in catalog.data.story.endings:
-			if ending.id == id:
-				UIBuilder.button(modal_body,ending.name,_choose_ending.bind(id),"Ending_"+id)
+		var ending := service.ending(id)
+		UIBuilder.button(modal_body,ending.name,_choose_ending.bind(id),"Ending_"+id)
+		UIBuilder.label(modal_body,ending.get("hint",""),17,Color("a7b9ac")).name = "EndingHint_"+id
 
 func _choose_ending(id: String) -> void:
 	if not _commit("choose_ending",{"ending":id}).ok:
 		return
 	_show_world()
-	for ending in catalog.data.story.endings:
-		if ending.id == id:
-			_open_modal(ending.name)
-			UIBuilder.label(modal_body,ending.text,24)
-			var epilogue := DialogueService.new(catalog.data).get_epilogue(session.state)
-			if not epilogue.is_empty(): UIBuilder.label(modal_body,epilogue,20)
-			UIBuilder.label(modal_body,"กลับมาสำรวจต่อได้ รางวัลผ่านครั้งแรกจะไม่แจกซ้ำ",17)
+	var service := DialogueService.new(catalog.data)
+	var pages := service.ending_pages(id,session.state)
+	pages.append(service.credits_page())
+	_play_story(pages,func(): _message("กลับมาสำรวจต่อได้ รางวัลผ่านครั้งแรกจะไม่แจกซ้ำ"),"กลับสู่เมือง")
+
+# ---------------------------------------------------------------- story pages
+# Intro, chapter openings, boss aftermath and endings all play through StoryScreen over whatever screen is up.
+const StoryScreen := preload("res://story/story_screen.gd")
+var story_screen: Control
+var pending_story: Dictionary = {}
+
+func _story_figure(id: String) -> Stage3D:
+	if id != "hero":
+		return Roster3D.create(id)
+	var hero := Hero3D.new()
+	hero.apply_variant(CLASS_LOOKS[session.state.player.class_id])
+	return hero
+
+func _play_story(pages: Array, done: Callable = Callable(), final_label: String = "จบ") -> void:
+	if pages.is_empty() or is_instance_valid(story_screen):
+		if done.is_valid(): done.call()
+		return
+	_close_modal(true)
+	for page in pages:
+		_add_backlog(page.get("title",""),page.get("text",""))
+	var view = StoryScreen.new()
+	view.pages = pages
+	view.figure_factory = _story_figure
+	view.instant = settings.options.instant_text
+	view.speed = float(settings.options.text_speed)
+	view.final_label = final_label
+	view.finished.connect(func():
+		story_screen = null
+		if is_instance_valid(world) and not is_instance_valid(modal): world.blocked = false
+		if done.is_valid(): done.call())
+	story_screen = view
+	if is_instance_valid(world): world.blocked = true
+	add_child(view)
+
+func _mark_story(flags: Array) -> void:
+	for flag in flags:
+		session.state.world_flags[flag] = true
+	_autosave()
+
+func _check_chapter_opening() -> void:
+	if screen_mode != "world" or is_instance_valid(story_screen) or is_instance_valid(modal) or not pending_story.is_empty():
+		return
+	var due := DialogueService.new(catalog.data).opening_due(session.state)
+	if due.is_empty():
+		return
+	_mark_story([due.flag])
+	_play_story(due.pages)
+
+# Boss aftermath and chapter closing wait for the settlement chain; `after` runs once they are read (or at once if none).
+func _flush_story(after: Callable = Callable()) -> void:
+	if pending_story.is_empty():
+		if after.is_valid(): after.call()
+		return
+	var story := pending_story
+	pending_story = {}
+	_mark_story(story.flags)
+	_play_story(story.pages,after)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -1021,7 +1158,7 @@ func _recover_slot(id: String) -> void:
 	_message(result.reason)
 
 func _check_pending_ending() -> void:
-	if screen_mode == "world" and session.state.first_clears.has("B06") and not session.state.world_flags.get("postgame",false):
+	if screen_mode == "world" and pending_story.is_empty() and not is_instance_valid(story_screen) and session.state.first_clears.has("B06") and not session.state.world_flags.get("postgame",false):
 		_show_ending_choices()
 
 

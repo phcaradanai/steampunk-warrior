@@ -61,6 +61,61 @@ func _pipes(t, catalog) -> void:
 	var replay: Dictionary = session.commit_result("battle_won",{"id":"pipe:replay","encounter_id":"E08"})
 	t.check(replay.events.filter(func(e): return e.type == "battle_won")[0].payload.drop == "","replayed stage drops nothing, like the reference's one-way gateway")
 	_pipe_round_trip(t,catalog)
+	_chapter_lines(t,catalog)
+
+func _power(catalog, encounter_id: String) -> Array:
+	var encounter: Dictionary = catalog.get_entry("encounters",encounter_id)
+	# Strongest single foe; power is hp x attack because bosses trade low attack for much higher hp.
+	var hp := 0.0
+	var attack := 0.0
+	for id in encounter.enemies:
+		var enemy: Dictionary = catalog.get_entry("enemies",id)
+		hp = maxf(hp,ceil(float(enemy.base_hp)*float(encounter.scale)))
+		attack = maxf(attack,ceil(float(enemy.attack)*float(encounter.scale)))
+	return [hp,attack]
+
+func _chapter_lines(t, catalog) -> void:
+	var world := WorldController.new(catalog.data)
+	var lines: Array = catalog.data.rooms.filter(func(r): return r.id == "R01")[0].pipes
+	var covered := {}
+	for line in lines:
+		for id in line.encounters: covered[id] = true
+	t.check(covered.size() == catalog.data.encounters.size(),"every fight belongs to a pipe line")
+	var bosses = catalog.data.encounters.filter(func(e): return not e.boss_id.is_empty()).map(func(e): return e.boss_id)
+	t.check(lines.size() == 5 and lines.all(func(l): return catalog.get_entry("encounters",l.encounters[-1]).boss_id in bosses),"one line per chapter, each ends at a boss")
+	for i in range(1,lines.size()):
+		var previous: Dictionary = lines[i-1]
+		var boss_index: int = previous.encounters.size()-1
+		t.check(previous.encounters.find(lines[i].requires) < boss_index,lines[i].id+" opens before "+previous.id+" boss can be beaten")
+		var entry := _power(catalog,lines[i].encounters[0])
+		var boss := _power(catalog,previous.encounters[-1])
+		t.check(entry[0]*entry[1] < boss[0]*boss[1],lines[i].id+" first fight is weaker than "+previous.id+" boss "+str(entry)+" < "+str(boss))
+	var session = load("res://core/game_session.gd").new(catalog.data)
+	session.new_game("C01")
+	for line in lines:
+		var boss_id: String = line.encounters[-1]
+		var progress: Dictionary = session.snapshot()
+		for encounter in catalog.data.encounters:
+			if encounter.id == boss_id: break
+			progress.first_clears[encounter.id] = true
+		var gate := world.pipe_boss_gate(world.pipe(line.id),boss_id,progress)
+		t.check(not gate.is_empty() and not world.can_start_encounter(boss_id,progress,line.id).ok,line.id+" boss blocked until the rooms are visited: "+gate)
+		t.check(line.encounters.slice(0,-1).all(func(id): return world.pipe_boss_gate(world.pipe(line.id),id,progress).is_empty()) or line.id == "P05","normal fights are never gated by the room rule")
+		var by_quest: Dictionary = progress.duplicate(true)
+		for quest in catalog.data.story.quests:
+			if quest.room in world.pipe_rooms(world.pipe(line.id)): by_quest.quest_states[quest.id].state = "active"; break
+		t.check(world.can_start_encounter(boss_id,by_quest,line.id).ok,line.id+" boss opens after a room quest is accepted")
+		var by_valve: Dictionary = progress.duplicate(true)
+		var boss_room: String = catalog.get_entry("encounters",boss_id).room
+		for valve in WorldController.ENVIRONMENT:
+			if WorldController.ENVIRONMENT[valve].room == boss_room: by_valve.world_flags["environment:"+valve] = true
+		var has_valve: bool = WorldController.ENVIRONMENT.values().any(func(v): return v.room == boss_room)
+		t.check(world.can_start_encounter(boss_id,by_valve,line.id).ok == has_valve,line.id+" boss opens by valve only where the boss room has one")
+	var fresh: Dictionary = session.snapshot()
+	t.check(world.pipe_pending_rooms(world.pipe("P01"),fresh) == ["R03","R04"],"untaken quest/valve rooms are reported")
+	fresh.quest_states.Q01.state = "active"
+	for valve in ["canal_gate","sluice_release"]: fresh.world_flags["environment:"+valve] = true
+	t.check(world.pipe_pending_rooms(world.pipe("P01"),fresh).is_empty(),"nothing pending once quest and valves are touched")
 
 # Acceptance: stuck on one line, farm the other from the hub, and both lines survive save/load and defeat.
 func _pipe_round_trip(t, catalog) -> void:
@@ -75,6 +130,8 @@ func _pipe_round_trip(t, catalog) -> void:
 	var loaded: Dictionary = saves.load_slot("manual01").get("state",{})
 	var world := WorldController.new(catalog.data)
 	t.check(world.pipe_next(world.pipe("P01"),loaded) == "E06" and world.pipe_next(world.pipe("P02"),loaded) == "E08","both lines keep their own progress after save and load")
+	t.check(not CombatController.new(catalog.data).start("E06",session.snapshot(),5,"P01").ok,"pipe boss stays closed before the room is visited")
+	session.state.world_flags["environment:sluice_release"] = true
 	combat = CombatController.new(catalog.data)
 	combat.start("E06",session.snapshot(),5,"P01")
 	t.check(session.commit_result("battle_lost",combat.result_payload()).ok,"pipe defeat settles")

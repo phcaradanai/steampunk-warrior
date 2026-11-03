@@ -93,6 +93,7 @@
 | F24 | release | build 0.2.0 ทำเมื่อ 2 พ.ย. 21:03 ก่อน commit ทั้ง 6 ของวันที่ 3 พ.ย. Mobile renderer ยังไม่ได้ทดสอบบน Windows และ Intel Mac ส่วน fallback ไป OpenGL ของ Godot ยังไม่เคยถูกทดสอบ (`project.godot` ไม่ได้ตั้งค่าเอง จึงใช้ค่าเริ่มต้นของ engine) checklist ยังเป็น 0.1.x เอกสารยังเขียนว่า "ไม่มี Git" | `ls game/builds`; `docs/release/desktop-checklist.md`; `docs/development/README.md` | กลาง |
 | F26 | UI ต่อสู้ | ไฟต์ที่มีศัตรูสองตัว การ์ด HP ด้านขวาซ้อนและตัดกัน | `after-p1/fight_E35.png`, `fight_E24.png` | กลาง |
 | F27 | ศัตรูใหม่ | N24 ตัวอ่อนราชินีใช้โมเดลหมา และ N25 ฝูงเอเธอร์ใช้โมเดลนกกระสา เพราะห้ามแก้ `creature_3d.gd` ระหว่างที่ session Blender ทำงานอยู่ หมวกฮู้ดของ N26 ดูเป็นลูกโป่ง | `after-p1/fight_E33.png`, `fight_E35.png` | กลาง |
+| F28 | ข้อความต่อสู้ | ข้อความ intent บางอันยังมีชื่อสถานะภาษาอังกฤษ เช่น "Sealed ที่กวางหยุดได้" และ "Wet ลดความร้อน" | `after-p2/fight_E20.png`, `after-p1b/boss_B04.png` | ต่ำ |
 | F25 | เซฟ | `SaveService.VERSION` = 1 และไม่มีขั้นตอน migration ตอนนี้ยังไม่มีปัญหาเพราะท่อคำนวณจาก `first_clears` แต่ถ้าแก้ตารางดรอปหรือเพิ่ม field ใหม่ เซฟเก่าจะถูกปฏิเสธหรือได้ค่าผิด | `save_service.gd:5,195` | ต่ำ (กันไว้ก่อน) |
 
 ## 5. แผนงาน

@@ -11,7 +11,7 @@ func check(condition: bool, label: String) -> void:
 		printerr("FAIL: " + label)
 
 func _initialize() -> void:
-	var suites: Array[String] = ["catalog", "combat", "progression", "inventory", "rewards", "story", "world", "training", "controller", "slice_campaign", "save", "ui_state", "art", "bosses", "environment", "campaign", "audio", "layouts", "acquisition"]
+	var suites: Array[String] = ["catalog", "combat", "progression", "inventory", "rewards", "story", "world", "training", "controller", "slice_campaign", "save", "ui_state", "art", "bosses", "environment", "campaign", "audio", "layouts", "acquisition", "upgrades"]
 	var args := OS.get_cmdline_user_args()
 	if args.has("--suite"):
 		var index := args.find("--suite")

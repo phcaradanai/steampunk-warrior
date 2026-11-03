@@ -100,6 +100,15 @@ func validate_snapshot(snapshot: Dictionary) -> Array[String]:
 	for id in player.items + player.stash:
 		if not id is String or _entry("items",str(id)).is_empty():
 			errors.append("ไม่รู้จักอุปกรณ์ในเซฟ")
+	# Missing "upgrades" is a pre-upgrade save: no upgrades. Present, it must name owned gear with +1..+3.
+	var upgrades = player.get("upgrades", {})
+	if not upgrades is Dictionary:
+		errors.append("ข้อมูลอัปเกรดไม่ถูกต้อง")
+	else:
+		for id in upgrades:
+			var piece := _entry("items",str(id))
+			if piece.is_empty() or not piece.slot in ["weapon","shield","head","suit"] or not InventoryService.owns(player,str(id)) or not _whole(upgrades[id],1,Progression.MAX_UPGRADE):
+				errors.append("ข้อมูลอัปเกรดไม่ถูกต้อง")
 	for slot in player.equipment:
 		var item := _entry("items",str(player.equipment[slot]))
 		if not slot in ["weapon","shield","head","suit"] or item.is_empty() or item.get("slot", "") != slot or int(item.get("required_level",99)) > int(player.get("level",0)):

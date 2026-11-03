@@ -139,10 +139,9 @@ func _build_stage() -> void:
 			portrait.mouse_filter = Control.MOUSE_FILTER_STOP
 			portrait.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 			portrait.tooltip_text = actor.name + " · แตะเพื่อเลือกเป้าหมาย"
+			var foe_id: String = actor.id
 			portrait.gui_input.connect(func(event: InputEvent):
-				if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT and controller._actor(actor.id).hp > 0:
-					selected_target = actor.id
-					_render())
+				if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT: _pick_target(foe_id))
 			portrait.set_meta("feet",(portrait.size.y+portrait.crop_top)*0.925-portrait.crop_top if figure != null else portrait.size.y-4)
 		# Bosses get a wider frame (same height scale) so long weapons are not clipped; dashes measure the body, not the frame.
 		portrait.set_meta("body",portrait.size.y+portrait.crop_top if boss else portrait.size.x)
@@ -223,7 +222,12 @@ func _fixed_label(parent: Node, text: String, font_size: int, color: Color, rect
 
 # Enter, Space or a click skips the card; nothing else reaches the commands while it is up.
 func _input(event: InputEvent) -> void:
-	if card == null: return
+	if card == null:
+		# Tab / Shift+Tab pick the target; arrows and letters stay with focus and the command hotkeys.
+		if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_TAB and not paused and not settled and controller.is_player_turn() and feedback.playing == 0:
+			cycle_target(-1 if event.shift_pressed else 1)
+			get_viewport().set_input_as_handled()
+		return
 	var key: bool = event is InputEventKey and event.pressed and not event.echo and event.keycode in [KEY_ENTER,KEY_KP_ENTER,KEY_SPACE]
 	var click: bool = event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT
 	if key or click:
@@ -307,19 +311,32 @@ func _plates() -> void:
 	for child in plates.get_children():
 		plates.remove_child(child)
 		child.queue_free()
-	var log_label := _fixed_label(plates,last_log,16,Color("d8e6dc"),Rect2(340,112,600,28))
-	log_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var log_label := _fixed_label(plates,last_log,16,Color("d8e6dc"),Rect2(16,152,440,28))
+	log_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	log_label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+	log_label.clip_text = true
 	log_label.add_theme_color_override("font_outline_color",Color("0b1214"))
 	log_label.add_theme_constant_override("outline_size",5)
 	var enemies: Array = controller.state.actors.filter(func(a): return a.side == "enemy")
-	var width := 440.0/maxf(1,enemies.size())
+	var slots := _enemy_slots(enemies)
+	var living_count: int = enemies.filter(func(a): return a.hp > 0).size()
 	for actor in controller.state.actors:
 		var panel: PanelContainer
 		if actor.side == "player":
 			panel = UIBuilder.glass_panel(plates,Vector2(16,12),Vector2(440,0))
 		else:
-			panel = UIBuilder.glass_panel(plates,Vector2(824+enemies.find(actor)*width,12),Vector2(width-(8 if enemies.size() > 1 else 0),0))
-			if actor.id == selected_target and enemies.size() > 1: panel.get_theme_stylebox("panel").border_color = Color("f1d9a0")
+			var slot: Rect2 = slots[actor.id]
+			panel = UIBuilder.glass_panel(plates,slot.position,Vector2(slot.size.x,0))
+			panel.name = "Plate_" + actor.id
+			panel.mouse_filter = Control.MOUSE_FILTER_STOP
+			if actor.hp > 0:
+				panel.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+				if actor.id == selected_target and living_count > 1: panel.get_theme_stylebox("panel").border_color = Color("f1d9a0")
+			else:
+				panel.modulate = Color(1,1,1,0.45)
+			var foe_id: String = actor.id
+			panel.gui_input.connect(func(event: InputEvent):
+				if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT: _pick_target(foe_id))
 		var column := VBoxContainer.new()
 		column.add_theme_constant_override("separation",2)
 		panel.add_child(column)
@@ -339,23 +356,75 @@ func _plates() -> void:
 			UIBuilder.bar(column,actor.fp,actor.max_fp,Color("5ab4e0"),6).tooltip_text = "FP"
 			UIBuilder.bar(column,actor.pressure,100,Color("e08a3a"),6).tooltip_text = "แรงดัน"
 		var detail: Array[String] = []
+		var extra: Array[String] = []
 		if actor.side == "player":
 			detail.append("FP %d / %d  ·  แรงดัน %d / 100" % [actor.fp,actor.max_fp,actor.pressure])
 		else:
-			detail.append("เตรียม: " + actor.get("intent",{}).get("label","—"))
-			if actor.get("boss",false):
-				detail.append("ช่วงที่ " + str(int(actor.get("phase",0)) + 1))
-				if actor.get("definition_id","") == "B04": detail.append("ความร้อน %d / 100" % actor.get("heat",0))
-				if actor.get("core_exposed",false): detail.append("แกนเปิด: เกราะและต้านทานลด55%")
-			if actor.get("intent",{}).has("following_label"): detail.append("ถัดไป: "+actor.intent.following_label)
+			detail.append("เตรียม: " + actor.get("intent",{}).get("label","—") if actor.hp > 0 else "ล้มแล้ว")
+			if actor.hp > 0:
+				if actor.get("boss",false):
+					extra.append("ช่วงที่ " + str(int(actor.get("phase",0)) + 1))
+					if actor.get("definition_id","") == "B04": extra.append("ความร้อน %d / 100" % actor.get("heat",0))
+					if actor.get("core_exposed",false): extra.append("แกนเปิด: เกราะและต้านทานลด55%")
+				if actor.get("intent",{}).has("following_label"): extra.append("ถัดไป: "+actor.intent.following_label)
 		var active: Array[String] = []
 		for status in actor.statuses:
 			active.append("%s %d" % [STATUS_NAMES.get(status,status),actor.statuses[status].turns])
-		if not active.is_empty(): detail.append(" · ".join(active))
-		var info := UIBuilder.label(column,"  ·  ".join(detail),14,Color("edbd83") if actor.side == "enemy" else Color("c8d6cc"))
-		info.autowrap_mode = TextServer.AUTOWRAP_OFF
-		info.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
-		info.clip_text = true
+		if not active.is_empty(): extra.append(" · ".join(active))
+		var lines: Array[String] = [detail[0]]
+		if not extra.is_empty(): lines.append("  ·  ".join(extra))
+		for line in lines:
+			var info := UIBuilder.label(column,line,14,Color("edbd83") if actor.side == "enemy" else Color("c8d6cc"))
+			info.autowrap_mode = TextServer.AUTOWRAP_OFF
+			info.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+			info.clip_text = true
+		if actor.side == "enemy":
+			# Plates clip long text with an ellipsis; the full line is in the tooltip.
+			panel.tooltip_text = actor.get("name",actor.id) + "\n" + "\n".join(lines) + ("\n(แตะเพื่อเลือกเป้าหมาย)" if actor.hp > 0 else "")
+			for bar in [hp_bars.get(actor.id),barrier_bars.get(actor.id)]:
+				if bar != null: bar.mouse_filter = Control.MOUSE_FILTER_PASS
+
+# Top-right plate rects: split the width left of the hero's plate; bosses get more, the fallen less and sit last.
+func _enemy_slots(enemies: Array) -> Dictionary:
+	var ordered: Array = enemies.filter(func(a): return a.hp > 0)
+	ordered.append_array(enemies.filter(func(a): return a.hp <= 0))
+	var gap := 8.0
+	var area_x := 472.0 if enemies.size() > 1 else 824.0
+	var total := 1264.0 - area_x - gap*(ordered.size()-1)
+	var weight := 0.0
+	for a in ordered: weight += _plate_weight(a)
+	var slots := {}
+	var x := area_x
+	for a in ordered:
+		var w: float = total*_plate_weight(a)/weight
+		slots[a.id] = Rect2(x,12,w,0)
+		x += w + gap
+	return slots
+
+func _plate_weight(actor: Dictionary) -> float:
+	return 0.6 if actor.hp <= 0 else 1.4 if actor.get("boss",false) else 1.0
+
+func living_enemies() -> Array[Dictionary]:
+	var out: Array[Dictionary] = []
+	for actor in controller.state.actors:
+		if actor.side == "enemy" and actor.hp > 0: out.append(actor)
+	return out
+
+func _pick_target(id: String) -> void:
+	if settled or paused or card != null: return
+	var actor := controller._actor(id)
+	if actor.is_empty() or actor.side != "enemy" or actor.hp <= 0 or id == selected_target: return
+	selected_target = id
+	_render()
+
+# Step through living foes in plate order; wraps around.
+func cycle_target(step: int) -> void:
+	var living := living_enemies()
+	if living.size() < 2: return
+	var index := 0
+	for i in living.size():
+		if living[i].id == selected_target: index = i
+	_pick_target(living[posmod(index+step,living.size())].id)
 
 func _commands(living: Array[Dictionary]) -> void:
 	var idle: bool = controller.is_player_turn() and not paused
@@ -391,25 +460,32 @@ func _commands(living: Array[Dictionary]) -> void:
 		for objective in TrainingService.OBJECTIVES[controller.training_id]:
 			objectives.append(("✓ " if objective in controller.completed else "○ ") + labels[objective])
 		var goals := UIBuilder.label(ui,"   ·   ".join(objectives) + "   (สกิลยืมใช้ได้เฉพาะการฝึก)",15)
-		goals.position = Vector2(16,142)
+		goals.position = Vector2(16,180)
 		goals.size = Vector2(1248,28)
 		goals.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		goals.add_theme_color_override("font_outline_color",Color("0b1214"))
 		goals.add_theme_constant_override("outline_size",5)
-	# Keyboard and pad still cycle targets here; mouse and touch can tap the foe instead.
-	var targets := OptionButton.new()
-	targets.custom_minimum_size = Vector2(180,36)
-	targets.position = Vector2(1280-16-180,720-16-64-46)
-	ui.add_child(targets)
-	for i in range(living.size()):
-		targets.add_item(living[i].name)
-		if living[i].id == selected_target:
-			targets.select(i)
-	targets.item_selected.connect(func(index:int):
-		selected_target=living[index].id
-		_render())
-	targets.disabled = not idle
-	targets.tooltip_text = "เป้าหมาย (แตะศัตรูเพื่อเลือกก็ได้)"
+	# Two living foes or more: step buttons with the current target between; Tab and Shift+Tab do the same.
+	if living.size() > 1:
+		var picker := HBoxContainer.new()
+		picker.add_theme_constant_override("separation",6)
+		picker.position = Vector2(1280-16-240,720-16-64-46)
+		ui.add_child(picker)
+		var back := UIBuilder.button(picker,"◀",cycle_target.bind(-1),"Target_prev")
+		back.tooltip_text = "เป้าก่อนหน้า  [Shift+Tab]"
+		var current := UIBuilder.label(picker,"เป้า: " + controller._actor(selected_target).get("name",""),16,Color("f1d9a0"))
+		current.custom_minimum_size = Vector2(150,0)
+		current.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		current.autowrap_mode = TextServer.AUTOWRAP_OFF
+		current.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
+		current.clip_text = true
+		current.add_theme_color_override("font_outline_color",Color("0b1214"))
+		current.add_theme_constant_override("outline_size",5)
+		var next := UIBuilder.button(picker,"▶",cycle_target.bind(1),"Target_next")
+		next.tooltip_text = "เป้าถัดไป  [Tab]"
+		for b in [back,next]:
+			b.disabled = not idle
+			b.focus_mode = Control.FOCUS_NONE
 	var skills := GridContainer.new()
 	skills.columns = 10
 	skills.add_theme_constant_override("h_separation",6)

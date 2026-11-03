@@ -19,7 +19,29 @@ func run(t) -> bool:
 				break
 	t.check(art.actor_id({"class_id":"C05","side":"player"}) == "C05" and art.actor_id({"definition_id":"B06","side":"enemy"}) == "B06","world and combat use stable content IDs for art")
 	_clip_smoothness(t)
+	_item_icons(t)
 	return true
+
+# Every item maps to a real icon; within one slot and tier at most 2 items may share art.
+func _item_icons(t) -> void:
+	var catalog := ContentCatalog.new()
+	catalog.load_all("res://data")
+	var groups := {}
+	var collisions := 0
+	for item in catalog.data.items:
+		var stem: String = UIBuilder.item_icon_name(item)
+		t.check(ResourceLoader.exists("res://art/icons/%s.svg" % stem) and stem != item.slot,"item icon resolves to a family file: " + item.id)
+		t.check(UIBuilder.item_icon(item) != null,"item icon builds with tier pip: " + item.id)
+		var key := "%s/%d/%s" % [item.slot,int(item.tier),stem]
+		groups[key] = int(groups.get(key,0)) + 1
+	for key in groups:
+		if groups[key] > 1: collisions += groups[key] - 1
+		t.check(groups[key] <= 2,"at most two items share an icon per slot and tier: " + key)
+	print("Item icon collisions: ",collisions)
+	var unique := {}
+	for item in catalog.data.items: unique[UIBuilder.item_icon_name(item)] = true
+	t.check(UIBuilder.item_icon_name({"id":"W26","slot":"weapon","name":"ปืนย้อนเฟส"}) == "W26" and UIBuilder.item_icon_name({"id":"A09","slot":"suit","name":"ชุดชีวกล"}) == "A09","W26 and A09 keep unique icons")
+	print("Distinct item icons: ",unique.size())
 
 # A joint turning past ~75 degrees between 1/30s keys reads as a snap or a spinning wrist on screen.
 func _clip_smoothness(t) -> void:

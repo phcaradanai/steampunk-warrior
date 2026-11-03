@@ -158,8 +158,44 @@ static func item_description(item: Dictionary) -> String:
 	if item.special == "condensate_barrier": parts.append("ใช้สายควบแน่นแล้วได้โล่15%เทค")
 	return " · ".join(parts)
 
+# Thai name keyword -> icon family, first match wins (so longer gun names precede plain ปืน).
+const ICON_FAMILIES := {
+	"weapon":[["มีด","knife"],["กระบอง","club"],["ประแจ","wrench"],["ค้อน","hammer"],["ขวาน","axe"],["ดาบ","sword"],["เลื่อย","saw"],["กรงเล็บ","claw"],["เคียว","scythe"],["หอก","spear"],["ทวน","lance"],["คทา","staff"],["ปืนคาร์ไบน์","carbine"],["ปืนอาร์ก","arcgun"],["ปืนกรด","rifle"],["ปืนคอนเดนเซอร์","rifle"],["ปืน","pistol"]],
+	"shield":[["ฝาท่อ","round"],["แผ่นเหล็ก","plate"],["ทองเหลือง","buckler"],["รถไฟ","train"],["ขดลวด","coil"],["กรองพิษ","filter"],["ลูกสูบ","piston"],["ไอน้ำ","round"],["เรือนกระจก","glass"],["ฉนวน","plate"],["คนงาน","tower"],["อาร์ก","arc"],["รากแก้ว","organic"],["เตาหลอม","buckler"],["จดหมายเหตุ","tower"],["ปฏิกรณ์","coil"],["ชีวภาพ","organic"]],
+	"head":[["แว่น","goggles"],["หมวกคนงาน","hardhat"],["กรอง","mask"],["หน้ากาก","mask"],["เอเธอร์","antenna"],["กระบัง","visor"],["แกนเมือง","crown"],["หมวก","helmet"]],
+	"suit":[["เกราะคนงาน","vest"],["รางเหล็ก","vest"],["กรองพิษ","hazmat"],["ฉนวน","insulated"],["หัวใจเมือง","core"],["เกราะ","heavy"],["เสื้อ","coat"],["ชุดแพทย์","coat"]],
+}
+const TIER_PIP := ["8a9490","6fbf73","5ab4e0","b07ce0","e3b858"]
+static var _icon_cache := {}
+
+# Icon file stem for an item: W26/A09 keep their unique art, others get a slot_family file.
+static func item_icon_name(item: Dictionary) -> String:
+	if item.id in ["W26","A09"]: return item.id
+	for pair in ICON_FAMILIES.get(item.slot,[]):
+		if str(item.name).contains(pair[0]): return "%s_%s" % [item.slot,pair[1]]
+	return item.slot
+
+# Family art plus a tier-colored pip in the corner so tiers read without the tile border.
 static func item_icon(item: Dictionary) -> Texture2D:
-	return load("res://art/icons/%s.svg" % (item.id if item.id in ["W26","A09"] else item.slot))
+	var stem := item_icon_name(item)
+	var tier := clampi(int(item.get("tier",0)),0,5)
+	var key := "%s:%d" % [stem,tier]
+	if _icon_cache.has(key): return _icon_cache[key]
+	var base: Texture2D = load("res://art/icons/%s.svg" % stem)
+	if tier == 0: return base
+	var image: Image = base.get_image()
+	image.convert(Image.FORMAT_RGBA8)
+	var size := image.get_width()
+	var radius := size * 0.15
+	var center := Vector2(size - radius - 1.0,size - radius - 1.0)
+	var color := Color(TIER_PIP[tier - 1])
+	for y in size:
+		for x in size:
+			var d := Vector2(x + 0.5,y + 0.5).distance_to(center)
+			if d <= radius: image.set_pixel(x,y,Color("0b1a1c") if d > radius - 1.6 else color)
+	var texture := ImageTexture.create_from_image(image)
+	_icon_cache[key] = texture
+	return texture
 
 static func skill_icon(skill: Dictionary) -> Texture2D:
 	var effects: Dictionary = skill.effects

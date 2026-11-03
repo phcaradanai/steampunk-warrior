@@ -23,20 +23,46 @@ func new_player(class_id: String) -> Dictionary:
 	var attributes: Dictionary = {}
 	for name in ["VIT", "STR", "INT", "AGI"]:
 		attributes[name] = int(profession.attributes[name])
-	var player: Dictionary = {"class_id":class_id,"level":1,"xp":0,"base_attributes":attributes,"skill_ranks":{profession.starter_skill:1},"skill_points":0,"attribute_points":0,"items":[],"equipment":{"weapon":"W01","shield":"D01","head":"H01","suit":"A01"},"stash":[],"currency":75,"current_hp":0,"current_fp":0,"energy":100,"potions":{"life":5,"focus":5}}
+	var player: Dictionary = {"class_id":class_id,"level":1,"xp":0,"base_attributes":attributes,"skill_ranks":{profession.starter_skill:1},"skill_points":0,"attribute_points":0,"items":[],"equipment":{"weapon":"W01","shield":"D01","head":"H01","suit":"A01"},"stash":[],"currency":75,"current_hp":0,"current_fp":0,"energy":100,"potions":{"life":5,"focus":5},"upgrades":{}}
 	var stats := derive(player, catalog)
 	player.current_hp = stats.max_hp
 	player.current_fp = stats.max_fp
 	return player
 
+# Gear upgrades: each +1 adds this share of the item's positive base bonuses (rounded), up to +MAX_UPGRADE.
+const MAX_UPGRADE := 3
+const UPGRADE_RATE := 0.12
+# Fixed growth every level past 1, on top of the VIT/INT the level also grants.
+const LEVEL_HP := 3
+const LEVEL_FP := 3
+
+static func upgrade_bonuses(item: Dictionary, upgrade: int) -> Dictionary:
+	var bonuses: Dictionary = item.get("bonuses", {}).duplicate()
+	for key in bonuses:
+		if int(bonuses[key]) > 0:
+			bonuses[key] = int(bonuses[key]) + int(roundf(float(bonuses[key]) * UPGRADE_RATE * clampi(upgrade, 0, MAX_UPGRADE)))
+	return bonuses
+
+# Copy of an item as the player owns it: upgraded bonuses and a "+N" name suffix, for display and derive.
+static func upgraded_item(item: Dictionary, upgrade: int) -> Dictionary:
+	var owned: Dictionary = item.duplicate(true)
+	upgrade = clampi(upgrade, 0, MAX_UPGRADE)
+	if upgrade > 0 and not item.is_empty():
+		owned["bonuses"] = upgrade_bonuses(item, upgrade)
+		owned["name"] = str(item.get("name", "")) + " +%d" % upgrade
+	return owned
+
 func derive(player: Dictionary, content: Dictionary) -> Dictionary:
 	var base: Dictionary = player.get("base_attributes", {})
-	var stats: Dictionary = {"max_hp":20 + 6 * int(base.get("VIT", 0)),"max_fp":20 + 4 * int(base.get("INT", 0)),"attack":5 + 2 * int(base.get("STR", 0)),"tech":5 + 2 * int(base.get("INT", 0)),"initiative":10 + int(base.get("AGI", 0)),"armor":0,"resist":0,"barrier":20 if player.get("class_id", "") == "C01" else 0,"equipment_specials":[]}
+	var grown: int = maxi(0, int(player.get("level", 1)) - 1)
+	var upgrades: Dictionary = player.get("upgrades", {})
+	var stats: Dictionary = {"max_hp":20 + 6 * int(base.get("VIT", 0)) + LEVEL_HP * grown,"max_fp":20 + 4 * int(base.get("INT", 0)) + LEVEL_FP * grown,"attack":5 + 2 * int(base.get("STR", 0)),"tech":5 + 2 * int(base.get("INT", 0)),"initiative":10 + int(base.get("AGI", 0)),"armor":0,"resist":0,"barrier":20 if player.get("class_id", "") == "C01" else 0,"equipment_specials":[]}
 	for id in player.get("equipment", {}).values():
 		var item := _entry("items", str(id), content)
-		for key in item.get("bonuses", {}):
+		var bonuses: Dictionary = upgrade_bonuses(item, int(upgrades.get(str(id), 0)))
+		for key in bonuses:
 			if stats.has(key):
-				stats[key] += int(item.bonuses[key])
+				stats[key] += int(bonuses[key])
 		if not item.get("special", "").is_empty():
 			stats.equipment_specials.append(item.special)
 	var ranks: Dictionary = player.get("skill_ranks", {})

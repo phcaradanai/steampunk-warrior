@@ -585,16 +585,29 @@ func _pick(choice: Dictionary, shop: bool) -> void:
 	if shop: _show_shop()
 	else: _show_inventory()
 
+# The player's copy of a catalog item: upgraded bonuses and a "+N" suffix when upgraded.
+func _owned(item: Dictionary) -> Dictionary:
+	return Progression.upgraded_item(item,int(session.state.player.get("upgrades",{}).get(item.get("id",""),0)))
+
+func _upgrade_button(parent: Node, item: Dictionary, shop: bool) -> void:
+	var p: Dictionary = session.state.player
+	var level: int = int(p.get("upgrades",{}).get(item.id,0))
+	var cost := InventoryService.upgrade_cost(item,level)
+	var at_shop: bool = catalog.data.items.any(func(entry): return entry.source == "shop:" + session.state.room_id)
+	var button := UIBuilder.button(parent,"อัปเกรด +%d  %d เฟือง" % [level+1,cost] if cost >= 0 else "อัปเกรดเต็ม +%d" % level,_inventory_action.bind({"kind":"upgrade","item_id":item.id},shop),"UpgradePicked")
+	button.disabled = cost < 0 or int(p.currency) < cost or not at_shop
+	button.tooltip_text = "อัปเกรดเต็มแล้ว" if cost < 0 else "อัปเกรดได้ที่ร้านอุปกรณ์เท่านั้น" if not at_shop else "เงินไม่พอ" if int(p.currency) < cost else "โบนัสเพิ่ม 12%% ของค่าพื้นฐานต่อระดับ · เหลือ %d เฟือง" % (int(p.currency) - cost)
+
 func _item_detail(detail: VBoxContainer, item: Dictionary, note: String) -> void:
 	var heading := UIBuilder.label(detail,item.name,22,Color(TIER_COLORS[clampi(int(item.tier)-1,0,4)]))
 	heading.autowrap_mode = TextServer.AUTOWRAP_OFF
 	UIBuilder.label(detail,"%s · ระดับ %d · ต้องเลเวล %d" % [{"weapon":"อาวุธ","shield":"โล่","head":"หมวก","suit":"ชุด"}.get(item.slot,item.slot),int(item.tier),int(item.required_level)],14,Color("a7b9ac"))
-	var equipped := catalog.get_entry("items",session.state.player.equipment.get(item.slot,""))
+	var equipped := _owned(catalog.get_entry("items",session.state.player.equipment.get(item.slot,"")))
 	for key in STAT_NAMES:
 		var value: int = int(item.bonuses.get(key,0))
 		var delta: int = value - int(equipped.get("bonuses",{}).get(key,0))
 		if value == 0 and delta == 0: continue
-		var line := UIBuilder.label(detail,"%s  %+d" % [STAT_NAMES[key],value] + (("   (%+d)" % delta) if equipped.get("id","") != item.id and delta != 0 else ""),17,Color("83dcb3") if delta > 0 else Color("e0806a") if delta < 0 else Color("e6dfca"))
+		var line := UIBuilder.label(detail,"%s  %+d" % [STAT_NAMES[key],value] + (("   (%+d)" % delta) if (equipped.get("id","") != item.id or equipped.get("name","") != item.name) and delta != 0 else ""),17,Color("83dcb3") if delta > 0 else Color("e0806a") if delta < 0 else Color("e6dfca"))
 		line.autowrap_mode = TextServer.AUTOWRAP_OFF
 	if not item.special.is_empty(): UIBuilder.label(detail,UIBuilder.item_description(item).split(" · ")[-1],15,Color("f1d9a0"))
 	if not note.is_empty(): UIBuilder.label(detail,note,14,Color("8fb4a6"))
@@ -605,29 +618,29 @@ func _show_inventory() -> void:
 	var panes := _modal_split()
 	var left: VBoxContainer = panes[0]
 	var detail: VBoxContainer = panes[1]
-	if inv_pick.is_empty() or (inv_pick.from == "bag" and inv_pick.key >= p.items.size()) or (inv_pick.from == "stash" and inv_pick.key >= p.stash.size()) or (inv_pick.from == "slot" and not p.equipment.has(inv_pick.key)) or inv_pick.from in ["shop","supply"]:
+	if inv_pick.is_empty() or (inv_pick.from == "bag" and inv_pick.key >= p.items.size()) or (inv_pick.from == "stash" and inv_pick.key >= p.stash.size()) or (inv_pick.from == "slot" and not p.equipment.has(inv_pick.key)) or inv_pick.from in ["shop","supply","own"]:
 		inv_pick = {"from":"bag","key":0} if not p.items.is_empty() else {"from":"slot","key":p.equipment.keys().front()} if not p.equipment.is_empty() else {}
 	var slots := _grid(left,"สวมอยู่",4)
 	for slot in ["weapon","shield","head","suit"]:
 		var item := catalog.get_entry("items",p.equipment.get(slot,""))
 		var picked: bool = inv_pick.get("from","") == "slot" and inv_pick.key == slot
 		if item.is_empty(): _tile(slots,load("res://art/icons/%s.svg" % slot),"ช่อง%s ว่าง" % {"weapon":"อาวุธ","shield":"โล่","head":"หมวก","suit":"ชุด"}[slot],"ว่าง",false,func(): pass).disabled = true
-		else: _tile(slots,UIBuilder.item_icon(item),item.name+"\n"+UIBuilder.item_description(item),"",picked,_pick.bind({"from":"slot","key":slot},false),"Slot_"+slot,int(item.tier))
+		else: _tile(slots,UIBuilder.item_icon(item),_owned(item).name+"\n"+UIBuilder.item_description(_owned(item)),"",picked,_pick.bind({"from":"slot","key":slot},false),"Slot_"+slot,int(item.tier))
 	var bag := _grid(left,"กระเป๋า %d / 24" % p.items.size())
 	for i in p.items.size():
 		var item := catalog.get_entry("items",p.items[i])
-		_tile(bag,UIBuilder.item_icon(item),item.name+"\n"+UIBuilder.item_description(item),"Lv%d" % item.required_level,inv_pick.get("from","") == "bag" and inv_pick.key == i,_pick.bind({"from":"bag","key":i},false),"Bag_%d" % i,int(item.tier))
+		_tile(bag,UIBuilder.item_icon(item),_owned(item).name+"\n"+UIBuilder.item_description(_owned(item)),"Lv%d" % item.required_level,inv_pick.get("from","") == "bag" and inv_pick.key == i,_pick.bind({"from":"bag","key":i},false),"Bag_%d" % i,int(item.tier))
 	if session.state.room_id == "R01":
 		var stash := _grid(left,"คลังโรงซ่อม %d" % p.stash.size())
 		for i in p.stash.size():
 			var item := catalog.get_entry("items",p.stash[i])
-			_tile(stash,UIBuilder.item_icon(item),item.name+"\n"+UIBuilder.item_description(item),"",inv_pick.get("from","") == "stash" and inv_pick.key == i,_pick.bind({"from":"stash","key":i},false),"Stash_%d" % i,int(item.tier))
+			_tile(stash,UIBuilder.item_icon(item),_owned(item).name+"\n"+UIBuilder.item_description(_owned(item)),"",inv_pick.get("from","") == "stash" and inv_pick.key == i,_pick.bind({"from":"stash","key":i},false),"Stash_%d" % i,int(item.tier))
 	if inv_pick.is_empty():
 		UIBuilder.label(detail,"กระเป๋าว่าง",18)
 		return
 	var picked_id: String = p.items[inv_pick.key] if inv_pick.from == "bag" else p.stash[inv_pick.key] if inv_pick.from == "stash" else p.equipment[inv_pick.key]
 	var item := catalog.get_entry("items",picked_id)
-	_item_detail(detail,item,"ตัวเลขในวงเล็บเทียบกับของที่สวมอยู่" if inv_pick.from != "slot" else "กำลังสวมอยู่")
+	_item_detail(detail,_owned(item),"ตัวเลขในวงเล็บเทียบกับของที่สวมอยู่" if inv_pick.from != "slot" else "กำลังสวมอยู่")
 	var actions := HBoxContainer.new()
 	actions.add_theme_constant_override("separation",8)
 	detail.add_child(actions)
@@ -637,8 +650,10 @@ func _show_inventory() -> void:
 		equip.tooltip_text = "สวมแทนของเดิม ของเดิมกลับเข้ากระเป๋า" if not equip.disabled else "เลเวลยังไม่ถึง"
 		UIBuilder.button(actions,"ขาย +%d" % int(floor(float(item.price)*0.35)),_inventory_action.bind({"kind":"sell","index":inv_pick.key},false),"SellPicked").tooltip_text = "ขายได้ 35% ของราคา"
 		UIBuilder.button(actions,"ฝาก",_inventory_action.bind({"kind":"stash_put","index":inv_pick.key},false),"StashPicked").tooltip_text = "ฝากไว้ที่คลังโรงซ่อม"
+		_upgrade_button(detail,item,false)
 	elif inv_pick.from == "slot":
 		UIBuilder.button(actions,"ถอด",_inventory_action.bind({"kind":"unequip","slot":inv_pick.key},false),"UnequipPicked").tooltip_text = "ถอดเก็บเข้ากระเป๋า"
+		_upgrade_button(detail,item,false)
 	else:
 		UIBuilder.button(actions,"รับคืน",_inventory_action.bind({"kind":"stash_take","index":inv_pick.key},false),"TakePicked").tooltip_text = "ย้ายจากคลังเข้ากระเป๋า"
 
@@ -655,17 +670,35 @@ func _show_shop() -> void:
 	_open_modal("ร้านอุปกรณ์  ·  %d เฟือง" % p.currency)
 	var panes := _modal_split()
 	var stock: Array = catalog.data.items.filter(func(item): return item.source == "shop:" + session.state.room_id)
-	if not inv_pick.get("from","") in ["shop","supply"]: inv_pick = {"from":"shop","key":stock[0].id} if not stock.is_empty() else {"from":"supply","key":"life"}
+	if not inv_pick.get("from","") in ["shop","supply","own"]: inv_pick = {"from":"shop","key":stock[0].id} if not stock.is_empty() else {"from":"supply","key":"life"}
 	var grid := _grid(panes[0],"สินค้า")
 	for item in stock:
-		_tile(grid,UIBuilder.item_icon(item),"%s · %d เฟือง\n%s" % [item.name,item.price,UIBuilder.item_description(item)],"%d" % item.price,inv_pick.key == item.id,_pick.bind({"from":"shop","key":item.id},true),"Shop_"+item.id,int(item.tier))
+		_tile(grid,UIBuilder.item_icon(item),"%s · %d เฟือง\n%s" % [item.name,item.price,UIBuilder.item_description(item)],"%d" % item.price,inv_pick.get("from","") == "shop" and inv_pick.key == item.id,_pick.bind({"from":"shop","key":item.id},true),"Shop_"+item.id,int(item.tier))
+	var potion_cost := InventoryService.potion_price(session.state.room_id)
 	var supplies := {"life":["potion_hp","ยาHP","ฟื้น HP 35%% ในการต่อสู้ · มีอยู่ %d" % p.potions.life,{"kind":"potion_buy","potion":"life"}],"focus":["potion_fp","ยาFP","ฟื้น FP 35%% ในการต่อสู้ · มีอยู่ %d" % p.potions.focus,{"kind":"potion_buy","potion":"focus"}],"food":["energy","อาหาร","พลังงาน +50 ทันที · พลังงานตอนนี้ %d/100" % p.energy,{"kind":"food"}]}
 	var row := _grid(panes[0],"ของใช้")
 	for key in supplies:
-		_tile(row,load("res://art/icons/%s.svg" % supplies[key][0]),supplies[key][1]+" · "+supplies[key][2],"%d" % (30 if key == "food" else 20),inv_pick.key == key,_pick.bind({"from":"supply","key":key},true),"Supply_"+key)
+		_tile(row,load("res://art/icons/%s.svg" % supplies[key][0]),supplies[key][1]+" · "+supplies[key][2],"%d" % (30 if key == "food" else potion_cost),inv_pick.key == key,_pick.bind({"from":"supply","key":key},true),"Supply_"+key)
+	var owned_ids: Array = p.equipment.values() + p.items
+	var mine := _grid(panes[0],"อุปกรณ์ของคุณ (อัปเกรดได้ที่นี่)")
+	var shown: Array = []
+	for id in owned_ids:
+		if id in shown: continue
+		shown.append(id)
+		var piece := catalog.get_entry("items",id)
+		_tile(mine,UIBuilder.item_icon(piece),_owned(piece).name+"\n"+UIBuilder.item_description(_owned(piece)),"+%d" % int(p.get("upgrades",{}).get(id,0)) if p.get("upgrades",{}).has(id) else "",inv_pick.get("from","") == "own" and inv_pick.key == id,_pick.bind({"from":"own","key":id},true),"Own_"+id,int(piece.tier))
 	var detail: VBoxContainer = panes[1]
 	var price: int
 	var request: Dictionary
+	if inv_pick.from == "own":
+		if not inv_pick.key in owned_ids:
+			inv_pick = {"from":"supply","key":"life"}
+			_show_shop()
+			return
+		var piece := catalog.get_entry("items",inv_pick.key)
+		_item_detail(detail,_owned(piece),"อัปเกรดแล้วโบนัสเพิ่มตามเปอร์เซ็นต์ของค่าพื้นฐาน")
+		_upgrade_button(detail,piece,true)
+		return
 	if inv_pick.from == "shop":
 		var item := catalog.get_entry("items",inv_pick.key)
 		_item_detail(detail,item,"ตัวเลขในวงเล็บเทียบกับของที่สวมอยู่")
@@ -675,7 +708,7 @@ func _show_shop() -> void:
 		var supply: Array = supplies[inv_pick.key]
 		UIBuilder.label(detail,supply[1],22,Color("f1d9a0"))
 		UIBuilder.label(detail,supply[2],16)
-		price = 30 if inv_pick.key == "food" else 20
+		price = 30 if inv_pick.key == "food" else potion_cost
 		request = supply[3]
 	var buy := UIBuilder.button(detail,"ซื้อ  %d เฟือง" % price,_inventory_action.bind(request,true),"BuyPicked")
 	buy.disabled = int(p.currency) < price

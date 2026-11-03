@@ -19,6 +19,10 @@ func _initialize() -> void:
 	await shot("classes")
 	scene._new_game("C03")
 	await wait(0.5)
+	for chapter in catalog.data.story.chapters: scene.session.state.world_flags["story:open:" + chapter.id] = true
+	await shot("hub_banner")
+	await wait(2.4); await shot("hub")
+	scene._open_pause(); await shot("pause"); scene._close_modal(true)
 	scene._show_inventory(); await shot("inventory"); scene._close_modal(true)
 	scene._show_skills(); await shot("skills"); scene._close_modal(true)
 	scene._show_quests(); await shot("quests"); scene._close_modal(true)
@@ -28,6 +32,9 @@ func _initialize() -> void:
 	scene._show_shop(); await shot("shop"); scene._close_modal(true)
 	scene._talk_npc("NPC03"); await wait(0.6); await shot("npc_talk"); scene._close_modal(true)
 	# pause during combat
+	for rid in ["R01","R07"]:
+		scene.session.state.room_id = rid
+		scene._show_world(); await wait(0.4); await shot("room_" + rid + "_banner")
 	scene.session.state.room_id = "R03"
 	scene._show_world(); await wait(0.3); await shot("room_R03")
 	scene._start_encounter("E01")
@@ -80,6 +87,7 @@ func wait(s: float) -> void:
 	await create_timer(s).timeout
 
 func shot(label: String) -> void:
+	await process_frame
 	await process_frame
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png("%s/%s.png" % [out,label])

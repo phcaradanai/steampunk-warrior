@@ -333,6 +333,12 @@ func _draw_badge(marker: Dictionary, point: Vector2) -> void:
 	var lift := 210.0 if marker.kind in ["exit","pipe","junction","fast_travel"] else 78.0 if marker.kind == "environment" else 96.0*height*SteamPlayer.depth_scale(point.y)*(1.25 if marker.get("boss",false) else 1.0) + 8.0
 	if near: draw_ellipse(point+Vector2(0,10),46,12,Color(1,0.85,0.5,0.35))
 	var badge := point - Vector2(0,lift)
+	# Nudge sideways until clear of badges already drawn this frame (stacked markers in R01/R03/R07).
+	var step := 1
+	while badge_slots.any(func(b): return absf(b.x-badge.x) < 34.0 and absf(b.y-badge.y) < 34.0) and step < 8:
+		badge.x = point.x + (step+1)/2 * 36.0 * (1 if step%2 == 1 else -1)
+		step += 1
+	badge_slots.append(badge)
 	var radius := 17.0 if near else 13.0
 	var cleared: bool = marker.kind == "encounter" and progress.get("first_clears",{}).has(marker.id)
 	draw_circle(badge,radius,Color(0.04,0.08,0.09,0.85))
@@ -348,10 +354,20 @@ func _draw_badge(marker: Dictionary, point: Vector2) -> void:
 		var width := clampf(text.length()*11.0,300.0,560.0)
 		# Hub mouth badges sit under the room title banner, so their label hangs below the icon.
 		var drop: float = radius + 8 if marker.kind in ["pipe","junction"] else -radius - 30
+		var label_rect := Rect2(badge+Vector2(-width*0.5,drop),Vector2(width,24))
+		# Keep tags out from under the room banner strip while it shows (screen-space rect).
+		var to_screen := get_global_transform_with_canvas()
+		var on_screen := Rect2(to_screen*label_rect.position,label_rect.size*to_screen.get_scale())
+		if banner_rect.intersects(on_screen):
+			drop += (banner_rect.end.y+6.0-on_screen.position.y)/to_screen.get_scale().y
 		draw_rect(Rect2(badge+Vector2(-width*0.5,drop),Vector2(width,24)),Color(0.04,0.08,0.09,0.8))
 		draw_string(font,badge+Vector2(-width*0.5,drop+18),text,HORIZONTAL_ALIGNMENT_CENTER,width,15,Color("f1d9a0"))
 
+var banner_rect := Rect2()
+var badge_slots: Array[Vector2] = []
+
 func _draw_markers() -> void:
+	badge_slots.clear()
 	for marker in markers:
 		var point: Vector2 = marker.position
 		var color := Color("c2a66c")

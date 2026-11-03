@@ -56,4 +56,33 @@ func run(t) -> bool:
 	# Room purposes are the entry banner subtitle, so no designer ids like "บอสB04".
 	for room in catalog.data.rooms:
 		t.check(RegEx.create_from_string("[A-Za-z]").search(room.purpose) == null, "room %s banner has no design ids: %s" % [room.id, room.purpose])
+	# F28: every player-visible combat label (enemy/boss intents, skill text, boss intros) is Thai, no status ids.
+	var latin := RegEx.create_from_string("[A-Za-z]{2,}")
+	var allowed := ["HP","FP","XP"]
+	var seen: Dictionary = {}
+	var scan := func(text: String, where: String) -> void:
+		for m in latin.search_all(text):
+			if not allowed.has(m.get_string()): seen[text] = where
+	var controller := CombatController.new(catalog.data)
+	for enemy in catalog.data.enemies + [{"id":"root","role":"bite","boss":false}]:
+		scan.call(enemy.get("intent",""), "enemies.json " + enemy.id)
+		var roles: Array = ["bite","quick","guard","repair","heal","heat","corrode","sealed","wet","howl","mark","area","electric","stagger","charge","training"]
+		for role in roles:
+			for phase in 3:
+				for count in 4:
+					for flag in [false, true]:
+						var actor := {"definition_id":enemy.id,"role":role if not enemy.boss else enemy.role,"phase":phase,"actions_taken":count,"barrier":0,"cooldowns":{},"statuses":{},"hp":10,"max_hp":100,"heat":80 if flag else 0,"cooling":false}
+						var plan := controller._plan_intent(actor)
+						controller.state["original_order"] = flag
+						actor["cooling"] = flag
+						for extra in [controller._plan_intent(actor)]: scan.call(extra.get("label",""), "cooling " + enemy.id)
+						scan.call(plan.get("label",""), "intent %s/%s p%d n%d" % [enemy.id, role, phase, count])
+						scan.call(plan.get("following_label",""), "following %s" % enemy.id)
+	for count in 3:
+		scan.call(controller._memory_intent(count).label, "memory %d" % count)
+	for skill in catalog.data.skills:
+		scan.call(skill.get("description_th",""), "skills.json " + skill.id)
+	for boss in catalog.data.story.boss_intros:
+		scan.call(catalog.data.story.boss_intros[boss], "boss_intro " + boss)
+	t.check(seen.is_empty(), "combat text has no Latin ids/shorthand: " + str(seen.keys()))
 	return true

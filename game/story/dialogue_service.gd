@@ -52,7 +52,7 @@ func available_choices(node_id: String, session: Dictionary) -> Array[Dictionary
 		return choices
 	var progress: Dictionary = session.get("quest_states", {}).get(node.quest_id, {})
 	if progress.get("pending_choice", "") == "harvest":
-		return [{"id":"confirm_harvest","text":"ยืนยันการทำลายรัง ปิด Cure ในเซฟนี้"},{"id":"cancel","text":"กลับไปคิดอีกครั้ง"}]
+		return [{"id":"confirm_harvest","text":"ยืนยันการทำลายรัง ปิดทางจบ “ลมหายใจใหม่” ในเซฟนี้"},{"id":"cancel","text":"กลับไปคิดอีกครั้ง"}]
 	match progress.get("state", "available"):
 		"available": choices.append({"id":"accept","text":"รับเรื่องนี้ไว้"})
 		"objectives_complete":

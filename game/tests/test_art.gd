@@ -19,6 +19,7 @@ func run(t) -> bool:
 				break
 	t.check(art.actor_id({"class_id":"C05","side":"player"}) == "C05" and art.actor_id({"definition_id":"B06","side":"enemy"}) == "B06","world and combat use stable content IDs for art")
 	_clip_smoothness(t)
+	_npc_roles(t)
 	_item_icons(t)
 	return true
 
@@ -57,3 +58,14 @@ func _clip_smoothness(t) -> void:
 				worst = maxf(worst, rad_to_deg((anim.track_get_key_value(track,key) as Quaternion).angle_to(anim.track_get_key_value(track,key-1))))
 			t.check(worst <= 75.0, "smooth %s %s (worst %d deg per key)" % [clip, bone, worst])
 	model.free()
+
+# F08: NPCs read as their role props, not as swordsmen.
+func _npc_roles(t) -> void:
+	for i in range(1, 9):
+		var id := "NPC%02d" % i
+		var spec: Dictionary = Roster3D.PEOPLE[id]
+		t.check(spec.gear[0] > 2 and spec.gear[3] == 0, "%s holds no weapon mesh" % id)
+		var roles := 0
+		for extra in spec.get("extras", []): roles += 1 if Hero3D.BOSS_EXTRAS.has(extra) else 0
+		t.check(roles >= 2, "%s has >=2 role extras in the table" % id)
+	t.check(Roster3D.PEOPLE.NPC04.extras.has("baton"), "Valk carries a baton")

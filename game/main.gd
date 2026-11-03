@@ -63,7 +63,7 @@ func _clear_screen(mode: String) -> void:
 	control_hint = null
 	status_line = null
 	screen_mode = mode
-	if is_instance_valid(audio): audio.set_context("city" if mode != "combat" else "boss" if not combat.encounter.get("boss_id","").is_empty() else "combat")
+	if is_instance_valid(audio): audio.set_context(GameAudio.room_track(session.state.room_id) if mode == "world" and session.state != null else "city" if mode != "combat" else "boss" if not combat.encounter.get("boss_id","").is_empty() else "combat")
 	screen = Control.new()
 	screen.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(screen)
@@ -228,15 +228,30 @@ func _show_world() -> void:
 		var tool := UIBuilder.icon_button(tools,entry[0],entry[1],entry[2],entry[3],54)
 		UIBuilder.hotkey(tool,{"OpenInventory":KEY_I,"OpenSkills":KEY_K,"OpenQuests":KEY_J,"OpenSave":KEY_F5,"OpenSettings":KEY_O,"OpenBacklog":KEY_L}[entry[3]])
 	# Area title shows on entry then fades, like a mobile map banner.
-	var banner := UIBuilder.label(screen,room.name + "\n" + room.purpose,26,Color("f1d9a0"))
-	banner.position = Vector2(240,90)
-	banner.size = Vector2(800,90)
+	# Top band between the stats panel and the tool row; badges sit lower, and it fades quickly on a dim strip.
+	var strip := ColorRect.new()
+	strip.color = Color(0.03,0.06,0.07,0.72)
+	strip.position = Vector2(330,10)
+	strip.size = Vector2(560,64)
+	strip.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	screen.add_child(strip)
+	var banner := UIBuilder.label(strip,room.name + "\n" + room.purpose,20,Color("f1d9a0"))
+	banner.autowrap_mode = TextServer.AUTOWRAP_OFF
+	banner.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	banner.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	banner.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	banner.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	banner.add_theme_color_override("font_outline_color",Color("0b1214"))
-	banner.add_theme_constant_override("outline_size",8)
-	var fade := banner.create_tween()
-	fade.tween_interval(2.2)
-	fade.tween_property(banner,"modulate:a",0.0,0.6)
+	banner.add_theme_constant_override("outline_size",6)
+	var fade := strip.create_tween()
+	fade.tween_interval(1.6)
+	fade.tween_property(strip,"modulate:a",0.0,0.4)
+	world.banner_rect = Rect2(strip.position,strip.size)
+	fade.tween_callback(func():
+		strip.queue_free()
+		if is_instance_valid(world):
+			world.banner_rect = Rect2()
+			world.queue_redraw())
 	status_line = UIBuilder.label(screen,"",16,Color("d8e6dc"))
 	status_line.position = Vector2(240,640)
 	status_line.size = Vector2(800,60)
@@ -411,7 +426,8 @@ func _junction_go(line_id: String, mouth: Vector2) -> void:
 	_close_modal(true)
 	await _enter_pipe_line(line_id,mouth)
 
-func _open_modal(title: String, allow_close: bool = true) -> void:
+# compact: small confirm/result dialogs get a centred panel sized to their content; big screens keep the full panel.
+func _open_modal(title: String, allow_close: bool = true, compact: bool = false) -> void:
 	if not is_instance_valid(modal):
 		var focused := get_viewport().gui_get_focus_owner()
 		focus_return = weakref(focused) if focused != null else null
@@ -428,8 +444,16 @@ func _open_modal(title: String, allow_close: bool = true) -> void:
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	screen.add_child(shade)
 	modal = shade
-	var panel := UIBuilder.glass_panel(shade,Vector2(90,36),Vector2(1100,648))
+	var holder: Control = shade
+	if compact:
+		var centre := CenterContainer.new()
+		centre.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		shade.add_child(centre)
+		holder = centre
+	var panel := UIBuilder.glass_panel(holder,Vector2(320,36) if compact else Vector2(90,36),Vector2(640,0) if compact else Vector2(1100,648))
 	panel.get_theme_stylebox("panel").bg_color = Color(0.04,0.08,0.09,0.94)
+	if compact:
+		panel.custom_minimum_size = Vector2(640,0)
 	var layout := VBoxContainer.new()
 	layout.add_theme_constant_override("separation",8)
 	panel.add_child(layout)
@@ -444,13 +468,20 @@ func _open_modal(title: String, allow_close: bool = true) -> void:
 	var scroll := ScrollContainer.new()
 	scroll.follow_focus = true
 	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	scroll.custom_minimum_size.y = 520
+	scroll.custom_minimum_size.y = 80 if compact else 520
 	layout.add_child(scroll)
 	modal_body = VBoxContainer.new()
 	modal_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	modal_body.add_theme_constant_override("separation",8)
 	scroll.add_child(modal_body)
 	_focus_modal.call_deferred()
+	if compact: _fit_compact_modal(scroll)
+
+# Content is added right after _open_modal returns; this runs deferred (same frame), sizes the scroll to it, panel stays centred by anchors.
+func _fit_compact_modal(scroll: ScrollContainer) -> void:
+	await get_tree().process_frame # wrapped labels only report their real height once the panel has a width
+	if is_instance_valid(scroll) and scroll.is_inside_tree():
+		scroll.custom_minimum_size.y = clampf(modal_body.get_combined_minimum_size().y,80.0,648.0-120.0)
 
 func _close_modal(force: bool = false) -> void:
 	if modal_locked and not force:
@@ -799,7 +830,7 @@ func _confirm_encounter(id: String, pipe_id: String = "", mouth: Vector2 = Vecto
 		_message(allowed.reason)
 		return
 	var encounter := catalog.get_entry("encounters",id)
-	_open_modal(encounter.name)
+	_open_modal(encounter.name,true,true)
 	if not encounter.boss_id.is_empty():
 		UIBuilder.label(modal_body,catalog.data.story.boss_intros.get(encounter.boss_id,""),20,Color("d9c8a0"))
 		var pre_line: String = catalog.data.story.get("boss_lines",{}).get(encounter.boss_id,{}).get("pre_line","")
@@ -878,7 +909,7 @@ func _finish_combat() -> void:
 	if not won:
 		_show_defeat()
 		return
-	_open_modal("จบการฝึก")
+	_open_modal("จบการฝึก",true,true)
 	for event in result.events:
 		if event.type == "training_settled":
 			UIBuilder.label(modal_body,"เก็บเป้าหมายสำเร็จแล้ว · XP +%d" % event.payload.xp,24)
@@ -966,7 +997,7 @@ func _settle_level_up(before: Dictionary, levels: int) -> void:
 	var p: Dictionary = session.state.player
 	var old := session.progression.derive(before.player,catalog.data)
 	var now := session.progression.derive(p,catalog.data)
-	_open_modal("เลเวลอัป!  เลเวล %d" % p.level, false)
+	_open_modal("เลเวลอัป!  เลเวล %d" % p.level,false,true)
 	for line in [["HP สูงสุด",now.max_hp-old.max_hp,Color("83dcb3")],["FP สูงสุด",now.max_fp-old.max_fp,Color("9fd8ff")],["แต้มค่าสถานะ",2*levels,Color("e3b858")],["แต้มสกิล",levels,Color("c27bff")]]:
 		if line[1] != 0: UIBuilder.label(modal_body,"%s  +%d" % [line[0],line[1]],24,line[2])
 	settle_points = 2*levels
@@ -974,7 +1005,7 @@ func _settle_level_up(before: Dictionary, levels: int) -> void:
 
 func _settle_attributes(levels: int) -> void:
 	var p: Dictionary = session.state.player
-	_open_modal("เลือกค่าสถานะที่จะเพิ่ม  ·  เหลือ %d แต้ม" % mini(settle_points,int(p.attribute_points)), false)
+	_open_modal("เลือกค่าสถานะที่จะเพิ่ม  ·  เหลือ %d แต้ม" % mini(settle_points,int(p.attribute_points)), false,true)
 	var tiles := HBoxContainer.new()
 	tiles.add_theme_constant_override("separation",16)
 	modal_body.add_child(tiles)
@@ -998,7 +1029,7 @@ func _settle_attributes(levels: int) -> void:
 	modal_body.find_child("ContinueSettle",true,false).disabled = settle_points > 0
 
 func _show_defeat() -> void:
-	_open_modal("แพ้")
+	_open_modal("แพ้",true,true)
 	UIBuilder.label(modal_body,"ฟื้น HP/FP แล้ว พลังงานลด4 · กลับมาที่จุดพัก",20)
 	var retry_id: String = combat.encounter.get("id","")
 	var allowed := world_policy.can_start_encounter(retry_id,session.state,combat.pipe_id)
@@ -1013,7 +1044,7 @@ func _show_defeat() -> void:
 	UIBuilder.button(row,"กลับ",_close_modal.bind(false),"LeaveDefeat").tooltip_text = "ปรับอุปกรณ์หรือพักก่อนแล้วค่อยกลับมา"
 
 func _show_ending_choices() -> void:
-	_open_modal("เสียงของเมืองอยู่ในมือคุณ",false)
+	_open_modal("เสียงของเมืองอยู่ในมือคุณ",false,true)
 	var service := DialogueService.new(catalog.data)
 	for id in service.get_ending_options(session.state):
 		var ending := service.ending(id)
@@ -1027,7 +1058,10 @@ func _choose_ending(id: String) -> void:
 	var service := DialogueService.new(catalog.data)
 	var pages := service.ending_pages(id,session.state)
 	pages.append(service.credits_page())
-	_play_story(pages,func(): _message("กลับมาสำรวจต่อได้ รางวัลผ่านครั้งแรกจะไม่แจกซ้ำ"),"กลับสู่เมือง")
+	audio.set_context("ending")
+	_play_story(pages,func():
+		audio.set_context(GameAudio.room_track(session.state.room_id))
+		_message("กลับมาสำรวจต่อได้ รางวัลผ่านครั้งแรกจะไม่แจกซ้ำ"),"กลับสู่เมือง")
 
 # ---------------------------------------------------------------- story pages
 # Intro, chapter openings, boss aftermath and endings all play through StoryScreen over whatever screen is up.
@@ -1097,7 +1131,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _open_pause() -> void:
-	_open_modal("หยุดพัก")
+	_open_modal("หยุดพัก",true,true)
 	if screen_mode == "world":
 		UIBuilder.button(modal_body,"บันทึก / โหลด",_show_save_slots)
 	UIBuilder.button(modal_body,"ตั้งค่า",_show_settings)
@@ -1106,7 +1140,7 @@ func _open_pause() -> void:
 	UIBuilder.label(modal_body,"บันทึกอัตโนมัติหลังเปลี่ยนห้องและทำรายการสำเร็จ ไม่บันทึกกลางไฟต์",18)
 
 func _confirm_leave(quit_game: bool) -> void:
-	_open_modal("ออกจากเกม" if quit_game else "กลับหน้าหลัก")
+	_open_modal("ออกจากเกม" if quit_game else "กลับหน้าหลัก",true,true)
 	modal_back = _open_pause
 	var where := "ปิดเกม" if quit_game else "กลับหน้าหลัก"
 	if screen_mode == "combat":

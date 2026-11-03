@@ -18,4 +18,20 @@ func run(t) -> bool:
 				t.check(false,"mesh remains in its character bounds: " + id)
 				break
 	t.check(art.actor_id({"class_id":"C05","side":"player"}) == "C05" and art.actor_id({"definition_id":"B06","side":"enemy"}) == "B06","world and combat use stable content IDs for art")
+	_clip_smoothness(t)
 	return true
+
+# A joint turning past ~75 degrees between 1/30s keys reads as a snap or a spinning wrist on screen.
+func _clip_smoothness(t) -> void:
+	var model = load("res://art/characters/vesper_warrior.glb").instantiate()
+	var animator: AnimationPlayer = model.get_node("AnimationPlayer")
+	for clip in ["Attack","Skill_Stab","Skill_Steam","Guard","Hit","Down"]:
+		var anim := animator.get_animation(clip)
+		for track in anim.get_track_count():
+			var bone := str(anim.track_get_path(track)).get_slice(":",1)
+			if anim.track_get_type(track) != Animation.TYPE_ROTATION_3D or not bone in ["Shoulder_R","Elbow_R","Hand_R","WeaponMount","Shoulder_L","Elbow_L"]: continue
+			var worst := 0.0
+			for key in range(1, anim.track_get_key_count(track)):
+				worst = maxf(worst, rad_to_deg((anim.track_get_key_value(track,key) as Quaternion).angle_to(anim.track_get_key_value(track,key-1))))
+			t.check(worst <= 75.0, "smooth %s %s (worst %d deg per key)" % [clip, bone, worst])
+	model.free()

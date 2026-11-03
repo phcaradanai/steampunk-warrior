@@ -18,6 +18,11 @@ var stage: Control
 var ui: Control
 var wait_label: Label
 var plates: Control
+# HP and barrier as the player sees them: they change when a blow lands on screen, not when the resolver decides.
+var shown: Dictionary = {}
+var hp_bars: Dictionary = {}
+var hp_texts: Dictionary = {}
+var barrier_bars: Dictionary = {}
 # The arena fills the screen; plates and commands float over it.
 const STAGE_TOP := 0.0
 const STAGE_SIZE := Vector2(1280,720)
@@ -29,6 +34,7 @@ func configure(active_controller: CombatController) -> void:
 
 func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_sync_shown()
 	_build_stage()
 	ui = Control.new()
 	ui.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -39,6 +45,7 @@ func _ready() -> void:
 	add_child(plates)
 	feedback = CombatFeedback.new()
 	feedback.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	feedback.impact_landed.connect(_on_impact)
 	add_child(feedback)
 	_render()
 	_title_card()
@@ -171,9 +178,7 @@ func _render(events: Array = []) -> void:
 	for actor in controller.state.actors:
 		if actor.side == "enemy" and actor.hp > 0:
 			living.append(actor)
-		if portraits.has(actor.id):
-			portraits[actor.id].alive = actor.hp > 0
-			if actor.hp <= 0 and portraits[actor.id].hero != null: portraits[actor.id].hero.perform("down")
+
 	if not living.is_empty() and not living.any(func(a):return a.id == selected_target):
 		selected_target = living[0].id
 	# Bars and sounds change on the contact frame, so plates wait for the strike to land.
@@ -183,6 +188,42 @@ func _render(events: Array = []) -> void:
 	_play_feedback.call_deferred(events)
 	_focus_ready.call_deferred()
 
+func shown_hp(id: String) -> int:
+	return int(shown.get(id,{}).get("hp",0))
+
+func _sync_shown() -> void:
+	for actor in controller.state.actors:
+		var top: int = maxi(int(actor.get("barrier",0)), int(shown.get(actor.id,{}).get("max_barrier",0)))
+		shown[actor.id] = {"hp":int(actor.hp),"barrier":int(actor.get("barrier",0)),"max_hp":int(actor.max_hp),"max_barrier":top}
+
+func _on_impact(event: Dictionary) -> void:
+	var id: String = event.payload.target_id
+	if not shown.has(id): return
+	var seen: Dictionary = shown[id]
+	if event.type == "heal":
+		seen.hp = mini(seen.max_hp, seen.hp + int(event.payload.amount))
+	elif event.payload.get("shielded",false):
+		seen.barrier = maxi(0, seen.barrier - int(event.payload.amount))
+	else:
+		seen.hp = maxi(0, seen.hp - int(event.payload.amount))
+	if hp_bars.has(id) and is_instance_valid(hp_bars[id]):
+		hp_bars[id].create_tween().tween_property(hp_bars[id],"value",float(seen.hp),0.18)
+		hp_texts[id].text = _hp_text(seen)
+	if barrier_bars.has(id) and is_instance_valid(barrier_bars[id]):
+		barrier_bars[id].create_tween().tween_property(barrier_bars[id],"value",float(seen.barrier),0.18)
+	if seen.hp <= 0 and portraits.has(id):
+		_fall(portraits[id])
+
+func _fall(portrait: ActorPortrait) -> void:
+	portrait.alive = false
+	if portrait.hero == null or portrait.hero.down: return
+	# Let the flinch read first, then drop.
+	await get_tree().create_timer(0.22).timeout
+	if is_instance_valid(portrait) and portrait.hero != null: portrait.hero.perform("down")
+
+func _hp_text(seen: Dictionary) -> String:
+	return "HP %d / %d" % [seen.hp,seen.max_hp] + ("  ·  โล่ %d" % seen.barrier if seen.barrier > 0 else "")
+
 func _plates_when_idle() -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
@@ -191,6 +232,13 @@ func _plates_when_idle() -> void:
 	if is_inside_tree(): _plates()
 
 func _plates() -> void:
+	# Between strikes the resolver is authoritative again (FP, pressure, statuses, deaths without a blow).
+	_sync_shown()
+	for actor in controller.state.actors:
+		if actor.hp <= 0 and portraits.has(actor.id): _fall(portraits[actor.id])
+	hp_bars.clear()
+	hp_texts.clear()
+	barrier_bars.clear()
 	for child in plates.get_children():
 		plates.remove_child(child)
 		child.queue_free()
@@ -217,8 +265,13 @@ func _plates() -> void:
 		var name_label := UIBuilder.label(head,actor.get("name",actor.id),18,Color("f0d492") if actor.side=="player" else Color("d99882"))
 		name_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 		name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		UIBuilder.label(head,"HP %d / %d" % [actor.hp,actor.max_hp] + ("  ·  โล่ %d" % actor.barrier if actor.barrier > 0 else ""),15).autowrap_mode = TextServer.AUTOWRAP_OFF
-		UIBuilder.bar(column,actor.hp,actor.max_hp,Color("63b46e") if actor.side == "player" else Color("c9644e"),12)
+		hp_texts[actor.id] = UIBuilder.label(head,_hp_text(shown[actor.id]),15)
+		hp_texts[actor.id].autowrap_mode = TextServer.AUTOWRAP_OFF
+		hp_bars[actor.id] = UIBuilder.bar(column,actor.hp,actor.max_hp,Color("63b46e") if actor.side == "player" else Color("c9644e"),12)
+		# The barrier soaks blows before HP; give it its own bar so a shielded hit visibly lands.
+		if shown[actor.id].max_barrier > 0:
+			barrier_bars[actor.id] = UIBuilder.bar(column,shown[actor.id].barrier,shown[actor.id].max_barrier,Color("80cde1"),6)
+			barrier_bars[actor.id].tooltip_text = "โล่: รับความเสียหายก่อน HP"
 		if actor.side == "player":
 			UIBuilder.bar(column,actor.fp,actor.max_fp,Color("5ab4e0"),6).tooltip_text = "FP"
 			UIBuilder.bar(column,actor.pressure,100,Color("e08a3a"),6).tooltip_text = "แรงดัน"

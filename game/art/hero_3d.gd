@@ -9,7 +9,7 @@ const LIMB_MESHES := ["UpperArm_R", "UpperArm_L", "ThighMesh_R", "ThighMesh_L"]
 # Clip speed lifts the authored 1.5-1.7s actions into the combat pump's 0.36s turn rhythm.
 const ACTIONS := {"attack":["Attack",1.15], "skill_stab":["Skill_Stab",1.1], "skill_steam":["Skill_Steam",1.1], "guard":["Guard",1.2], "hit":["Hit",1.25], "down":["Down",1.0], "vent":["Skill_Steam",1.1], "enter_pipe":["Enter_Pipe",1.4]}
 # Clip time where the blade or nozzle reaches full extension, read from the Shoulder_R rotation peaks.
-const CONTACT := {"Attack":0.87, "Skill_Stab":0.77, "Skill_Steam":0.77}
+const CONTACT := {"Attack":0.92, "Skill_Stab":0.85, "Skill_Steam":0.84}
 
 var model: Node3D
 var animator: AnimationPlayer

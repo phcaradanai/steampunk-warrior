@@ -881,7 +881,7 @@ def ik_2bone_angles(root_xy, target_xy, seg_len, bend_sign):
     return ang1, ang2
 
 
-def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0):
+def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0, swing=None):
     """
     Implements the 10 Natural Animation Principles:
       1. Weight & Balance / CoG Shift    6. Arcs
@@ -1037,7 +1037,7 @@ def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0):
         leg_root = (hip_2d[0] + side * 4.5, hip_2d[1])
         # Asymmetric martial arts idle stance
         idle_st = (side * 10.5 + (2.5 if side == 1 else -2.0), 0.0)
-        if abs(strike) > 0.1:
+        if abs(strike) > 0.1 or swing is not None:
             idle_st = (side * 14.0 + (6.0 if side == 1 else -4.0), 0.0)
 
         stride_amp = 24.5 if run > 0.5 else 19.5
@@ -1097,21 +1097,33 @@ def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0):
         hand = [arm_root[0] + 20.0 + math.sin(phase) * 4.0, arm_root[1] + 28.0]
         w_angle = 0.62 + math.sin(phase - 0.3) * 0.15
 
-    if strike < 0.0:
+    # Strike pose per move at strength c; wind-up, swing and recovery all blend between fixed poses so the
+    # hand never passes through the shoulder and the blade never flips (no elbow snap, no spinning wrist).
+    def strike_pose(c):
+        if mode == "Skill_Stab":
+            return (38.0 * c, 4.0 * c, 1.55, -0.22)
+        return (34.0 * c, 22.0 * c, 1.92, -0.32)
+    windup_pose = (-6.0, -28.0, -0.95, 0.28)
+    rest_pose = (22.0, 31.0, 0.72, 0.0)
+    pose = None
+    if swing is not None:
+        p = swing * swing * (3.0 - 2.0 * swing)
+        goal = strike_pose(min(1.2, 1.0 if mode == "Attack" else 1.1))
+        pose = [windup_pose[i] + (goal[i] - windup_pose[i]) * p for i in range(4)]
+    elif strike < 0.0:
         w = min(1.0, -strike / 0.75)
-        hand = [arm_root[0] + (-6.0) * w + 22.0 * (1.0 - w), arm_root[1] + (-28.0) * w + 31.0 * (1.0 - w)]
-        w_angle = 0.72 * (1.0 - w) + (-0.95) * w
-        wrist_Snap = 0.28 * w
+        pose = [rest_pose[i] + (windup_pose[i] - rest_pose[i]) * w for i in range(4)]
     elif strike > 0.0:
         c = min(1.2, strike)
-        if mode == "Skill_Stab":
-            hand = [arm_root[0] + 38.0 * c, arm_root[1] + 4.0 * c]
-            w_angle = 0.72 + (1.55 - 0.72) * min(1.0, c)
-            wrist_Snap = -0.22 * min(1.0, c)
-        else:
-            hand = [arm_root[0] + 34.0 * c, arm_root[1] + 22.0 * c]
-            w_angle = -0.4 + (1.92 - (-0.4)) * min(1.0, c)
-            wrist_Snap = -0.32 * min(1.0, c)
+        goal = strike_pose(c)
+        k = min(1.0, c)
+        pose = [rest_pose[i] + (goal[i] - rest_pose[i]) * k for i in range(2)] + [rest_pose[i] + (goal[i] - rest_pose[i]) * k for i in range(2, 4)]
+        if c > 1.0:
+            pose[0], pose[1] = goal[0], goal[1]
+    if pose is not None:
+        hand = [arm_root[0] + pose[0], arm_root[1] + pose[1]]
+        w_angle = pose[2]
+        wrist_Snap = pose[3]
     if mode == "Guard":
         hand = [arm_root[0] + 8.0, arm_root[1] + 18.0]
         w_angle = 0.15
@@ -1141,10 +1153,16 @@ def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0):
     b_hand = [sh_2d[0] - 28.0 + b_sw, sh_2d[1] + (24.0 if run > 0.5 else 30.0)]
     if mode == "Guard":
         b_hand = [sh_2d[0] + 24.0 - recoil * 5.0, sh_2d[1] + 4.0]
-    elif strike < -0.1:
-        b_hand = [sh_2d[0] + 14.0, sh_2d[1] - 6.0]
-    elif strike > 0.1:
-        b_hand = [sh_2d[0] - 18.0, sh_2d[1] + 20.0]
+    elif swing is not None:
+        q = swing * swing * (3.0 - 2.0 * swing)
+        b_hand = [sh_2d[0] + 14.0 - 32.0 * q, sh_2d[1] - 6.0 + 26.0 * q]
+    elif strike < 0.0:
+        # Blend instead of switching at a threshold, so the guard arm doesn't snap when the wind-up starts.
+        w = min(1.0, -strike / 0.75)
+        b_hand = [b_hand[0] + (sh_2d[0] + 14.0 - b_hand[0]) * w, b_hand[1] + (sh_2d[1] - 6.0 - b_hand[1]) * w]
+    elif strike > 0.0:
+        k = min(1.0, strike)
+        b_hand = [b_hand[0] + (sh_2d[0] - 18.0 - b_hand[0]) * k, b_hand[1] + (sh_2d[1] + 20.0 - b_hand[1]) * k]
     elif mode == "Hit":
         b_hand = [sh_2d[0] - 22.0, sh_2d[1] + 12.0]
     bu_ang, bf_ang = ik_2bone_angles(back_root, b_hand, 24.0, 1.0)
@@ -1207,7 +1225,8 @@ def build_vesper_actions(arm_obj, dummy_obj):
         act.use_fake_user = True
         arm_obj.animation_data.action = act
 
-        step = 2
+        # Strikes sweep fast; key every frame so no joint turns far enough between keys to take the short way round.
+        step = 1 if act_name in ("Attack", "Skill_Stab", "Skill_Steam") else 2
         frames = list(range(1, end_f + 1, step))
         if end_f not in frames:
             frames.append(end_f)
@@ -1221,6 +1240,7 @@ def build_vesper_actions(arm_obj, dummy_obj):
 
             strike = 0.0
             recoil = 0.0
+            swing = None
             if act_name in ("Attack", "Skill_Stab", "Skill_Steam"):
                 if 0.20 <= t_norm < 0.25:
                     # Subtle anticipation coil before windup
@@ -1230,6 +1250,7 @@ def build_vesper_actions(arm_obj, dummy_obj):
                 elif 0.45 <= t_norm < 0.65:
                     w_t = (t_norm - 0.45) / 0.20
                     strike = -0.75 + (1.85 if act_name != "Attack" else 1.75) * min(1.0, w_t * 1.55)
+                    swing = min(1.0, w_t * 1.55)
                 elif t_norm >= 0.65:
                     strike = max(0.0, 1.0 - (t_norm - 0.65) / 0.25)
             elif act_name == "Guard":
@@ -1243,7 +1264,7 @@ def build_vesper_actions(arm_obj, dummy_obj):
             elif act_name == "Down":
                 recoil = min(1.0, t_norm / 0.55)
 
-            locs, rots = compute_vesper_pose(act_name, t_norm, strike=strike, recoil=recoil)
+            locs, rots = compute_vesper_pose(act_name, t_norm, strike=strike, recoil=recoil, swing=swing)
             if f == 1:
                 start_locs, start_rots = locs, rots
             apply_pose_to_armature(arm_obj, locs, rots, frame=f)

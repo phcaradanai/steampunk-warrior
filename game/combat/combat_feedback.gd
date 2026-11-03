@@ -14,6 +14,9 @@ var clock: float = 0.0
 var trauma: float = 0.0
 var shake_offset := Vector2.ZERO
 var playing: int = 0
+# impact_landed carries the event so the view can move HP on the contact frame; impacted is a plain cue for tests and audio.
+signal impact_landed(event: Dictionary)
+signal impacted(target_id: String)
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -124,6 +127,8 @@ func _sound(event: Dictionary) -> void:
 
 func _impact(event: Dictionary, portraits: Dictionary) -> void:
 	_sound(event)
+	impact_landed.emit(event)
+	impacted.emit(event.payload.target_id)
 	var payload: Dictionary = event.payload
 	var target: ActorPortrait = portraits[payload.target_id]
 	if target.hero != null and event.type == "damage":

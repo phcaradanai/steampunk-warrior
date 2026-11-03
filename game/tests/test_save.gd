@@ -69,4 +69,53 @@ func run(t) -> bool:
 	for filename in DirAccess.get_files_at(directory):
 		DirAccess.remove_absolute(directory.path_join(filename))
 	DirAccess.remove_absolute(directory)
+	_migration(t,catalog.data)
 	return true
+
+func _put(path: String, text: String) -> void:
+	var file := FileAccess.open(path,FileAccess.WRITE)
+	file.store_string(text)
+	file.close()
+
+func _migration(t, data: Dictionary) -> void:
+	var directory := "user://test-saves-v1-" + str(Time.get_ticks_usec())
+	DirAccess.make_dir_recursive_absolute(directory)
+	var service = load("res://save/save_service.gd").new(data,directory)
+	var fixture := FileAccess.get_file_as_string("res://tests/fixtures/save_v1.json")
+	var path: String = directory.path_join("manual01.json")
+	_put(path,fixture)
+	var result: Dictionary = service.load_slot("manual01")
+	t.check(service.VERSION == 2 and result.ok and result.state.player.upgrades == {},"v1 fixture loads and migrates to v2 with empty upgrades")
+	t.check(result.ok and result.state.player.stash == ["W26"] and result.state.player.current_hp == 33,"migration keeps existing player fields")
+	# Re-save writes v2, the v1 file becomes the backup, and both still load.
+	t.check(service.save_slot("manual01",result.state).ok and JSON.parse_string(FileAccess.get_file_as_string(path)).version == 2,"re-save writes version 2")
+	t.check(service.load_slot("manual01").ok and service.load_slot("manual01",true).ok and JSON.parse_string(FileAccess.get_file_as_string(directory.path_join("manual01.json.bak"))).version == 1,"v2 file and v1 backup both load")
+	# Unknown ids are dropped, not fatal; equipment hp/fp clamp afterwards.
+	var stale: Dictionary = JSON.parse_string(fixture)
+	stale.data.player.items.append("GONE01")
+	stale.data.player.stash.append("GONE02")
+	stale.data.player.equipment.head = "GONE03"
+	stale.data.player.upgrades = {"GONE01":2,"W02":1}
+	_put(path,JSON.stringify(stale))
+	result = service.load_slot("manual01")
+	t.check(result.ok and not "GONE01" in result.state.player.items and not "GONE02" in result.state.player.stash and not result.state.player.equipment.has("head"),"migration drops items no longer in the catalog")
+	t.check(result.ok and result.state.player.upgrades == {"W02":1},"migration prunes upgrades for missing or unowned items")
+	# v1 .bak restore.
+	DirAccess.remove_absolute(path)
+	_put(directory.path_join("manual01.json.bak"),fixture)
+	_put(path,"{ broken")
+	t.check(not service.load_slot("manual01").ok,"corrupt file still rejected")
+	result = service.restore_backup("manual01")
+	t.check(result.ok and result.state.player.upgrades == {} and service.load_slot("manual01").ok,"v1 backup restore works")
+	var future: Dictionary = JSON.parse_string(fixture)
+	future.version = 3
+	_put(path,JSON.stringify(future))
+	result = service.load_slot("manual01")
+	t.check(not result.ok and "ใหม่กว่า" in result.reason,"v3 rejected with newer-version reason")
+	future.version = 0
+	_put(path,JSON.stringify(future))
+	t.check(not service.load_slot("manual01").ok,"version 0 rejected")
+	for filename in DirAccess.get_files_at(directory):
+		DirAccess.remove_absolute(directory.path_join(filename))
+	DirAccess.remove_absolute(directory)
+

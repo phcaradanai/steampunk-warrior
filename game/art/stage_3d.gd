@@ -2,6 +2,8 @@ class_name Stage3D
 extends Control
 # One toon-lit 3D figure in its own orthographic viewport, drawn into a 2D Control at physical resolution.
 
+# The OpenGL fallback is far slower per viewport: no MSAA and throttled redraws there. Mobile path is unchanged.
+static var compat: bool = RenderingServer.get_current_rendering_method() == "gl_compatibility"
 var viewport: SubViewport
 var camera: Camera3D
 var facing_left: bool = false
@@ -18,7 +20,7 @@ func _init() -> void:
 	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	viewport.own_world_3d = true
 	viewport.transparent_bg = true
-	viewport.msaa_3d = Viewport.MSAA_4X
+	viewport.msaa_3d = Viewport.MSAA_DISABLED if compat else Viewport.MSAA_4X
 	add_child(viewport)
 	var environment := Environment.new()
 	environment.background_mode = Environment.BG_CLEAR_COLOR
@@ -55,8 +57,15 @@ func _sync_resolution() -> void:
 func _draw() -> void:
 	draw_texture_rect(viewport.get_texture(), Rect2(Vector2.ZERO, size), false)
 
+var _tick: int = randi() % 8
+
 func _process(_delta: float) -> void:
 	_sync_resolution()
+	if compat:
+		# GL fallback: redraw the figure every 2nd frame while animating, every 6th while idle (staggered per figure).
+		_tick += 1
+		var due := _tick % (2 if moving or busy > 0.0 or freeze > 0.0 else 6) == 0
+		viewport.render_target_update_mode = SubViewport.UPDATE_ONCE if due else SubViewport.UPDATE_DISABLED
 	queue_redraw()
 
 # Height of the figure's top as a fraction of the control, measured from the top edge (for markers above heads).

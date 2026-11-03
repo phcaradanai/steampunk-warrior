@@ -1,0 +1,91 @@
+{
+	"data": {
+		"checkpoint": {
+			"room_id": "R01",
+			"spawn_id": "entry"
+		},
+		"claimed_rewards": {
+			"battle:test": true
+		},
+		"ending_history": [],
+		"first_clears": {},
+		"player": {
+			"attribute_points": 0.0,
+			"base_attributes": {
+				"AGI": 6.0,
+				"INT": 9.0,
+				"STR": 6.0,
+				"VIT": 9.0
+			},
+			"class_id": "C05",
+			"currency": 75.0,
+			"current_fp": 12.0,
+			"current_hp": 33.0,
+			"energy": 44.0,
+			"equipment": {
+				"head": "H01",
+				"shield": "D01",
+				"suit": "A01",
+				"weapon": "W01"
+			},
+			"items": [
+				"W02",
+				"H02"
+			],
+			"level": 1.0,
+			"potions": {
+				"focus": 5.0,
+				"life": 5.0
+			},
+			"skill_points": 0.0,
+			"skill_ranks": {
+				"S20": 1.0
+			},
+			"stash": [
+				"W26"
+			],
+			"xp": 0.0
+		},
+		"quest_states": {
+			"Q01": {
+				"choice": "",
+				"state": "active"
+			},
+			"Q02": {
+				"choice": "",
+				"state": "available"
+			},
+			"Q03": {
+				"choice": "",
+				"state": "available"
+			},
+			"Q04": {
+				"choice": "",
+				"state": "available"
+			},
+			"Q05": {
+				"choice": "",
+				"state": "available"
+			},
+			"Q06": {
+				"choice": "",
+				"state": "available"
+			},
+			"Q07": {
+				"choice": "",
+				"state": "available"
+			},
+			"Q08": {
+				"choice": "",
+				"state": "available"
+			}
+		},
+		"room_id": "R01",
+		"world_flags": {
+			"objective:water_valve": true,
+			"visited:R02": true
+		}
+	},
+	"saved_at": 1761955200,
+	"version": 1.0
+}

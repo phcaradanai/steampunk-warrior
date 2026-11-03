@@ -43,7 +43,8 @@ func _initialize() -> void:
 	check(scene.screen_mode == "world" and scene.session.state.room_id == "R01","selected character enters actual world")
 	var position_before: Vector2 = scene.world.player.position
 	Input.action_press("move_right")
-	for _i in range(20):
+	# 30 ticks: at 2px per physics tick, 20 ticks lands exactly on the 40px threshold.
+	for _i in range(30):
 		await physics_frame
 	Input.action_release("move_right")
 	check(scene.world.player.position.x > position_before.x + 40,"CharacterBody moves with actual InputMap in physics frames")

@@ -26,6 +26,7 @@ var hud: Label
 var control_hint: Label
 var status_line: Label
 var interact_button: Button
+var hud_bars: Dictionary = {}
 var save_warning: String = ""
 var reward_notice: String = ""
 var request_sequence: int = 0
@@ -133,54 +134,67 @@ func _new_game(class_id: String) -> void:
 func _show_world() -> void:
 	_clear_screen("world")
 	var room: Dictionary = catalog.get_entry("rooms",session.state.room_id)
-	# Scene fills the top ~72% like the reference; stats and commands live in one bar underneath.
+	# The room fills the whole screen and the camera follows the hero; controls float over it as icons.
 	world = WorldView.new()
-	world.position = Vector2(120,0)
-	world.scale = Vector2.ONE*WorldView.VIEW_SCALE
+	world.scale = Vector2.ONE*WorldView.FULL_SCALE
+	world.follow = true
 	world.configure(catalog.data,session.snapshot(),session.state.checkpoint.get("spawn_id","entry"))
 	world.marker_selected.connect(_interact)
 	world.nearby_changed.connect(_nearby_changed)
 	screen.add_child(world)
-	# Nothing overlays the scene: room title, stats, prompt and every button share one bar underneath.
-	var bar := PanelContainer.new()
-	bar.position = Vector2(0,520)
-	bar.size = Vector2(1280,200)
-	var frame := StyleBoxFlat.new()
-	frame.bg_color = Color("15201f")
-	frame.border_color = Color("8d7447")
-	frame.border_width_top = 4
-	frame.set_corner_radius_all(0)
-	bar.add_theme_stylebox_override("panel",frame)
-	screen.add_child(bar)
-	var heading := UIBuilder.label(screen,room.name,24,Color("e7c588"))
-	heading.position = Vector2(24,528)
-	heading.size = Vector2(300,34)
-	hud = UIBuilder.label(screen,"",16)
-	hud.position = Vector2(24,566)
-	hud.size = Vector2(300,150)
-	var middle := VBoxContainer.new()
-	middle.position = Vector2(340,532)
-	middle.size = Vector2(560,180)
-	middle.add_theme_constant_override("separation",6)
-	screen.add_child(middle)
-	interact_button = UIBuilder.button(middle,"เข้าใกล้สิ่งที่ต้องการ แล้วกด E หรือคลิกที่นี่",_activate,"Interact")
-	interact_button.custom_minimum_size = Vector2(560,52)
+	var stats := UIBuilder.glass_panel(screen,Vector2(16,16),Vector2(300,0))
+	var column := VBoxContainer.new()
+	column.add_theme_constant_override("separation",4)
+	stats.add_child(column)
+	hud = UIBuilder.label(column,"",16,Color("f0d492"))
+	hud.autowrap_mode = TextServer.AUTOWRAP_OFF
+	hud_bars.clear()
+	for entry in [["hp","potion_hp",Color("63b46e")],["fp","potion_fp",Color("5ab4e0")],["energy","energy",Color("e0b84a")]]:
+		var row := HBoxContainer.new()
+		column.add_child(row)
+		var icon := TextureRect.new()
+		icon.texture = load("res://art/icons/%s.svg" % entry[1])
+		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		icon.custom_minimum_size = Vector2(20,20)
+		row.add_child(icon)
+		var meter := UIBuilder.bar(row,0,1,entry[2],12)
+		meter.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		meter.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		var amount := UIBuilder.label(row,"",13)
+		amount.custom_minimum_size.x = 70
+		amount.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		hud_bars[entry[0]] = [meter,amount]
+	var tools := HBoxContainer.new()
+	tools.position = Vector2(1280-16-6*60,16)
+	tools.add_theme_constant_override("separation",6)
+	screen.add_child(tools)
+	for entry in [["bag","กระเป๋าและอุปกรณ์: สวม ถอด หรือขายของ",_show_inventory,"OpenInventory"],["skills","สกิลและค่าสถานะ: ใช้แต้มที่ได้จากเลเวลอัป",_show_skills,"OpenSkills"],["quests","สมุดภารกิจ: งานที่รับอยู่และสิ่งที่ต้องทำต่อ",_show_quests,"OpenQuests"],["save","บันทึกหรือโหลดเกม",_show_save_slots,"OpenSave"],["settings","ตั้งค่าเสียง ปุ่ม และเอฟเฟกต์",_show_settings,"OpenSettings"],["log","อ่านบทสนทนาที่ผ่านมา",_show_backlog,"OpenBacklog"]]:
+		var tool := UIBuilder.icon_button(tools,entry[0],entry[1],entry[2],entry[3],54)
+		UIBuilder.hotkey(tool,{"OpenInventory":KEY_I,"OpenSkills":KEY_K,"OpenQuests":KEY_J,"OpenSave":KEY_F5,"OpenSettings":KEY_O,"OpenBacklog":KEY_L}[entry[3]])
+	# Area title shows on entry then fades, like a mobile map banner.
+	var banner := UIBuilder.label(screen,room.name + "\n" + room.purpose,26,Color("f1d9a0"))
+	banner.position = Vector2(240,90)
+	banner.size = Vector2(800,90)
+	banner.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	banner.add_theme_color_override("font_outline_color",Color("0b1214"))
+	banner.add_theme_constant_override("outline_size",8)
+	var fade := banner.create_tween()
+	fade.tween_interval(2.2)
+	fade.tween_property(banner,"modulate:a",0.0,0.6)
+	status_line = UIBuilder.label(screen,"",16,Color("d8e6dc"))
+	status_line.position = Vector2(240,640)
+	status_line.size = Vector2(800,60)
+	status_line.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	status_line.add_theme_color_override("font_outline_color",Color("0b1214"))
+	status_line.add_theme_constant_override("outline_size",6)
+	interact_button = UIBuilder.icon_button(screen,"hand","เข้าใกล้สิ่งที่ต้องการ แล้วกด E",_activate,"Interact",96,"")
+	interact_button.position = Vector2(1280-16-96,720-16-96)
 	interact_button.disabled = true
-	status_line = UIBuilder.label(middle,"เดินเข้าใกล้ปากท่อแล้วกด E เพื่อเข้าสาย",15,Color("8fb4a6"))
-	UIBuilder.label(middle,room.purpose,14,Color("a7b6a5"))
-	control_hint = UIBuilder.label(middle,_control_hint_text(),13,Color("8fa497"))
-	var side := GridContainer.new()
-	side.columns = 2
-	side.position = Vector2(920,534)
-	side.size = Vector2(340,170)
-	side.add_theme_constant_override("h_separation",8)
-	side.add_theme_constant_override("v_separation",8)
-	screen.add_child(side)
-	var tips := {"OpenInventory":"ดูของในกระเป๋า สวมหรือถอดอุปกรณ์ และขายของที่ไม่ใช้","OpenSkills":"ใช้แต้มสกิลและแต้มค่าสถานะที่ได้จากการเลื่อนเลเวล","OpenQuests":"ดูภารกิจที่รับอยู่และสิ่งที่ต้องทำต่อ","OpenSave":"บันทึกหรือโหลดเกมจากช่องบันทึก","OpenSettings":"ปรับเสียง ปุ่มควบคุม และเอฟเฟกต์","OpenBacklog":"อ่านบทสนทนาที่ผ่านมา"}
-	for entry in [["กระเป๋าและอุปกรณ์",_show_inventory,"OpenInventory"],["สกิลและค่าสถานะ",_show_skills,"OpenSkills"],["สมุดภารกิจ",_show_quests,"OpenQuests"],["บันทึก",_show_save_slots,"OpenSave"],["ตั้งค่า",_show_settings,"OpenSettings"],["บทคุย",_show_backlog,"OpenBacklog"]]:
-		var button := UIBuilder.button(side,entry[0],entry[1],entry[2])
-		button.custom_minimum_size = Vector2(166,48)
-		button.tooltip_text = tips[entry[2]]
+	var help := UIBuilder.icon_button(screen,"help","ปุ่มควบคุม",func(): control_hint.get_parent().visible = not control_hint.get_parent().visible,"OpenHelp",48)
+	help.position = Vector2(16,720-16-48)
+	var hint_panel := UIBuilder.glass_panel(screen,Vector2(72,720-16-150),Vector2(300,150))
+	hint_panel.visible = false
+	control_hint = UIBuilder.label(hint_panel,_control_hint_text(),14,Color("c8d6cc"))
 	_refresh_hud()
 	_check_pending_ending.call_deferred()
 
@@ -190,7 +204,14 @@ func _refresh_hud() -> void:
 	if is_instance_valid(hud):
 		var p: Dictionary = session.state.player
 		var stats := session.progression.derive(p,catalog.data)
-		hud.text = "%s · เลเวล %d\nHP %d / %d  ·  FP %d / %d\nพลังงาน %d / 100\nเงิน %d เฟือง  ·  XP %d / %d" % [catalog.get_entry("classes",p.class_id).name,p.level,p.current_hp,stats.max_hp,p.current_fp,stats.max_fp,p.energy,p.currency,p.xp,session.progression.xp_to_next(int(p.level))]
+		hud.text = "Lv %d  ·  %d เฟือง  ·  XP %d/%d" % [p.level,p.currency,p.xp,session.progression.xp_to_next(int(p.level))]
+		hud.tooltip_text = "%s · เงิน %d เฟือง" % [catalog.get_entry("classes",p.class_id).name,p.currency]
+		hud.mouse_filter = Control.MOUSE_FILTER_PASS
+		for entry in [["hp",p.current_hp,stats.max_hp],["fp",p.current_fp,stats.max_fp],["energy",p.energy,100]]:
+			if not hud_bars.has(entry[0]) or not is_instance_valid(hud_bars[entry[0]][0]): continue
+			hud_bars[entry[0]][0].max_value = entry[2]
+			hud_bars[entry[0]][0].value = entry[1]
+			hud_bars[entry[0]][1].text = "%d/%d" % [entry[1],entry[2]]
 	if is_instance_valid(control_hint):
 		control_hint.text = _control_hint_text()
 	if is_instance_valid(world):
@@ -200,7 +221,10 @@ func _nearby_changed(marker: Dictionary) -> void:
 	if not is_instance_valid(interact_button):
 		return
 	interact_button.disabled = marker.is_empty()
-	interact_button.text = "เข้าใกล้สิ่งที่ต้องการ แล้วกด E" if marker.is_empty() else settings.binding_label("interact") + "  |  " + marker.label
+	# The action button swaps its picture to what pressing it will do; the tooltip spells it out.
+	interact_button.icon = load("res://art/icons/%s.svg" % ("hand" if marker.is_empty() else WorldView.marker_icon(marker)))
+	interact_button.tooltip_text = "เข้าใกล้สิ่งที่ต้องการ แล้วกด E" if marker.is_empty() else settings.binding_label("interact") + "  |  " + marker.label
+	interact_button.text = ""
 
 func _activate() -> void:
 	if is_instance_valid(world):
@@ -209,6 +233,10 @@ func _activate() -> void:
 func _message(text: String) -> void:
 	if is_instance_valid(status_line):
 		status_line.text = text
+		status_line.modulate.a = 1.0
+		var fade := status_line.create_tween()
+		fade.tween_interval(3.5)
+		fade.tween_property(status_line,"modulate:a",0.0,0.6)
 	if is_instance_valid(modal_notice):
 		modal_notice.text = text
 
@@ -822,4 +850,4 @@ func _show_text_instant() -> void:
 
 
 func _control_hint_text() -> String:
-	return "ซ้าย %s · ขวา %s\nขึ้น %s · ลง %s\n%s โต้ตอบ · Esc เมนู" % [settings.binding_label("move_left").split(" / ")[0],settings.binding_label("move_right").split(" / ")[0],settings.binding_label("move_up").split(" / ")[0],settings.binding_label("move_down").split(" / ")[0],settings.binding_label("interact")]
+	return "ซ้าย %s · ขวา %s\nขึ้น %s · ลง %s\n%s โต้ตอบ · Esc เมนู\nI กระเป๋า · K สกิล · J ภารกิจ · L บทคุย\nต่อสู้: 1–0 สกิล · Z–N คำสั่ง" % [settings.binding_label("move_left").split(" / ")[0],settings.binding_label("move_right").split(" / ")[0],settings.binding_label("move_up").split(" / ")[0],settings.binding_label("move_down").split(" / ")[0],settings.binding_label("interact")]

@@ -34,3 +34,10 @@ Backdrops are rendered by `prototypes/environments/build_backdrops.py` (headless
 Follow-up the same day: every room R02–R12 is now an oblique painted room (`room_Rxx.png` + `_rims.png`). Exits sit at the left/right pipe mouths, fast travel uses the centre tram pipe, dead ends show a bolted hatch, and valves are the painted wheels by the pipes. Marker slots and the two prop obstacles per room come from `game/data/room_props.json`, which both `RoomLayout.oblique_walls` and the Blender builder read. Arenas exist per palette (canal, rail, garden, coal, foundry, archive, reactor); hub fights and training use rail. `capture_rooms.gd` captures every room and one enemy turn per arena theme.
 
 Still open: props are baked into the backdrop, so the hero walking behind a prop draws over it (markers avoid those spots); enemies remain 2D art beside the 3D hero; R02 market has no shop-stall interaction beyond the existing shop marker.
+
+## 3D roster and icon-first PC UI, 2026-11-03
+
+- Every NPC, foe and interactive prop is 3D (`game/art/roster_3d.gd`): people are Vesper rig variants (`Hero3D.apply_variant`), mutants/props are procedural toon kits (`creature_3d.gd`), all on `Stage3D`, which renders at physical resolution. `capture_roster.gd` makes a contact sheet.
+- Renderer switched from Compatibility to Mobile: with ~7 figure viewports Compatibility ran ~15 FPS in R07, Mobile holds the 60 FPS vsync cap. Export presets are macOS/Windows only.
+- World and combat are full-screen; HUD, tools and commands float as icon buttons. Words live in tooltips, the combat info line (hover or keyboard focus) and badges that name an interactable only when the hero is close. The world camera pans with the hero.
+- PC hotkeys, shown as corner tags: world I/K/J/F5/O/L; combat 1–0 skills, Z X C V B N basic commands, M ends training. A hotkey is skipped if it collides with a movement/interact binding.

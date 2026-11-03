@@ -28,6 +28,9 @@ const VALVES := [Vector2(328,300),Vector2(569,300),Vector2(810,300)]
 const HUB_FLOOR := 262.0
 # Logical room is 960x480; the screen shows it at this scale with the art running past both sides.
 const VIEW_SCALE := 520.0/480.0
+# Full-screen play: the room is drawn at this scale and the view pans to keep the hero in frame.
+const FULL_SCALE := 720.0/480.0
+var follow: bool = false
 
 func configure(catalog: Dictionary, session: Dictionary, spawn: String = "entry") -> void:
 	content = catalog
@@ -210,6 +213,12 @@ func refresh(session: Dictionary) -> void:
 	_tint_cleared()
 	queue_redraw()
 
+func _process(_delta: float) -> void:
+	if follow and player != null:
+		# Keep the painted room covering the screen: art spans local x -110.8..1070.8.
+		var target := clampf(640.0 - player.position.x*scale.x, 1280.0 - 1070.8*scale.x, 110.8*scale.x)
+		position.x = lerpf(position.x, target, 0.15) if position.x != 0.0 else target
+
 func _physics_process(_delta: float) -> void:
 	if player == null:
 		return
@@ -263,6 +272,42 @@ func _draw() -> void:
 			draw_circle(Vector2(x,rect.position.y+6),2,Color("b18b55"))
 	_draw_markers()
 
+static var _badge_icons: Dictionary = {}
+
+# The room draws with mipmapped filtering for its large backdrop, so badge icons need mipmaps of their own.
+static func _badge_icon(name: String) -> Texture2D:
+	if not _badge_icons.has(name):
+		var image: Image = load("res://art/icons/%s.svg" % name).get_image()
+		image.decompress()
+		image.generate_mipmaps()
+		_badge_icons[name] = ImageTexture.create_from_image(image)
+	return _badge_icons[name]
+
+static func marker_icon(marker: Dictionary) -> String:
+	if marker.kind == "exit": return "exit_right" if marker.get("name","").begins_with("→") else "exit_left"
+	return {"pipe":"fight","fast_travel":"travel","npc":"talk","encounter":"fight","environment":"valve","objective":"objective","rest":"rest","training":"train","shop":"shop"}.get(marker.kind,"hand")
+
+# Mobile style: every interactable wears a small picture badge; its words appear only when the hero is close.
+func _draw_badge(marker: Dictionary, point: Vector2) -> void:
+	var near: bool = marker.id == nearby.get("id","")
+	var height := 0.55 if marker.kind in ["rest","shop","objective"] else 0.9
+	var lift := 210.0 if marker.kind in ["exit","pipe","fast_travel"] else 78.0 if marker.kind == "environment" else 96.0*height*SteamPlayer.depth_scale(point.y)*(1.25 if marker.get("boss",false) else 1.0) + 8.0
+	if near: draw_ellipse(point+Vector2(0,10),46,12,Color(1,0.85,0.5,0.35))
+	var badge := point - Vector2(0,lift)
+	var radius := 17.0 if near else 13.0
+	var cleared: bool = marker.kind == "encounter" and progress.get("first_clears",{}).has(marker.id)
+	draw_circle(badge,radius,Color(0.04,0.08,0.09,0.85))
+	draw_arc(badge,radius,0,TAU,32,Color("f1d9a0") if near else Color("678e78") if cleared else Color("b89a5e"),2.0)
+	if marker.kind == "environment":
+		draw_circle(badge+Vector2(radius*0.8,-radius*0.8),4,Color("80e0a8") if progress.world_flags.get("environment:"+marker.id,false) else Color("e0a050"))
+	var icon := _badge_icon(marker_icon(marker))
+	draw_texture_rect(icon,Rect2(badge-Vector2.ONE*radius*0.72,Vector2.ONE*radius*1.44),false)
+	if near:
+		var text: String = marker.get("name",marker.label) if marker.kind in ["exit","pipe","fast_travel"] else marker.label
+		var width := 300.0
+		draw_rect(Rect2(badge+Vector2(-width*0.5,-radius-30),Vector2(width,24)),Color(0.04,0.08,0.09,0.8))
+		draw_string(font,badge+Vector2(-width*0.5,-radius-12),text,HORIZONTAL_ALIGNMENT_CENTER,width,15,Color("f1d9a0"))
+
 func _draw_markers() -> void:
 	for marker in markers:
 		var point: Vector2 = marker.position
@@ -273,20 +318,8 @@ func _draw_markers() -> void:
 				color = Color("678e78")
 		elif marker.kind in ["rest","objective"]:
 			color = Color("80b4a5")
-		if oblique and marker.kind in ["exit","pipe","fast_travel"]:
-			# The pipe mouth itself is painted; show a floor glow and a name plate above the rim.
-			if marker.id == nearby.get("id", ""):
-				draw_ellipse(point+Vector2(0,10),46,12,Color(1,0.85,0.5,0.35))
-			var plate := Rect2(point+Vector2(-120,-224),Vector2(240,26))
-			draw_rect(plate,Color(0.05,0.07,0.07,0.78))
-			draw_string(font,plate.position+Vector2(0,19),marker.get("name",marker.label),HORIZONTAL_ALIGNMENT_CENTER,240,16,Color("f1d9a0") if marker.id == nearby.get("id","") else Color("e6dfc9"))
-			continue
-		if oblique and marker.kind == "environment":
-			# The valve wheel is painted on the wall above; show its state lamp and a floor cue.
-			var on: bool = progress.world_flags.get("environment:"+marker.id,false)
-			draw_circle(point+Vector2(0,-64),7,Color("80e0a8") if on else Color("e0a050"))
-			if marker.id == nearby.get("id", ""): draw_ellipse(point+Vector2(0,10),34,10,Color(1,0.85,0.5,0.35))
-			draw_string(font,point+Vector2(-80,28),marker.label,HORIZONTAL_ALIGNMENT_CENTER,160,13,Color("e6dfc9"))
+		if oblique:
+			_draw_badge(marker, point)
 			continue
 		# Oblique rooms are seen from further back, so floor markers draw larger around their own point.
 		var k := 1.5 if oblique else 1.0

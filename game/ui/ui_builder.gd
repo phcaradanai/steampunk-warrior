@@ -22,6 +22,81 @@ static func button(parent: Node, text: String, callback: Callable, id: String = 
 	parent.add_child(node)
 	return node
 
+# Mobile-style control: a picture instead of a word, the words live in the tooltip.
+static func icon_button(parent: Node, icon: String, tip: String, callback: Callable, id: String = "", side: float = 56.0, caption: String = "") -> Button:
+	var node := button(parent, caption, callback, id)
+	node.icon = load("res://art/icons/%s.svg" % icon)
+	node.expand_icon = true
+	node.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	node.vertical_icon_alignment = VERTICAL_ALIGNMENT_TOP if not caption.is_empty() else VERTICAL_ALIGNMENT_CENTER
+	node.custom_minimum_size = Vector2(side, side)
+	node.tooltip_text = tip
+	node.add_theme_font_size_override("font_size", 13)
+	for state in ["normal", "hover", "pressed", "focus", "disabled"]:
+		var style := StyleBoxFlat.new()
+		style.bg_color = Color(0.05, 0.1, 0.11, 0.78) if state != "hover" else Color(0.1, 0.2, 0.21, 0.9)
+		style.border_color = Color("d2ad66") if state in ["hover", "focus"] else Color(0.4, 0.5, 0.48, 0.8)
+		style.set_border_width_all(2)
+		style.set_corner_radius_all(int(side * 0.5))
+		style.set_content_margin_all(side * 0.16)
+		node.add_theme_stylebox_override(state, style)
+	return node
+
+# PC play: every icon also answers to a key, shown as a corner tag and in its tooltip.
+static func hotkey(node: Button, keycode: Key) -> void:
+	for action in InputMap.get_actions():
+		if action.begins_with("move_") or action == "interact":
+			for event in InputMap.action_get_events(action):
+				if event is InputEventKey and (event.physical_keycode == keycode or event.keycode == keycode): return
+	var press := InputEventKey.new()
+	press.keycode = keycode
+	var shortcut := Shortcut.new()
+	shortcut.events = [press]
+	node.shortcut = shortcut
+	node.shortcut_in_tooltip = false
+	var name := OS.get_keycode_string(keycode)
+	node.tooltip_text += "  [" + name + "]"
+	var tag := Label.new()
+	tag.text = name
+	tag.position = Vector2(4, 0)
+	tag.add_theme_font_size_override("font_size", 11)
+	tag.add_theme_color_override("font_color", Color("f1d9a0"))
+	tag.add_theme_color_override("font_outline_color", Color("0b1214"))
+	tag.add_theme_constant_override("outline_size", 4)
+	tag.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	node.add_child(tag)
+
+static func glass_panel(parent: Node, at: Vector2, area: Vector2) -> PanelContainer:
+	var panel := PanelContainer.new()
+	panel.position = at
+	panel.size = area
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.04, 0.08, 0.09, 0.72)
+	style.border_color = Color(0.55, 0.45, 0.28, 0.7)
+	style.set_border_width_all(1)
+	style.set_corner_radius_all(12)
+	style.set_content_margin_all(10)
+	panel.add_theme_stylebox_override("panel", style)
+	parent.add_child(panel)
+	return panel
+
+static func bar(parent: Node, value: float, maximum: float, color: Color, height: float = 10.0) -> ProgressBar:
+	var node := ProgressBar.new()
+	node.max_value = maxf(1.0, maximum)
+	node.value = value
+	node.show_percentage = false
+	node.custom_minimum_size.y = height
+	var fill := StyleBoxFlat.new()
+	fill.bg_color = color
+	fill.set_corner_radius_all(int(height * 0.5))
+	var back := StyleBoxFlat.new()
+	back.bg_color = Color(0, 0, 0, 0.45)
+	back.set_corner_radius_all(int(height * 0.5))
+	node.add_theme_stylebox_override("fill", fill)
+	node.add_theme_stylebox_override("background", back)
+	parent.add_child(node)
+	return node
+
 static func theme() -> Theme:
 	var result := Theme.new()
 	result.default_font = load("res://art/fonts/NotoSansThai.ttf")

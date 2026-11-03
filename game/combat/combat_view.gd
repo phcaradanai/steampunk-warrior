@@ -18,9 +18,10 @@ var stage: Control
 var ui: Control
 var wait_label: Label
 var plates: Control
-const STAGE_TOP := 100.0
-const STAGE_SIZE := Vector2(1280,400)
-const GROUND := 352.0
+# The arena fills the screen; plates and commands float over it.
+const STAGE_TOP := 0.0
+const STAGE_SIZE := Vector2(1280,720)
+const GROUND := 560.0
 const STATUS_NAMES := {"Wet":"เปียก","Heated":"ร้อนจัด","Corroded":"เกราะผุ","Marked":"ถูกหมายหัว","Staggered":"เสียจังหวะ","Sealed":"ปิดการฟื้นฟู","Haste":"เร่งจังหวะ","Guard":"ตั้งรับ"}
 
 func configure(active_controller: CombatController) -> void:
@@ -88,8 +89,8 @@ func _build_stage() -> void:
 		portrait.mirror = actor.side == "enemy"
 		portrait.alive = actor.hp > 0
 		var boss: bool = actor.get("boss",false)
-		portrait.size = Vector2(210,210) if actor.side == "player" else Vector2(250,250) if boss else Vector2(170,170)
-		var center := 360.0
+		portrait.size = Vector2(300,300) if actor.side == "player" else Vector2(350,350) if boss else Vector2(250,250)
+		var center := 330.0
 		var feet := GROUND
 		if actor.side == "player":
 			hero_stage = Hero3D.new()
@@ -103,15 +104,23 @@ func _build_stage() -> void:
 				figure.facing_left = true
 				portrait.attach_hero(figure)
 			var index: int = enemies.find(actor)
-			center = 900.0 if enemies.size() == 1 else 850.0 + index*190.0
-			feet = GROUND - index*16.0
+			center = 910.0 if enemies.size() == 1 else 820.0 + index*220.0
+			feet = GROUND - index*24.0
+			# Tap a foe to make it the target.
+			portrait.mouse_filter = Control.MOUSE_FILTER_STOP
+			portrait.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+			portrait.tooltip_text = actor.name + " · แตะเพื่อเลือกเป้าหมาย"
+			portrait.gui_input.connect(func(event: InputEvent):
+				if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT and controller._actor(actor.id).hp > 0:
+					selected_target = actor.id
+					_render())
 			portrait.set_meta("feet",portrait.size.y*0.925 if figure != null else portrait.size.y-4)
 		portrait.position = Vector2(center-portrait.size.x*0.5, feet-portrait.get_meta("feet"))
 		portrait.set_meta("home",portrait.position)
 		stage.add_child(portrait)
 		portraits[actor.id] = portrait
 	wait_label = UIBuilder.label(stage,"…กำลังออกท่า…",18,Color("f1d9a0"))
-	wait_label.position = Vector2(540,360)
+	wait_label.position = Vector2(540,500)
 	wait_label.size = Vector2(200,30)
 	wait_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 
@@ -128,14 +137,14 @@ func _title_card() -> void:
 	for hazard in hazards:
 		if hero.statuses.has(hazard): notes.append(hazards[hazard] + " · ปรับวาล์วในห้องเพื่อลดได้")
 	var note := UIBuilder.label(stage,"\n".join(notes.filter(func(n): return not n.is_empty())),18,Color("e6b984"))
-	note.position = Vector2(240,262)
+	note.position = Vector2(240,300)
 	note.size = Vector2(800,80)
 	note.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	note.add_theme_color_override("font_outline_color",Color("0b1214"))
 	note.add_theme_constant_override("outline_size",6)
 	var hold := 2.6 if not notes.is_empty() else 0.9
 	var card := UIBuilder.label(stage,text,34,Color("f1d9a0"))
-	card.position = Vector2(0,150)
+	card.position = Vector2(0,190)
 	card.size = Vector2(1280,110)
 	card.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	card.add_theme_color_override("font_outline_color",Color("0b1214"))
@@ -185,22 +194,21 @@ func _plates() -> void:
 	for child in plates.get_children():
 		plates.remove_child(child)
 		child.queue_free()
-	var log_label := UIBuilder.label(plates,last_log,16,Color("9fc7b5"))
-	log_label.position = Vector2(24,STAGE_TOP+STAGE_SIZE.y-34)
-	log_label.size = Vector2(500,28)
+	var log_label := UIBuilder.label(plates,last_log,16,Color("d8e6dc"))
+	log_label.position = Vector2(340,112)
+	log_label.size = Vector2(600,28)
+	log_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	log_label.add_theme_color_override("font_outline_color",Color("0b1214"))
 	log_label.add_theme_constant_override("outline_size",5)
 	var enemies: Array = controller.state.actors.filter(func(a): return a.side == "enemy")
-	var width := 600.0/maxf(1,enemies.size())
+	var width := 440.0/maxf(1,enemies.size())
 	for actor in controller.state.actors:
-		var panel := PanelContainer.new()
+		var panel: PanelContainer
 		if actor.side == "player":
-			panel.position = Vector2(20,8)
-			panel.size = Vector2(600,86)
+			panel = UIBuilder.glass_panel(plates,Vector2(16,12),Vector2(440,0))
 		else:
-			panel.position = Vector2(660+enemies.find(actor)*width,8)
-			panel.size = Vector2(width-(8 if enemies.size() > 1 else 0),86)
-		plates.add_child(panel)
+			panel = UIBuilder.glass_panel(plates,Vector2(824+enemies.find(actor)*width,12),Vector2(width-(8 if enemies.size() > 1 else 0),0))
+			if actor.id == selected_target and enemies.size() > 1: panel.get_theme_stylebox("panel").border_color = Color("f1d9a0")
 		var column := VBoxContainer.new()
 		column.add_theme_constant_override("separation",2)
 		panel.add_child(column)
@@ -210,15 +218,10 @@ func _plates() -> void:
 		name_label.autowrap_mode = TextServer.AUTOWRAP_OFF
 		name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		UIBuilder.label(head,"HP %d / %d" % [actor.hp,actor.max_hp] + ("  ·  โล่ %d" % actor.barrier if actor.barrier > 0 else ""),15).autowrap_mode = TextServer.AUTOWRAP_OFF
-		var health := ProgressBar.new()
-		health.max_value = actor.max_hp
-		health.value = actor.hp
-		health.show_percentage = false
-		health.custom_minimum_size.y = 10
-		var fill := StyleBoxFlat.new()
-		fill.bg_color = Color("63b46e") if actor.side == "player" else Color("c9644e")
-		health.add_theme_stylebox_override("fill",fill)
-		column.add_child(health)
+		UIBuilder.bar(column,actor.hp,actor.max_hp,Color("63b46e") if actor.side == "player" else Color("c9644e"),12)
+		if actor.side == "player":
+			UIBuilder.bar(column,actor.fp,actor.max_fp,Color("5ab4e0"),6).tooltip_text = "FP"
+			UIBuilder.bar(column,actor.pressure,100,Color("e08a3a"),6).tooltip_text = "แรงดัน"
 		var detail: Array[String] = []
 		if actor.side == "player":
 			detail.append("FP %d / %d  ·  แรงดัน %d / 100" % [actor.fp,actor.max_fp,actor.pressure])
@@ -240,16 +243,48 @@ func _plates() -> void:
 
 func _commands(living: Array[Dictionary]) -> void:
 	var idle: bool = controller.is_player_turn() and not paused
-	var bar := VBoxContainer.new()
-	bar.position = Vector2(20,STAGE_TOP+STAGE_SIZE.y+8)
-	bar.size = Vector2(1240,720-STAGE_TOP-STAGE_SIZE.y-16)
-	bar.add_theme_constant_override("separation",6)
-	ui.add_child(bar)
+	var hero: Dictionary = controller.state.actors[0]
+	var skill_list: Array = controller.content.skills.filter(func(skill): return skill.kind == "active" and controller.learned.has(skill.id))
+	var rows := maxi(1, ceili(skill_list.size()/10.0))
+	var info := UIBuilder.label(ui,"",15,Color("f1d9a0"))
+	info.position = Vector2(16,720-16-rows*66-34)
+	info.size = Vector2(1248,26)
+	info.autowrap_mode = TextServer.AUTOWRAP_OFF
+	info.clip_text = true
+	info.add_theme_color_override("font_outline_color",Color("0b1214"))
+	info.add_theme_constant_override("outline_size",6)
+	# Action cluster, bottom right, mobile style: pictures with counts; the words are in the tooltip and info line.
 	var basics := HBoxContainer.new()
-	bar.add_child(basics)
+	basics.add_theme_constant_override("separation",8)
+	basics.position = Vector2(1280-16-(7 if not controller.training_id.is_empty() else 6)*72,720-16-64)
+	ui.add_child(basics)
+	var tips := _basic_tips(hero)
+	var names: Array = [["attack","weapon","","Basic_Attack"],["guard","shield","","Basic_Guard"],["vent","vent","","Basic_Vent"],["life_potion","potion_hp","%d" % hero.potions.life,"Basic_Life"],["focus_potion","potion_fp","%d" % hero.potions.focus,"Basic_Focus"],["retreat","retreat","","Basic_Retreat"]]
+	for data in names:
+		var button := UIBuilder.icon_button(basics,data[1],tips[data[0]],_submit.bind(data[0],""),data[3],64,data[2])
+		button.disabled = not idle
+		UIBuilder.hotkey(button,[KEY_Z,KEY_X,KEY_C,KEY_V,KEY_B,KEY_N][names.find(data)])
+		_explain(button,button.tooltip_text,info)
+	if not controller.training_id.is_empty():
+		var finish := UIBuilder.icon_button(basics,"finish","จบการฝึกและเก็บ XP ที่ทำได้",_end_training,"FinishTraining",64)
+		finish.disabled = not idle
+		UIBuilder.hotkey(finish,KEY_M)
+		_explain(finish,finish.tooltip_text,info)
+		var labels: Dictionary = {"attack":"โจมตี","guard":"ตั้งรับ","vent":"ระบายไอ","shield_break":"ทำลายโล่","marked_hit":"โจมตีเป้าติดเครื่องหมาย","heal":"ฟื้นพลัง","wet_combo":"ไฟฟ้าหลังทำให้เปียก","sealing":"หยุดการฮีล","cleanse":"ล้างความร้อน","pressure_safe":"ลดแรงดันสู่ช่วงปลอดภัย","intent_counter":"ตั้งรับท่าหนัก","drone":"ใช้โดรน"}
+		var objectives: Array[String] = []
+		for objective in TrainingService.OBJECTIVES[controller.training_id]:
+			objectives.append(("✓ " if objective in controller.completed else "○ ") + labels[objective])
+		var goals := UIBuilder.label(ui,"   ·   ".join(objectives) + "   (สกิลยืมใช้ได้เฉพาะการฝึก)",15)
+		goals.position = Vector2(16,142)
+		goals.size = Vector2(1248,28)
+		goals.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		goals.add_theme_color_override("font_outline_color",Color("0b1214"))
+		goals.add_theme_constant_override("outline_size",5)
+	# Keyboard and pad still cycle targets here; mouse and touch can tap the foe instead.
 	var targets := OptionButton.new()
-	targets.custom_minimum_size = Vector2(220,42)
-	basics.add_child(targets)
+	targets.custom_minimum_size = Vector2(180,36)
+	targets.position = Vector2(1280-16-180,720-16-64-46)
+	ui.add_child(targets)
 	for i in range(living.size()):
 		targets.add_item(living[i].name)
 		if living[i].id == selected_target:
@@ -258,52 +293,23 @@ func _commands(living: Array[Dictionary]) -> void:
 		selected_target=living[index].id
 		_render())
 	targets.disabled = not idle
-	targets.tooltip_text = "เป้าหมาย"
-	var hero: Dictionary = controller.state.actors[0]
-	var info := UIBuilder.label(ui,"",15,Color("e6d4a4"))
-	info.position = Vector2(24,688)
-	info.size = Vector2(1232,28)
-	info.autowrap_mode = TextServer.AUTOWRAP_OFF
-	info.clip_text = true
-	var tips := _basic_tips(hero)
-	var names: Array = [["attack","โจมตี","Basic_Attack"],["guard","ตั้งรับ","Basic_Guard"],["vent","ระบายไอ","Basic_Vent"],["life_potion","ยาHP (%d)" % hero.potions.life,"Basic_Life"],["focus_potion","ยาFP (%d)" % hero.potions.focus,"Basic_Focus"],["retreat","ถอย","Basic_Retreat"]]
-	for data in names:
-		var button := UIBuilder.button(basics,data[1],_submit.bind(data[0],""),data[2])
-		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		button.disabled = not idle
-		_explain(button,tips[data[0]],info)
-	if not controller.training_id.is_empty():
-		var finish := UIBuilder.button(basics,"จบการฝึก",_end_training,"FinishTraining")
-		finish.disabled = not idle
-		var labels: Dictionary = {"attack":"โจมตี","guard":"ตั้งรับ","vent":"ระบายไอ","shield_break":"ทำลายโล่","marked_hit":"โจมตีเป้าติดเครื่องหมาย","heal":"ฟื้นพลัง","wet_combo":"ไฟฟ้าหลังทำให้เปียก","sealing":"หยุดการฮีล","cleanse":"ล้างความร้อน","pressure_safe":"ลดแรงดันสู่ช่วงปลอดภัย","intent_counter":"ตั้งรับท่าหนัก","drone":"ใช้โดรน"}
-		var objectives: Array[String] = []
-		for objective in TrainingService.OBJECTIVES[controller.training_id]:
-			objectives.append(("✓ " if objective in controller.completed else "○ ") + labels[objective])
-		var goals := UIBuilder.label(ui,"   ·   ".join(objectives) + "   (สกิลยืมใช้ได้เฉพาะการฝึก)",15)
-		goals.position = Vector2(24,STAGE_TOP+8)
-		goals.size = Vector2(1232,28)
-		goals.add_theme_color_override("font_outline_color",Color("0b1214"))
-		goals.add_theme_constant_override("outline_size",5)
-	var scroll := ScrollContainer.new()
-	scroll.follow_focus = true
-	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	bar.add_child(scroll)
+	targets.tooltip_text = "เป้าหมาย (แตะศัตรูเพื่อเลือกก็ได้)"
 	var skills := GridContainer.new()
-	skills.columns = 4
-	skills.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	scroll.add_child(skills)
-	for skill in controller.content.skills:
-		if skill.kind != "active" or not controller.learned.has(skill.id):
-			continue
+	skills.columns = 10
+	skills.add_theme_constant_override("h_separation",6)
+	skills.add_theme_constant_override("v_separation",6)
+	skills.position = Vector2(16,720-16-rows*66)
+	ui.add_child(skills)
+	for skill in skill_list:
 		var rank: int = int(controller.learned[skill.id])
 		var preview := controller.resolver.skill_preview(hero,skill,rank)
-		var button := UIBuilder.button(skills,"%s  ·  FP%d" % [skill.name,preview.fp_cost],_submit.bind("skill",skill.id),"Skill_"+skill.id)
-		button.custom_minimum_size.x = 302
-		button.disabled = not idle or hero.fp < preview.fp_cost or hero.pressure + preview.pressure_delta > 100 or hero.cooldowns.get(skill.id,0) > 0
-		button.tooltip_text = UIBuilder.skill_description(skill,preview,rank)
-		_explain(button,button.tooltip_text.replace("\n","  ·  "),info)
+		var tip: String = skill.name + "  ·  " + UIBuilder.skill_description(skill,preview,rank).replace("\n","  ·  ")
+		var button := UIBuilder.icon_button(skills,"gear",tip,_submit.bind("skill",skill.id),"Skill_"+skill.id,60,str(preview.fp_cost))
 		button.icon = UIBuilder.skill_icon(skill)
-		button.add_theme_constant_override("icon_max_width",24)
+		button.disabled = not idle or hero.fp < preview.fp_cost or hero.pressure + preview.pressure_delta > 100 or hero.cooldowns.get(skill.id,0) > 0
+		var slot := skill_list.find(skill)
+		if slot < 10: UIBuilder.hotkey(button,[KEY_1,KEY_2,KEY_3,KEY_4,KEY_5,KEY_6,KEY_7,KEY_8,KEY_9,KEY_0][slot])
+		_explain(button,button.tooltip_text,info)
 
 # Hover and keyboard focus both show what a command will do, since tooltips alone never reach pad or keys.
 func _explain(button: Button, text: String, info: Label) -> void:

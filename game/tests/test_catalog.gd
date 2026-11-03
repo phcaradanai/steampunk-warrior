@@ -39,4 +39,8 @@ func run(t) -> bool:
 	catalog.data = original.duplicate(true)
 	catalog.data.story.quests[0].item = "missing_item"
 	t.check(not catalog.validate_all().is_empty(), "unknown quest reward gear rejected")
+	# Class traits are shown to players, so design shorthand ("barrier20", "Wet", "1turn") must not leak through.
+	var shorthand := RegEx.create_from_string("(?i)[A-Za-z]+\\d|\\d[A-Za-z]|barrier|FP ?cost|turn|Marked|Wet|Corroded")
+	for profession in catalog.data.classes:
+		t.check(not profession.trait.is_empty() and shorthand.search(profession.trait) == null, "class %s trait reads as plain Thai: %s" % [profession.id, profession.trait])
 	return true

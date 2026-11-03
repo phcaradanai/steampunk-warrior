@@ -27,6 +27,7 @@ func _initialize() -> void:
 		scene._show_world()
 		scene._start_encounter(id)
 		await create_timer(0.4).timeout
+		scene.combat_view._dismiss_card()
 		scene.find_child("Basic_Guard",true,false).pressed.emit()
 		for i in 40:
 			await create_timer(0.05).timeout

@@ -176,8 +176,9 @@ func play_loot(source: ActorPortrait, gold: int, item: Dictionary, options: Dict
 	var origin := _anchor(source, 0.5)
 	var floor_y := _anchor(source, 1.0).y
 	var banner := _label("ชนะ!", 52, Color("f6d98f"))
-	banner.position = Vector2(0, CombatView.STAGE_TOP+70)
-	banner.size = Vector2(1280,70)
+	# Below the HP panels and log line, above the drop's name tag.
+	banner.position = Vector2(460, CombatView.STAGE_TOP+150)
+	banner.size = Vector2(360,70)
 	banner.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	for i in range(clampi(gold/10, 4, 14)):
 		var coin := ColorRect.new()

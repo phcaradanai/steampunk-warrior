@@ -19,6 +19,9 @@ var ui: Control
 var wait_label: Label
 var plates: Control
 var target_marker: Control
+var card: ColorRect
+var card_note: Label
+var card_tween: Tween
 var clock: float = 0.0
 # HP and barrier as the player sees them: they change when a blow lands on screen, not when the resolver decides.
 var shown: Dictionary = {}
@@ -147,6 +150,7 @@ func _build_stage() -> void:
 	wait_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 
 func _title_card() -> void:
+	_dismiss_card()
 	var text: String = controller.encounter.get("name","โรงฝึกหม้อน้ำ")
 	if not controller.pipe_id.is_empty():
 		var line := WorldController.new(controller.content).pipe(controller.pipe_id)
@@ -158,27 +162,60 @@ func _title_card() -> void:
 	var hazards := {"Wet":"อันตราย: ทั้งสองฝ่ายเปียก ไฟฟ้าจะแรงขึ้น","Corroded":"อันตราย: เกราะคุณผุ","Heated":"อันตราย: คุณร้อนจัด"}
 	for hazard in hazards:
 		if hero.statuses.has(hazard): notes.append(hazards[hazard] + " · ปรับวาล์วในห้องเพื่อลดได้")
-	var note := UIBuilder.label(stage,"\n".join(notes.filter(func(n): return not n.is_empty())),18,Color("e6b984"))
-	note.position = Vector2(240,300)
-	note.size = Vector2(800,80)
-	note.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	note.add_theme_color_override("font_outline_color",Color("0b1214"))
-	note.add_theme_constant_override("outline_size",6)
-	var hold := 2.6 if not notes.is_empty() else 0.9
-	var card := UIBuilder.label(stage,text,34,Color("f1d9a0"))
-	card.position = Vector2(0,190)
-	card.size = Vector2(1280,110)
-	card.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	card.add_theme_color_override("font_outline_color",Color("0b1214"))
-	card.add_theme_constant_override("outline_size",8)
-	var fade := card.create_tween()
-	fade.tween_interval(hold)
-	fade.tween_property(card,"modulate:a",0.0,0.4)
-	fade.tween_callback(card.queue_free)
-	var fade_note := note.create_tween()
-	fade_note.tween_interval(hold)
-	fade_note.tween_property(note,"modulate:a",0.0,0.4)
-	fade_note.tween_callback(note.queue_free)
+	var lines := "\n".join(notes.filter(func(n): return not n.is_empty()))
+	var hold := 2.6 if not lines.is_empty() else 0.9
+	# One dim band above the actors' heads (boss tops start near y=236, HP panels end near y=122); commands wait for it.
+	card = ColorRect.new()
+	card.color = Color(0.04,0.07,0.08,0.66)
+	card.position = Vector2(0,140)
+	card.size = Vector2(1280,95 if not lines.is_empty() else 54)
+	card.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	stage.add_child(card)
+	var title := _fixed_label(card,text.replace("\n","  ·  "),30,Color("f1d9a0"),Rect2(0,2,1280,42))
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title.add_theme_color_override("font_outline_color",Color("0b1214"))
+	title.add_theme_constant_override("outline_size",8)
+	if not lines.is_empty():
+		card_note = _fixed_label(card,lines,16,Color("f0cf9f"),Rect2(90,41,1100,48),true)
+		card_note.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		card_note.add_theme_color_override("font_outline_color",Color("0b1214"))
+		card_note.add_theme_constant_override("outline_size",6)
+	ui.modulate = Color(1,1,1,0.45)
+	card_tween = card.create_tween()
+	card_tween.tween_interval(hold)
+	card_tween.tween_callback(_dismiss_card)
+
+func _dismiss_card() -> void:
+	if card == null: return
+	var gone := card
+	card = null
+	ui.modulate = Color.WHITE
+	card_tween.kill()
+	var fade := gone.create_tween()
+	fade.tween_property(gone,"modulate:a",0.0,0.2)
+	fade.tween_callback(gone.queue_free)
+	_focus_ready()
+
+# A Label sized after its text is measured at width 0 keeps that huge height; size it first so its rect is real.
+func _fixed_label(parent: Node, text: String, font_size: int, color: Color, rect: Rect2, wrap: bool = false) -> Label:
+	var node := Label.new()
+	node.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART if wrap else TextServer.AUTOWRAP_OFF
+	node.add_theme_font_size_override("font_size",font_size)
+	node.add_theme_color_override("font_color",color)
+	node.position = rect.position
+	node.size = rect.size
+	node.text = text
+	parent.add_child(node)
+	return node
+
+# Enter, Space or a click skips the card; nothing else reaches the commands while it is up.
+func _input(event: InputEvent) -> void:
+	if card == null: return
+	var key: bool = event is InputEventKey and event.pressed and not event.echo and event.keycode in [KEY_ENTER,KEY_KP_ENTER,KEY_SPACE]
+	var click: bool = event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT
+	if key or click:
+		_dismiss_card()
+		get_viewport().set_input_as_handled()
 
 func _render(events: Array = []) -> void:
 	for event in events:
@@ -257,9 +294,7 @@ func _plates() -> void:
 	for child in plates.get_children():
 		plates.remove_child(child)
 		child.queue_free()
-	var log_label := UIBuilder.label(plates,last_log,16,Color("d8e6dc"))
-	log_label.position = Vector2(340,112)
-	log_label.size = Vector2(600,28)
+	var log_label := _fixed_label(plates,last_log,16,Color("d8e6dc"),Rect2(340,112,600,28))
 	log_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	log_label.add_theme_color_override("font_outline_color",Color("0b1214"))
 	log_label.add_theme_constant_override("outline_size",5)
@@ -413,7 +448,7 @@ func _play_feedback(events: Array) -> void:
 		feedback.play_events(events,portraits,effect_options)
 
 func _submit(kind: String, skill: String) -> void:
-	if pumping or settled or paused or feedback.playing > 0:
+	if pumping or settled or paused or card != null or feedback.playing > 0:
 		return
 	focus_action = "Skill_" + skill if kind == "skill" else {"attack":"Basic_Attack","guard":"Basic_Guard","vent":"Basic_Vent","life_potion":"Basic_Life","focus_potion":"Basic_Focus","retreat":"Basic_Retreat"}.get(kind,"Basic_Attack")
 	var result := controller.submit_player(kind,skill,selected_target)
@@ -468,6 +503,7 @@ func _exit_tree() -> void:
 		hero_stage.free()
 
 func _end_training() -> void:
+	if card != null: return
 	var result := controller.end_training()
 	if result.ok and not settled:
 		settled = true
@@ -475,7 +511,7 @@ func _end_training() -> void:
 
 
 func _focus_ready() -> void:
-	if not is_inside_tree() or paused or not controller.is_player_turn():
+	if not is_inside_tree() or paused or card != null or not controller.is_player_turn():
 		return
 	var control = find_child(focus_action,true,false)
 	if control == null or control.disabled:

@@ -32,6 +32,7 @@ func _initialize() -> void:
 	await process_frame
 	scene._start_encounter("E01","P01",Vector2(480,340))
 	while not scene.combat.is_player_turn(): await process_frame
+	scene.combat_view._dismiss_card()
 	scene.combat._actor("enemy0").hp = 1
 	scene.find_child("Basic_Attack",true,false).pressed.emit()
 	for _i in 600:

@@ -30,4 +30,22 @@ func run(t) -> bool:
 	result = session.commit_result("rest",{"id":"rest1"})
 	t.check(result.ok and result.state.player.energy == 100 and result.state.player.current_hp > 1 and result.state.player.currency == 0,"free hubrest recovers even at zero money and energy")
 	t.check(before.first_clears.is_empty(),"new game does not preclear content")
+	var encounters: Array = catalog.data.encounters
+	var seen_pairs := {}
+	var boss_drops := {}
+	var normal_drops := {}
+	var drops_ok := true
+	var starters_ok := true
+	for enc in encounters:
+		var pair: Array = enc.drops.duplicate()
+		pair.sort()
+		seen_pairs[",".join(pair)] = seen_pairs.get(",".join(pair), 0) + 1
+		for drop in enc.drops:
+			drops_ok = drops_ok and not catalog.get_entry("items", drop).is_empty()
+			starters_ok = starters_ok and drop not in ["W01","D01","H01","A01"]
+			(boss_drops if not enc.boss_id.is_empty() else normal_drops)[drop] = true
+	t.check(drops_ok,"every drop id exists in items")
+	t.check(starters_ok,"starter gear is never a drop")
+	t.check(seen_pairs.size() == encounters.size(),"no two encounters share an identical drop pair")
+	t.check(boss_drops.keys().all(func(d): return not normal_drops.has(d)),"boss drops never appear in normal encounters")
 	return true

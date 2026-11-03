@@ -14,10 +14,7 @@
     "requires": "",
     "optional_bypass": "",
     "normal_index": 1,
-    "drops": [
-      "W01",
-      "W02"
-    ]
+    "drops": ["W02", "W03"]
   },
   {
     "id": "E02",
@@ -34,10 +31,7 @@
     "requires": "E01",
     "optional_bypass": "",
     "normal_index": 2,
-    "drops": [
-      "W03",
-      "W04"
-    ]
+    "drops": ["W04", "W05"]
   },
   {
     "id": "E03",
@@ -55,10 +49,7 @@
     "requires": "E02",
     "optional_bypass": "",
     "normal_index": 3,
-    "drops": [
-      "W05",
-      "W06"
-    ]
+    "drops": ["W06", "D02"]
   },
   {
     "id": "E04",
@@ -75,10 +66,7 @@
     "requires": "E03",
     "optional_bypass": "",
     "normal_index": 4,
-    "drops": [
-      "D01",
-      "D02"
-    ]
+    "drops": ["D03", "D04"]
   },
   {
     "id": "E05",
@@ -95,10 +83,7 @@
     "requires": "E04",
     "optional_bypass": "",
     "normal_index": 5,
-    "drops": [
-      "D03",
-      "D04"
-    ]
+    "drops": ["H02", "A02"]
   },
   {
     "id": "E06",
@@ -115,10 +100,7 @@
     "requires": "E05",
     "optional_bypass": "",
     "normal_index": 0,
-    "drops": [
-      "H01",
-      "H02"
-    ]
+    "drops": ["H03", "H04"]
   },
   {
     "id": "E07",
@@ -136,10 +118,7 @@
     "requires": "E06",
     "optional_bypass": "",
     "normal_index": 6,
-    "drops": [
-      "A01",
-      "A02"
-    ]
+    "drops": ["W07", "W08"]
   },
   {
     "id": "E08",
@@ -156,10 +135,7 @@
     "requires": "E07",
     "optional_bypass": "",
     "normal_index": 7,
-    "drops": [
-      "W09",
-      "W10"
-    ]
+    "drops": ["W09", "W10"]
   },
   {
     "id": "E09",
@@ -176,10 +152,7 @@
     "requires": "E08",
     "optional_bypass": "",
     "normal_index": 8,
-    "drops": [
-      "W11",
-      "D05"
-    ]
+    "drops": ["W11", "D05"]
   },
   {
     "id": "E10",
@@ -197,10 +170,7 @@
     "requires": "E09",
     "optional_bypass": "",
     "normal_index": 9,
-    "drops": [
-      "D06",
-      "D07"
-    ]
+    "drops": ["D06", "D07"]
   },
   {
     "id": "E11",
@@ -217,10 +187,7 @@
     "requires": "E10",
     "optional_bypass": "",
     "normal_index": 10,
-    "drops": [
-      "H03",
-      "H04"
-    ]
+    "drops": ["A03", "A04"]
   },
   {
     "id": "E12",
@@ -237,10 +204,7 @@
     "requires": "E11",
     "optional_bypass": "",
     "normal_index": 11,
-    "drops": [
-      "A03",
-      "A04"
-    ]
+    "drops": ["W08", "D06"]
   },
   {
     "id": "E13",
@@ -257,10 +221,7 @@
     "requires": "E12",
     "optional_bypass": "",
     "normal_index": 0,
-    "drops": [
-      "W07",
-      "W08"
-    ]
+    "drops": ["H05", "H06"]
   },
   {
     "id": "E14",
@@ -278,10 +239,7 @@
     "requires": "E13",
     "optional_bypass": "",
     "normal_index": 12,
-    "drops": [
-      "W09",
-      "W10"
-    ]
+    "drops": ["W12", "W13"]
   },
   {
     "id": "E15",
@@ -298,10 +256,7 @@
     "requires": "E14",
     "optional_bypass": "rescued_specimen",
     "normal_index": 13,
-    "drops": [
-      "W14",
-      "W15"
-    ]
+    "drops": ["W14", "W15"]
   },
   {
     "id": "E16",
@@ -318,10 +273,7 @@
     "requires": "E15",
     "optional_bypass": "",
     "normal_index": 14,
-    "drops": [
-      "W16",
-      "D08"
-    ]
+    "drops": ["W16", "D08"]
   },
   {
     "id": "E17",
@@ -339,10 +291,7 @@
     "requires": "E16",
     "optional_bypass": "",
     "normal_index": 15,
-    "drops": [
-      "D09",
-      "D10"
-    ]
+    "drops": ["D09", "D10"]
   },
   {
     "id": "E18",
@@ -359,10 +308,7 @@
     "requires": "E17",
     "optional_bypass": "",
     "normal_index": 16,
-    "drops": [
-      "D11",
-      "H05"
-    ]
+    "drops": ["D11", "A05"]
   },
   {
     "id": "E19",
@@ -379,10 +325,7 @@
     "requires": "E18",
     "optional_bypass": "",
     "normal_index": 17,
-    "drops": [
-      "H06",
-      "A05"
-    ]
+    "drops": ["A06", "W13"]
   },
   {
     "id": "E20",
@@ -399,10 +342,7 @@
     "requires": "E19",
     "optional_bypass": "",
     "normal_index": 0,
-    "drops": [
-      "A06",
-      "W12"
-    ]
+    "drops": ["H07", "H08"]
   },
   {
     "id": "E21",
@@ -420,10 +360,7 @@
     "requires": "E20",
     "optional_bypass": "",
     "normal_index": 18,
-    "drops": [
-      "W13",
-      "W14"
-    ]
+    "drops": ["W17", "W18"]
   },
   {
     "id": "E22",
@@ -440,10 +377,7 @@
     "requires": "E21",
     "optional_bypass": "",
     "normal_index": 19,
-    "drops": [
-      "D13",
-      "D14"
-    ]
+    "drops": ["W19", "D12"]
   },
   {
     "id": "E23",
@@ -460,10 +394,7 @@
     "requires": "E22",
     "optional_bypass": "",
     "normal_index": 20,
-    "drops": [
-      "H07",
-      "H08"
-    ]
+    "drops": ["W20", "W21"]
   },
   {
     "id": "E24",
@@ -481,10 +412,7 @@
     "requires": "E23",
     "optional_bypass": "",
     "normal_index": 21,
-    "drops": [
-      "A07",
-      "A08"
-    ]
+    "drops": ["D13", "D14"]
   },
   {
     "id": "E25",
@@ -501,10 +429,7 @@
     "requires": "E24",
     "optional_bypass": "",
     "normal_index": 22,
-    "drops": [
-      "W17",
-      "W18"
-    ]
+    "drops": ["W18", "D13"]
   },
   {
     "id": "E26",
@@ -521,10 +446,7 @@
     "requires": "E25",
     "optional_bypass": "",
     "normal_index": 23,
-    "drops": [
-      "W19",
-      "W20"
-    ]
+    "drops": ["W19", "D14"]
   },
   {
     "id": "E27",
@@ -541,10 +463,7 @@
     "requires": "E26",
     "optional_bypass": "",
     "normal_index": 0,
-    "drops": [
-      "W21",
-      "D12"
-    ]
+    "drops": ["A07", "A08"]
   },
   {
     "id": "E28",
@@ -562,10 +481,7 @@
     "requires": "E27",
     "optional_bypass": "",
     "normal_index": 24,
-    "drops": [
-      "D13",
-      "D14"
-    ]
+    "drops": ["W22", "W23"]
   },
   {
     "id": "E29",
@@ -582,10 +498,7 @@
     "requires": "E28",
     "optional_bypass": "",
     "normal_index": 25,
-    "drops": [
-      "W22",
-      "W23"
-    ]
+    "drops": ["W24", "D15"]
   },
   {
     "id": "E30",
@@ -602,10 +515,7 @@
     "requires": "E29",
     "optional_bypass": "",
     "normal_index": 26,
-    "drops": [
-      "W24",
-      "D15"
-    ]
+    "drops": ["W22", "W24"]
   },
   {
     "id": "E31",
@@ -622,10 +532,7 @@
     "requires": "E30",
     "optional_bypass": "",
     "normal_index": 0,
-    "drops": [
-      "D16",
-      "D17"
-    ]
+    "drops": ["D16", "D17"]
   },
   {
     "id": "E32",
@@ -643,10 +550,7 @@
     "requires": "E31",
     "optional_bypass": "",
     "normal_index": 27,
-    "drops": [
-      "H09",
-      "H10"
-    ]
+    "drops": ["W20", "W23"]
   },
   {
     "id": "E33",
@@ -663,10 +567,7 @@
     "requires": "E32",
     "optional_bypass": "",
     "normal_index": 28,
-    "drops": [
-      "W22",
-      "W23"
-    ]
+    "drops": ["W21", "D15"]
   },
   {
     "id": "E34",
@@ -683,10 +584,7 @@
     "requires": "E33",
     "optional_bypass": "",
     "normal_index": 29,
-    "drops": [
-      "W24",
-      "D15"
-    ]
+    "drops": ["D12", "W22"]
   },
   {
     "id": "E35",
@@ -704,10 +602,7 @@
     "requires": "E34",
     "optional_bypass": "",
     "normal_index": 30,
-    "drops": [
-      "D16",
-      "D17"
-    ]
+    "drops": ["D13", "W23"]
   },
   {
     "id": "E36",
@@ -724,9 +619,6 @@
     "requires": "E35",
     "optional_bypass": "",
     "normal_index": 0,
-    "drops": [
-      "H09",
-      "H10"
-    ]
+    "drops": ["H09", "H10"]
   }
 ]

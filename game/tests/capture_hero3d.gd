@@ -33,6 +33,7 @@ func _initialize() -> void:
 	scene._start_training("T01")
 	await wait(0.5)
 	await capture("combat_idle")
+	scene.combat_view._dismiss_card()
 	scene.find_child("Basic_Attack",true,false).pressed.emit()
 	await wait(0.3)
 	await capture("combat_attack_a")

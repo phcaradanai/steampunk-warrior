@@ -22,6 +22,7 @@ var modal: Control
 var modal_body: VBoxContainer
 var modal_notice: Label
 var modal_locked: bool = false
+var modal_back: Callable
 var hud: Label
 var control_hint: Label
 var status_line: Label
@@ -106,23 +107,71 @@ func _show_title() -> void:
 	UIBuilder.label(column,settings.warning if not settings.warning.is_empty() else str(ProjectSettings.get_setting("application/config/version"))+" · ภาษาไทย · เล่นคนเดียวออฟไลน์",14,Color("a2b6a7"))
 	begin.grab_focus.call_deferred()
 
+# Class-screen look per class: Hero3D.apply_variant specs (gear = [weapon, head, suit, shield]).
+const CLASS_LOOKS := {
+	"C01":{"gear":[1,1,1,2],"pack":true,"colors":{"suit":"8a3a2a",Roster3D.LEATHER:"8a3a2a"},"build":Vector3(1.1,0.96,1.1)},
+	"C02":{"gear":[2,0,0,0],"pack":false,"colors":{"suit":"5a5a6a",Roster3D.HAIR:"2a1a1a"}},
+	"C03":{"gear":[1,2,2,0],"pack":false,"colors":{"suit":"2f5f8a",Roster3D.COAT:"2f5f8a"},"extras":["visor"],"extra_color":"7fe8ff"},
+	"C04":{"gear":[0,2,2,0],"pack":false,"colors":{"suit":"e8e0cc",Roster3D.COAT:"e8e0cc",Roster3D.HAIR:"d8b060"}},
+	"C05":{"gear":[2,2,2,0],"pack":false,"colors":{"suit":"2f8a6a",Roster3D.COAT:"2f8a6a"},"extras":["hood"],"extra_color":"2a7a62"},
+}
+
 func _show_classes() -> void:
 	_clear_screen("classes")
-	var column := VBoxContainer.new()
-	column.position = Vector2(180,55)
-	column.size = Vector2(920,610)
-	column.add_theme_constant_override("separation",12)
-	screen.add_child(column)
-	UIBuilder.label(column,"คุณเป็นใครในนครเวสเปอร์",32,Color("e7c588"))
-	UIBuilder.label(column,"ทุกอาชีพเรียนสกิลร่วมกันได้ แต่ความถนัดและความสามารถประจำตัวต่างกัน",18)
+	var heading := UIBuilder.label(screen,"คุณเป็นใครในนครเวสเปอร์",30,Color("e7c588"))
+	heading.position = Vector2(28,14)
+	heading.size = Vector2(1224,40)
+	var sub := UIBuilder.label(screen,"ทุกอาชีพเรียนสกิลร่วมกันได้ แต่ความถนัดและความสามารถประจำตัวต่างกัน",17,Color("c8d6cc"))
+	sub.position = Vector2(28,56)
+	sub.size = Vector2(1224,28)
+	var row := HBoxContainer.new()
+	row.position = Vector2(24,92)
+	row.size = Vector2(1232,540)
+	row.add_theme_constant_override("separation",10)
+	screen.add_child(row)
 	var first: Button
 	for profession in catalog.data.classes:
-		var button := UIBuilder.button(column,profession.name + "\n" + profession.trait,_new_game.bind(profession.id),"Class_" + profession.id)
-		button.custom_minimum_size.y = 76
+		var card := _class_card(row,profession)
 		if first == null:
-			first = button
-	UIBuilder.button(column,"กลับ",_show_title)
+			first = card
+	var back := UIBuilder.button(screen,"กลับ",_show_title)
+	back.position = Vector2(24,648)
+	back.size = Vector2(200,48)
 	first.grab_focus.call_deferred()
+
+# One selectable card per class: a Button (keeps the Class_Cxx name and focus) with non-clickable content over it.
+func _class_card(parent: Control, profession: Dictionary) -> Button:
+	var card := UIBuilder.button(parent,"",_new_game.bind(profession.id),"Class_" + profession.id)
+	card.custom_minimum_size = Vector2(0,540)
+	card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var content := VBoxContainer.new()
+	content.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT,Control.PRESET_MODE_MINSIZE,10)
+	content.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	content.add_theme_constant_override("separation",6)
+	card.add_child(content)
+	var figure := Hero3D.new()
+	figure.custom_minimum_size = Vector2(0,190)
+	figure.apply_variant(CLASS_LOOKS[profession.id])
+	content.add_child(figure)
+	var name_label := UIBuilder.label(content,profession.name,22,Color("e7c588"))
+	name_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var trait_label := UIBuilder.label(content,profession.trait,15,Color("9fd3c0"))
+	trait_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	trait_label.custom_minimum_size.y = 56
+	var stats := GridContainer.new()
+	stats.columns = 2
+	stats.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	content.add_child(stats)
+	for key in ["VIT","STR","INT","AGI"]:
+		var stat := UIBuilder.label(stats,"%s  %d" % [key,profession.attributes[key]],17,Color("f0d492"))
+		stat.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		stat.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var skill := catalog.get_entry("skills",profession.starter_skill)
+	UIBuilder.label(content,"สกิลเริ่มต้น",13,Color("8bb2a3")).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	UIBuilder.label(content,skill.name,18,Color("f1d9a0")).horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var description := UIBuilder.label(content,skill.description_th,14,Color("d8e6dc"))
+	description.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	return card
 
 func _new_game(class_id: String) -> void:
 	var result := session.new_game(class_id)
@@ -340,6 +389,8 @@ func _close_modal(force: bool = false) -> void:
 	if not is_instance_valid(modal):
 		return
 	if not force: reward_notice = ""
+	var back := modal_back
+	modal_back = Callable()
 	if settings_modal:
 		var saved := settings.save_settings()
 		if not saved.ok:
@@ -360,6 +411,7 @@ func _close_modal(force: bool = false) -> void:
 	if is_instance_valid(combat_view):
 		combat_view.paused = false
 	_restore_focus.call_deferred(focus_return)
+	if not force and back.is_valid(): back.call_deferred()
 
 func _talk_npc(npc_id: String) -> void:
 	for quest in catalog.data.story.quests:
@@ -870,13 +922,37 @@ func _unhandled_input(event: InputEvent) -> void:
 		if is_instance_valid(modal):
 			_close_modal()
 		elif screen_mode in ["world","combat"]:
-			_open_modal("หยุดพัก")
-			if screen_mode == "world":
-				UIBuilder.button(modal_body,"บันทึก / โหลด",_show_save_slots)
-			UIBuilder.button(modal_body,"ตั้งค่า",_show_settings)
-			UIBuilder.label(modal_body,"บันทึกอัตโนมัติหลังเปลี่ยนห้องและทำรายการสำเร็จ ไม่บันทึกกลางไฟต์",18)
+			_open_pause()
 		get_viewport().set_input_as_handled()
 
+
+func _open_pause() -> void:
+	_open_modal("หยุดพัก")
+	if screen_mode == "world":
+		UIBuilder.button(modal_body,"บันทึก / โหลด",_show_save_slots)
+	UIBuilder.button(modal_body,"ตั้งค่า",_show_settings)
+	UIBuilder.button(modal_body,"กลับหน้าหลัก",_confirm_leave.bind(false),"PauseTitle")
+	UIBuilder.button(modal_body,"ออกจากเกม",_confirm_leave.bind(true),"PauseQuit")
+	UIBuilder.label(modal_body,"บันทึกอัตโนมัติหลังเปลี่ยนห้องและทำรายการสำเร็จ ไม่บันทึกกลางไฟต์",18)
+
+func _confirm_leave(quit_game: bool) -> void:
+	_open_modal("ออกจากเกม" if quit_game else "กลับหน้าหลัก")
+	modal_back = _open_pause
+	var where := "ปิดเกม" if quit_game else "กลับหน้าหลัก"
+	if screen_mode == "combat":
+		UIBuilder.label(modal_body,"ไฟต์นี้จะไม่ถูกบันทึก ความคืบหน้าในไฟต์จะหายไป และจะกลับไปที่บันทึกอัตโนมัติก่อนเริ่มไฟต์\nต้องการ%sใช่ไหม" % where,20)
+	else:
+		UIBuilder.label(modal_body,"เกมบันทึกอัตโนมัติให้แล้วก่อนออก ความคืบหน้าจะไม่หาย\nต้องการ%sใช่ไหม" % where,20)
+	UIBuilder.button(modal_body,"ยืนยัน",_leave.bind(quit_game),"ConfirmLeave")
+	UIBuilder.button(modal_body,"ยกเลิก",_close_modal,"CancelLeave")
+	focus_hint = "CancelLeave"
+
+func _leave(quit_game: bool) -> void:
+	_autosave()
+	if quit_game:
+		get_tree().quit()
+	else:
+		_show_title()
 
 func _autosave() -> void:
 	if screen_mode != "world" or session.state.is_empty():

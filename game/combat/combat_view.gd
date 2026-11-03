@@ -65,6 +65,7 @@ func _build_stage() -> void:
 	art.texture = load("res://art/environments/arena_%s.png" % backdrop())
 	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	art.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	art.size = STAGE_SIZE
 	art.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	stage.add_child(art)
@@ -249,15 +250,24 @@ func _commands(living: Array[Dictionary]) -> void:
 		targets.add_item(living[i].name)
 		if living[i].id == selected_target:
 			targets.select(i)
-	targets.item_selected.connect(func(index:int):selected_target=living[index].id)
+	targets.item_selected.connect(func(index:int):
+		selected_target=living[index].id
+		_render())
 	targets.disabled = not idle
 	targets.tooltip_text = "เป้าหมาย"
 	var hero: Dictionary = controller.state.actors[0]
+	var info := UIBuilder.label(ui,"",15,Color("e6d4a4"))
+	info.position = Vector2(24,688)
+	info.size = Vector2(1232,28)
+	info.autowrap_mode = TextServer.AUTOWRAP_OFF
+	info.clip_text = true
+	var tips := _basic_tips(hero)
 	var names: Array = [["attack","โจมตี","Basic_Attack"],["guard","ตั้งรับ","Basic_Guard"],["vent","ระบายไอ","Basic_Vent"],["life_potion","ยาHP (%d)" % hero.potions.life,"Basic_Life"],["focus_potion","ยาFP (%d)" % hero.potions.focus,"Basic_Focus"],["retreat","ถอย","Basic_Retreat"]]
 	for data in names:
 		var button := UIBuilder.button(basics,data[1],_submit.bind(data[0],""),data[2])
 		button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		button.disabled = not idle
+		_explain(button,tips[data[0]],info)
 	if not controller.training_id.is_empty():
 		var finish := UIBuilder.button(basics,"จบการฝึก",_end_training,"FinishTraining")
 		finish.disabled = not idle
@@ -287,8 +297,36 @@ func _commands(living: Array[Dictionary]) -> void:
 		button.custom_minimum_size.x = 302
 		button.disabled = not idle or hero.fp < preview.fp_cost or hero.pressure + preview.pressure_delta > 100 or hero.cooldowns.get(skill.id,0) > 0
 		button.tooltip_text = UIBuilder.skill_description(skill,preview,rank)
+		_explain(button,button.tooltip_text.replace("\n","  ·  "),info)
 		button.icon = UIBuilder.skill_icon(skill)
 		button.add_theme_constant_override("icon_max_width",24)
+
+# Hover and keyboard focus both show what a command will do, since tooltips alone never reach pad or keys.
+func _explain(button: Button, text: String, info: Label) -> void:
+	if button.tooltip_text.is_empty(): button.tooltip_text = text
+	button.mouse_entered.connect(func(): info.text = text)
+	button.focus_entered.connect(func(): info.text = text)
+	if button.name == focus_action: info.text = text
+
+func _basic_tips(hero: Dictionary) -> Dictionary:
+	var target: Dictionary = {}
+	for actor in controller.state.actors:
+		if actor.id == selected_target: target = actor
+	var armor: float = float(target.get("armor",0)) * (0.75 if target.get("statuses",{}).has("Corroded") else 1.0)
+	var hit: float = float(hero.get("attack",1)) * 100.0 / (100.0 + armor)
+	var attack := "โจมตี %s: ประมาณ %d–%d ความเสียหายกายภาพ ไม่ใช้ FP" % [target.get("name","เป้าหมาย"),maxi(1,floor(hit*0.95)),maxi(1,floor(hit*1.05))]
+	if target.get("barrier",0) > 0: attack += " · โดนโล่ %d ก่อนถึงร่างกาย" % target.barrier
+	if target.get("statuses",{}).has("Guard"): attack += " · เป้ากำลังตั้งรับ ความเสียหายเหลือครึ่ง"
+	var life := int(ceil(float(hero.max_hp)*0.35))
+	var focus := int(ceil(float(hero.max_fp)*0.35))
+	return {
+		"attack":attack,
+		"guard":"ตั้งรับ: ความเสียหายที่ได้รับลดครึ่งจนถึงตาถัดไปของคุณ · เหมาะเมื่อศัตรูเตรียมท่าหนัก",
+		"vent":"ระบายไอ: แรงดัน %d → %d · แรงดันเกิน 100 จะใช้สกิลที่เพิ่มแรงดันไม่ได้" % [hero.pressure,maxi(0,int(hero.pressure)-35)],
+		"life_potion":"ยาHP: ฟื้น HP %d (35%%) · เหลือ %d ขวด · ใช้หนึ่งตา" % [mini(life,int(hero.max_hp)-int(hero.hp)),hero.potions.life],
+		"focus_potion":"ยาFP: ฟื้น FP %d (35%%) · เหลือ %d ขวด · ใช้หนึ่งตา" % [mini(focus,int(hero.max_fp)-int(hero.fp)),hero.potions.focus],
+		"retreat":"ถอย: จบการฝึกและเก็บ XP ที่ทำได้" if not controller.training_id.is_empty() else "ถอย: ออกจากไฟต์ ไม่ได้รางวัล ฟื้น HP/FP เต็ม เสียพลังงาน 4 กลับจุดพัก",
+	}
 
 func _play_feedback(events: Array) -> void:
 	if events.is_empty(): return

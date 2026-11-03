@@ -40,6 +40,7 @@ func configure(catalog: Dictionary, session: Dictionary, spawn: String = "entry"
 	oblique = ResourceLoader.exists(art_path)
 	walls = RoomLayout.oblique_walls(room.id) if oblique else RoomLayout.walls(room.id)
 	if oblique: art = load(art_path)
+	texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	for rect in walls:
 		var body := StaticBody2D.new()
 		var collision := CollisionShape2D.new()
@@ -305,5 +306,6 @@ func _draw_markers() -> void:
 			draw_circle(point,14,color.darkened(0.4))
 			draw_arc(point,14,0,TAU,24,color,3)
 			draw_line(point-Vector2(6,0),point+Vector2(6,0),color,3)
-		draw_string(font, point+Vector2(-70,43),marker.label,HORIZONTAL_ALIGNMENT_CENTER,140,14,Color("e6dfc9"))
+		# Oblique rooms label above the head so names never fall under the bottom bar.
+		draw_string(font, point+Vector2(-70,-74 if oblique else 43),marker.label,HORIZONTAL_ALIGNMENT_CENTER,140,14,Color("e6dfc9"))
 		draw_set_transform(Vector2.ZERO)

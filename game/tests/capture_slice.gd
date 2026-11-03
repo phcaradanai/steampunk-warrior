@@ -18,6 +18,9 @@ func _initialize() -> void:
 	scene.saves = SaveService.new(catalog.data,"user://test-slice-" + str(Time.get_ticks_usec()))
 	root.add_child(scene)
 	await process_frame
+	# Optional window size, e.g. CAPTURE_SIZE=1920x1080, to check sharpness at large physical sizes.
+	if not OS.get_environment("CAPTURE_SIZE").is_empty(): scene.settings.set_option("window_size",OS.get_environment("CAPTURE_SIZE"))
+	await process_frame
 	scene._new_game("C01")
 	await wait(0.4)
 	await capture("hub")

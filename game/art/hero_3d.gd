@@ -1,5 +1,5 @@
 class_name Hero3D
-extends SubViewportContainer
+extends Control
 # Toon SD hero (prototypes/character-lab) rendered by an orthographic SubViewport for the 2.5D look.
 
 const MODEL := preload("res://art/characters/vesper_warrior.glb")
@@ -23,9 +23,9 @@ var busy: float = 0.0
 var freeze: float = 0.0
 
 func _init() -> void:
-	stretch = true
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	viewport = SubViewport.new()
+	viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	viewport.own_world_3d = true
 	viewport.transparent_bg = true
 	viewport.msaa_3d = Viewport.MSAA_4X
@@ -186,7 +186,20 @@ func _burst(particles: GPUParticles3D, delay: float) -> void:
 func hit_stop(seconds: float = 0.06) -> void:
 	freeze = seconds
 
+# Render at physical pixels (window stretch x canvas scale) so the figure stays crisp on retina and when scaled up.
+func _sync_resolution() -> void:
+	if not is_inside_tree(): return
+	var oversample := clampf(get_global_transform_with_canvas().get_scale().x * get_viewport().get_final_transform().get_scale().x, 2.0, 4.0)
+	var target := Vector2i((size * oversample).round())
+	if target.x > 0 and target.y > 0 and viewport.size != target:
+		viewport.size = target
+
+func _draw() -> void:
+	draw_texture_rect(viewport.get_texture(), Rect2(Vector2.ZERO, size), false)
+
 func _process(delta: float) -> void:
+	_sync_resolution()
+	queue_redraw()
 	model.rotation.y = deg_to_rad(-150.0 if facing_left else -30.0)
 	sparks.position.x = -0.55 if facing_left else 0.55
 	sparks.process_material.direction.x = -1.0 if facing_left else 1.0

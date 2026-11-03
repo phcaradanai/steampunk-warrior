@@ -74,7 +74,7 @@ func _dash(actor: ActorPortrait, target: ActorPortrait) -> void:
 	var home: Vector2 = actor.get_meta("home", actor.position)
 	var side := -1.0 if target.position.x > home.x else 1.0
 	# Stop a body's width short of the target so the weapon, not the torso, makes contact.
-	var reach := (target.size.x*0.32 + actor.size.x*0.28)*side
+	var reach := (float(target.get_meta("body",target.size.x))*0.32 + float(actor.get_meta("body",actor.size.x))*0.28)*side
 	var spot := Vector2(target.position.x + target.size.x*0.5 + reach - actor.size.x*0.5, target.position.y + target.get_meta("feet",target.size.y) - actor.get_meta("feet",actor.size.y))
 	if actor.hero != null:
 		actor.hero.facing_left = side > 0

@@ -35,9 +35,9 @@ const PEOPLE := {
 	"N22":{"gear":[0,0,2,1],"pack":false,"colors":{COAT:"d8c898","suit":"d8c898",HAIR:"b8b4ac","Mat_Brass":"d8d0b8","Mat_Copper":"8a7a5a"},"build":Vector3(0.9,1.1,0.9),"extras":["beard","visor"],"extra_color":"ffe08a"},
 	"N23":{"gear":[2,1,1,1],"pack":false,"colors":{"suit":"34343c",LEATHER:"34343c","Mat_Brass":"3a3a44","Mat_Copper":"2a2a30"},"build":Vector3(1.12,1.0,1.12),"extras":["visor"],"extra_color":"ff3a3a"},
 	"N26":{"gear":[1,1,1,2],"pack":true,"colors":{"suit":"9aa8c0",LEATHER:"6a5a8a","Mat_Brass":"7a5aa8","Mat_Copper":"5a4a8a"},"build":Vector3(1.3,1.08,1.3),"extras":["hood","visor"],"extra_color":"c27bff"},
-	"B02":{"gear":[0,1,1,2],"pack":true,"colors":{"suit":"26364a",COAT:"26364a"},"build":Vector3(1.3,1.05,1.3),"extras":["visor"],"extra_color":"ffcf4a"},
-	"B04":{"gear":[1,2,1,0],"pack":true,"colors":{"suit":"8a3a1a",LEATHER:"8a3a1a"},"build":Vector3(1.35,1.0,1.35),"extras":["beard"],"extra_color":"ff8a3a"},
-	"B05":{"gear":[2,0,2,0],"pack":false,"colors":{COAT:"4a5a7a","suit":"4a5a7a"},"extras":["hood","visor"],"extra_color":"9fb8ff"},
+	"B02":{"gear":[0,0,1,0],"pack":true,"colors":{"suit":"26364a",COAT:"26364a"},"build":Vector3(1.3,1.05,1.3),"extras":["conductor_cap","loco_plate","lantern"],"extra_color":"ffcf4a"},
+	"B04":{"gear":[1,2,1,0],"pack":false,"colors":{"suit":"8a3a1a",LEATHER:"8a3a1a"},"build":Vector3(1.35,1.0,1.35),"extras":["beard","furnace_arm","chimney_pack"],"extra_color":"ff8a3a"},
+	"B05":{"gear":[2,0,2,0],"pack":false,"colors":{COAT:"4a5a7a","suit":"4a5a7a"},"extras":["hood","lens_visor","records_cabinet","ledger_pages"],"extra_color":"9fb8ff"},
 	"B06":{"gear":[2,2,2,0],"pack":false,"colors":{COAT:"5a2a7a","suit":"5a2a7a",HAIR:"dcd0ff",SKIN:"c8b8e8"},"build":Vector3(1.1,1.08,1.1),"extras":["crown","wings"],"extra_color":"c27bff"},
 	"dummy":{"dummy":true},
 }

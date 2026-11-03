@@ -384,7 +384,31 @@ def room_prop(kind, rect, theme, index):
             torus(name + "Ring%d" % i, (cx, cy, 0.3 + i * 0.4), min(w, d) * 0.42, 0.05, mat("CoilGlow", glow, emit=glow, strength=2))
 
 
+PROP_OBJECTS = {}
+PROP_META = {}
+
+
+def crop_sprite(src, dst):
+    """Crop a transparent render to its alpha bounding box; return the crop origin in backdrop pixels."""
+    import numpy as np
+    img = bpy.data.images.load(src)
+    w, h = img.size
+    px = np.array(img.pixels[:], dtype=np.float32).reshape(h, w, 4)[::-1]  # top-down rows
+    ys, xs = np.nonzero(px[..., 3] > 0.004)
+    x0, x1, y0, y1 = int(xs.min()), int(xs.max()) + 1, int(ys.min()), int(ys.max()) + 1
+    out = bpy.data.images.new("sprite", x1 - x0, y1 - y0, alpha=True)
+    out.pixels = px[y0:y1, x0:x1][::-1].ravel().tolist()
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    out.filepath_raw = dst
+    out.file_format = "PNG"
+    out.save()
+    bpy.data.images.remove(out)
+    bpy.data.images.remove(img)
+    return {"file": os.path.basename(dst), "x": x0, "y": y0, "w": x1 - x0, "h": y1 - y0}
+
+
 def room(rid, spec, exits):
+    PROP_OBJECTS.clear()
     reset()
     theme = THEMES[spec["palette"]]
     setup(2560, 1040, theme["sky"])
@@ -421,16 +445,37 @@ def room(rid, spec, exits):
         cyl("Lamp%d" % side, lamp, 0.14, 0.4, mat("Bulb", (1, 0.85, 0.5), emit=(1, 0.78, 0.4), strength=8))
         light("POINT", (lamp[0], lamp[1] - 0.6, lamp[2]), 220, glow, 0.3)
     for i, prop in enumerate(spec["props"]):
+        before = set(bpy.data.objects)
         room_prop(prop["kind"], prop["rect"], spec["palette"], i)
+        for obj in set(bpy.data.objects) - before:
+            if obj.type == "MESH":
+                PROP_OBJECTS.setdefault(i, []).append(obj)
     light("SUN", (0, 0, 10), 1.1, (0.75, 0.85, 0.9), rot=(math.radians(35), math.radians(-15), math.radians(10)))
     light("AREA", (0, -2, 6), 450, (0.85, 0.9, 1), 6, rot=(math.radians(-20), 0, 0))
+    # Backdrop: props hidden from the camera but still casting shadows; they ship as separate y-sorted sprites.
+    props = [o for objs in PROP_OBJECTS.values() for o in objs]
+    for obj in props:
+        obj.visible_camera = False
     render("room_%s.png" % rid)
+    for obj in props:
+        obj.visible_camera = True
     keep = set(rims)
     for obj in bpy.data.objects:
         if obj.type == "MESH" and obj not in keep:
             obj.is_holdout = True
     bpy.context.scene.render.film_transparent = True
     render("room_%s_rims.png" % rid)
+    for obj in bpy.data.objects:
+        if obj.type == "MESH":
+            obj.is_holdout = obj not in props
+    meta = []
+    for i, objs in sorted(PROP_OBJECTS.items()):
+        for obj in props:
+            obj.hide_render = obj not in objs
+        render("_tmp_prop.png")
+        meta.append(crop_sprite(os.path.join(OUT, "_tmp_prop.png"), os.path.join(OUT, "props", "room_%s_%d.png" % (rid, i))))
+    os.remove(os.path.join(OUT, "_tmp_prop.png"))
+    PROP_META[rid] = meta
 
 
 def back_wall(color, bricks, glow, feature):
@@ -469,10 +514,12 @@ def foundry_props():
     back_wall((0.38, 0.2, 0.13), 3.0, (1.0, 0.42, 0.12), "Foundry")
     melt = mat("Melt", (1, 0.4, 0.1), emit=(1, 0.45, 0.1), strength=6)
     iron = mat("PipeIron", (0.16, 0.19, 0.19), 0.45, 0.8, noise=6)
+    # Window glow stays orange and below clipping (strength 6 blew out to cream).
+    window = mat("FurnaceWindow", (1, 0.4, 0.1), emit=(1, 0.38, 0.08), strength=2.2)
     box("Channel", (0, 8.8, 0.02), (60, 0.6, 0.06), melt)
     for i, x in enumerate((-11, 0, 11)):
         cyl("Furnace%d" % i, (x, 10.4, 2.5), 1.5, 5, iron)
-        box("Mouth%d" % i, (x, 8.95, 1.2), (1.4, 0.1, 1.0), melt)
+        box("Mouth%d" % i, (x, 8.95, 1.2), (1.4, 0.1, 1.0), window)
         light("POINT", (x, 8.0, 1.4), 300, (1, 0.45, 0.15), 1)
 
 
@@ -488,7 +535,7 @@ def archive_props():
 def reactor_props():
     back_wall((0.15, 0.25, 0.27), 2.0, (0.3, 0.95, 1.0), "Reactor")
     iron = mat("PipeIron", (0.16, 0.19, 0.19), 0.45, 0.8, noise=6)
-    core = mat("Core", (0.3, 0.95, 1.0), emit=(0.3, 0.95, 1.0), strength=4)
+    core = mat("Core", (0.3, 0.95, 1.0), emit=(0.2, 0.8, 0.9), strength=1.3)
     cyl("Core", (0, 10.6, 3.5), 2.2, 7, iron)
     box("CoreWindow", (0, 8.35, 3.2), (1.4, 0.05, 4.5), core)
     for i, x in enumerate((-12, -7, 7, 12)):
@@ -518,6 +565,12 @@ def rooms(targets):
         number = int(rid[1:])
         exits = {"left": any(int(e["to"][1:]) < number for e in catalog[rid]["exits"]), "right": any(int(e["to"][1:]) > number for e in catalog[rid]["exits"])}
         room(rid, spec, exits)
+    if PROP_META:
+        # Merge so single-room re-renders keep the other rooms' entries.
+        path = os.path.join(OUT, "props", "props.json")
+        old = json.load(open(path)) if os.path.exists(path) else {}
+        old.update(PROP_META)
+        json.dump(old, open(path, "w"), indent=1, sort_keys=True)
 
 
 if __name__ == "__main__":

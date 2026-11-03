@@ -7,6 +7,8 @@ var alive: bool = true
 var motion_offset := Vector2.ZERO
 var elapsed: float = 0.0
 var hero: Stage3D
+# Pixels of the 3D frame that sit above this control (bosses are tall; the control stays below the title card).
+var crop_top: float = 0.0
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -15,8 +17,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	elapsed += delta
 	if hero != null:
-		hero.size = size
-		hero.position = motion_offset
+		hero.size = size + Vector2(0,crop_top)
+		hero.position = motion_offset - Vector2(0,crop_top)
 		return
 	queue_redraw()
 

@@ -32,6 +32,13 @@ var barrier_bars: Dictionary = {}
 const STAGE_TOP := 0.0
 const STAGE_SIZE := Vector2(1280,720)
 const GROUND := 560.0
+# Boss on-screen height relative to the hero (portrait size multiplier over the hero's 300px frame); normal foes stay 250px.
+const BOSS_SCALE := {"B01":1.6,"B02":1.5,"B03":1.6,"B04":1.5,"B05":1.5,"B06":1.6}
+const CARD_BOTTOM := 224.0 # bottom of the title-card band; boss controls start below it
+const HERO_FRAME := 300.0 # hero portrait height; bosses multiply it
+
+static func boss_scale(definition_id: String) -> float:
+	return BOSS_SCALE.get(definition_id, 1.5)
 const STATUS_NAMES := {"Wet":"เปียก","Heated":"ร้อนจัด","Corroded":"เกราะผุ","Marked":"ถูกหมายหัว","Staggered":"เสียจังหวะ","Sealed":"ปิดการฟื้นฟู","Haste":"เร่งจังหวะ","Guard":"ตั้งรับ"}
 
 func configure(active_controller: CombatController) -> void:
@@ -63,7 +70,7 @@ func _process(delta: float) -> void:
 		var foe: ActorPortrait = portraits[selected_target]
 		target_marker.visible = controller.is_player_turn() and not paused and not settled and foe.alive and feedback.playing == 0
 		var top: float = foe.hero.top_fraction() if foe.hero != null else 0.1
-		target_marker.position = foe.position + Vector2(foe.size.x*0.5, foe.size.y*top - 18.0 + sin(clock*5.0)*6.0)
+		target_marker.position = foe.position + Vector2(foe.size.x*0.5, (foe.size.y+foe.crop_top)*top - foe.crop_top - 18.0 + sin(clock*5.0)*6.0)
 	if is_instance_valid(wait_label):
 		wait_label.visible = not settled and (feedback.playing > 0 or not controller.is_player_turn())
 
@@ -95,7 +102,7 @@ func _build_stage() -> void:
 		for portrait in portraits.values():
 			if not is_instance_valid(portrait): continue
 			var feet: Vector2 = portrait.position + Vector2(portrait.size.x*0.5, portrait.get_meta("feet",portrait.size.y))
-			var width: float = portrait.size.x*0.32
+			var width: float = float(portrait.get_meta("body",portrait.size.x))*0.32
 			shadows.draw_set_transform(feet,0,Vector2(1,0.26))
 			shadows.draw_circle(Vector2.ZERO,width,Color(0,0,0,0.42 if portrait.alive else 0.2)))
 	stage.add_child(shadows)
@@ -107,7 +114,7 @@ func _build_stage() -> void:
 		portrait.mirror = actor.side == "enemy"
 		portrait.alive = actor.hp > 0
 		var boss: bool = actor.get("boss",false)
-		portrait.size = Vector2(300,300) if actor.side == "player" else Vector2(350,350) if boss else Vector2(250,250)
+		portrait.size = Vector2(300,300) if actor.side == "player" else Vector2(1.3,1.0)*HERO_FRAME*boss_scale(actor.get("definition_id","")) if boss else Vector2(250,250)
 		var center := 330.0
 		var feet := GROUND
 		if actor.side == "player":
@@ -118,6 +125,10 @@ func _build_stage() -> void:
 			portrait.set_meta("feet",portrait.size.y*0.925)
 		else:
 			var figure := Roster3D.create(Roster3D.actor_key(actor))
+			if figure != null and boss:
+				# Control starts under the title card band; the frame above it is empty headroom that still renders.
+				portrait.crop_top = maxf(0.0,portrait.size.y*0.925 - (GROUND - CARD_BOTTOM))
+				portrait.size.y -= portrait.crop_top
 			if figure != null:
 				figure.facing_left = true
 				portrait.attach_hero(figure)
@@ -132,7 +143,9 @@ func _build_stage() -> void:
 				if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT and controller._actor(actor.id).hp > 0:
 					selected_target = actor.id
 					_render())
-			portrait.set_meta("feet",portrait.size.y*0.925 if figure != null else portrait.size.y-4)
+			portrait.set_meta("feet",(portrait.size.y+portrait.crop_top)*0.925-portrait.crop_top if figure != null else portrait.size.y-4)
+		# Bosses get a wider frame (same height scale) so long weapons are not clipped; dashes measure the body, not the frame.
+		portrait.set_meta("body",portrait.size.y+portrait.crop_top if boss else portrait.size.x)
 		portrait.position = Vector2(center-portrait.size.x*0.5, feet-portrait.get_meta("feet"))
 		portrait.set_meta("home",portrait.position)
 		stage.add_child(portrait)
@@ -164,10 +177,10 @@ func _title_card() -> void:
 		if hero.statuses.has(hazard): notes.append(hazards[hazard] + " · ปรับวาล์วในห้องเพื่อลดได้")
 	var lines := "\n".join(notes.filter(func(n): return not n.is_empty()))
 	var hold := 2.6 if not lines.is_empty() else 0.9
-	# One dim band above the actors' heads (boss tops start near y=236, HP panels end near y=122); commands wait for it.
+	# One dim band above the actors' heads (boss controls start below it, HP panels end near y=122); commands wait for it.
 	card = ColorRect.new()
 	card.color = Color(0.04,0.07,0.08,0.66)
-	card.position = Vector2(0,140)
+	card.position = Vector2(0,CARD_BOTTOM-95.0)
 	card.size = Vector2(1280,95 if not lines.is_empty() else 54)
 	card.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	stage.add_child(card)

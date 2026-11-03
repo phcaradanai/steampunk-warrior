@@ -53,4 +53,11 @@ func run(t) -> bool:
 		var key: String = item.slot+":"+str(item.bonuses)
 		t.check(not signatures.has(key),"every gear definition changes a build: " + item.id)
 		signatures[key] = item.id
+	for enemy in loader.data.enemies:
+		if enemy.get("boss",false):
+			t.check(CombatView.boss_scale(enemy.id) >= 1.4,"boss stands at least 1.4x the hero on screen: " + enemy.id)
+	var extras := {"B02":["conductor_cap","loco_plate","lantern"],"B04":["furnace_arm","chimney_pack"],"B05":["lens_visor","records_cabinet","ledger_pages"]}
+	for id in extras:
+		for extra in extras[id]:
+			t.check(Roster3D.PEOPLE[id].extras.has(extra) and Hero3D.BOSS_EXTRAS.has(extra),"%s carries its own part %s" % [id,extra])
 	return true

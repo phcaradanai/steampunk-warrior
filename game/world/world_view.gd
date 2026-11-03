@@ -126,7 +126,9 @@ func configure(catalog: Dictionary, session: Dictionary, spawn: String = "entry"
 		markers.append({"kind":"shop","id":"shop","label":"ร้านอุปกรณ์","position":Vector2(620,405)})
 	if room.fast_travel and room.id != "R01":
 		markers.append({"kind":"fast_travel","id":"R01","label":"รถรางกลับโรงซ่อม","name":"รถรางกลับโรงซ่อม","position":CENTER_PIPE if oblique else Vector2(200,400)})
-	if oblique and not hub: _place_on_floor()
+	if oblique and not hub:
+		_place_on_floor()
+		_add_prop_sprites()
 	_spawn_figures()
 	queue_redraw()
 
@@ -171,7 +173,31 @@ func _place_on_floor() -> void:
 		marker.position = Vector2(slots[next_slot][0],slots[next_slot][1])
 		next_slot += 1
 
-# Props are part of the backdrop, so nothing may stand on one or just behind it where it would draw on top.
+# Props are separate sprites cropped from the same Blender camera as the backdrop, y-sorted by the front edge of their collision rect.
+# Crop origins (backdrop px, 2560x1040) live in art/environments/props/props.json, written by prototypes/environments/build_backdrops.py.
+static func prop_sprites(room_id: String) -> Array:
+	var path := "res://art/environments/props/props.json"
+	if not FileAccess.file_exists(path): return []
+	return JSON.parse_string(FileAccess.get_file_as_string(path)).get(room_id,[])
+
+func _add_prop_sprites() -> void:
+	var props: Array = RoomLayout.oblique().rooms.get(room.id,{}).get("props",[])
+	var sprites := prop_sprites(room.id)
+	var k := 0.5/VIEW_SCALE
+	for i in mini(props.size(),sprites.size()):
+		var rect: Array = props[i].rect
+		var anchor := Node2D.new()
+		anchor.name = "Prop%d" % i
+		anchor.position = Vector2(rect[0]+rect[2]*0.5,rect[1]+rect[3])
+		var sprite := Sprite2D.new()
+		sprite.texture = load("res://art/environments/props/" + sprites[i].file)
+		sprite.centered = false
+		sprite.scale = Vector2.ONE*k
+		sprite.position = Vector2(sprites[i].x*k-120.0/VIEW_SCALE,sprites[i].y*k) - anchor.position
+		anchor.add_child(sprite)
+		add_child(anchor)
+
+# Props are sprites over the backdrop, so nothing may stand on one or just behind it where the sprite would cover it.
 func _hides(rect: Rect2, slot: Vector2) -> bool:
 	return rect.grow(12).has_point(slot) or (absf(slot.x - rect.get_center().x) < 90 and slot.y < rect.position.y and rect.position.y - slot.y < 110)
 

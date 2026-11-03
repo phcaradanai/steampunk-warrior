@@ -208,13 +208,26 @@ func apply_variant(spec: Dictionary) -> void:
 	for extra in spec.get("extras", []):
 		_attach(extra, Color(spec.get("extra_color", "e9e4d8")))
 
+# Boss-specific kits: [mesh ("box"/"sphere"/"cyl"), position, scale, colour hex ("" = the spec's extra_color), glow, rotation degrees], on the named bone.
+const BOSS_EXTRAS := {
+	"conductor_cap":{"bone":"Head","parts":[["cyl", Vector3(0.0, 0.43, 0.0), Vector3(0.4, 0.16, 0.4), "1c2a3e", 0.0, Vector3.ZERO], ["box", Vector3(0.22, 0.37, 0.0), Vector3(0.2, 0.035, 0.38), "10161e", 0.0, Vector3.ZERO], ["sphere", Vector3(0.2, 0.46, 0.0), Vector3(0.09, 0.09, 0.09), "ffcf4a", 1.2, Vector3.ZERO]]},
+	"loco_plate":{"bone":"Torso","parts":[["cyl", Vector3(0.2, 0.0, 0.0), Vector3(0.62, 0.08, 0.62), "2c3440", 0.0, Vector3(0, 0, 90)], ["cyl", Vector3(0.25, 0.0, 0.0), Vector3(0.46, 0.04, 0.46), "b8862c", 0.0, Vector3(0, 0, 90)], ["sphere", Vector3(0.28, 0.0, 0.0), Vector3(0.14, 0.14, 0.14), "ffe08a", 1.6, Vector3.ZERO]]},
+	"lantern":{"bone":"Torso","parts":[["cyl", Vector3(0.1, -0.12, -0.36), Vector3(0.03, 0.14, 0.03), "2a2a30", 0.0, Vector3.ZERO], ["sphere", Vector3(0.1, -0.27, -0.36), Vector3(0.14, 0.18, 0.14), "ffb84a", 2.2, Vector3.ZERO]]},
+	"furnace_arm":{"bone":"Hand_R","parts":[["box", Vector3(0.0, 0.0, 0.0), Vector3(0.26, 0.24, 0.24), "3a3a42", 0.0, Vector3.ZERO], ["box", Vector3(0.05, 0.0, 0.0), Vector3(0.28, 0.07, 0.18), "ff6a1a", 2.0, Vector3.ZERO]]},
+	"chimney_pack":{"bone":"Torso","parts":[["box", Vector3(-0.28, 0.1, 0.0), Vector3(0.18, 0.4, 0.34), "3a3a42", 0.0, Vector3.ZERO], ["cyl", Vector3(-0.3, 0.5, -0.08), Vector3(0.09, 0.45, 0.09), "2a2a30", 0.0, Vector3.ZERO], ["cyl", Vector3(-0.3, 0.45, 0.1), Vector3(0.09, 0.35, 0.09), "2a2a30", 0.0, Vector3.ZERO], ["cyl", Vector3(-0.3, 0.73, -0.08), Vector3(0.12, 0.04, 0.12), "ff6a1a", 2.2, Vector3.ZERO], ["cyl", Vector3(-0.3, 0.63, 0.1), Vector3(0.12, 0.04, 0.12), "ff6a1a", 2.2, Vector3.ZERO], ["sphere", Vector3(-0.34, 0.9, -0.08), Vector3(0.2, 0.14, 0.2), "5a5a62", 0.0, Vector3.ZERO]]},
+	"records_cabinet":{"bone":"Torso","parts":[["box", Vector3(-0.28, 0.1, 0.0), Vector3(0.18, 0.5, 0.36), "4a5262", 0.0, Vector3.ZERO], ["box", Vector3(-0.18, 0.25, 0.0), Vector3(0.03, 0.08, 0.26), "9fb8ff", 1.4, Vector3.ZERO], ["box", Vector3(-0.18, 0.1, 0.0), Vector3(0.03, 0.08, 0.26), "9fb8ff", 1.4, Vector3.ZERO], ["box", Vector3(-0.18, -0.05, 0.0), Vector3(0.03, 0.08, 0.26), "9fb8ff", 1.4, Vector3.ZERO]]},
+	"lens_visor":{"bone":"Head","parts":[["cyl", Vector3(0.26, 0.2, 0.1), Vector3(0.14, 0.08, 0.14), "2a2a30", 0.0, Vector3(0, 0, 90)], ["sphere", Vector3(0.31, 0.2, 0.1), Vector3(0.1, 0.1, 0.1), "9fe8ff", 2.0, Vector3.ZERO], ["box", Vector3(0.24, 0.21, -0.05), Vector3(0.05, 0.08, 0.3), "2a2a30", 0.0, Vector3.ZERO]]},
+	"ledger_pages":{"bone":"Torso","parts":[["box", Vector3(0.0, 0.55, -0.4), Vector3(0.03, 0.28, 0.2), "e8e0cc", 0.4, Vector3(12, 0, 18)], ["box", Vector3(0.1, 0.72, -0.3), Vector3(0.03, 0.28, 0.2), "e8e0cc", 0.4, Vector3(-8, 0, -10)], ["box", Vector3(0.05, 0.45, 0.42), Vector3(0.03, 0.28, 0.2), "e8e0cc", 0.4, Vector3(6, 0, 14)]]},
+}
+
 func _attach(kind: String, color: Color) -> void:
 	var skeleton: Skeleton3D = nodes["Head"].get_parent() if nodes.has("Head") else null
 	for node in nodes.values():
 		if node is Skeleton3D and node.find_bone("Head") >= 0: skeleton = node
 	if skeleton == null: return
 	var mount := BoneAttachment3D.new()
-	mount.bone_name = "Torso" if kind == "wings" else "Head"
+	var kit: Dictionary = BOSS_EXTRAS.get(kind, {})
+	mount.bone_name = kit.get("bone", "Torso" if kind == "wings" else "Head")
 	skeleton.add_child(mount)
 	# Rig faces +X; the head bone sits at the neck with the blocky head centred ~0.2 above it.
 	var parts: Array = {
@@ -223,12 +236,14 @@ func _attach(kind: String, color: Color) -> void:
 		"visor":[[BoxMesh, Vector3(0.24, 0.21, 0.0), Vector3(0.05, 0.08, 0.42)]],
 		"crown":[[CylinderMesh, Vector3(0.0, 0.47, 0.0), Vector3(0.36, 0.08, 0.36)], [PrismMesh, Vector3(0.0, 0.56, -0.12), Vector3(0.08, 0.16, 0.08)], [PrismMesh, Vector3(0.0, 0.56, 0.12), Vector3(0.08, 0.16, 0.08)], [PrismMesh, Vector3(0.0, 0.6, 0.0), Vector3(0.09, 0.22, 0.09)]],
 		"wings":[[PrismMesh, Vector3(-0.22, 0.15, -0.28), Vector3(0.05, 0.6, 0.3)], [PrismMesh, Vector3(-0.22, 0.15, 0.28), Vector3(0.05, 0.6, 0.3)]],
-	}.get(kind, [])
+	}.get(kind, kit.get("parts", []))
 	var glow := 1.4 if kind in ["visor","wings","crown"] else 0.0
 	for part in parts:
 		var mesh_instance := MeshInstance3D.new()
-		mesh_instance.mesh = part[0].new()
+		mesh_instance.mesh = {"box":BoxMesh,"sphere":SphereMesh,"cyl":CylinderMesh}[part[0]].new() if part[0] is String else part[0].new()
 		mesh_instance.position = part[1]
 		mesh_instance.scale = part[2]
-		mesh_instance.material_override = Stage3D.toon(color, glow)
+		var tint := color if part.size() < 4 or part[3] == "" else Color(part[3])
+		mesh_instance.material_override = Stage3D.toon(tint, glow if part.size() < 5 else part[4])
+		if part.size() > 5: mesh_instance.rotation_degrees = part[5]
 		mount.add_child(mesh_instance)

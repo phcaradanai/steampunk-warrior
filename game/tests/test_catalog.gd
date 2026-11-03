@@ -53,4 +53,7 @@ func run(t) -> bool:
 	var shorthand := RegEx.create_from_string("(?i)[A-Za-z]+\\d|\\d[A-Za-z]|barrier|FP ?cost|turn|Marked|Wet|Corroded")
 	for profession in catalog.data.classes:
 		t.check(not profession.trait.is_empty() and shorthand.search(profession.trait) == null, "class %s trait reads as plain Thai: %s" % [profession.id, profession.trait])
+	# Room purposes are the entry banner subtitle, so no designer ids like "บอสB04".
+	for room in catalog.data.rooms:
+		t.check(RegEx.create_from_string("[A-Za-z]").search(room.purpose) == null, "room %s banner has no design ids: %s" % [room.id, room.purpose])
 	return true

@@ -7,6 +7,49 @@
 ```bash
 /Applications/Blender.app/Contents/MacOS/Blender --background --python blender/build_vesper.py
 ```
+ศัตรู N01 หนูกัดท่อ สร้างจากสคริปต์ (ส่งออก `game/art/characters/rat.glb` และภาพเทียบใน `blender/renders/rat_*.png`):
+```bash
+/Applications/Blender.app/Contents/MacOS/Blender --background --python blender/build_rat.py
+```
+ศัตรู N02 หมาควัน (ส่งออก `game/art/characters/dog.glb`, ใช้ฟังก์ชันร่วมใน `blender/creature_kit.py`):
+```bash
+/Applications/Blender.app/Contents/MacOS/Blender --background --python blender/build_dog.py
+```
+ศัตรู N03 ค้างคาวเอเธอร์ (ส่งออก `game/art/characters/bat.glb`):
+```bash
+/Applications/Blender.app/Contents/MacOS/Blender --background --python blender/build_bat.py
+```
+ศัตรู N04 ตะขาบทองแดง (ส่งออก `game/art/characters/centipede.glb`):
+```bash
+/Applications/Blender.app/Contents/MacOS/Blender --background --python blender/build_centipede.py
+```
+ศัตรู N05 ด้วงเกราะ (ส่งออก `game/art/characters/beetle.glb`):
+```bash
+/Applications/Blender.app/Contents/MacOS/Blender --background --python blender/build_beetle.py
+```
+ศัตรู N06 แมงมุมแก้ว (ส่งออก `game/art/characters/spider.glb`):
+```bash
+/Applications/Blender.app/Contents/MacOS/Blender --background --python blender/build_spider.py
+```
+ศัตรู N07 หมูป่า (ส่งออก `game/art/characters/boar.glb`):
+```bash
+/Applications/Blender.app/Contents/MacOS/Blender --background --python blender/build_boar.py
+```
+ศัตรู N08 นกกระสาทองเหลือง (ส่งออก `game/art/characters/heron.glb`):
+```bash
+/Applications/Blender.app/Contents/MacOS/Blender --background --python blender/build_heron.py
+```
+ศัตรู N09 หมาป่าป่าไม้ (ส่งออก `game/art/characters/wolf.glb`):
+```bash
+/Applications/Blender.app/Contents/MacOS/Blender --background --python blender/build_wolf.py
+```
+บอส B01 จระเข้หม้อไอน้ำ และ B03 กวางป่า (ส่งออก `game/art/characters/croc.glb` / `deer.glb`):
+```bash
+/Applications/Blender.app/Contents/MacOS/Blender --background --python blender/build_croc.py
+```
+```bash
+/Applications/Blender.app/Contents/MacOS/Blender --background --python blender/build_deer.py
+```
 
 - **โครงสร้างโมเดล Blender 3D สไตล์ SD Steampunk (`vesper_warrior.blend` / `vesper_warrior.glb`)**:
   - ออกแบบสัดส่วนสไตล์ **SD (Super-Deformed ~2.2 หัว)** สำหรับตัวละคร Steampunk Warrior: ศีรษะและดวงตากลมโตอ่านอารมณ์ชัด ลำตัวกะทัดรัดพร้อมกระเป๋าคาดเอว ปลอกแขน/ปลอกขาทรงบาน (Flared Gauntlets & Greaves) ฝาครอบข้อเท้าทรงกลม รองเท้าบูทฐานกว้างมั่นคง และอาวุธ/ถังไอน้ำขนาดใหญ่พิเศษ (Oversized Silhouette)

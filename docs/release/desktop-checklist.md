@@ -1,3 +1,13 @@
+## 0.2.1 — 3 November 2026
+
+Built from commit `50f990b` in a clean worktree, so uncommitted work in the main checkout is not included. Contains the P0 fixes from [the completion plan](../superpowers/plans/2026-11-03-completion-plan.md): drop tables, the combat title card, the pause menu with back-to-title and quit, and the class screen.
+
+- Tests in the build worktree: 1200 passed, 0 failed. In the main checkout, every renderer smoke test passed (playable 12, controls 23, transitions 78, plus settlement, combat_timing, feedback, overflow, audio, and save restart write and read).
+- macOS: `codesign --verify --deep --strict` passes (ad-hoc signature). The exported binary was launched and stayed running for 10 seconds with no console errors. It was not played by hand, because UI control of the app was declined. The user's saves were backed up first and confirmed unchanged afterwards.
+- Windows: the `.exe` and `.pck` exported with no errors. They have not been run on Windows.
+- PCK: 122 resource paths, with no tests, builds, research or SWF. It is 54.5 MB (0.2.0 was 10 MB) because the 24 room and rim backdrops added on 3 November are about 2 MB each.
+- Hashes are in `SHA256SUMS.txt`.
+
 Current release:0.1.1. The user-reported keyboard room-transition defect in0.1.0is fixed and separately verified; see [hotfix evidence](0.1.1-transition-hotfix.md). Prior0.1.0acceptance below is historical and did not cover that input path.
 
 # Steampunk Warrior0.1.0 — desktop acceptance

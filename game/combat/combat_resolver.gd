@@ -134,10 +134,14 @@ func apply_action(state: Dictionary, action: Dictionary, rng: RandomNumberGenera
 			var target := _actor(next, target_id)
 			if effects.has("power"):
 				var was_wet: bool = target.get("statuses", {}).has("Wet")
+				var landed := false
 				for _hit in range(int(effects.get("hits", 1))):
 					if target.hp <= 0:
 						break
-					_damage(actor, target, effects, rank_scale, rng, events, commit_id)
+					landed = _damage(actor, target, effects, rank_scale, rng, events, commit_id) or landed
+				if not landed:
+					# A dodged blow carries none of its riders (marks, status, stagger).
+					continue
 				if effects.has("marked_multiplier"):
 					target.get("statuses", {}).erase("Marked")
 				if effects.get("stagger_wet", false) and was_wet and target.hp > 0:
@@ -228,8 +232,27 @@ func _heal(target: Dictionary, amount: int, events: Array, commit_id: String) ->
 	target.hp = mini(int(target.max_hp), before + amount)
 	_emit(events, commit_id, "heal", {"target_id":target.id,"amount":target.hp - before})
 
-func _damage(source: Dictionary, target: Dictionary, effects: Dictionary, rank_scale: float, rng: RandomNumberGenerator, events: Array, commit_id: String) -> void:
+# Percent chance a blow from source lands on target: accuracy minus evasion, 15..100 (100 = no roll).
+static func hit_chance(source: Dictionary, target: Dictionary) -> int:
+	return clampi(int(source.get("accuracy", 100)) - int(target.get("evasion", 0)), 15, 100)
+
+# Damage after armor (physical) or resist (tech), less the attacker's pierce/focus, before variance.
+static func defended(source: Dictionary, target: Dictionary, type: String, effects: Dictionary = {}) -> float:
+	var defense: float = float(target.get("armor", 0) if type == "physical" else target.get("resist", 0))
+	if type == "physical":
+		if target.get("statuses", {}).has("Corroded"):
+			defense *= 0.75
+		defense *= 1.0 - float(effects.get("armor_ignore", 0.0))
+	defense -= float(source.get("pierce", 0) if type == "physical" else source.get("focus", 0))
+	return 100.0 / (100.0 + maxf(0.0, defense))
+
+func _damage(source: Dictionary, target: Dictionary, effects: Dictionary, rank_scale: float, rng: RandomNumberGenerator, events: Array, commit_id: String) -> bool:
 	var type: String = effects.get("damage_type", "physical")
+	var chance := hit_chance(source, target)
+	if chance < 100 and rng.randi_range(1, 100) > chance:
+		source["vent_bonus"] = false
+		_emit(events, commit_id, "miss", {"source_id":source.id,"target_id":target.id})
+		return false
 	var stat: float = float(source.get("attack", 1) if type == "physical" else source.get("tech", 1))
 	var raw: float = float(effects.get("power", 1.0)) * stat * rank_scale
 	var statuses: Dictionary = target.get("statuses", {})
@@ -241,12 +264,7 @@ func _damage(source: Dictionary, target: Dictionary, effects: Dictionary, rank_s
 		raw *= float(effects.get("low_hp_multiplier", 1.0))
 	if type == "electric" and statuses.has("Wet"):
 		raw *= 1.25
-	var defense: float = float(target.get("armor", 0) if type == "physical" else target.get("resist", 0))
-	if type == "physical":
-		if statuses.has("Corroded"):
-			defense *= 0.75
-		defense *= 1.0 - float(effects.get("armor_ignore", 0.0))
-	var amount := maxi(1, int(floor(raw * 100.0 / (100.0 + maxf(0.0, defense)) * rng.randf_range(0.95, 1.05))))
+	var amount := maxi(1, int(floor(raw * defended(source, target, type, effects) * rng.randf_range(0.95, 1.05))))
 	if statuses.has("Guard"):
 		amount = maxi(1, int(floor(amount * 0.5)))
 	var shielded: bool = target.get("barrier", 0) > 0
@@ -259,6 +277,7 @@ func _damage(source: Dictionary, target: Dictionary, effects: Dictionary, rank_s
 		target.hp = maxi(0, int(target.hp) - amount)
 	source["vent_bonus"] = false
 	_emit(events, commit_id, "damage", {"source_id":source.id,"target_id":target.id,"amount":amount,"shielded":shielded,"type":type})
+	return true
 
 
 func _fp_cost(actor: Dictionary, skill: Dictionary) -> int:

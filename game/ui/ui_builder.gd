@@ -150,7 +150,7 @@ static func skill_description(skill: Dictionary, preview: Dictionary, rank: int)
 	return "\n".join(lines)
 
 static func item_description(item: Dictionary) -> String:
-	var names := {"attack":"โจมตี","tech":"เทค","max_hp":"HP","max_fp":"FP","armor":"เกราะ","resist":"ต้านทาน","barrier":"โล่","initiative":"ความเร็ว"}
+	var names := {"attack":"โจมตี","tech":"เทค","max_hp":"HP","max_fp":"FP","armor":"เกราะ","resist":"ต้านทาน","barrier":"โล่","initiative":"ความเร็ว","accuracy":"แม่นยำ","evasion":"หลบ","pierce":"เจาะเกราะ","focus":"เจาะต้านทาน"}
 	var parts: Array[String] = []
 	for key in item.bonuses:
 		if item.bonuses[key] != 0: parts.append("%s %+d" % [names.get(key,key),item.bonuses[key]])

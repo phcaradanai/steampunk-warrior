@@ -56,7 +56,7 @@ func derive(player: Dictionary, content: Dictionary) -> Dictionary:
 	var base: Dictionary = player.get("base_attributes", {})
 	var grown: int = maxi(0, int(player.get("level", 1)) - 1)
 	var upgrades: Dictionary = player.get("upgrades", {})
-	var stats: Dictionary = {"max_hp":20 + 6 * int(base.get("VIT", 0)) + LEVEL_HP * grown,"max_fp":20 + 4 * int(base.get("INT", 0)) + LEVEL_FP * grown,"attack":5 + 2 * int(base.get("STR", 0)),"tech":5 + 2 * int(base.get("INT", 0)),"initiative":10 + int(base.get("AGI", 0)),"armor":0,"resist":0,"barrier":20 if player.get("class_id", "") == "C01" else 0,"equipment_specials":[]}
+	var stats: Dictionary = {"max_hp":20 + 6 * int(base.get("VIT", 0)) + LEVEL_HP * grown,"max_fp":20 + 4 * int(base.get("INT", 0)) + LEVEL_FP * grown,"attack":5 + 2 * int(base.get("STR", 0)),"tech":5 + 2 * int(base.get("INT", 0)),"initiative":10 + int(base.get("AGI", 0)),"armor":0,"resist":0,"accuracy":90 + 2 * int(base.get("AGI", 0)),"evasion":int(base.get("AGI", 0)),"pierce":0,"focus":0,"barrier":20 if player.get("class_id", "") == "C01" else 0,"equipment_specials":[]}
 	for id in player.get("equipment", {}).values():
 		var item := _entry("items", str(id), content)
 		var bonuses: Dictionary = upgrade_bonuses(item, int(upgrades.get(str(id), 0)))

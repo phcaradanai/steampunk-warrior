@@ -561,7 +561,7 @@ func _choose_dialogue(node_id: String, choice_id: String) -> void:
 		_show_dialogue(node_id)
 
 const TIER_COLORS := ["8a9490","6fbf73","5ab4e0","b07ce0","e3b858"]
-const STAT_NAMES := {"attack":"โจมตี","tech":"เทค","max_hp":"HP","max_fp":"FP","armor":"เกราะ","resist":"ต้านทาน","barrier":"โล่","initiative":"ความเร็ว"}
+const STAT_NAMES := {"attack":"โจมตี","tech":"เทค","max_hp":"HP","max_fp":"FP","armor":"เกราะ","resist":"ต้านทาน","barrier":"โล่","initiative":"ความเร็ว","accuracy":"แม่นยำ","evasion":"หลบ","pierce":"เจาะเกราะ","focus":"เจาะต้านทาน"}
 var inv_pick: Dictionary = {}
 
 # Two panes like a mobile inventory: tiles on the left, the picked thing's detail and actions on the right.

@@ -35,14 +35,16 @@
     "kind": "mutant",
     "role": "quick",
     "boss": false,
-    "base_hp": 43,
+    "base_hp": 38,
     "attack": 10,
     "tech": 11,
     "armor": 12,
     "resist": 0,
     "initiative": 15,
     "barrier": 0,
-    "intent": "พุ่งเร็ว"
+    "intent": "พุ่งเร็ว",
+    "trait": "evasive",
+    "evasion": 35
   },
   {
     "id": "N04",
@@ -65,14 +67,15 @@
     "kind": "mutant",
     "role": "guard",
     "boss": false,
-    "base_hp": 49,
+    "base_hp": 36,
     "attack": 12,
     "tech": 13,
-    "armor": 4,
+    "armor": 90,
     "resist": 10,
     "initiative": 17,
     "barrier": 20,
-    "intent": "ตั้งโล่"
+    "intent": "ตั้งโล่",
+    "trait": "armored"
   },
   {
     "id": "N06",
@@ -110,14 +113,15 @@
     "kind": "mutant",
     "role": "wet",
     "boss": false,
-    "base_hp": 58,
+    "base_hp": 48,
     "attack": 15,
     "tech": 16,
     "armor": 0,
-    "resist": 10,
+    "resist": 90,
     "initiative": 13,
     "barrier": 0,
-    "intent": "พ่นของเหลว"
+    "intent": "พ่นของเหลว",
+    "trait": "warded"
   },
   {
     "id": "N09",
@@ -170,14 +174,15 @@
     "kind": "human",
     "role": "guard",
     "boss": false,
-    "base_hp": 70,
+    "base_hp": 50,
     "attack": 19,
     "tech": 20,
-    "armor": 0,
+    "armor": 110,
     "resist": 0,
     "initiative": 17,
     "barrier": 20,
-    "intent": "ตั้งโล่"
+    "intent": "ตั้งโล่",
+    "trait": "armored"
   },
   {
     "id": "N13",
@@ -215,14 +220,15 @@
     "kind": "human",
     "role": "electric",
     "boss": false,
-    "base_hp": 79,
+    "base_hp": 58,
     "attack": 22,
     "tech": 23,
     "armor": 12,
-    "resist": 0,
+    "resist": 180,
     "initiative": 13,
     "barrier": 0,
-    "intent": "ปล่อยอาร์ก"
+    "intent": "ปล่อยอาร์ก",
+    "trait": "warded"
   },
   {
     "id": "N16",
@@ -230,14 +236,16 @@
     "kind": "human",
     "role": "quick",
     "boss": false,
-    "base_hp": 82,
+    "base_hp": 70,
     "attack": 23,
     "tech": 24,
     "armor": 0,
     "resist": 5,
     "initiative": 14,
     "barrier": 0,
-    "intent": "พุ่งเร็ว"
+    "intent": "พุ่งเร็ว",
+    "trait": "evasive",
+    "evasion": 55
   },
   {
     "id": "N17",
@@ -275,14 +283,15 @@
     "kind": "human",
     "role": "charge",
     "boss": false,
-    "base_hp": 91,
+    "base_hp": 64,
     "attack": 26,
     "tech": 27,
-    "armor": 12,
+    "armor": 230,
     "resist": 5,
     "initiative": 17,
     "barrier": 0,
-    "intent": "ชาร์จแรงกระแทก"
+    "intent": "ชาร์จแรงกระแทก",
+    "trait": "armored"
   },
   {
     "id": "N20",
@@ -305,14 +314,15 @@
     "kind": "human",
     "role": "guard",
     "boss": false,
-    "base_hp": 80,
+    "base_hp": 56,
     "attack": 21,
     "tech": 22,
-    "armor": 12,
+    "armor": 200,
     "resist": 5,
     "initiative": 13,
     "barrier": 25,
-    "intent": "ตั้งแผ่นกดเหล็ก"
+    "intent": "ตั้งแผ่นกดเหล็ก",
+    "trait": "armored"
   },
   {
     "id": "N22",
@@ -335,14 +345,15 @@
     "kind": "human",
     "role": "electric",
     "boss": false,
-    "base_hp": 88,
+    "base_hp": 62,
     "attack": 25,
     "tech": 26,
     "armor": 12,
-    "resist": 5,
+    "resist": 230,
     "initiative": 17,
     "barrier": 0,
-    "intent": "ยิงอาร์กปฏิกรณ์"
+    "intent": "ยิงอาร์กปฏิกรณ์",
+    "trait": "warded"
   },
   {
     "id": "N24",
@@ -365,14 +376,16 @@
     "kind": "mutant",
     "role": "corrode",
     "boss": false,
-    "base_hp": 80,
+    "base_hp": 68,
     "attack": 26,
     "tech": 27,
     "armor": 0,
     "resist": 10,
     "initiative": 19,
     "barrier": 0,
-    "intent": "โปรยสปอร์กัดเกราะ"
+    "intent": "โปรยสปอร์กัดเกราะ",
+    "trait": "evasive",
+    "evasion": 65
   },
   {
     "id": "N26",
@@ -380,14 +393,15 @@
     "kind": "human",
     "role": "charge",
     "boss": false,
-    "base_hp": 95,
+    "base_hp": 66,
     "attack": 27,
     "tech": 28,
-    "armor": 14,
+    "armor": 260,
     "resist": 8,
     "initiative": 16,
     "barrier": 0,
-    "intent": "ชาร์จแรงกระแทกเอเธอร์"
+    "intent": "ชาร์จแรงกระแทกเอเธอร์",
+    "trait": "armored"
   },
   {
     "id": "B01",
@@ -420,14 +434,15 @@
     "base_hp": 300,
     "attack": 24,
     "tech": 24,
-    "armor": 16,
+    "armor": 140,
     "resist": 14,
     "initiative": 18,
     "barrier": 70,
     "phase_thresholds": [
       0.5
     ],
-    "intent": "ตั้งโล่ขบวน"
+    "intent": "ตั้งโล่ขบวน",
+    "trait": "armored"
   },
   {
     "id": "B03",
@@ -487,7 +502,9 @@
     "phase_thresholds": [
       0.5
     ],
-    "intent": "ตราประทับสลับคำสั่ง"
+    "intent": "ตราประทับสลับคำสั่ง",
+    "trait": "evasive",
+    "evasion": 35
   },
   {
     "id": "B06",
@@ -500,14 +517,15 @@
     "base_hp": 540,
     "attack": 44,
     "tech": 44,
-    "armor": 28,
-    "resist": 26,
+    "armor": 100,
+    "resist": 120,
     "initiative": 22,
     "barrier": 130,
     "phase_thresholds": [
       0.75,
       0.4
     ],
-    "intent": "เปิดสนามเอเธอร์"
+    "intent": "เปิดสนามเอเธอร์",
+    "trait": "warded"
   }
 ]

@@ -24,6 +24,7 @@ func run(t) -> bool:
 	t.check(state == before,"resolver does not mutate caller state")
 	var duplicate: Dictionary = resolver.apply_action(result.state,command(),rng)
 	t.check(not duplicate.ok and duplicate.state == result.state,"duplicate commit cannot apply twice")
+	_hit_and_pierce(t, resolver)
 	var catalog = load("res://core/content_catalog.gd").new()
 	catalog.load_all("res://data")
 	state = fixture()
@@ -178,3 +179,31 @@ func run(t) -> bool:
 	t.check(preview.duration == 3,"biomechanist preview includes extended Wet duration")
 
 	return true
+
+# Accuracy against evasion decides how often blows land; pierce and focus cut through armor and resist.
+func _hit_and_pierce(t, resolver) -> void:
+	var hero := actor("hero","player")
+	var dodger := actor("enemy","enemy",10)
+	t.check(CombatResolver.hit_chance(hero, dodger) == 100,"ordinary foes are always hit (no roll)")
+	hero.accuracy = 100
+	dodger.evasion = 65
+	t.check(CombatResolver.hit_chance(hero, dodger) == 35,"evasion takes points off the hit chance")
+	dodger.evasion = 500
+	t.check(CombatResolver.hit_chance(hero, dodger) == 15,"a blow always keeps a 15% chance")
+	dodger.evasion = 65
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 7
+	var misses := 0
+	for i in 200:
+		var state := {"actors":[hero.duplicate(true),dodger.duplicate(true)],"round":1,"acted_ids":[],"action_ids":[],"drone":{}}
+		var result: Dictionary = resolver.apply_action(state,command("h%d" % i),rng)
+		if result.events.any(func(e): return e.type == "miss"): misses += 1
+	t.check(misses > 100 and misses < 160,"about 65%% of blows miss a 65-evasion foe (%d/200)" % misses)
+	var plated := actor("enemy","enemy",10)
+	plated.armor = 200
+	var plain := CombatResolver.defended(hero, plated, "physical")
+	hero.pierce = 150
+	t.check(CombatResolver.defended(hero, plated, "physical") >= plain * 2.0,"pierce at least doubles damage through heavy plate")
+	t.check(CombatResolver.defended({"pierce":999}, plated, "physical") == 1.0,"pierce never turns armor into a bonus")
+	plated.resist = 200
+	t.check(CombatResolver.defended({"focus":150}, plated, "electric") >= CombatResolver.defended({}, plated, "electric") * 2.0,"focus does the same against resist")

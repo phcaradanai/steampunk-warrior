@@ -136,4 +136,17 @@ func _pipe_round_trip(t, catalog) -> void:
 	combat.start("E06",session.snapshot(),5,"P01")
 	t.check(session.commit_result("battle_lost",combat.result_payload()).ok,"pipe defeat settles")
 	t.check(session.state.room_id == "R01" and world.pipe_next(world.pipe("P01"),session.state) == "E06" and world.pipe_next(world.pipe("P02"),session.state) == "E08","defeat returns to the hub with both lines intact")
+	# Potions are consumables: drunk in a lost or abandoned fight they stay gone, and no result can add any.
+	var stock: int = int(session.state.player.potions.life)
+	combat = CombatController.new(catalog.data)
+	combat.start("E06",session.snapshot(),5,"P01")
+	var spent := combat.result_payload()
+	spent.potions = {"life":stock - 2,"focus":int(session.state.player.potions.focus)}
+	t.check(session.commit_result("battle_lost",spent).ok and int(session.state.player.potions.life) == stock - 2,"potions used in a lost fight are not refilled")
+	combat = CombatController.new(catalog.data)
+	combat.start("E06",session.snapshot(),5,"P01")
+	var forged := combat.result_payload()
+	forged.potions = {"life":99,"focus":99}
+	session.commit_result("retreat",forged)
+	t.check(int(session.state.player.potions.life) == stock - 2,"a fight result can never add potions")
 	for filename in DirAccess.get_files_at(saves.directory): DirAccess.remove_absolute(saves.directory.path_join(filename))

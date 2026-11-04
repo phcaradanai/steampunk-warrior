@@ -62,7 +62,7 @@ func start(encounter_id: String, progress: Dictionary, seed_value: int = 1, pipe
 		var definition := _entry("enemies", encounter.enemies[i])
 		var scale: float = float(encounter.scale)
 		var hp := int(ceil(float(definition.base_hp) * scale))
-		var actor: Dictionary = {"id":"enemy" + str(i),"definition_id":definition.id,"name":definition.name,"side":"enemy","role":definition.role,"boss":definition.boss,"hp":hp,"max_hp":hp,"fp":999,"max_fp":999,"attack":int(ceil(float(definition.attack) * scale)),"tech":int(ceil(float(definition.tech) * scale)),"armor":definition.armor,"resist":definition.resist,"initiative":definition.initiative,"barrier":definition.barrier,"pressure":0,"statuses":{},"cooldowns":{},"phase":0,"phase_thresholds":definition.get("phase_thresholds", [])}
+		var actor: Dictionary = {"id":"enemy" + str(i),"definition_id":definition.id,"name":definition.name,"side":"enemy","role":definition.role,"boss":definition.boss,"hp":hp,"max_hp":hp,"fp":999,"max_fp":999,"attack":int(ceil(float(definition.attack) * scale)),"tech":int(ceil(float(definition.tech) * scale)),"armor":definition.armor,"resist":definition.resist,"accuracy":definition.get("accuracy",100),"evasion":definition.get("evasion",0),"trait":definition.get("trait",""),"initiative":definition.initiative,"barrier":definition.barrier,"pressure":0,"statuses":{},"cooldowns":{},"phase":0,"phase_thresholds":definition.get("phase_thresholds", [])}
 		if definition.id == "B01" and progress.world_flags.get("objective:water_valve", false):
 			actor.attack = int(ceil(actor.attack * 0.8))
 		if definition.id == "B04" and progress.world_flags.get("environment:furnace_coolant",false):

@@ -6,6 +6,8 @@ var catalog: ContentCatalog
 var policy: WorldController
 var technical: bool
 const UPGRADE_RESERVE := 10
+# Starter-gear run: never buys, equips or upgrades gear (potions still bought).
+var starter_only := false
 
 func commit(kind: String, payload: Dictionary = {}) -> Dictionary:
 	serial += 1
@@ -29,6 +31,13 @@ func prepare(destination: String) -> bool:
 	for entry in priorities:
 		while session.state.player.skill_points > 0 and int(session.state.player.skill_ranks.get(entry[0],0)) < entry[1]:
 			if not commit("learn_skill",{"skill_id":entry[0]}).ok: break
+	# Gear is chosen for the room ahead: lenses against dodgers, pierce against plate, focus against insulation.
+	var traits := {}
+	for encounter in catalog.data.encounters:
+		if encounter.room != destination: continue
+		for id in encounter.enemies: traits[catalog.get_entry("enemies",id).get("trait","")] = true
+	var weights := {"accuracy":4.0 if traits.has("evasive") else 0.3,"evasion":0.8,
+		"pierce":1.2 if traits.has("armored") and not technical else 0.2,"focus":1.2 if traits.has("warded") and technical else 0.2}
 	# Visit only already unlocked shops and use earned currency.
 	for shop in ["R02","R05","R07","R09","R11"]:
 		if int(shop.substr(1)) > int(destination.substr(1)): continue
@@ -40,11 +49,11 @@ func prepare(destination: String) -> bool:
 				if item.slot != slot or item.required_level > session.state.player.level: continue
 				if item.source != "shop:"+shop and not item.id in session.state.player.items: continue
 				var b: Dictionary = item.bonuses
-				var score: float = b.get("tech" if technical else "attack",0)*3+b.get("barrier",0)*0.5+b.get("max_hp",0)*0.4+b.get("armor",0)+b.get("resist",0)+b.get("max_fp",0)*0.5
+				var score: float = _gear_score(b,weights)
 				var equipped: Dictionary = catalog.get_entry("items",session.state.player.equipment[slot])
 				var eb: Dictionary = equipped.bonuses
-				var old: float = eb.get("tech" if technical else "attack",0)*3+eb.get("barrier",0)*0.5+eb.get("max_hp",0)*0.4+eb.get("armor",0)+eb.get("resist",0)+eb.get("max_fp",0)*0.5
-				if score > maxf(best,old) and (item.id in session.state.player.items or session.state.player.currency >= item.price):
+				var old: float = _gear_score(eb,weights)
+				if not starter_only and score > maxf(best,old) and (item.id in session.state.player.items or session.state.player.currency >= item.price):
 					chosen = item
 					best = score
 			if not chosen.is_empty():
@@ -61,7 +70,7 @@ func prepare(destination: String) -> bool:
 			if item.source.begins_with("shop:") and int(item.source.substr(6)) <= int(destination.substr(1)): newest = maxi(newest,int(item.required_level))
 		for slot in ["weapon","suit","shield","head"]:
 			var worn: String = session.state.player.equipment[slot]
-			if int(catalog.get_entry("items",worn).required_level) < newest: continue
+			if starter_only or int(catalog.get_entry("items",worn).required_level) < newest: continue
 			while true:
 				var cost := InventoryService.upgrade_cost(catalog.get_entry("items",worn),int(session.state.player.upgrades.get(worn,0)))
 				if cost < 0 or session.state.player.currency - cost < UPGRADE_RESERVE * InventoryService.potion_price(destination): break
@@ -72,6 +81,11 @@ func prepare(destination: String) -> bool:
 	if not travel("R01"): return false
 	if not commit("rest").ok: return false
 	return travel(destination)
+
+func _gear_score(b: Dictionary, weights: Dictionary) -> float:
+	var score: float = b.get("tech" if technical else "attack",0)*3+b.get("barrier",0)*0.5+b.get("max_hp",0)*0.4+b.get("armor",0)+b.get("resist",0)+b.get("max_fp",0)*0.5
+	for key in weights: score += b.get(key,0)*weights[key]
+	return score
 
 func choose_action(c: CombatController) -> Dictionary:
 	var hero: Dictionary = c._actor("hero")
@@ -114,9 +128,34 @@ func choose_action(c: CombatController) -> Dictionary:
 		else: skill = ""
 	return c.submit_player(kind,skill,enemy.id)
 
+# Plays the campaign once without retries; returns the first encounter lost, or "" if it was cleared.
+func _first_loss(profession_id: String) -> String:
+	session = GameSession.new(catalog.data)
+	session.new_game(profession_id)
+	policy = WorldController.new(catalog.data,session)
+	technical = profession_id in ["C03","C04","C05"]
+	for encounter in catalog.data.encounters:
+		if not prepare(encounter.room): return encounter.id
+		var c := CombatController.new(catalog.data)
+		if not c.start(encounter.id,session.snapshot(),123).ok: return encounter.id
+		for step in range(1800):
+			if c.is_finished(): break
+			if not (choose_action(c) if c.is_player_turn() else c.advance()).ok: break
+		if c.state.get("outcome","") != "victory": return encounter.id
+		var won := c.result_payload()
+		won["id"] = "starter-win:"+profession_id+":"+encounter.id
+		session.commit_result("battle_won",won)
+	return ""
+
 func run(t) -> bool:
 	catalog = ContentCatalog.new()
 	catalog.load_all("res://data")
+	# Gear has to matter: starter equipment alone (no grinding) stalls before the last two chapters.
+	starter_only = true
+	for profession_id in ["C01","C03"]:
+		var lost := _first_loss(profession_id)
+		t.check(not lost.is_empty() and int(lost.substr(1)) <= 27,"starter gear alone stalls by chapter five: "+profession_id+" lost at "+lost)
+	starter_only = false
 	for profession in catalog.data.classes:
 		var total_rounds := 0
 		session = GameSession.new(catalog.data)

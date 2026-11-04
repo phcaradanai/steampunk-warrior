@@ -78,11 +78,12 @@ func commit_result(kind: String, payload: Dictionary) -> Dictionary:
 		var stats := progression.derive(next.player, content)
 		next.player.current_hp = clampi(int(payload.get("current_hp", next.player.current_hp)), 1, int(stats.max_hp))
 		next.player.current_fp = clampi(int(payload.get("current_fp", next.player.current_fp)), 0, int(stats.max_fp))
-		if payload.has("potions"):
-			next.player.potions = payload.potions.duplicate(true)
+		_spend_potions(next.player, payload)
 		claim_reward = true
 		events.append({"id":id,"type":"battle_won","payload":{"encounter_id":encounter.id,"xp":xp,"gold":encounter.gold,"first":first,"drop":drop}})
 	elif kind == "battle_lost" or kind == "retreat":
+		# Potions drunk in a lost or abandoned fight are gone too; only HP/FP reset.
+		_spend_potions(next.player, payload)
 		var stats := progression.derive(next.player, content)
 		next.player.current_hp = stats.max_hp
 		next.player.current_fp = stats.max_fp
@@ -198,3 +199,11 @@ func _award_quest(session: Dictionary, quest_id: String) -> Dictionary:
 	events.append_array(growth.events)
 	events.append({"id":"quest:" + quest_id,"type":"quest_turned_in","payload":{"quest_id":quest_id,"xp":quest.xp,"gold":quest.gold,"item":quest.item}})
 	return {"ok":true,"reason":"","state":next,"events":events}
+
+# A fight can only use potions up, never add them.
+func _spend_potions(player: Dictionary, payload: Dictionary) -> void:
+	var left = payload.get("potions", {})
+	if not left is Dictionary: return
+	for potion in ["life", "focus"]:
+		if left.has(potion):
+			player.potions[potion] = clampi(int(left[potion]), 0, int(player.potions.get(potion, 0)))

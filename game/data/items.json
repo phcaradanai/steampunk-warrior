@@ -44,7 +44,8 @@
     "bonuses": {
       "attack": 5,
       "tech": 5,
-      "initiative": 1
+      "initiative": 1,
+      "accuracy": 15
     },
     "special": "",
     "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
@@ -78,7 +79,8 @@
     "bonuses": {
       "attack": 0,
       "tech": 9,
-      "initiative": -2
+      "initiative": -2,
+      "focus": 20
     },
     "special": "",
     "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
@@ -95,7 +97,8 @@
     "bonuses": {
       "attack": 3,
       "tech": 3,
-      "initiative": 4
+      "initiative": 4,
+      "pierce": 20
     },
     "special": "",
     "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
@@ -112,7 +115,8 @@
     "bonuses": {
       "attack": 14,
       "tech": 2,
-      "initiative": 0
+      "initiative": 0,
+      "pierce": 35
     },
     "special": "",
     "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
@@ -129,7 +133,8 @@
     "bonuses": {
       "attack": 2,
       "tech": 14,
-      "initiative": 0
+      "initiative": 0,
+      "accuracy": 20
     },
     "special": "",
     "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
@@ -163,7 +168,8 @@
     "bonuses": {
       "attack": 18,
       "tech": 0,
-      "initiative": -2
+      "initiative": -2,
+      "pierce": 45
     },
     "special": "",
     "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
@@ -180,7 +186,8 @@
     "bonuses": {
       "attack": 0,
       "tech": 18,
-      "initiative": -2
+      "initiative": -2,
+      "accuracy": 20
     },
     "special": "",
     "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
@@ -197,7 +204,8 @@
     "bonuses": {
       "attack": 21,
       "tech": 3,
-      "initiative": 0
+      "initiative": 0,
+      "pierce": 80
     },
     "special": "",
     "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
@@ -214,7 +222,8 @@
     "bonuses": {
       "attack": 3,
       "tech": 21,
-      "initiative": 0
+      "initiative": 0,
+      "focus": 70
     },
     "special": "",
     "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
@@ -248,7 +257,8 @@
     "bonuses": {
       "attack": 27,
       "tech": 0,
-      "initiative": -2
+      "initiative": -2,
+      "accuracy": 30
     },
     "special": "",
     "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
@@ -265,7 +275,8 @@
     "bonuses": {
       "attack": 0,
       "tech": 27,
-      "initiative": -2
+      "initiative": -2,
+      "focus": 70
     },
     "special": "",
     "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
@@ -282,7 +293,8 @@
     "bonuses": {
       "attack": 28,
       "tech": 4,
-      "initiative": 0
+      "initiative": 0,
+      "pierce": 100
     },
     "special": "",
     "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
@@ -299,7 +311,8 @@
     "bonuses": {
       "attack": 4,
       "tech": 28,
-      "initiative": 0
+      "initiative": 0,
+      "accuracy": 30
     },
     "special": "",
     "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
@@ -333,7 +346,8 @@
     "bonuses": {
       "attack": 36,
       "tech": 0,
-      "initiative": -2
+      "initiative": -2,
+      "pierce": 130
     },
     "special": "",
     "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
@@ -350,7 +364,8 @@
     "bonuses": {
       "attack": 0,
       "tech": 36,
-      "initiative": -2
+      "initiative": -2,
+      "focus": 120
     },
     "special": "",
     "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
@@ -367,7 +382,8 @@
     "bonuses": {
       "attack": 35,
       "tech": 5,
-      "initiative": 0
+      "initiative": 0,
+      "accuracy": 40
     },
     "special": "",
     "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
@@ -384,7 +400,8 @@
     "bonuses": {
       "attack": 5,
       "tech": 35,
-      "initiative": 0
+      "initiative": 0,
+      "focus": 140
     },
     "special": "",
     "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
@@ -418,7 +435,8 @@
     "bonuses": {
       "attack": 45,
       "tech": 0,
-      "initiative": -2
+      "initiative": -2,
+      "pierce": 150
     },
     "special": "",
     "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
@@ -435,7 +453,8 @@
     "bonuses": {
       "attack": 0,
       "tech": 45,
-      "initiative": -2
+      "initiative": -2,
+      "focus": 120
     },
     "special": "vent_breaker",
     "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
@@ -489,7 +508,8 @@
       "barrier": 23,
       "armor": 1,
       "resist": 5,
-      "initiative": 1
+      "initiative": 1,
+      "evasion": 4
     },
     "special": "",
     "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
@@ -525,7 +545,8 @@
       "barrier": 39,
       "armor": 6,
       "resist": 4,
-      "initiative": 0
+      "initiative": 0,
+      "evasion": 8
     },
     "special": "",
     "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
@@ -579,7 +600,8 @@
       "barrier": 51,
       "armor": 9,
       "resist": 6,
-      "initiative": 0
+      "initiative": 0,
+      "evasion": 10
     },
     "special": "",
     "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
@@ -651,7 +673,8 @@
       "barrier": 63,
       "armor": 12,
       "resist": 8,
-      "initiative": 0
+      "initiative": 0,
+      "evasion": 14
     },
     "special": "",
     "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
@@ -741,7 +764,8 @@
       "barrier": 55,
       "armor": 5,
       "resist": 25,
-      "initiative": 1
+      "initiative": 1,
+      "evasion": 18
     },
     "special": "",
     "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
@@ -758,7 +782,8 @@
     "bonuses": {
       "max_fp": 5,
       "initiative": 3,
-      "resist": 2
+      "resist": 2,
+      "accuracy": 10
     },
     "special": "",
     "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
@@ -790,7 +815,8 @@
     "bonuses": {
       "max_fp": 10,
       "initiative": 3,
-      "resist": 4
+      "resist": 4,
+      "focus": 25
     },
     "special": "",
     "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
@@ -806,7 +832,8 @@
     "bonuses": {
       "max_fp": 14,
       "initiative": 2,
-      "resist": 6
+      "resist": 6,
+      "accuracy": 30
     },
     "special": "",
     "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
@@ -838,7 +865,8 @@
     "bonuses": {
       "max_fp": 21,
       "initiative": 2,
-      "resist": 9
+      "resist": 9,
+      "focus": 50
     },
     "special": "",
     "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
@@ -854,7 +882,8 @@
     "bonuses": {
       "max_fp": 20,
       "initiative": 3,
-      "resist": 8
+      "resist": 8,
+      "accuracy": 45
     },
     "special": "",
     "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
@@ -886,7 +915,8 @@
     "bonuses": {
       "max_fp": 25,
       "initiative": 3,
-      "resist": 10
+      "resist": 10,
+      "accuracy": 60
     },
     "special": "",
     "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
@@ -902,7 +932,8 @@
     "bonuses": {
       "max_fp": 35,
       "initiative": 2,
-      "resist": 15
+      "resist": 15,
+      "focus": 60
     },
     "special": "",
     "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
@@ -934,7 +965,8 @@
     "bonuses": {
       "max_hp": 8,
       "armor": 2,
-      "resist": 6
+      "resist": 6,
+      "evasion": 6
     },
     "special": "",
     "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
@@ -966,7 +998,8 @@
     "bonuses": {
       "max_hp": 16,
       "armor": 4,
-      "resist": 12
+      "resist": 12,
+      "evasion": 14
     },
     "special": "",
     "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
@@ -998,7 +1031,8 @@
     "bonuses": {
       "max_hp": 24,
       "armor": 6,
-      "resist": 18
+      "resist": 18,
+      "evasion": 22
     },
     "special": "",
     "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
@@ -1030,7 +1064,8 @@
     "bonuses": {
       "max_hp": 32,
       "armor": 8,
-      "resist": 24
+      "resist": 24,
+      "evasion": 30
     },
     "special": "",
     "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"

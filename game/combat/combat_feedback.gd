@@ -72,6 +72,8 @@ func play_events(events: Array, portraits: Dictionary, options: Dictionary) -> v
 				if not melee: await _projectile(actor, target, payload)
 		elif event.type in ["damage","heal"] and portraits.has(payload.target_id):
 			_impact(event, portraits)
+		elif event.type == "miss" and portraits.has(payload.target_id):
+			_miss(portraits[payload.target_id], portraits.get(payload.get("source_id","")))
 		index += 1
 	if mover != null and is_instance_valid(mover) and is_inside_tree():
 		await get_tree().create_timer(recover + HOLD).timeout
@@ -82,7 +84,7 @@ func _first_target(events: Array, from: int, actor_id: String, portraits: Dictio
 	for i in range(from+1, events.size()):
 		var payload: Dictionary = events[i].payload
 		if events[i].type == "action": break
-		if events[i].type == "damage" and payload.get("source_id","") == actor_id and payload.target_id != actor_id and portraits.has(payload.target_id):
+		if events[i].type in ["damage","miss"] and payload.get("source_id","") == actor_id and payload.target_id != actor_id and portraits.has(payload.target_id):
 			return portraits[payload.target_id]
 	return null
 
@@ -153,6 +155,21 @@ func _projectile(actor: ActorPortrait, target: ActorPortrait, _payload: Dictiona
 
 func _anchor(portrait: ActorPortrait, height: float) -> Vector2:
 	return portrait.global_position-global_position+Vector2(portrait.size.x*.5, portrait.get_meta("feet",portrait.size.y)*height)
+
+# A dodged blow: the target sidesteps away from the attacker and "พลาด!" floats up; no damage, no flash.
+func _miss(target: ActorPortrait, source: ActorPortrait) -> void:
+	if is_inside_tree(): get_tree().call_group("game_audio","play_sfx","whoosh")
+	var away := 1.0 if source == null or source.position.x < target.position.x else -1.0
+	var step := target.create_tween()
+	step.tween_property(target,"motion_offset",Vector2(26*away,-4),.1).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	step.tween_property(target,"motion_offset",Vector2.ZERO,.22).set_trans(Tween.TRANS_SINE)
+	var label := _label("พลาด!", 30, Color("d8e6dc"))
+	var point := _anchor(target, 0.35)
+	label.position = point - Vector2(40, 20)
+	var rise := label.create_tween().set_parallel(true)
+	rise.tween_property(label,"position:y",point.y-80,.55).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	rise.tween_property(label,"modulate:a",0.0,.25).set_delay(.3)
+	rise.chain().tween_callback(label.queue_free)
 
 func _sound(event: Dictionary) -> void:
 	if is_inside_tree(): get_tree().call_group("game_audio","combat_events",[event])

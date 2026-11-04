@@ -39,6 +39,10 @@ const HERO_FRAME := 300.0 # hero portrait height; bosses multiply it
 
 static func boss_scale(definition_id: String) -> float:
 	return BOSS_SCALE.get(definition_id, 1.5)
+# What each enemy build demands of the player, shown on its plate (short) and tooltip (full).
+const TRAIT_NAMES := {"evasive":["หลบไว","หลบไว: ตีโดนยาก ต้องเพิ่มแม่นยำ (AGI แว่นตา ปืน)"],
+	"armored":["เกราะหนา","เกราะหนา: เลือดน้อยแต่กันกายภาพ ใช้เจาะเกราะ (หอก ค้อน) หรือเทค"],
+	"warded":["ต้านเทค","ต้านเทค: กันเทคและไฟฟ้า ใช้กายภาพหรือเจาะต้านทาน (หน้ากาก อาวุธเทค)"]}
 const STATUS_NAMES := {"Wet":"เปียก","Heated":"ร้อนจัด","Corroded":"เกราะผุ","Marked":"ถูกหมายหัว","Staggered":"เสียจังหวะ","Sealed":"ปิดการฟื้นฟู","Haste":"เร่งจังหวะ","Guard":"ตั้งรับ"}
 
 func configure(active_controller: CombatController) -> void:
@@ -380,6 +384,9 @@ func _plates() -> void:
 					if actor.get("definition_id","") == "B04": extra.append("ความร้อน %d / 100" % actor.get("heat",0))
 					if actor.get("core_exposed",false): extra.append("แกนเปิด: เกราะและต้านทานลด55%")
 				if actor.get("intent",{}).has("following_label"): extra.append("ถัดไป: "+actor.intent.following_label)
+				if TRAIT_NAMES.has(actor.get("trait","")): extra.append(TRAIT_NAMES[actor.trait][0])
+				var chance := CombatResolver.hit_chance(_actor_by_id("hero"), actor)
+				if chance < 100: extra.append("ตีโดน %d%%" % chance)
 		var active: Array[String] = []
 		for status in actor.statuses:
 			active.append("%s %d" % [STATUS_NAMES.get(status,status),actor.statuses[status].turns])
@@ -393,7 +400,7 @@ func _plates() -> void:
 			info.clip_text = true
 		if actor.side == "enemy":
 			# Plates clip long text with an ellipsis; the full line is in the tooltip.
-			panel.tooltip_text = actor.get("name",actor.id) + "\n" + "\n".join(lines) + ("\n(แตะเพื่อเลือกเป้าหมาย)" if actor.hp > 0 else "")
+			panel.tooltip_text = actor.get("name",actor.id) + "\n" + "\n".join(lines) + ("\n" + TRAIT_NAMES[actor.trait][1] if TRAIT_NAMES.has(actor.get("trait","")) else "") + ("\n(แตะเพื่อเลือกเป้าหมาย)" if actor.hp > 0 else "")
 			for bar in [hp_bars.get(actor.id),barrier_bars.get(actor.id)]:
 				if bar != null: bar.mouse_filter = Control.MOUSE_FILTER_PASS
 
@@ -527,9 +534,10 @@ func _basic_tips(hero: Dictionary) -> Dictionary:
 	var target: Dictionary = {}
 	for actor in controller.state.actors:
 		if actor.id == selected_target: target = actor
-	var armor: float = float(target.get("armor",0)) * (0.75 if target.get("statuses",{}).has("Corroded") else 1.0)
-	var hit: float = float(hero.get("attack",1)) * 100.0 / (100.0 + armor)
+	var hit: float = float(hero.get("attack",1)) * CombatResolver.defended(hero,target,"physical")
 	var attack := "โจมตี %s: ประมาณ %d–%d ความเสียหายกายภาพ ไม่ใช้ FP" % [target.get("name","เป้าหมาย"),maxi(1,floor(hit*0.95)),maxi(1,floor(hit*1.05))]
+	var chance := CombatResolver.hit_chance(hero,target)
+	if chance < 100: attack += " · โอกาสโดน %d%%" % chance
 	if target.get("barrier",0) > 0: attack += " · โดนโล่ %d ก่อนถึงร่างกาย" % target.barrier
 	if target.get("statuses",{}).has("Guard"): attack += " · เป้ากำลังตั้งรับ ความเสียหายเหลือครึ่ง"
 	var life := int(ceil(float(hero.max_hp)*0.35))
@@ -620,3 +628,8 @@ func _focus_ready() -> void:
 		control = find_child("Basic_Attack",true,false)
 	if control != null:
 		control.grab_focus()
+
+func _actor_by_id(id: String) -> Dictionary:
+	for actor in controller.state.actors:
+		if actor.id == id: return actor
+	return {}

@@ -1,0 +1,314 @@
+{
+ "slots": [
+  [
+   350,
+   365
+  ],
+  [
+   590,
+   365
+  ],
+  [
+   110,
+   365
+  ],
+  [
+   830,
+   365
+  ],
+  [
+   470,
+   440
+  ],
+  [
+   350,
+   440
+  ],
+  [
+   590,
+   440
+  ],
+  [
+   230,
+   440
+  ],
+  [
+   710,
+   440
+  ],
+  [
+   110,
+   440
+  ],
+  [
+   830,
+   440
+  ]
+ ],
+ "rooms": {
+  "R02": {
+   "palette": "hub",
+   "center": "machine",
+   "props": [
+    {
+     "kind": "stall",
+     "rect": [
+      798,
+      347,
+      64,
+      36
+     ]
+    },
+    {
+     "kind": "crates",
+     "rect": [
+      438,
+      422,
+      64,
+      36
+     ]
+    }
+   ]
+  },
+  "R03": {
+   "palette": "canal",
+   "center": "machine",
+   "props": [
+    {
+     "kind": "barrels",
+     "rect": [
+      557,
+      422,
+      67,
+      36
+     ]
+    },
+    {
+     "kind": "sluice",
+     "rect": [
+      77,
+      422,
+      67,
+      36
+     ]
+    }
+   ]
+  },
+  "R04": {
+   "palette": "canal",
+   "center": "machine",
+   "props": [
+    {
+     "kind": "barrels",
+     "rect": [
+      315,
+      422,
+      70,
+      36
+     ]
+    },
+    {
+     "kind": "sluice",
+     "rect": [
+      795,
+      422,
+      70,
+      36
+     ]
+    }
+   ]
+  },
+  "R05": {
+   "palette": "rail",
+   "center": "travel",
+   "props": [
+    {
+     "kind": "cart",
+     "rect": [
+      794,
+      422,
+      73,
+      36
+     ]
+    },
+    {
+     "kind": "sacks",
+     "rect": [
+      74,
+      422,
+      73,
+      36
+     ]
+    }
+   ]
+  },
+  "R06": {
+   "palette": "rail",
+   "center": "machine",
+   "props": [
+    {
+     "kind": "cart",
+     "rect": [
+      792,
+      422,
+      76,
+      36
+     ]
+    },
+    {
+     "kind": "sacks",
+     "rect": [
+      72,
+      422,
+      76,
+      36
+     ]
+    }
+   ]
+  },
+  "R07": {
+   "palette": "garden",
+   "center": "travel",
+   "props": [
+    {
+     "kind": "planter",
+     "rect": [
+      551,
+      422,
+      79,
+      36
+     ]
+    },
+    {
+     "kind": "planter",
+     "rect": [
+      191,
+      422,
+      79,
+      36
+     ]
+    }
+   ]
+  },
+  "R08": {
+   "palette": "garden",
+   "center": "machine",
+   "props": [
+    {
+     "kind": "planter",
+     "rect": [
+      189,
+      422,
+      82,
+      36
+     ]
+    },
+    {
+     "kind": "planter",
+     "rect": [
+      789,
+      422,
+      82,
+      36
+     ]
+    }
+   ]
+  },
+  "R09": {
+   "palette": "coal",
+   "center": "travel",
+   "props": [
+    {
+     "kind": "heap",
+     "rect": [
+      548,
+      422,
+      85,
+      36
+     ]
+    },
+    {
+     "kind": "cart",
+     "rect": [
+      788,
+      422,
+      85,
+      36
+     ]
+    }
+   ]
+  },
+  "R10": {
+   "palette": "foundry",
+   "center": "machine",
+   "props": [
+    {
+     "kind": "anvil",
+     "rect": [
+      66,
+      422,
+      88,
+      36
+     ]
+    },
+    {
+     "kind": "crucible",
+     "rect": [
+      546,
+      422,
+      88,
+      36
+     ]
+    }
+   ]
+  },
+  "R11": {
+   "palette": "archive",
+   "center": "travel",
+   "props": [
+    {
+     "kind": "shelf",
+     "rect": [
+      665,
+      422,
+      91,
+      36
+     ]
+    },
+    {
+     "kind": "desk",
+     "rect": [
+      185,
+      422,
+      91,
+      36
+     ]
+    }
+   ]
+  },
+  "R12": {
+   "palette": "reactor",
+   "center": "machine",
+   "props": [
+    {
+     "kind": "coil",
+     "rect": [
+      63,
+      422,
+      94,
+      36
+     ]
+    },
+    {
+     "kind": "coil",
+     "rect": [
+      543,
+      422,
+      94,
+      36
+     ]
+    }
+   ]
+  }
+ }
+}

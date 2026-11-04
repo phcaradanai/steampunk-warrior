@@ -6,6 +6,9 @@ var mirror: bool = false
 var alive: bool = true
 var motion_offset := Vector2.ZERO
 var elapsed: float = 0.0
+var hero: Stage3D
+# Pixels of the 3D frame that sit above this control (bosses are tall; the control stays below the title card).
+var crop_top: float = 0.0
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -13,9 +16,18 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	elapsed += delta
+	if hero != null:
+		hero.size = size + Vector2(0,crop_top)
+		hero.position = motion_offset - Vector2(0,crop_top)
+		return
 	queue_redraw()
 
+func attach_hero(stage: Stage3D) -> void:
+	hero = stage
+	add_child(stage)
+
 func _draw() -> void:
+	if hero != null: return
 	var data := ActorArt.mesh(actor_id)
 	if data.is_empty(): return
 	var height := minf(size.y-8,(size.x-8)*data.bounds.size.y/data.bounds.size.x)

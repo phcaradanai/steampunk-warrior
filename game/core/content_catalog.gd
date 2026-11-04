@@ -2,7 +2,7 @@ class_name ContentCatalog
 extends RefCounted
 
 const KINDS: Array[String] = ["classes", "skills", "items", "enemies", "encounters", "rooms", "training", "story"]
-const EXPECTED: Dictionary = {"classes": 5, "skills": 22, "items": 62, "enemies": 25, "encounters": 36, "rooms": 12, "training": 4}
+const EXPECTED: Dictionary = {"classes": 5, "skills": 22, "items": 62, "enemies": 32, "encounters": 36, "rooms": 12, "training": 4}
 var data: Dictionary = {}
 var load_errors: Array[String] = []
 
@@ -106,6 +106,15 @@ func validate_all() -> Array[String]:
 			errors.append("Invalid enemy count: " + encounter.id)
 		if not encounter.get("requires", "").is_empty() and get_entry("encounters", encounter.requires).is_empty():
 			errors.append("Unknown encounter prerequisite: " + encounter.id)
+		for item in encounter.get("drops", []):
+			if get_entry("items", item).is_empty():
+				errors.append("Unknown encounter drop: " + encounter.id)
+	for room in data.rooms:
+		for line in room.get("pipes", []):
+			if line.get("encounters", []).is_empty() or line.encounters.any(func(id): return get_entry("encounters", id).is_empty()):
+				errors.append("Invalid pipe line: " + str(line.get("id", "")))
+			elif not line.get("requires", "").is_empty() and get_entry("encounters", line.requires).is_empty():
+				errors.append("Unknown pipe gate: " + line.id)
 
 	var npc_ids: Array[String] = []
 	for npc in story.get("npcs", []):

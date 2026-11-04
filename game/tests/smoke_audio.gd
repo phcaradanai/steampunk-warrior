@@ -26,7 +26,7 @@ func _initialize() -> void:
  AudioServer.add_bus_effect(0,capture)
  var audio := GameAudio.new()
  root.add_child(audio)
- for id in ["city","combat","boss"]:
+ for id in GameAudio.MUSIC:
   capture.clear_buffer()
   audio.set_context(id)
   await create_timer(.85).timeout
@@ -39,6 +39,11 @@ func _initialize() -> void:
  capture.clear_buffer()
  await create_timer(.15).timeout
  check(energy(capture) < .0001,"music mute reaches actual mixed output")
+ for id in ["shot","charge","heavy","whoosh","burn","acid"]:
+  capture.clear_buffer()
+  audio.play_sfx(id)
+  await create_timer(.12).timeout
+  check(energy(capture) > .001,"new effect reaches the mixer: "+id)
  audio.play_sfx("metal")
  await create_timer(.1).timeout
  check(energy(capture) > .001,"sound effects play through SFX bus while music is muted")
@@ -52,5 +57,5 @@ func _initialize() -> void:
  settings.restore_defaults()
  audio.queue_free()
  await create_timer(.2).timeout
- print("Native audio smoke: ",failures," failures;3scores,ducking,independent mutes verified by mixed PCM")
+ print("Native audio smoke: ",failures," failures;10 scores,new effects,ducking,independent mutes verified by mixed PCM")
  quit(1 if failures > 0 else 0)

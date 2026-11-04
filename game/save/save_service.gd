@@ -2,7 +2,7 @@ class_name SaveService
 extends RefCounted
 
 const SLOTS: Array[String] = ["manual01","manual02","manual03","autosave"]
-const VERSION: int = 1
+const VERSION: int = 2
 var content: Dictionary
 var directory: String
 
@@ -100,6 +100,15 @@ func validate_snapshot(snapshot: Dictionary) -> Array[String]:
 	for id in player.items + player.stash:
 		if not id is String or _entry("items",str(id)).is_empty():
 			errors.append("ไม่รู้จักอุปกรณ์ในเซฟ")
+	# Missing "upgrades" is a pre-upgrade save: no upgrades. Present, it must name owned gear with +1..+3.
+	var upgrades = player.get("upgrades", {})
+	if not upgrades is Dictionary:
+		errors.append("ข้อมูลอัปเกรดไม่ถูกต้อง")
+	else:
+		for id in upgrades:
+			var piece := _entry("items",str(id))
+			if piece.is_empty() or not piece.slot in ["weapon","shield","head","suit"] or not InventoryService.owns(player,str(id)) or not _whole(upgrades[id],1,Progression.MAX_UPGRADE):
+				errors.append("ข้อมูลอัปเกรดไม่ถูกต้อง")
 	for slot in player.equipment:
 		var item := _entry("items",str(player.equipment[slot]))
 		if not slot in ["weapon","shield","head","suit"] or item.is_empty() or item.get("slot", "") != slot or int(item.get("required_level",99)) > int(player.get("level",0)):
@@ -192,17 +201,55 @@ func _read(path: String) -> Dictionary:
 	if parser.parse(text) != OK or not parser.data is Dictionary:
 		return _failure("ไฟล์เซฟอ่านไม่สมบูรณ์ เลือกกู้ไฟล์สำรองได้")
 	var envelope: Dictionary = parser.data
-	if envelope.get("version",0) != VERSION:
+	var version = envelope.get("version",0)
+	if not _whole(version,1,VERSION):
+		if _whole(version,VERSION + 1,1000000):
+			return _failure("เซฟนี้มาจากเกมเวอร์ชันใหม่กว่า (v" + str(int(version)) + ") เกมนี้เปิดได้ถึง v" + str(VERSION) + " ไฟล์ปัจจุบันจะไม่ถูกแก้ไข")
 		return _failure("เซฟเป็นเวอร์ชันอื่น ไฟล์ปัจจุบันจะไม่ถูกแก้ไข")
 	if not envelope.get("data") is Dictionary:
 		return _failure("ข้อมูลเซฟขาดหาย")
 	if not _plain(envelope.data):
 		return _failure("โครงสร้างเซฟซับซ้อนหรือมีค่าที่ไม่รองรับ")
 	var canonical: Dictionary = _canonical_numbers(envelope.data)
+	if int(version) < VERSION:
+		canonical = _migrate(canonical)
 	var errors := validate_snapshot(canonical)
 	if not errors.is_empty():
 		return _failure("เซฟไม่ผ่านการตรวจ: " + errors[0])
 	return {"ok":true,"reason":"","state":canonical,"events":[],"saved_at":envelope.get("saved_at",0)}
+
+# v1 -> v2 (in memory only; the file is rewritten as v2 on the next save). Tolerates malformed input: validation reports it.
+func _migrate(data: Dictionary) -> Dictionary:
+	var player = data.get("player")
+	if not player is Dictionary:
+		return data
+	if not player.has("upgrades"):
+		player["upgrades"] = {}
+	var dropped := false
+	for key in ["items","stash"]:
+		if player.get(key) is Array:
+			var kept: Array = []
+			for id in player[key]:
+				if id is String and not _entry("items",id).is_empty():
+					kept.append(id)
+				else:
+					dropped = true
+			player[key] = kept
+	if player.get("equipment") is Dictionary:
+		for slot in player.equipment.keys():
+			var id = player.equipment[slot]
+			if not id is String or _entry("items",id).is_empty():
+				player.equipment.erase(slot)
+				dropped = true
+	if player.upgrades is Dictionary:
+		for id in player.upgrades.keys():
+			if not id is String or _entry("items",id).is_empty() or not InventoryService.owns(player,id):
+				player.upgrades.erase(id)
+	if dropped and player.get("current_hp") is int and player.get("current_fp") is int and player.get("base_attributes") is Dictionary and player.get("skill_ranks") is Dictionary and player.get("equipment") is Dictionary:
+		var stats := Progression.new(content).derive(player,content)
+		player["current_hp"] = mini(player.current_hp,int(stats.max_hp))
+		player["current_fp"] = mini(player.current_fp,int(stats.max_fp))
+	return data
 
 func _write_temp(path: String, text: String) -> bool:
 	if DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(path)):

@@ -45,7 +45,7 @@ func run(t) -> bool:
 		controller.advance()
 	controller.end_training()
 	result = session.commit_result("training_settle",controller.result_payload())
-	t.check(result.ok and result.state.player.xp == 44 and result.state.player.current_hp == 104,"training settles earnedXP without leaking practice HP or loaner FP")
+	t.check(result.ok and result.state.player.xp == 14 and result.state.player.current_hp == 104,"training settles earnedXP without leaking practice HP or loaner FP")
 	var settled: Dictionary = session.snapshot()
 	result = session.commit_result("training_settle",controller.result_payload())
 	t.check(not result.ok and session.snapshot() == settled,"training run cannot settle twice")

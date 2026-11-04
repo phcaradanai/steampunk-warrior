@@ -39,11 +39,17 @@ func _initialize() -> void:
 		return
 	profession.pressed.emit()
 	await process_frame
+	check(scene.find_child("StoryScreen",true,false) != null and scene.find_child("StorySkip",true,false) != null,"class choice opens the intro pages with a skip button")
+	scene.find_child("StorySkip",true,false).pressed.emit()
+	await process_frame
+	check(scene.find_child("StoryScreen",true,false) == null and not scene.world.blocked,"skipping the intro hands control to the world")
+	for chapter in scene.catalog.data.story.chapters: scene.session.state.world_flags["story:open:" + chapter.id] = true # chapter pages are covered by smoke_story
 	await capture("world")
 	check(scene.screen_mode == "world" and scene.session.state.room_id == "R01","selected character enters actual world")
 	var position_before: Vector2 = scene.world.player.position
 	Input.action_press("move_right")
-	for _i in range(20):
+	# 30 ticks: at 2px per physics tick, 20 ticks lands exactly on the 40px threshold.
+	for _i in range(30):
 		await physics_frame
 	Input.action_release("move_right")
 	check(scene.world.player.position.x > position_before.x + 40,"CharacterBody moves with actual InputMap in physics frames")
@@ -56,7 +62,9 @@ func _initialize() -> void:
 		var interact = scene.find_child("Interact",true,false)
 		check(interact != null and not interact.disabled,"nearby exit enables real interaction control")
 		interact.pressed.emit()
-		await process_frame
+		for _i in range(120):
+			if scene.session.state.room_id == room_id and scene.world != null and scene.world.room.id == room_id: break
+			await process_frame
 		check(scene.session.state.room_id == room_id,"actual exit travels to " + room_id)
 	for marker in scene.world.markers:
 		if marker.kind == "encounter" and marker.id == "E01":
@@ -72,7 +80,8 @@ func _initialize() -> void:
 		return
 	confirm.pressed.emit()
 	await capture("combat")
-	for _step in range(160):
+	# Time budget, not a rule: ~8.5 s of real-time fight with title card and contact-synced clips.
+	for _step in range(400):
 		await create_timer(0.05).timeout
 		if scene.screen_mode == "world":
 			break

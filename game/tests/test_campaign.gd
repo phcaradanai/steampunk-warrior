@@ -5,6 +5,7 @@ var session: GameSession
 var catalog: ContentCatalog
 var policy: WorldController
 var technical: bool
+const UPGRADE_RESERVE := 10
 
 func commit(kind: String, payload: Dictionary = {}) -> Dictionary:
 	serial += 1
@@ -50,9 +51,24 @@ func prepare(destination: String) -> bool:
 				if not chosen.id in session.state.player.items:
 					if not commit("inventory",{"request":{"kind":"buy","item_id":chosen.id}}).ok: return false
 				if not commit("inventory",{"request":{"kind":"equip","index":session.state.player.items.find(chosen.id)}}).ok: return false
+		var potion_cost := InventoryService.potion_price(shop)
 		for potion in ["life","focus"]:
-			while session.state.player.potions[potion] < (15 if potion == "life" else 10) and session.state.player.currency >= 20:
+			while session.state.player.potions[potion] < (15 if potion == "life" else 10) and session.state.player.currency >= potion_cost:
 				if not commit("inventory",{"request":{"kind":"potion_buy","potion":potion}}).ok: return false
+		# Upgrade only gear from the newest tier unlocked so far (older pieces get replaced), keeping a potion reserve.
+		var newest := 1
+		for item in catalog.data.items:
+			if item.source.begins_with("shop:") and int(item.source.substr(6)) <= int(destination.substr(1)): newest = maxi(newest,int(item.required_level))
+		for slot in ["weapon","suit","shield","head"]:
+			var worn: String = session.state.player.equipment[slot]
+			if int(catalog.get_entry("items",worn).required_level) < newest: continue
+			while true:
+				var cost := InventoryService.upgrade_cost(catalog.get_entry("items",worn),int(session.state.player.upgrades.get(worn,0)))
+				if cost < 0 or session.state.player.currency - cost < UPGRADE_RESERVE * InventoryService.potion_price(destination): break
+				if not commit("inventory",{"request":{"kind":"upgrade","item_id":worn}}).ok: return false
+	# Battle drops that were not equipped above become sale income, keeping the bag open for purchases.
+	while not session.state.player.items.is_empty():
+		if not commit("inventory",{"request":{"kind":"sell","index":0}}).ok: return false
 	if not travel("R01"): return false
 	if not commit("rest").ok: return false
 	return travel(destination)
@@ -141,7 +157,15 @@ func run(t) -> bool:
 				print("Campaign diagnostic ",profession.id," ",encounter.id," level",session.state.player.level," stats",session.progression.derive(session.state.player,catalog.data)," actors",c.state.actors)
 				return true
 			total_rounds += int(c.state.round)
-			if not session.commit_result("battle_won",c.result_payload()).ok: return false
+			# Fixed result id: the drop pick hashes it, so the campaign totals are reproducible instead of varying with the random run id.
+			var won_payload := c.result_payload()
+			if not OS.get_cmdline_user_args().has("--random-drops"): won_payload["id"] = "campaign-win:"+profession.id+":"+encounter.id
+			if not session.commit_result("battle_won",won_payload).ok: return false
+		var final_level: int = session.state.player.level
+		var final_currency: int = session.state.player.currency
+		t.check(final_level >= 22 and final_level <= 25,"campaign ends at level 22-25: "+profession.id+" level"+str(final_level))
+		t.check(final_currency >= 1500 and final_currency <= 3500,"campaign ends with 1500-3500 currency: "+profession.id+" currency"+str(final_currency))
+		print("Upgrades ",profession.id," ",session.state.player.upgrades," equipment ",session.state.player.equipment)
 		print("Campaign complete: ",profession.id," level",session.state.player.level," currency",session.state.player.currency," total_rounds",total_rounds)
 		t.check(session.state.first_clears.has("B06") and session.state.quest_states.Q08.state == "turned_in","all bosses and archive quest reachable: "+profession.id)
 		if OS.get_cmdline_user_args().has("--release-fixtures"):

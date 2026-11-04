@@ -22,6 +22,81 @@ static func button(parent: Node, text: String, callback: Callable, id: String = 
 	parent.add_child(node)
 	return node
 
+# Mobile-style control: a picture instead of a word, the words live in the tooltip.
+static func icon_button(parent: Node, icon: String, tip: String, callback: Callable, id: String = "", side: float = 56.0, caption: String = "") -> Button:
+	var node := button(parent, caption, callback, id)
+	node.icon = load("res://art/icons/%s.svg" % icon)
+	node.expand_icon = true
+	node.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	node.vertical_icon_alignment = VERTICAL_ALIGNMENT_TOP if not caption.is_empty() else VERTICAL_ALIGNMENT_CENTER
+	node.custom_minimum_size = Vector2(side, side)
+	node.tooltip_text = tip
+	node.add_theme_font_size_override("font_size", 13)
+	for state in ["normal", "hover", "pressed", "focus", "disabled"]:
+		var style := StyleBoxFlat.new()
+		style.bg_color = Color(0.05, 0.1, 0.11, 0.78) if state != "hover" else Color(0.1, 0.2, 0.21, 0.9)
+		style.border_color = Color("d2ad66") if state in ["hover", "focus"] else Color(0.4, 0.5, 0.48, 0.8)
+		style.set_border_width_all(2)
+		style.set_corner_radius_all(int(side * 0.5))
+		style.set_content_margin_all(side * 0.16)
+		node.add_theme_stylebox_override(state, style)
+	return node
+
+# PC play: every icon also answers to a key, shown as a corner tag and in its tooltip.
+static func hotkey(node: Button, keycode: Key) -> void:
+	for action in InputMap.get_actions():
+		if action.begins_with("move_") or action == "interact":
+			for event in InputMap.action_get_events(action):
+				if event is InputEventKey and (event.physical_keycode == keycode or event.keycode == keycode): return
+	var press := InputEventKey.new()
+	press.keycode = keycode
+	var shortcut := Shortcut.new()
+	shortcut.events = [press]
+	node.shortcut = shortcut
+	node.shortcut_in_tooltip = false
+	var name := OS.get_keycode_string(keycode)
+	node.tooltip_text += "  [" + name + "]"
+	var tag := Label.new()
+	tag.text = name
+	tag.position = Vector2(4, 0)
+	tag.add_theme_font_size_override("font_size", 11)
+	tag.add_theme_color_override("font_color", Color("f1d9a0"))
+	tag.add_theme_color_override("font_outline_color", Color("0b1214"))
+	tag.add_theme_constant_override("outline_size", 4)
+	tag.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	node.add_child(tag)
+
+static func glass_panel(parent: Node, at: Vector2, area: Vector2) -> PanelContainer:
+	var panel := PanelContainer.new()
+	panel.position = at
+	panel.size = area
+	var style := StyleBoxFlat.new()
+	style.bg_color = Color(0.04, 0.08, 0.09, 0.72)
+	style.border_color = Color(0.55, 0.45, 0.28, 0.7)
+	style.set_border_width_all(1)
+	style.set_corner_radius_all(12)
+	style.set_content_margin_all(10)
+	panel.add_theme_stylebox_override("panel", style)
+	parent.add_child(panel)
+	return panel
+
+static func bar(parent: Node, value: float, maximum: float, color: Color, height: float = 10.0) -> ProgressBar:
+	var node := ProgressBar.new()
+	node.max_value = maxf(1.0, maximum)
+	node.value = value
+	node.show_percentage = false
+	node.custom_minimum_size.y = height
+	var fill := StyleBoxFlat.new()
+	fill.bg_color = color
+	fill.set_corner_radius_all(int(height * 0.5))
+	var back := StyleBoxFlat.new()
+	back.bg_color = Color(0, 0, 0, 0.45)
+	back.set_corner_radius_all(int(height * 0.5))
+	node.add_theme_stylebox_override("fill", fill)
+	node.add_theme_stylebox_override("background", back)
+	parent.add_child(node)
+	return node
+
 static func theme() -> Theme:
 	var result := Theme.new()
 	result.default_font = load("res://art/fonts/NotoSansThai.ttf")
@@ -83,8 +158,44 @@ static func item_description(item: Dictionary) -> String:
 	if item.special == "condensate_barrier": parts.append("ใช้สายควบแน่นแล้วได้โล่15%เทค")
 	return " · ".join(parts)
 
+# Thai name keyword -> icon family, first match wins (so longer gun names precede plain ปืน).
+const ICON_FAMILIES := {
+	"weapon":[["มีด","knife"],["กระบอง","club"],["ประแจ","wrench"],["ค้อน","hammer"],["ขวาน","axe"],["ดาบ","sword"],["เลื่อย","saw"],["กรงเล็บ","claw"],["เคียว","scythe"],["หอก","spear"],["ทวน","lance"],["คทา","staff"],["ปืนคาร์ไบน์","carbine"],["ปืนอาร์ก","arcgun"],["ปืนกรด","rifle"],["ปืนคอนเดนเซอร์","rifle"],["ปืน","pistol"]],
+	"shield":[["ฝาท่อ","round"],["แผ่นเหล็ก","plate"],["ทองเหลือง","buckler"],["รถไฟ","train"],["ขดลวด","coil"],["กรองพิษ","filter"],["ลูกสูบ","piston"],["ไอน้ำ","round"],["เรือนกระจก","glass"],["ฉนวน","plate"],["คนงาน","tower"],["อาร์ก","arc"],["รากแก้ว","organic"],["เตาหลอม","buckler"],["จดหมายเหตุ","tower"],["ปฏิกรณ์","coil"],["ชีวภาพ","organic"]],
+	"head":[["แว่น","goggles"],["หมวกคนงาน","hardhat"],["กรอง","mask"],["หน้ากาก","mask"],["เอเธอร์","antenna"],["กระบัง","visor"],["แกนเมือง","crown"],["หมวก","helmet"]],
+	"suit":[["เกราะคนงาน","vest"],["รางเหล็ก","vest"],["กรองพิษ","hazmat"],["ฉนวน","insulated"],["หัวใจเมือง","core"],["เกราะ","heavy"],["เสื้อ","coat"],["ชุดแพทย์","coat"]],
+}
+const TIER_PIP := ["8a9490","6fbf73","5ab4e0","b07ce0","e3b858"]
+static var _icon_cache := {}
+
+# Icon file stem for an item: W26/A09 keep their unique art, others get a slot_family file.
+static func item_icon_name(item: Dictionary) -> String:
+	if item.id in ["W26","A09"]: return item.id
+	for pair in ICON_FAMILIES.get(item.slot,[]):
+		if str(item.name).contains(pair[0]): return "%s_%s" % [item.slot,pair[1]]
+	return item.slot
+
+# Family art plus a tier-colored pip in the corner so tiers read without the tile border.
 static func item_icon(item: Dictionary) -> Texture2D:
-	return load("res://art/icons/%s.svg" % (item.id if item.id in ["W26","A09"] else item.slot))
+	var stem := item_icon_name(item)
+	var tier := clampi(int(item.get("tier",0)),0,5)
+	var key := "%s:%d" % [stem,tier]
+	if _icon_cache.has(key): return _icon_cache[key]
+	var base: Texture2D = load("res://art/icons/%s.svg" % stem)
+	if tier == 0: return base
+	var image: Image = base.get_image()
+	image.convert(Image.FORMAT_RGBA8)
+	var size := image.get_width()
+	var radius := size * 0.15
+	var center := Vector2(size - radius - 1.0,size - radius - 1.0)
+	var color := Color(TIER_PIP[tier - 1])
+	for y in size:
+		for x in size:
+			var d := Vector2(x + 0.5,y + 0.5).distance_to(center)
+			if d <= radius: image.set_pixel(x,y,Color("0b1a1c") if d > radius - 1.6 else color)
+	var texture := ImageTexture.create_from_image(image)
+	_icon_cache[key] = texture
+	return texture
 
 static func skill_icon(skill: Dictionary) -> Texture2D:
 	var effects: Dictionary = skill.effects

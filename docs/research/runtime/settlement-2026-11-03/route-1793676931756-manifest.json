@@ -1,0 +1,22 @@
+{
+  "phase": "route",
+  "authority": "Original unmodified SWF in Ruffle; ordinary input; screenshot intervals include capture overhead",
+  "original_sha256": "e258423f2a5887ff236a67eb6eaf674a8d573a5cdb721c20b79c831da4d9e008",
+  "records": [
+    {
+      "name": "room-2",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/room-2.png",
+      "at": 1793676923957
+    },
+    {
+      "name": "gateway-room",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/gateway-room.png",
+      "at": 1793676926659
+    },
+    {
+      "name": "combat-ready",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/combat-ready.png",
+      "at": 1793676931747
+    }
+  ]
+}

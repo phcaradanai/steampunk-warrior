@@ -1,0 +1,67 @@
+{
+  "phase": "input",
+  "authority": "Original unmodified SWF in Ruffle; ordinary input; screenshot intervals include capture overhead",
+  "original_sha256": "e258423f2a5887ff236a67eb6eaf674a8d573a5cdb721c20b79c831da4d9e008",
+  "records": [
+    {
+      "name": "p1",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/p1.png",
+      "at": 1793677478641
+    },
+    {
+      "name": "p2",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/p2.png",
+      "at": 1793677482524
+    },
+    {
+      "name": "q1",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/q1.png",
+      "at": 1793677483305
+    },
+    {
+      "name": "q2",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/q2.png",
+      "at": 1793677483881
+    },
+    {
+      "name": "q3",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/q3.png",
+      "at": 1793677484474
+    },
+    {
+      "name": "q4",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/q4.png",
+      "at": 1793677485057
+    },
+    {
+      "name": "q5",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/q5.png",
+      "at": 1793677485637
+    },
+    {
+      "name": "q6",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/q6.png",
+      "at": 1793677486219
+    },
+    {
+      "name": "q7",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/q7.png",
+      "at": 1793677486802
+    },
+    {
+      "name": "q8",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/q8.png",
+      "at": 1793677487401
+    },
+    {
+      "name": "q9",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/q9.png",
+      "at": 1793677487969
+    },
+    {
+      "name": "q10",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/q10.png",
+      "at": 1793677488555
+    }
+  ]
+}

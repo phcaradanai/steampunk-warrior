@@ -5,7 +5,7 @@
     "slot": "weapon",
     "tier": 1,
     "source": "shop:R02",
-    "price": 30,
+    "price": 35,
     "required_level": 1,
     "bonuses": {
       "attack": 7,
@@ -13,7 +13,8 @@
       "initiative": 0
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "blade"
   },
   {
     "id": "W02",
@@ -21,7 +22,7 @@
     "slot": "weapon",
     "tier": 1,
     "source": "shop:R02",
-    "price": 30,
+    "price": 35,
     "required_level": 1,
     "bonuses": {
       "attack": 1,
@@ -29,7 +30,8 @@
       "initiative": 0
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "blunt"
   },
   {
     "id": "W03",
@@ -37,7 +39,7 @@
     "slot": "weapon",
     "tier": 1,
     "source": "shop:R02",
-    "price": 30,
+    "price": 45,
     "required_level": 1,
     "bonuses": {
       "attack": 5,
@@ -45,7 +47,8 @@
       "initiative": 1
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "gun"
   },
   {
     "id": "W04",
@@ -53,7 +56,7 @@
     "slot": "weapon",
     "tier": 1,
     "source": "shop:R02",
-    "price": 30,
+    "price": 40,
     "required_level": 1,
     "bonuses": {
       "attack": 9,
@@ -61,7 +64,8 @@
       "initiative": -2
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "blade"
   },
   {
     "id": "W05",
@@ -69,7 +73,7 @@
     "slot": "weapon",
     "tier": 1,
     "source": "shop:R02",
-    "price": 30,
+    "price": 40,
     "required_level": 1,
     "bonuses": {
       "attack": 0,
@@ -77,7 +81,8 @@
       "initiative": -2
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "blunt"
   },
   {
     "id": "W06",
@@ -93,7 +98,8 @@
       "initiative": 4
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "polearm"
   },
   {
     "id": "W07",
@@ -101,7 +107,7 @@
     "slot": "weapon",
     "tier": 2,
     "source": "shop:R05",
-    "price": 120,
+    "price": 170,
     "required_level": 6,
     "bonuses": {
       "attack": 14,
@@ -109,7 +115,8 @@
       "initiative": 0
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "blunt"
   },
   {
     "id": "W08",
@@ -117,7 +124,7 @@
     "slot": "weapon",
     "tier": 2,
     "source": "shop:R05",
-    "price": 120,
+    "price": 170,
     "required_level": 6,
     "bonuses": {
       "attack": 2,
@@ -125,7 +132,8 @@
       "initiative": 0
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "gun"
   },
   {
     "id": "W09",
@@ -133,7 +141,7 @@
     "slot": "weapon",
     "tier": 2,
     "source": "shop:R05",
-    "price": 120,
+    "price": 215,
     "required_level": 6,
     "bonuses": {
       "attack": 10,
@@ -141,7 +149,8 @@
       "initiative": 1
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "blade"
   },
   {
     "id": "W10",
@@ -149,7 +158,7 @@
     "slot": "weapon",
     "tier": 2,
     "source": "shop:R05",
-    "price": 120,
+    "price": 190,
     "required_level": 6,
     "bonuses": {
       "attack": 18,
@@ -157,7 +166,8 @@
       "initiative": -2
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "polearm"
   },
   {
     "id": "W11",
@@ -165,7 +175,7 @@
     "slot": "weapon",
     "tier": 2,
     "source": "shop:R05",
-    "price": 120,
+    "price": 190,
     "required_level": 6,
     "bonuses": {
       "attack": 0,
@@ -173,7 +183,8 @@
       "initiative": -2
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "gun"
   },
   {
     "id": "W12",
@@ -181,7 +192,7 @@
     "slot": "weapon",
     "tier": 3,
     "source": "shop:R07",
-    "price": 270,
+    "price": 455,
     "required_level": 11,
     "bonuses": {
       "attack": 21,
@@ -189,7 +200,8 @@
       "initiative": 0
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "polearm"
   },
   {
     "id": "W13",
@@ -197,7 +209,7 @@
     "slot": "weapon",
     "tier": 3,
     "source": "shop:R07",
-    "price": 270,
+    "price": 455,
     "required_level": 11,
     "bonuses": {
       "attack": 3,
@@ -205,7 +217,8 @@
       "initiative": 0
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "blunt"
   },
   {
     "id": "W14",
@@ -213,7 +226,7 @@
     "slot": "weapon",
     "tier": 3,
     "source": "shop:R07",
-    "price": 270,
+    "price": 570,
     "required_level": 11,
     "bonuses": {
       "attack": 15,
@@ -221,7 +234,8 @@
       "initiative": 1
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "blade"
   },
   {
     "id": "W15",
@@ -229,7 +243,7 @@
     "slot": "weapon",
     "tier": 3,
     "source": "shop:R07",
-    "price": 270,
+    "price": 510,
     "required_level": 11,
     "bonuses": {
       "attack": 27,
@@ -237,7 +251,8 @@
       "initiative": -2
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "gun"
   },
   {
     "id": "W16",
@@ -245,7 +260,7 @@
     "slot": "weapon",
     "tier": 3,
     "source": "shop:R07",
-    "price": 270,
+    "price": 510,
     "required_level": 11,
     "bonuses": {
       "attack": 0,
@@ -253,7 +268,8 @@
       "initiative": -2
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "blade"
   },
   {
     "id": "W17",
@@ -261,7 +277,7 @@
     "slot": "weapon",
     "tier": 4,
     "source": "shop:R09",
-    "price": 480,
+    "price": 965,
     "required_level": 16,
     "bonuses": {
       "attack": 28,
@@ -269,7 +285,8 @@
       "initiative": 0
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "blunt"
   },
   {
     "id": "W18",
@@ -277,7 +294,7 @@
     "slot": "weapon",
     "tier": 4,
     "source": "shop:R09",
-    "price": 480,
+    "price": 965,
     "required_level": 16,
     "bonuses": {
       "attack": 4,
@@ -285,7 +302,8 @@
       "initiative": 0
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "gun"
   },
   {
     "id": "W19",
@@ -293,7 +311,7 @@
     "slot": "weapon",
     "tier": 4,
     "source": "shop:R09",
-    "price": 480,
+    "price": 1205,
     "required_level": 16,
     "bonuses": {
       "attack": 20,
@@ -301,7 +319,8 @@
       "initiative": 1
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "blade"
   },
   {
     "id": "W20",
@@ -309,7 +328,7 @@
     "slot": "weapon",
     "tier": 4,
     "source": "shop:R09",
-    "price": 480,
+    "price": 1085,
     "required_level": 16,
     "bonuses": {
       "attack": 36,
@@ -317,7 +336,8 @@
       "initiative": -2
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "polearm"
   },
   {
     "id": "W21",
@@ -325,7 +345,7 @@
     "slot": "weapon",
     "tier": 4,
     "source": "shop:R09",
-    "price": 480,
+    "price": 1085,
     "required_level": 16,
     "bonuses": {
       "attack": 0,
@@ -333,7 +353,8 @@
       "initiative": -2
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "blade"
   },
   {
     "id": "W22",
@@ -341,7 +362,7 @@
     "slot": "weapon",
     "tier": 5,
     "source": "shop:R11",
-    "price": 750,
+    "price": 1705,
     "required_level": 21,
     "bonuses": {
       "attack": 35,
@@ -349,7 +370,8 @@
       "initiative": 0
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "gun"
   },
   {
     "id": "W23",
@@ -357,7 +379,7 @@
     "slot": "weapon",
     "tier": 5,
     "source": "shop:R11",
-    "price": 750,
+    "price": 1705,
     "required_level": 21,
     "bonuses": {
       "attack": 5,
@@ -365,7 +387,8 @@
       "initiative": 0
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "blunt"
   },
   {
     "id": "W24",
@@ -373,7 +396,7 @@
     "slot": "weapon",
     "tier": 5,
     "source": "shop:R11",
-    "price": 750,
+    "price": 2130,
     "required_level": 21,
     "bonuses": {
       "attack": 25,
@@ -381,7 +404,8 @@
       "initiative": 1
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "blade"
   },
   {
     "id": "W25",
@@ -389,7 +413,7 @@
     "slot": "weapon",
     "tier": 5,
     "source": "quest:Q05",
-    "price": 750,
+    "price": 2495,
     "required_level": 21,
     "bonuses": {
       "attack": 45,
@@ -397,7 +421,8 @@
       "initiative": -2
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "staff"
   },
   {
     "id": "W26",
@@ -405,7 +430,7 @@
     "slot": "weapon",
     "tier": 5,
     "source": "boss:B06",
-    "price": 750,
+    "price": 2495,
     "required_level": 21,
     "bonuses": {
       "attack": 0,
@@ -413,7 +438,8 @@
       "initiative": -2
     },
     "special": "vent_breaker",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี"
+    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "model": "gun"
   },
   {
     "id": "D01",
@@ -430,7 +456,8 @@
       "initiative": 0
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "model": "light"
   },
   {
     "id": "D02",
@@ -447,7 +474,8 @@
       "initiative": -1
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "model": "plate"
   },
   {
     "id": "D03",
@@ -455,7 +483,7 @@
     "slot": "shield",
     "tier": 1,
     "source": "shop:R02",
-    "price": 30,
+    "price": 25,
     "required_level": 1,
     "bonuses": {
       "barrier": 23,
@@ -464,7 +492,8 @@
       "initiative": 1
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "model": "light"
   },
   {
     "id": "D04",
@@ -481,7 +510,8 @@
       "initiative": -2
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "model": "tower"
   },
   {
     "id": "D05",
@@ -489,7 +519,7 @@
     "slot": "shield",
     "tier": 2,
     "source": "shop:R05",
-    "price": 120,
+    "price": 145,
     "required_level": 6,
     "bonuses": {
       "barrier": 39,
@@ -498,7 +528,8 @@
       "initiative": 0
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "model": "light"
   },
   {
     "id": "D06",
@@ -506,7 +537,7 @@
     "slot": "shield",
     "tier": 2,
     "source": "shop:R05",
-    "price": 120,
+    "price": 165,
     "required_level": 6,
     "bonuses": {
       "barrier": 55,
@@ -515,7 +546,8 @@
       "initiative": -1
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "model": "plate"
   },
   {
     "id": "D07",
@@ -523,7 +555,7 @@
     "slot": "shield",
     "tier": 2,
     "source": "shop:R05",
-    "price": 120,
+    "price": 135,
     "required_level": 6,
     "bonuses": {
       "barrier": 31,
@@ -532,7 +564,8 @@
       "initiative": 1
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "model": "tower"
   },
   {
     "id": "D08",
@@ -540,7 +573,7 @@
     "slot": "shield",
     "tier": 3,
     "source": "shop:R07",
-    "price": 270,
+    "price": 380,
     "required_level": 11,
     "bonuses": {
       "barrier": 51,
@@ -549,7 +582,8 @@
       "initiative": 0
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "model": "light"
   },
   {
     "id": "D09",
@@ -557,7 +591,7 @@
     "slot": "shield",
     "tier": 3,
     "source": "shop:R07",
-    "price": 270,
+    "price": 440,
     "required_level": 11,
     "bonuses": {
       "barrier": 75,
@@ -566,7 +600,8 @@
       "initiative": -1
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "model": "light"
   },
   {
     "id": "D10",
@@ -574,7 +609,7 @@
     "slot": "shield",
     "tier": 3,
     "source": "shop:R07",
-    "price": 270,
+    "price": 355,
     "required_level": 11,
     "bonuses": {
       "barrier": 39,
@@ -583,7 +618,8 @@
       "initiative": 1
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "model": "plate"
   },
   {
     "id": "D11",
@@ -591,7 +627,7 @@
     "slot": "shield",
     "tier": 3,
     "source": "shop:R07",
-    "price": 270,
+    "price": 425,
     "required_level": 11,
     "bonuses": {
       "barrier": 42,
@@ -600,7 +636,8 @@
       "initiative": -2
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "model": "plate"
   },
   {
     "id": "D12",
@@ -608,7 +645,7 @@
     "slot": "shield",
     "tier": 4,
     "source": "shop:R09",
-    "price": 480,
+    "price": 830,
     "required_level": 16,
     "bonuses": {
       "barrier": 63,
@@ -617,7 +654,8 @@
       "initiative": 0
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "model": "light"
   },
   {
     "id": "D13",
@@ -625,7 +663,7 @@
     "slot": "shield",
     "tier": 4,
     "source": "shop:R09",
-    "price": 480,
+    "price": 955,
     "required_level": 16,
     "bonuses": {
       "barrier": 95,
@@ -634,7 +672,8 @@
       "initiative": -1
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "model": "plate"
   },
   {
     "id": "D14",
@@ -642,7 +681,7 @@
     "slot": "shield",
     "tier": 4,
     "source": "shop:R09",
-    "price": 480,
+    "price": 765,
     "required_level": 16,
     "bonuses": {
       "barrier": 47,
@@ -651,7 +690,8 @@
       "initiative": 1
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "model": "tower"
   },
   {
     "id": "D15",
@@ -659,7 +699,7 @@
     "slot": "shield",
     "tier": 5,
     "source": "shop:R11",
-    "price": 750,
+    "price": 1460,
     "required_level": 21,
     "bonuses": {
       "barrier": 75,
@@ -668,7 +708,8 @@
       "initiative": 0
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "model": "plate"
   },
   {
     "id": "D16",
@@ -676,7 +717,7 @@
     "slot": "shield",
     "tier": 5,
     "source": "shop:R11",
-    "price": 750,
+    "price": 1695,
     "required_level": 21,
     "bonuses": {
       "barrier": 115,
@@ -685,7 +726,8 @@
       "initiative": -1
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "model": "tower"
   },
   {
     "id": "D17",
@@ -693,7 +735,7 @@
     "slot": "shield",
     "tier": 5,
     "source": "shop:R11",
-    "price": 750,
+    "price": 1345,
     "required_level": 21,
     "bonuses": {
       "barrier": 55,
@@ -702,7 +744,8 @@
       "initiative": 1
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย"
+    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "model": "light"
   },
   {
     "id": "H01",
@@ -710,7 +753,7 @@
     "slot": "head",
     "tier": 1,
     "source": "shop:R02",
-    "price": 30,
+    "price": 20,
     "required_level": 1,
     "bonuses": {
       "max_fp": 5,
@@ -726,7 +769,7 @@
     "slot": "head",
     "tier": 1,
     "source": "shop:R02",
-    "price": 30,
+    "price": 25,
     "required_level": 1,
     "bonuses": {
       "max_fp": 7,
@@ -742,7 +785,7 @@
     "slot": "head",
     "tier": 2,
     "source": "shop:R05",
-    "price": 120,
+    "price": 105,
     "required_level": 6,
     "bonuses": {
       "max_fp": 10,
@@ -758,7 +801,7 @@
     "slot": "head",
     "tier": 2,
     "source": "shop:R05",
-    "price": 120,
+    "price": 135,
     "required_level": 6,
     "bonuses": {
       "max_fp": 14,
@@ -774,7 +817,7 @@
     "slot": "head",
     "tier": 3,
     "source": "shop:R07",
-    "price": 270,
+    "price": 280,
     "required_level": 11,
     "bonuses": {
       "max_fp": 15,
@@ -790,7 +833,7 @@
     "slot": "head",
     "tier": 3,
     "source": "shop:R07",
-    "price": 270,
+    "price": 360,
     "required_level": 11,
     "bonuses": {
       "max_fp": 21,
@@ -806,7 +849,7 @@
     "slot": "head",
     "tier": 4,
     "source": "shop:R09",
-    "price": 480,
+    "price": 585,
     "required_level": 16,
     "bonuses": {
       "max_fp": 20,
@@ -822,7 +865,7 @@
     "slot": "head",
     "tier": 4,
     "source": "shop:R09",
-    "price": 480,
+    "price": 775,
     "required_level": 16,
     "bonuses": {
       "max_fp": 28,
@@ -838,7 +881,7 @@
     "slot": "head",
     "tier": 5,
     "source": "shop:R11",
-    "price": 750,
+    "price": 1020,
     "required_level": 21,
     "bonuses": {
       "max_fp": 25,
@@ -854,7 +897,7 @@
     "slot": "head",
     "tier": 5,
     "source": "shop:R11",
-    "price": 750,
+    "price": 1380,
     "required_level": 21,
     "bonuses": {
       "max_fp": 35,
@@ -902,7 +945,7 @@
     "slot": "suit",
     "tier": 2,
     "source": "shop:R05",
-    "price": 120,
+    "price": 155,
     "required_level": 6,
     "bonuses": {
       "max_hp": 24,
@@ -918,7 +961,7 @@
     "slot": "suit",
     "tier": 2,
     "source": "shop:R05",
-    "price": 120,
+    "price": 145,
     "required_level": 6,
     "bonuses": {
       "max_hp": 16,
@@ -934,7 +977,7 @@
     "slot": "suit",
     "tier": 3,
     "source": "shop:R07",
-    "price": 270,
+    "price": 410,
     "required_level": 11,
     "bonuses": {
       "max_hp": 36,
@@ -950,7 +993,7 @@
     "slot": "suit",
     "tier": 3,
     "source": "shop:R07",
-    "price": 270,
+    "price": 390,
     "required_level": 11,
     "bonuses": {
       "max_hp": 24,
@@ -966,7 +1009,7 @@
     "slot": "suit",
     "tier": 4,
     "source": "shop:R09",
-    "price": 480,
+    "price": 870,
     "required_level": 16,
     "bonuses": {
       "max_hp": 48,
@@ -982,7 +1025,7 @@
     "slot": "suit",
     "tier": 4,
     "source": "shop:R09",
-    "price": 480,
+    "price": 830,
     "required_level": 16,
     "bonuses": {
       "max_hp": 32,
@@ -998,7 +1041,7 @@
     "slot": "suit",
     "tier": 5,
     "source": "quest:Q08",
-    "price": 750,
+    "price": 1950,
     "required_level": 21,
     "bonuses": {
       "max_hp": 60,

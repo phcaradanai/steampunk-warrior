@@ -1,0 +1,42 @@
+{
+  "phase": "input",
+  "authority": "Original unmodified SWF in Ruffle; ordinary input; screenshot intervals include capture overhead",
+  "original_sha256": "e258423f2a5887ff236a67eb6eaf674a8d573a5cdb721c20b79c831da4d9e008",
+  "records": [
+    {
+      "name": "f0",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/f0.png",
+      "at": 1793677119568
+    },
+    {
+      "name": "f1",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/f1.png",
+      "at": 1793677123473
+    },
+    {
+      "name": "f2",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/f2.png",
+      "at": 1793677127365
+    },
+    {
+      "name": "f3",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/f3.png",
+      "at": 1793677131239
+    },
+    {
+      "name": "f4",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/f4.png",
+      "at": 1793677135117
+    },
+    {
+      "name": "f5",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/f5.png",
+      "at": 1793677138993
+    },
+    {
+      "name": "f6",
+      "path": "/Users/Projects/Steampunk-warrior/docs/research/runtime/settlement-2026-11-03/f6.png",
+      "at": 1793677142862
+    }
+  ]
+}

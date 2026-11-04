@@ -7,6 +7,8 @@ var encounter: Dictionary = {}
 var learned: Dictionary = {}
 var completed: Array[String] = []
 var training_id: String = ""
+var pipe_id: String = ""
+var first_clear: bool = false
 var busy: bool = false
 var run_id: String = ""
 var sequence: int = 0
@@ -28,7 +30,7 @@ func _result(ok: bool, reason: String = "", events: Array = []) -> Dictionary:
 func _hero(player: Dictionary) -> Dictionary:
 	var progression := Progression.new(content)
 	var hero := progression.derive(player, content)
-	hero.merge({"id":"hero","name":"คุณ","side":"player","class_id":player.class_id,"hp":player.current_hp,"fp":player.current_fp,"pressure":0,"statuses":{},"cooldowns":{},"potions":player.potions.duplicate(true)}, true)
+	hero.merge({"id":"hero","name":"คุณ","side":"player","class_id":player.class_id,"hp":player.current_hp,"fp":player.current_fp,"pressure":0,"statuses":{},"cooldowns":{},"potions":player.potions.duplicate(true),"equipment":player.get("equipment",{}).duplicate()}, true)
 	return hero
 
 func _begin(actors: Array, progress: Dictionary, seed_value: int) -> void:
@@ -46,13 +48,15 @@ func _begin(actors: Array, progress: Dictionary, seed_value: int) -> void:
 		if actor.side == "enemy":
 			actor["intent"] = _plan_intent(actor)
 
-func start(encounter_id: String, progress: Dictionary, seed_value: int = 1) -> Dictionary:
+func start(encounter_id: String, progress: Dictionary, seed_value: int = 1, pipe_id_value: String = "") -> Dictionary:
 	var policy := WorldController.new(content)
-	var allowed := policy.can_start_encounter(encounter_id, progress)
+	var allowed := policy.can_start_encounter(encounter_id, progress, pipe_id_value)
 	if not allowed.ok:
 		return _result(false, allowed.reason)
 	encounter = _entry("encounters", encounter_id)
 	training_id = ""
+	pipe_id = pipe_id_value
+	first_clear = not progress.get("first_clears", {}).has(encounter_id)
 	var actors: Array = [_hero(progress.player)]
 	for i in range(encounter.enemies.size()):
 		var definition := _entry("enemies", encounter.enemies[i])
@@ -80,6 +84,7 @@ func start_training(tier_id: String, progress: Dictionary, seed_value: int = 1) 
 	if not allowed.ok:
 		return _result(false, allowed.reason)
 	training_id = tier_id
+	pipe_id = ""
 	encounter = {}
 	var hero := _hero(progress.player)
 	hero.max_hp = 5000
@@ -208,14 +213,14 @@ func _memory_intent(index: int) -> Dictionary:
 	match index%3:
 		0: return {"kind":"guard","label":"บันทึกหนึ่ง: ตั้งรับและอ่านความทรงจำ"}
 		1: return _effect_intent("memory_mark","บันทึกสอง: หมายหัว — นัดถัดไปแรงขึ้น",{"status":"Marked","duration":2})
-	return _effect_intent("memory_shot","บันทึกสาม: ยิงรอยประทับ — เตรียม Guard",{"power":1.6,"marked_multiplier":1.5,"damage_type":"physical"})
+	return _effect_intent("memory_shot","บันทึกสาม: ยิงรอยประทับ — เตรียมตั้งรับ",{"power":1.6,"marked_multiplier":1.5,"damage_type":"physical"})
 
 func _boss_intent(enemy: Dictionary) -> Dictionary:
 	var phase: int = int(enemy.get("phase",0))
 	var count: int = int(enemy.get("actions_taken",0))
 	match enemy.get("definition_id",""):
 		"root":
-			var heal := _effect_intent("root_heal","ส่งน้ำเลี้ยงฟื้นกวาง — Sealed ที่กวางหยุดได้",{"heal":1.0},"ally")
+			var heal := _effect_intent("root_heal","ส่งน้ำเลี้ยงฟื้นกวาง — ปิดการฟื้นฟูที่กวางหยุดได้",{"heal":1.0},"ally")
 			heal["target_id"] = "enemy0"
 			return heal
 		"B02":
@@ -230,10 +235,10 @@ func _boss_intent(enemy: Dictionary) -> Dictionary:
 		"B04":
 			if enemy.get("cooling",false): return {"kind":"guard","label":"เตาหลอมเย็นตัว — จังหวะฟื้นพลังและโจมตี"}
 			if int(enemy.get("heat",0)) >= 70:
-				var heavy := _effect_intent("furnace","เตาหลอมวิกฤต — ฟาดสองครั้ง เตรียม Guard",{"power":0.85+phase*0.1,"hits":2,"damage_type":"thermal"})
+				var heavy := _effect_intent("furnace","เตาหลอมวิกฤต — ฟาดสองครั้ง เตรียมตั้งรับ",{"power":0.85+phase*0.1,"hits":2,"damage_type":"thermal"})
 				heavy["overheat"] = true
 				return heavy
-			return _effect_intent("furnace_heat","เติมเชื้อเพลิง — Wet ลดความร้อน",{"power":0.85+phase*0.1,"damage_type":"thermal","status":"Heated","duration":2})
+			return _effect_intent("furnace_heat","เติมเชื้อเพลิง — ใช้เปียกลดความร้อน",{"power":0.85+phase*0.1,"damage_type":"thermal","status":"Heated","duration":2})
 		"B05":
 			var memory := _memory_intent(count)
 			if state.get("original_order",false): memory["following_label"] = _memory_intent(count+1).label
@@ -244,9 +249,9 @@ func _boss_intent(enemy: Dictionary) -> Dictionary:
 			if count%4 == 3: return {"kind":"guard","label":"ปีกพับฟื้นสนาม — จังหวะโจมตีหรือเติมทรัพยากร"}
 			if count%4 == 1:
 				if phase == 0: return _skill_intent("S20","หมอกควบแน่น — ระวังไฟฟ้าท่าถัดไป")
-				if phase == 1: return _effect_intent("queen_heat","ปีกความร้อน — ระบายหรือล้าง Heated",{"power":0.85,"damage_type":"thermal","status":"Heated","duration":2})
-				return _effect_intent("queen_core","แกนเปิด: กรีดสามครั้ง — เตรียม Guard",{"power":0.6,"hits":3,"damage_type":"physical"})
-			if phase == 0: return _effect_intent("queen_arc","อาร์กผ่านหมอก — เตรียม Guard",{"power":1.15,"damage_type":"electric"})
+				if phase == 1: return _effect_intent("queen_heat","ปีกความร้อน — ระบายหรือล้างร้อนจัด",{"power":0.85,"damage_type":"thermal","status":"Heated","duration":2})
+				return _effect_intent("queen_core","แกนเปิด: กรีดสามครั้ง — เตรียมตั้งรับ",{"power":0.6,"hits":3,"damage_type":"physical"})
+			if phase == 0: return _effect_intent("queen_arc","อาร์กผ่านหมอก — เตรียมตั้งรับ",{"power":1.15,"damage_type":"electric"})
 			if phase == 1: return _effect_intent("queen_wings","ปีกคู่ — ตั้งรับสองแรงกระแทก",{"power":0.65,"hits":2,"damage_type":"thermal"})
 			return {"kind":"guard","label":"แกนไร้เกราะพักตัว — โอกาสโจมตี"}
 	return {}
@@ -268,16 +273,16 @@ func _plan_intent(enemy: Dictionary) -> Dictionary:
 	var role: String = enemy.get("role", "bite")
 	if role == "training":
 		if training_id == "T04" and int(state.get("round", 1)) % 2 == 1:
-			return {"kind":"attack","power":2.0,"label":"จำลองท่าหนัก — Guard ลดแรงกระแทก"}
+			return {"kind":"attack","power":2.0,"label":"จำลองท่าหนัก — ตั้งรับลดแรงกระแทก"}
 		return {"kind":"guard","label":"รอให้ทดลองท่าต่อไป"}
 	if role == "charge":
 		if int(state.get("round", 1)) % 2 == 1:
 			return {"kind":"guard","label":"อัดแรงดัน — ท่าถัดไปโจมตีหนัก"}
-		return {"kind":"attack","power":2.2 + phase * 0.2,"label":"กระแทกหนัก — เตรียม Guard"}
+		return {"kind":"attack","power":2.2 + phase * 0.2,"label":"กระแทกหนัก — เตรียมตั้งรับ"}
 	if role in ["guard", "repair"] and enemy.barrier <= 0 and enemy.cooldowns.get("S11", 0) <= 0:
 		return _skill_intent("S11", "ซ่อมสนามโล่", phase)
 	if role == "heal" and float(enemy.hp) / float(enemy.max_hp) < 0.6 and enemy.cooldowns.get("S09", 0) <= 0 and not enemy.statuses.has("Sealed"):
-		return _skill_intent("S09", "ฉีดยาฟื้นฟู — Sealed หยุดได้", phase)
+		return _skill_intent("S09", "ฉีดยาฟื้นฟู — ปิดการฟื้นฟูหยุดได้", phase)
 	var special: Dictionary = {"heat":["S14","พ่นควันร้อน"],"corrode":["S08","ปล่อยกรดกัดเกราะ"],"sealed":["S21","ฉีดสารยับยั้งการฟื้นฟู"],"wet":["S20","พ่นละอองเปียก"],"howl":["S03","ทำเครื่องหมายเป้าหมาย"],"mark":["S03","เล็งจุดอ่อน"],"area":["S05","ยิงกระจาย"],"electric":["S04","ปล่อยอาร์กไฟฟ้า"],"stagger":["S15","ฟาดเสียจังหวะ"]}
 	if special.has(role):
 		return _skill_intent(special[role][0], special[role][1], phase)

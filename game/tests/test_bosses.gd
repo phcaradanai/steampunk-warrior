@@ -53,4 +53,24 @@ func run(t) -> bool:
 		var key: String = item.slot+":"+str(item.bonuses)
 		t.check(not signatures.has(key),"every gear definition changes a build: " + item.id)
 		signatures[key] = item.id
+	for enemy in loader.data.enemies:
+		if enemy.get("boss",false):
+			t.check(CombatView.boss_scale(enemy.id) >= 1.4,"boss stands at least 1.4x the hero on screen: " + enemy.id)
+	var extras := {"B02":["conductor_cap","loco_plate","lantern"],"B04":["furnace_arm","chimney_pack"],"B05":["lens_visor","records_cabinet","ledger_pages"]}
+	for id in extras:
+		for extra in extras[id]:
+			t.check(Roster3D.PEOPLE[id].extras.has(extra) and Hero3D.BOSS_EXTRAS.has(extra),"%s carries its own part %s" % [id,extra])
+	var queen = Roster3D.create("B06")
+	var states: Array = []
+	for n in 3:
+		queen.set_phase(n)
+		states.append([queen.fx.get_child(0).visible, queen._plates[0].visible, queen._core.visible, queen._smoke_on, queen._light.light_energy, (queen._emissives[0][0].get_surface_override_material(queen._emissives[0][1]) as StandardMaterial3D).emission_energy_multiplier])
+	t.check(queen.phase == 2 and states[0] != states[1] and states[1] != states[2] and states[0] != states[2],"B06 creature looks different in each phase")
+	t.check(states[0][1] and not states[0][2] and states[1][3] and not states[2][1] and states[2][2],"B06 phases: armour, smoke, then open core with armour hidden")
+	t.check(states[1][5] < states[0][5] and states[2][5] > states[0][5],"B06 glow dims in smoke and flares at the open core")
+	var wolf = Roster3D.create("N24")
+	wolf.set_phase(2)
+	t.check(wolf.phase == -1 and wolf.fx == null,"other creatures ignore set_phase")
+	wolf.free()
+	queen.free()
 	return true

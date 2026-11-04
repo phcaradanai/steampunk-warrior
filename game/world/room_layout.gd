@@ -16,14 +16,28 @@ const INTERIORS := {
 	"R12":[Rect2(432,192,96,96),Rect2(200,64,96,32),Rect2(680,400,96,32)],
 }
 
+static var _oblique: Dictionary = {}
+
+# Painted oblique rooms: floor slots for markers and the prop footprints rendered into each backdrop.
+static func oblique() -> Dictionary:
+	if _oblique.is_empty():
+		_oblique = JSON.parse_string(FileAccess.get_file_as_string("res://data/room_props.json"))
+	return _oblique
+
+static func oblique_walls(room: String) -> Array[Rect2]:
+	var result: Array[Rect2] = [Rect2(0,0,960,276),Rect2(0,464,960,16),Rect2(0,0,16,480),Rect2(944,0,16,480)]
+	for prop in oblique().rooms.get(room,{}).get("props",[]):
+		result.append(Rect2(prop.rect[0],prop.rect[1],prop.rect[2],prop.rect[3]))
+	return result
+
 static func walls(room: String) -> Array[Rect2]:
 	var result: Array[Rect2] = [Rect2(0,0,960,16),Rect2(0,464,960,16),Rect2(0,0,16,480),Rect2(944,0,16,480)]
 	result.append_array(INTERIORS.get(room,[]))
 	return result
 
-static func reachable(obstacles: Array[Rect2], clearance: float) -> Array[Vector2]:
+static func reachable(obstacles: Array[Rect2], clearance: float, start: Vector2i = Vector2i(6,14)) -> Array[Vector2]:
 	var visited: Dictionary = {}
-	var pending: Array[Vector2i] = [Vector2i(6,14)]
+	var pending: Array[Vector2i] = [start]
 	var result: Array[Vector2] = []
 	while not pending.is_empty():
 		var cell: Vector2i = pending.pop_back()

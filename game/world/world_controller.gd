@@ -56,12 +56,82 @@ func enter_room(room_id: String, spawn_id: String) -> void:
 	next.checkpoint = {"room_id":room_id,"spawn_id":spawn_id}
 	session.state = next
 
-func can_start_encounter(encounter_id: String, progress: Dictionary) -> Dictionary:
+func pipe(pipe_id: String) -> Dictionary:
+	for room in content.get("rooms", []):
+		for candidate in room.get("pipes", []):
+			if candidate.id == pipe_id:
+				return candidate.merged({"room":room.id})
+	return {}
+
+# A pipe line remembers its own progress through first_clears; a cleared line farms its last normal fight.
+func pipe_next(line: Dictionary, progress: Dictionary) -> String:
+	var farm := ""
+	for id in line.get("encounters", []):
+		if not progress.get("first_clears", {}).has(id):
+			return id
+		if _entry("encounters", id).boss_id.is_empty():
+			farm = id
+	return farm
+
+func pipe_open(line: Dictionary, progress: Dictionary) -> bool:
+	return line.get("requires", "").is_empty() or progress.get("first_clears", {}).has(line.requires)
+
+# Rooms the line fights in, in order.
+func pipe_rooms(line: Dictionary) -> Array:
+	var rooms: Array = []
+	for id in line.get("encounters", []):
+		var room: String = _entry("encounters", id).get("room", "")
+		if not room.is_empty() and not room in rooms: rooms.append(room)
+	return rooms
+
+# Rooms of the line that still hold an untaken quest or an unturned valve.
+func pipe_pending_rooms(line: Dictionary, progress: Dictionary) -> Array:
+	var pending: Array = []
+	for room in pipe_rooms(line):
+		var open := false
+		for quest in content.get("story", {}).get("quests", []):
+			if quest.room == room and progress.get("quest_states", {}).get(quest.id, {}).get("state", "available") == "available": open = true
+		for valve in ENVIRONMENT:
+			if ENVIRONMENT[valve].room == room and not progress.get("world_flags", {}).get("environment:" + valve, false): open = true
+		if open: pending.append(room)
+	return pending
+
+# A boss reached through a pipe needs what the pipe cannot give: a quest accepted in the line's rooms or a valve used in the boss's room.
+func pipe_boss_gate(line: Dictionary, encounter_id: String, progress: Dictionary) -> String:
 	var encounter := _entry("encounters", encounter_id)
+	if encounter.get("boss_id", "").is_empty(): return ""
+	var rooms := pipe_rooms(line)
+	var hints: Array = []
+	for quest in content.get("story", {}).get("quests", []):
+		if not quest.room in rooms: continue
+		if progress.get("quest_states", {}).get(quest.id, {}).get("state", "available") != "available": return ""
+		hints.append("รับภารกิจ \"" + quest.name + "\" ที่" + _room_name(quest.room))
+	var valves := false
+	for valve in ENVIRONMENT:
+		if ENVIRONMENT[valve].room != encounter.room: continue
+		if progress.get("world_flags", {}).get("environment:" + valve, false): return ""
+		valves = true
+	if valves: hints.append("ปรับวาล์วที่" + _room_name(encounter.room))
+	return "บอสนี้ต้องเตรียมในห้องก่อน: " + " หรือ ".join(hints)
+
+func _room_name(id: String) -> String:
+	return _entry("rooms", id).get("name", id)
+
+func can_start_encounter(encounter_id: String, progress: Dictionary, pipe_id: String = "") -> Dictionary:
+	var encounter := _entry("encounters", encounter_id)
+	var line := pipe(pipe_id)
 	var reason := ""
 	if encounter.is_empty():
 		reason = "ไม่รู้จักการต่อสู้"
-	elif progress.get("room_id", "") != encounter.room:
+	elif not pipe_id.is_empty() and (line.is_empty() or progress.get("room_id", "") != line.room):
+		reason = "ต้องยืนที่ปากท่อนั้นก่อน"
+	elif not pipe_id.is_empty() and not pipe_open(line, progress):
+		reason = "ท่อยังปิด ผ่าน " + _entry("encounters", line.requires).get("name", line.requires) + " ก่อน"
+	elif not pipe_id.is_empty() and pipe_next(line, progress) != encounter_id:
+		reason = "ท่อนี้นำไปสู่คู่ต่อสู้ลำดับอื่น"
+	elif not pipe_id.is_empty() and not pipe_boss_gate(line, encounter_id, progress).is_empty():
+		reason = pipe_boss_gate(line, encounter_id, progress)
+	elif pipe_id.is_empty() and progress.get("room_id", "") != encounter.room:
 		reason = "ต้องไปยังพื้นที่นั้นก่อน"
 	elif progress.get("player", {}).get("energy", 0) <= 0:
 		reason = "พลังงานหมด กลับโรงซ่อมพักฟรีได้"
@@ -69,7 +139,7 @@ func can_start_encounter(encounter_id: String, progress: Dictionary) -> Dictiona
 		reason = "พักฟื้นก่อนเริ่มต่อสู้"
 	elif not encounter.boss_id.is_empty() and progress.get("first_clears", {}).has(encounter.id) and not progress.get("world_flags", {}).get("postgame", false):
 		reason = "บอสนี้ผ่านแล้ว เล่นซ้ำหลังจบเรื่อง"
-	elif not encounter.requires.is_empty() and not progress.get("first_clears", {}).has(encounter.requires):
+	elif pipe_id.is_empty() and not encounter.requires.is_empty() and not progress.get("first_clears", {}).has(encounter.requires):
 		var previous := _entry("encounters", encounter.requires)
 		if previous.is_empty() or previous.get("optional_bypass", "").is_empty() or not progress.get("world_flags", {}).get(previous.optional_bypass, false):
 			reason = "ผ่านเหตุการณ์ก่อนหน้าหรือหาทางเลือกก่อน"

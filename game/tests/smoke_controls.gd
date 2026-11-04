@@ -35,7 +35,7 @@ func _initialize() -> void:
 	open.pressed.emit()
 	await process_frame
 	var contained := true
-	for _step in range(80):
+	for _step in range(30):
 		key(KEY_TAB,true)
 		await process_frame
 		key(KEY_TAB,false)
@@ -65,6 +65,9 @@ func _initialize() -> void:
 	key(KEY_ENTER,false)
 	await process_frame
 	check(scene.screen_mode == "world","keyboard Enter confirms focused class")
+	scene.find_child("StorySkip",true,false).pressed.emit()
+	await process_frame
+	for chapter in scene.catalog.data.story.chapters: scene.session.state.world_flags["story:open:" + chapter.id] = true # chapter pages are covered by smoke_story
 	check("L" in scene.control_hint.text,"world hints follow the rebound movement key")
 	if scene.screen_mode != "world":
 		quit(1)
@@ -90,6 +93,7 @@ func _initialize() -> void:
 	await process_frame
 	scene.find_child("Training_T01",true,false).pressed.emit()
 	await process_frame
+	await create_timer(1.0).timeout
 	scene.find_child("Basic_Attack",true,false).pressed.emit()
 	key(KEY_ESCAPE,true)
 	await process_frame
@@ -104,12 +108,56 @@ func _initialize() -> void:
 		await create_timer(0.05).timeout
 		if scene.combat.is_player_turn():
 			break
-	scene.find_child("Basic_Retreat",true,false).pressed.emit()
-	for _step in range(30):
+	# Retry: a press during hit feedback is ignored by the combat view.
+	for _step in range(80):
+		scene.find_child("Basic_Retreat",true,false).pressed.emit()
 		await create_timer(0.05).timeout
 		if scene.screen_mode == "world":
 			break
 	check(scene.screen_mode == "world" and scene.session.state.player.xp == 14 and scene.session.state.player.energy == 100,"retreating from practice settles partialXP without energy loss")
+	scene._close_modal(true)
+	await process_frame
+	# Pause menu: back to title from the world autosaves; from combat it commits nothing.
+	key(KEY_ESCAPE,true)
+	await process_frame
+	key(KEY_ESCAPE,false)
+	await process_frame
+	check(scene.find_child("PauseTitle",true,false) != null and scene.find_child("PauseQuit",true,false) != null,"world pause offers back-to-title and quit")
+	scene.find_child("PauseTitle",true,false).pressed.emit()
+	await process_frame
+	check(scene.find_child("ConfirmLeave",true,false) != null,"leaving asks for confirmation")
+	key(KEY_ESCAPE,true)
+	await process_frame
+	key(KEY_ESCAPE,false)
+	await process_frame
+	await process_frame
+	check(scene.find_child("PauseTitle",true,false) != null and scene.screen_mode == "world","closing the confirm returns to the pause menu")
+	scene.session.state.player.xp += 3
+	scene.find_child("PauseTitle",true,false).pressed.emit()
+	await process_frame
+	scene.find_child("ConfirmLeave",true,false).pressed.emit()
+	await process_frame
+	var autosaved: Dictionary = scene.saves.load_slot("autosave")
+	check(scene.screen_mode == "title" and autosaved.ok and autosaved.state.player.xp == scene.session.state.player.xp and autosaved.state.room_id == scene.session.state.room_id,"back to title autosaves the current state")
+	scene.find_child("Continue",true,false).pressed.emit()
+	await process_frame
+	scene.session.state.room_id = "R03"
+	scene._start_encounter("E01")
+	await process_frame
+	check(scene.screen_mode == "combat","encounter opens combat")
+	var commits_before: int = scene.session.recent_commits.size()
+	var before_state: Dictionary = scene.session.snapshot()
+	key(KEY_ESCAPE,true)
+	await process_frame
+	key(KEY_ESCAPE,false)
+	await process_frame
+	check(scene.find_child("PauseTitle",true,false) != null and scene.find_child("PauseQuit",true,false) != null and scene.find_child("OpenSave",true,false) == null,"combat pause offers back-to-title and quit")
+	scene.find_child("PauseTitle",true,false).pressed.emit()
+	await process_frame
+	scene.find_child("ConfirmLeave",true,false).pressed.emit()
+	await process_frame
+	check(scene.screen_mode == "title","combat back-to-title reaches the title")
+	check(scene.session.recent_commits.size() == commits_before and scene.session.snapshot() == before_state,"leaving combat commits no battle result")
 	for filename in DirAccess.get_files_at(directory):
 		DirAccess.remove_absolute(directory.path_join(filename))
 	DirAccess.remove_absolute(directory)

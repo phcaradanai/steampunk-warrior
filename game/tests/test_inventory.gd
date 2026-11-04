@@ -9,9 +9,10 @@ func run(t) -> bool:
 	var progression = load("res://rpg/progression.gd").new(catalog.data)
 	var service = load("res://rpg/inventory_service.gd").new()
 	var player: Dictionary = progression.new_player("C01")
-	player.currency = 30
+	var price: int = catalog.get_entry("items","W02").price
+	player.currency = price
 	var result: Dictionary = service.transact(player,{"kind":"buy","item_id":"W02","room_id":"R02"},catalog.data)
-	t.check(result.ok and result.state.currency == 0 and result.state.items == ["W02"],"purchase charges exact price and inserts gear")
+	t.check(result.ok and result.state.currency == 0 and result.state.items == ["W02"] and price == 35,"purchase charges exact price and inserts gear")
 	var rejected: Dictionary = service.transact(result.state,{"kind":"buy","item_id":"W02","room_id":"R02"},catalog.data)
 	t.check(not rejected.ok and rejected.state == result.state,"insufficient currency leaves inventory unchanged")
 	rejected = service.transact(player,{"kind":"buy","item_id":"W26","room_id":"R02"},catalog.data)
@@ -26,7 +27,7 @@ func run(t) -> bool:
 		player = result.state
 	t.check(player.base_attributes == original_base and progression.derive(player,catalog.data).attack == 22,"100equipment swaps do not drift base or derived stats")
 	result = service.transact(player,{"kind":"sell","index":0},catalog.data)
-	t.check(result.ok and result.state.currency == 10,"sale rounds down30x0.35 to10")
+	t.check(result.ok and result.state.currency == 12,"sale rounds down35x0.35 to12")
 	player.items = ["W26"]
 	rejected = service.transact(player,{"kind":"equip","index":0},catalog.data)
 	t.check(not rejected.ok and rejected.state == player,"level requirement prevents equip without losing held gear")

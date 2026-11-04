@@ -7,6 +7,13 @@ var context: String = ""
 var ducked: bool = false
 var transition: Tween
 var voices: Array[AudioStreamPlayer] = []
+const AREA_TRACKS := {"R01":"hub","R02":"hub","R03":"canal","R04":"canal","R05":"rail","R06":"rail","R07":"lab","R08":"lab","R09":"foundry","R10":"foundry","R11":"archive","R12":"archive"}
+const MUSIC := ["city","combat","boss","hub","canal","rail","lab","foundry","archive","ending"]
+const SFX := ["ui","metal","electric","vent","heal","shield","victory","defeat","shot","charge","heavy","whoosh","burn","acid"]
+const HEAVY_HIT := 24
+const CAST_SKILLS := ["S04","S06","S15"]
+const MELEE_SKILLS := ["S01","S02","S07","S16"]
+const GUARD_SKILLS := ["S11","S22"]
 var played_events: Dictionary = {}
 
 func _exit_tree() -> void:
@@ -36,7 +43,7 @@ func _ready() -> void:
 		voices.append(player)
 
 func set_context(id: String) -> void:
-	if id == context or not id in ["city","combat","boss"]: return
+	if id == context or not id in MUSIC: return
 	context = id
 	if transition != null and transition.is_valid(): transition.kill()
 	var old := tracks[active]
@@ -62,7 +69,7 @@ func duck(value: bool) -> void:
 		tracks[active].volume_db = -14 if value else -8
 
 func play_sfx(id: String) -> void:
-	if not id in ["ui","metal","electric","vent","heal","shield","victory","defeat"]: return
+	if not id in SFX: return
 	var voice := voices[0]
 	for candidate in voices:
 		if not candidate.playing:
@@ -71,12 +78,47 @@ func play_sfx(id: String) -> void:
 	voice.stream = load("res://audio/"+id+".wav")
 	voice.play()
 
+static func room_track(room_id: String) -> String:
+	return AREA_TRACKS.get(room_id, "city")
+
+# Sound for one combat event: element picks the hit, skill/action kind picks the swing.
+static func sfx_for(event: Dictionary, target_max_hp: int = 0) -> String:
+	var p: Dictionary = event.payload
+	if event.type == "heal": return "heal"
+	if event.type == "damage":
+		if p.get("shielded",false): return "shield"
+		match p.get("type","physical"):
+			"electric": return "electric"
+			"thermal", "Heated": return "burn"
+			"chemical": return "acid"
+		var amount := int(p.get("amount",0))
+		# 25% of max HP as an integer test; without a max HP, fall back to the flat threshold.
+		var heavy := amount * 4 >= target_max_hp if target_max_hp > 0 else amount >= HEAVY_HIT
+		return "heavy" if heavy else "metal"
+	if event.type == "action":
+		var skill: String = p.get("skill_id","")
+		match p.kind:
+			"vent": return "vent"
+			"guard": return "shield"
+			"attack", "retreat": return "whoosh"
+			"skill":
+				if skill in CAST_SKILLS: return "charge"
+				if skill in GUARD_SKILLS: return "shield"
+				if skill == "S09": return "heal"
+				if skill in MELEE_SKILLS: return "whoosh"
+				return "shot"
+	return ""
+
 func combat_events(events: Array) -> void:
+	var scene := get_tree().current_scene
+	var combat = scene.get("combat") if scene != null else null
 	for event in events:
 		if played_events.has(event.id): continue
 		played_events[event.id] = true
-		if event.type == "damage":
-			play_sfx("shield" if event.payload.get("shielded",false) else "electric" if event.payload.get("type","") == "electric" else "metal")
-		elif event.type == "heal": play_sfx("heal")
-		elif event.type == "action" and event.payload.kind == "vent": play_sfx("vent")
+		var max_hp := 0
+		if combat != null and event.type == "damage":
+			for actor in combat.state.get("actors", []):
+				if actor.id == event.payload.get("target_id",""): max_hp = int(actor.max_hp)
+		var id := sfx_for(event, max_hp)
+		if id != "": play_sfx(id)
 	if played_events.size() > 2048: played_events.clear()

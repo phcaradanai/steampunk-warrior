@@ -28,6 +28,8 @@ func _initialize() -> void:
 		await process_frame
 		scene.find_child("Class_C05",true,false).pressed.emit()
 		await process_frame
+		scene.find_child("StorySkip",true,false).pressed.emit()
+		await process_frame
 		scene.session.state.player.current_hp = 33
 		scene.session.state.player.current_fp = 12
 		scene.session.state.player.energy = 44

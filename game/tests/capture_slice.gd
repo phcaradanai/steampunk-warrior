@@ -82,4 +82,4 @@ func wait(seconds: float) -> void:
 
 func capture(label: String) -> void:
 	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png("%s/%s.png" % [output, label])
+	Captures.frame(root).save_png("%s/%s.png" % [output, label])

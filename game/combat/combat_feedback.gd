@@ -13,6 +13,9 @@ const STATUS_AURAS := {"Wet":["aura_wet",0.45], "Heated":["aura_heated",0.6], "C
 const DASH := 0.36
 const HOLD := 0.12
 const RETURN := 0.42
+# Whole-figure hit flash. Kept under 1.6x and 0.16 s: hotter or longer washes brass foes out and hides the impact shape.
+const HIT_FLASH := Color(1.6,1.5,1.3)
+const HIT_FLASH_TIME := 0.16
 var shake_enabled: bool = true
 var flash_enabled: bool = true
 var clock: float = 0.0
@@ -26,13 +29,32 @@ var auras: Dictionary = {}  # "actor_id:Status" -> [ToonFx, ActorPortrait, heigh
 signal impact_landed(event: Dictionary)
 signal impacted(target_id: String)
 
+var _hdr_before := false
+
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	ToonFx.prewarm(self)
+	# Textured effects use HDR modulate (> 1); HDR 2D plus canvas glow blooms only those values, so the arena,
+	# figures and UI (<= 1) look the same. Restored when combat ends.
+	_hdr_before = get_viewport().use_hdr_2d
+	get_viewport().use_hdr_2d = true
+	var world := WorldEnvironment.new()
+	world.environment = Environment.new()
+	world.environment.background_mode = Environment.BG_CANVAS
+	world.environment.glow_enabled = true
+	world.environment.glow_hdr_threshold = 1.0
+	world.environment.glow_intensity = 0.7
+	world.environment.glow_blend_mode = Environment.GLOW_BLEND_MODE_ADDITIVE
+	add_child(world)
+
+func _exit_tree() -> void:
+	get_viewport().use_hdr_2d = _hdr_before
 
 func _process(delta: float) -> void:
 	clock += delta
 	trauma = maxf(0,trauma-delta*5)
-	shake_offset = Vector2(sin(clock*83),cos(clock*71))*trauma*3 if shake_enabled else Vector2.ZERO
+	# Quadratic: light taps barely move the stage, heavy blows punch (max 7 px at trauma 1).
+	shake_offset = Vector2(sin(clock*83),cos(clock*71))*trauma*trauma*3.5 if shake_enabled else Vector2.ZERO
 	var stage := get_parent().get("stage") as Control
 	if stage != null: stage.position = Vector2(0,CombatView.STAGE_TOP) + shake_offset*2
 	for key in auras:
@@ -154,7 +176,8 @@ func _projectile(actor: ActorPortrait, target: ActorPortrait, _payload: Dictiona
 	bolt.queue_free()
 
 func _anchor(portrait: ActorPortrait, height: float) -> Vector2:
-	return portrait.global_position-global_position+Vector2(portrait.size.x*.5, portrait.get_meta("feet",portrait.size.y)*height)
+	# Local to this node through the full transform, so it stays right when the stage is scaled (VFX Sandbox view).
+	return get_global_transform().affine_inverse() * (portrait.get_global_transform() * Vector2(portrait.size.x*.5, portrait.get_meta("feet",portrait.size.y)*height))
 
 # A dodged blow: the target sidesteps away from the attacker and "พลาด!" floats up; no damage, no flash.
 func _miss(target: ActorPortrait, source: ActorPortrait) -> void:
@@ -200,11 +223,14 @@ func _impact(event: Dictionary, portraits: Dictionary) -> void:
 		ToonFx.spawn(self, "crit" if (heavy or impact == "crit") and flash_enabled else "hit", point, from_right)
 	else:
 		ToonFx.spawn(self, impact, point, from_right, 1.0, _tint(impact))
-	trauma = 1.0 if event.type == "damage" else trauma
+	if event.type == "damage":
+		# Shake scaled to importance: blocked < player's normal blow < blow taken < critical.
+		var tier := 0.3 if payload.get("shielded",false) else 1.0 if impact == "crit" else 0.7 if payload.target_id == "hero" else 0.55
+		trauma = minf(1.0, maxf(trauma, tier) + 0.1)
 	if flash_enabled:
 		# Whole-figure flash so the blow reads at a glance, then fade back.
-		target.modulate = Color(2.6,2.4,1.9)
-		target.create_tween().tween_property(target,"modulate",Color.WHITE,.24).set_ease(Tween.EASE_OUT)
+		target.modulate = HIT_FLASH
+		target.create_tween().tween_property(target,"modulate",Color.WHITE,HIT_FLASH_TIME).set_ease(Tween.EASE_OUT)
 	var away := 1.0 if target.mirror else -1.0
 	var recoil := target.create_tween()
 	recoil.tween_property(target,"motion_offset",Vector2(10*away,0),.055)

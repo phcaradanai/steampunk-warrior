@@ -66,7 +66,7 @@ func _initialize() -> void:
 
 func capture(label: String) -> void:
 	await RenderingServer.frame_post_draw
-	var image := root.get_texture().get_image()
+	var image := Captures.frame(root)
 	var dimensions := size_label.split("x")
 	if image.get_size() != Vector2i(int(dimensions[0]),int(dimensions[1])):
 		printerr("FAIL: actual framebuffer ",image.get_size()," differs from ",size_label)

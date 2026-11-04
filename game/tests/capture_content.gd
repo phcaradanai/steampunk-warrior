@@ -47,4 +47,4 @@ func capture(id: String) -> void:
  await process_frame
  await RenderingServer.frame_post_draw
  var output := ProjectSettings.globalize_path("res://../docs/development/screenshots/content_"+id+".png")
- if root.get_texture().get_image().save_png(output) != OK:quit(1)
+ if Captures.frame(root).save_png(output) != OK:quit(1)

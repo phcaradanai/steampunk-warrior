@@ -102,7 +102,7 @@ func capture(label: String) -> void:
 	if DisplayServer.get_name() == "headless":
 		return
 	await RenderingServer.frame_post_draw
-	var image: Image = root.get_texture().get_image()
+	var image: Image = Captures.frame(root)
 	var folder := ProjectSettings.globalize_path("res://../docs/development/screenshots")
 	DirAccess.make_dir_recursive_absolute(folder)
 	check(image.save_png(folder.path_join(label+".png")) == OK,"capture actual rendered " + label)

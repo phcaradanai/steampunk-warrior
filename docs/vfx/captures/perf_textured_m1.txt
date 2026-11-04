@@ -1,0 +1,59 @@
+# Textured ToonFx (current) vs polygon v1 (legacy). Apple M1, Godot 4.7.2 Mobile/Metal, 1280x720, vsync off, HDR 2D + glow on. 2026-11-04 15:50
+## current run 1
+VFX_PERF idle (no effects)                  frames=1510 fps=377 mean=2.65ms p95=4.86ms max=7.15ms 
+VFX_PERF realistic: 2 auras + impact/0.3 s  frames=1351 fps=338 mean=2.96ms p95=5.25ms max=20.00ms 
+VFX_PERF 7 auras                            frames=1415 fps=354 mean=2.83ms p95=5.32ms max=19.27ms 
+VFX_PERF 7 auras + 6 impacts every 0.1 s    frames=1067 fps=267 mean=3.75ms p95=5.46ms max=22.74ms 
+live ToonFx nodes at end: 47
+## legacy run 1
+VFX_PERF idle (no effects)                  frames=1463 fps=365 mean=2.74ms p95=5.63ms max=21.69ms 
+VFX_PERF realistic: 2 auras + impact/0.3 s  frames=1146 fps=286 mean=3.49ms p95=5.14ms max=7.32ms 
+VFX_PERF 7 auras                            frames=1227 fps=307 mean=3.26ms p95=5.14ms max=6.92ms 
+VFX_PERF 7 auras + 6 impacts every 0.1 s    frames=208 fps=52 mean=19.28ms p95=24.69ms max=28.90ms 
+live ToonFx nodes at end: 37
+## current run 2
+VFX_PERF idle (no effects)                  frames=1479 fps=370 mean=2.71ms p95=5.34ms max=21.39ms 
+VFX_PERF realistic: 2 auras + impact/0.3 s  frames=1471 fps=368 mean=2.72ms p95=5.18ms max=16.89ms 
+VFX_PERF 7 auras                            frames=1465 fps=366 mean=2.73ms p95=5.32ms max=7.36ms 
+VFX_PERF 7 auras + 6 impacts every 0.1 s    frames=1017 fps=254 mean=3.93ms p95=5.80ms max=24.88ms 
+live ToonFx nodes at end: 47
+## legacy run 2
+VFX_PERF idle (no effects)                  frames=1456 fps=364 mean=2.75ms p95=5.49ms max=28.51ms 
+VFX_PERF realistic: 2 auras + impact/0.3 s  frames=660 fps=165 mean=6.06ms p95=10.42ms max=18.41ms 
+VFX_PERF 7 auras                            frames=592 fps=148 mean=6.76ms p95=11.14ms max=17.39ms 
+VFX_PERF 7 auras + 6 impacts every 0.1 s    frames=170 fps=42 mean=23.59ms p95=31.02ms max=40.63ms 
+live ToonFx nodes at end: 40
+## current run 3
+VFX_PERF idle (no effects)                  frames=1101 fps=275 mean=3.64ms p95=6.28ms max=22.07ms 
+VFX_PERF realistic: 2 auras + impact/0.3 s  frames=1088 fps=272 mean=3.68ms p95=6.22ms max=20.67ms 
+VFX_PERF 7 auras                            frames=1088 fps=272 mean=3.68ms p95=6.04ms max=21.98ms 
+VFX_PERF 7 auras + 6 impacts every 0.1 s    frames=812 fps=203 mean=4.93ms p95=7.11ms max=24.21ms 
+live ToonFx nodes at end: 48
+## legacy run 3
+VFX_PERF idle (no effects)                  frames=1072 fps=268 mean=3.73ms p95=6.44ms max=21.68ms 
+VFX_PERF realistic: 2 auras + impact/0.3 s  frames=931 fps=233 mean=4.30ms p95=6.45ms max=19.43ms 
+VFX_PERF 7 auras                            frames=972 fps=243 mean=4.12ms p95=6.35ms max=9.32ms 
+VFX_PERF 7 auras + 6 impacts every 0.1 s    frames=201 fps=50 mean=19.91ms p95=25.36ms max=27.99ms 
+live ToonFx nodes at end: 40
+
+## cold shader cache (deleted), current, prewarm on:
+VFX_PERF idle (no effects)                  frames=1073 fps=268 mean=3.73ms p95=6.57ms max=14.33ms 
+VFX_PERF realistic: 2 auras + impact/0.3 s  frames=1086 fps=271 mean=3.69ms p95=6.23ms max=21.22ms 
+VFX_PERF 7 auras                            frames=1101 fps=275 mean=3.63ms p95=5.93ms max=14.60ms 
+VFX_PERF 7 auras + 6 impacts every 0.1 s    frames=808 fps=202 mean=4.95ms p95=7.13ms max=55.53ms 
+
+## cold shader cache (deleted), current, prewarm incl. particle presets:
+VFX_PERF idle (no effects)                  frames=833 fps=208 mean=4.80ms p95=10.21ms max=33.75ms 
+VFX_PERF realistic: 2 auras + impact/0.3 s  frames=554 fps=138 mean=7.22ms p95=13.10ms max=106.18ms 
+VFX_PERF 7 auras                            frames=902 fps=225 mean=4.44ms p95=7.44ms max=19.05ms 
+VFX_PERF 7 auras + 6 impacts every 0.1 s    frames=434 fps=108 mean=9.24ms p95=18.39ms max=108.78ms 
+## cold (re-check, prewarm incl. particles)
+VFX_PERF idle (no effects)                  frames=800 fps=200 mean=5.00ms p95=16.86ms max=20.96ms 
+VFX_PERF realistic: 2 auras + impact/0.3 s  frames=811 fps=203 mean=4.94ms p95=8.78ms max=20.26ms 
+VFX_PERF 7 auras                            frames=829 fps=207 mean=4.83ms p95=9.13ms max=23.42ms 
+VFX_PERF 7 auras + 6 impacts every 0.1 s    frames=658 fps=164 mean=6.08ms p95=8.96ms max=24.41ms 
+## cold (re-check, prewarm incl. particles)
+VFX_PERF idle (no effects)                  frames=883 fps=221 mean=4.53ms p95=8.27ms max=22.50ms 
+VFX_PERF realistic: 2 auras + impact/0.3 s  frames=898 fps=224 mean=4.46ms p95=7.65ms max=22.32ms 
+VFX_PERF 7 auras                            frames=816 fps=204 mean=4.90ms p95=9.15ms max=22.01ms 
+VFX_PERF 7 auras + 6 impacts every 0.1 s    frames=715 fps=178 mean=5.60ms p95=8.28ms max=19.26ms 

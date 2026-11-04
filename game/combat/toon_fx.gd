@@ -1,11 +1,14 @@
 class_name ToonFx
 extends Node2D
-# Combat effects drawn in code to match the toon-shaded 3D figures: flat colour shapes with the same dark
-# outline, bright cores and eased motion. One-shots free themselves; loops (bolt, beam) run until freed.
+# Combat effects built from textures, not drawn shapes: each kind is a RECIPE of textured layers (Sprite2D, additive
+# or normal blend, HDR modulate > 1 so the combat glow blooms it) plus GPU particle bursts. Textures live in
+# art/vfx/ and come from Blender (lightning flipbooks, prototypes/vfx/blender/) and Codex image generation (painted
+# single frames), packed by prototypes/vfx/pack_textures.py. Every layer is a pure function of `clock`, so the VFX
+# Sandbox can scrub and step it; GPU particles run on real time. One-shots free themselves; loops run until freed.
+# Visual direction: reference 1 (Hovl's sketchbook) per the user; see docs/vfx/VFX_STYLE_GUIDE.md.
 
-const OUTLINE := Color("101b20")
 const DURATION := {"hit":0.32, "crit":0.46, "block":0.42, "heal":0.75, "thrust":0.3, "slash2":0.42, "smash":0.55,
-	"cleave":0.4, "zap":0.26, "zap_hit":0.34, "thunder":0.5, "cloud":0.9, "fire":0.7, "splash":0.6, "snare":0.6,
+	"cleave":0.4, "zap":0.26, "zap_hit":0.34, "thunder":0.8, "cloud":0.9, "fire":0.7, "splash":0.6, "snare":0.6,
 	"reticle":0.5, "bite":0.32, "howl":0.6, "muzzle":0.16, "charge":0.45, "dome":0.7, "haste":0.6, "steam":0.9,
 	"warp":0.7}
 const LOOPS := ["bolt", "beam", "aura_wet", "aura_heated", "aura_corroded", "aura_marked", "aura_sealed",
@@ -16,469 +19,413 @@ const TINTS := {"block":"80cde1", "heal":"83dcb3", "beam":"f1d9a0", "thrust":"ef
 	"charge":"9fe6ff", "dome":"80cde1", "haste":"f1d9a0", "steam":"e6f2f2", "warp":"9fe6ff", "aura_wet":"6fc3ec",
 	"aura_heated":"ff8a3a", "aura_corroded":"9fd65a", "aura_marked":"e8573a", "aura_sealed":"c8823a",
 	"aura_staggered":"f1d9a0", "aura_haste":"f1d9a0"}
+const PERIOD := {"bolt":0.4, "beam":1.2, "aura_wet":0.9, "aura_heated":1.0, "aura_corroded":1.4, "aura_marked":2.0,
+	"aura_sealed":2.0, "aura_staggered":1.6, "aura_haste":0.7}
+const DIR := "res://art/vfx/"
+
+# Layer keys (all optional except tex):
+#   tex      file under art/vfx/ ("@soft" = procedural radial glow)   frames Vector2i flipbook, fps (default 20)
+#   t        [from, to] seconds (loops: within PERIOD)                 at Vector2 offset (x follows direction)
+#   move     Vector2 travelled over the window (eased out)             orbit Vector2 radii, circles at `spin` rad/s
+#   scale    [from, to], floats or Vector2 (eased out)                 squash y factor (floor-plane ellipses)
+#   rot      start rotation (rad, mirrored with direction)             spin rad/s
+#   color    "tint" (the effect's tint, default) or a hex              gain HDR multiplier (default 1.8)
+#   fin/fout fade in over the first fin, fade out from fout (fractions of the window)
+#   erode    true: leave by noise erosion instead of fading            mix   true: normal blend (smoke) not additive
+#   copies   n copies, spaced by `spread` (and, in loops, staggered in time)
+#   flipv    mirror vertically                                         pivot texture-pixel offset (Sprite2D.offset)
+#   sky      true: stretch from above the stage top down to this layer (lightning)
+#   span     true: stretch along `reach` (zap)
+# Particles: {"burst": preset, "n": amount, "color": "tint"|hex, "at": Vector2}
+const RECIPES := {
+	"hit":[{"tex":"hit_burst.png", "t":[0, 0.3], "scale":[0.16, 0.48], "spin":1.2, "fout":0.4},
+		{"tex":"ring_white.png", "t":[0, 0.26], "scale":[0.06, 0.34], "color":"ffe2a0", "gain":1.5, "fout":0.25},
+		{"burst":"sparks", "n":14, "color":"ffd37a"}],
+	"crit":[{"tex":"@soft", "t":[0, 0.12], "scale":[0.6, 0.9], "color":"ffe2a0", "gain":0.5, "fout":0.1},
+		{"tex":"crit_burst.png", "t":[0, 0.4], "scale":[0.16, 0.46], "spin":0.8, "gain":1.6, "fout":0.3},
+		{"tex":"hit_burst.png", "t":[0.02, 0.3], "scale":[0.1, 0.3], "spin":-2.0, "gain":2.4, "fout":0.3},
+		{"tex":"ring_white.png", "t":[0, 0.36], "scale":[0.08, 0.5], "color":"ffe2a0", "gain":1.8, "fout":0.2},
+		{"burst":"sparks", "n":30, "color":"ffd37a"}],
+	"muzzle":[{"tex":"muzzle_flash.png", "t":[0, 0.14], "scale":[0.16, 0.3], "at":Vector2(30, 0), "fout":0.3},
+		{"burst":"sparks", "n":6, "color":"ffe2a0"}],
+	"thrust":[{"tex":"thrust_streak.png", "t":[0, 0.22], "at":Vector2(-60, 0), "move":Vector2(140, 0),
+			"scale":[Vector2(0.25, 0.3), Vector2(0.55, 0.16)], "color":"fff4d6", "gain":2.2, "fout":0.5},
+		{"tex":"hit_burst.png", "t":[0.06, 0.3], "scale":[0.08, 0.26], "spin":1.5, "fout":0.4},
+		{"burst":"sparks", "n":10, "color":"ffd37a"}],
+	"slash2":[{"tex":"slash_arc.png", "t":[0, 0.24], "rot":-0.35, "scale":[0.38, 0.5], "gain":2.0, "fout":0.35, "erode":true},
+		{"tex":"slash_arc.png", "t":[0.13, 0.38], "rot":0.35, "flipv":true, "scale":[0.38, 0.5], "gain":2.0, "fout":0.35, "erode":true},
+		{"tex":"hit_burst.png", "t":[0.08, 0.34], "scale":[0.08, 0.26], "spin":1.5, "fout":0.4},
+		{"burst":"sparks", "n":12, "color":"ffd37a"}],
+	"cleave":[{"tex":"slash_arc.png", "t":[0, 0.32], "rot":-0.2, "scale":[0.55, 0.78], "gain":2.2, "fout":0.35, "erode":true},
+		{"tex":"slash_arc.png", "t":[0.02, 0.26], "rot":-0.2, "scale":[0.5, 0.7], "color":"fff4d6", "gain":2.0, "fout":0.3},
+		{"tex":"ring_white.png", "t":[0.05, 0.36], "scale":[0.1, 0.5], "gain":1.4, "fout":0.2},
+		{"burst":"sparks", "n":20, "color":"ffb08a"}],
+	"smash":[{"tex":"crit_burst.png", "t":[0, 0.32], "scale":[0.14, 0.44], "spin":0.6, "color":"ffe2a0", "fout":0.35},
+		{"tex":"ring_white.png", "t":[0, 0.5], "at":Vector2(0, 100), "squash":0.3, "scale":[0.12, 0.9], "gain":1.6, "fout":0.3},
+		{"tex":"smoke_puff.png", "t":[0.05, 0.55], "at":Vector2(0, 92), "copies":4, "spread":Vector2(46, 0), "scale":[0.08, 0.2],
+			"move":Vector2(0, -24), "color":"b9a58a", "gain":1.0, "mix":true, "erode":true, "fout":0.35},
+		{"burst":"debris", "n":16, "color":"b9a58a", "at":Vector2(0, 90)}],
+	"bite":[{"tex":"fang_marks.png", "t":[0, 0.3], "rot":0.3, "scale":[0.45, 0.36], "gain":1.8, "fout":0.4, "erode":true},
+		{"tex":"hit_burst.png", "t":[0.1, 0.32], "scale":[0.08, 0.22], "fout":0.4},
+		{"burst":"sparks", "n":8, "color":"f3e7c6"}],
+	"zap":[{"tex":"thunder/arcs.png", "frames":Vector2i(1, 6), "fps":30, "span":true, "t":[0, 0.26], "gain":2.4, "fout":0.5}],
+	"zap_hit":[{"tex":"thunder/impact_flare.png", "t":[0, 0.3], "scale":[0.14, 0.34], "spin":2.0, "gain":2.2, "fout":0.35},
+		{"tex":"thunder/shock_ring.png", "t":[0, 0.34], "scale":[0.08, 0.36], "gain":1.8, "fout":0.25},
+		{"burst":"sparks", "n":16, "color":"9fe6ff"}],
+	"thunder":[{"tex":"@soft", "t":[0, 0.22], "at":Vector2(0, 40), "scale":[2.2, 2.5], "color":"8cb8ff", "gain":0.8, "fout":0.0},
+		{"tex":"thunder/shock_ring.png", "t":[0, 0.5], "at":Vector2(0, 112), "squash":0.28, "scale":[0.15, 0.7], "gain":2.0, "fout":0.0},
+		{"tex":"thunder/arcs.png", "frames":Vector2i(1, 6), "fps":16, "t":[0.03, 0.6], "at":Vector2(0, 104),
+			"scale":[Vector2(0.55, 0.5), Vector2(0.9, 0.5)], "gain":2.0, "fout":0.5},
+		{"tex":"thunder/bolts.png", "frames":Vector2i(8, 1), "fps":22, "sky":true, "t":[0, 0.14], "at":Vector2(0, 112), "scale":[1.35, 1.35], "gain":2.4, "fout":0.6},
+		{"tex":"thunder/bolts.png", "frames":Vector2i(8, 1), "fps":22, "sky":true, "t":[0.18, 0.4], "at":Vector2(0, 112), "scale":[1.35, 1.35], "gain":2.4, "fout":0.6},
+		{"tex":"thunder/impact_flare.png", "t":[0, 0.42], "at":Vector2(0, 100), "scale":[0.22, 0.5], "spin":1.5, "gain":2.4, "fout":0.3},
+		{"tex":"thunder/impact_flare.png", "t":[0, 0.4], "scale":[0.12, 0.28], "spin":-2.2, "gain":1.8, "fout":0.3},
+		{"tex":"thunder/arcs.png", "frames":Vector2i(1, 6), "fps":20, "t":[0.12, 0.75], "rot":1.2, "spin":2.0, "scale":[Vector2(0.28, 0.4), Vector2(0.28, 0.4)], "gain":1.9, "fout":0.45},
+		{"burst":"sparks", "n":48, "color":"9fe6ff", "at":Vector2(0, 104)}],
+	"fire":[{"tex":"fire_burst.png", "t":[0, 0.5], "scale":[0.12, 0.46], "color":"ffffff", "gain":1.9, "fout":0.4, "erode":true},
+		{"tex":"flame.png", "t":[0.04, 0.6], "at":Vector2(0, 40), "copies":3, "spread":Vector2(46, 0), "pivot":Vector2(0, -200),
+			"scale":[Vector2(0.12, 0.08), Vector2(0.2, 0.3)], "color":"ffffff", "gain":1.7, "fout":0.45, "erode":true},
+		{"burst":"embers", "n":20, "color":"ffb04a"}],
+	"cloud":[{"tex":"smoke_puff.png", "t":[0, 0.9], "copies":3, "spread":Vector2(48, -6), "scale":[0.12, 0.34], "gain":1.0, "mix":true, "erode":true, "fout":0.45},
+		{"tex":"bubble.png", "t":[0.15, 0.8], "copies":3, "spread":Vector2(34, 0), "move":Vector2(0, -60), "scale":[0.03, 0.07], "gain":1.6, "fout":0.6}],
+	"splash":[{"tex":"splash.png", "t":[0, 0.55], "at":Vector2(0, 30), "pivot":Vector2(0, -150), "scale":[Vector2(0.2, 0.1), Vector2(0.45, 0.42)], "color":"ffffff", "gain":1.4, "erode":true, "fout":0.4},
+		{"tex":"ring_white.png", "t":[0, 0.5], "at":Vector2(0, 60), "squash":0.3, "scale":[0.1, 0.6], "gain":1.4, "fout":0.3},
+		{"burst":"drops", "n":16, "color":"ffffff"}],
+	"snare":[{"tex":"copper_band.png", "t":[0, 0.6], "at":Vector2(0, -24), "scale":[0.62, 0.36], "color":"ffffff", "gain":1.3, "fout":0.6},
+		{"tex":"copper_band.png", "t":[0.06, 0.6], "at":Vector2(0, 24), "scale":[0.62, 0.36], "color":"ffffff", "gain":1.3, "fout":0.6},
+		{"burst":"sparks", "n":8, "color":"ffd37a"}],
+	"heal":[{"tex":"ring_white.png", "t":[0, 0.7], "squash":0.3, "scale":[0.12, 0.42], "gain":1.6, "fout":0.5},
+		{"tex":"light_pillar.png", "t":[0.05, 0.72], "pivot":Vector2(0, -256), "scale":[Vector2(0.3, 0.1), Vector2(0.34, 0.42)], "color":"7dffc0", "gain":1.2, "fout":0.5},
+		{"tex":"heal_cross.png", "t":[0.1, 0.75], "at":Vector2(0, -20), "copies":4, "spread":Vector2(26, -8), "move":Vector2(0, -140), "scale":[0.09, 0.06], "color":"ffffff", "gain":1.7, "fout":0.6},
+		{"burst":"motes", "n":12, "color":"83dcb3", "at":Vector2(0, -10)}],
+	"block":[{"tex":"hex_shield.png", "t":[0, 0.42], "at":Vector2(-34, 0), "scale":[Vector2(0.22, 0.4), Vector2(0.27, 0.48)], "color":"ffffff", "gain":1.6, "fout":0.45},
+		{"burst":"sparks", "n":12, "color":"dff6ff", "at":Vector2(-50, 0)}],
+	"dome":[{"tex":"hex_shield.png", "t":[0, 0.7], "scale":[0.08, 0.46], "color":"ffffff", "gain":1.4, "fout":0.5},
+		{"tex":"ring_white.png", "t":[0, 0.5], "scale":[0.1, 0.55], "gain":1.4, "fout":0.3}],
+	"charge":[{"tex":"ring_white.png", "t":[0, 0.45], "scale":[0.4, 0.04], "gain":1.8, "fin":0.2, "fout":0.8},
+		{"tex":"@soft", "t":[0, 0.45], "scale":[0.05, 0.4], "gain":1.4, "fin":0.3, "fout":0.85}],
+	"haste":[{"tex":"chevron.png", "t":[0, 0.6], "at":Vector2(-52, 40), "copies":3, "spread":Vector2(0, -30), "move":Vector2(0, -110), "scale":[0.09, 0.07], "gain":1.8, "fout":0.5},
+		{"tex":"chevron.png", "t":[0, 0.6], "at":Vector2(52, 40), "copies":3, "spread":Vector2(0, -30), "move":Vector2(0, -110), "scale":[0.09, 0.07], "gain":1.8, "fout":0.5}],
+	"steam":[{"tex":"smoke_puff.png", "t":[0, 0.9], "at":Vector2(-40, -30), "copies":3, "spread":Vector2(-34, -16), "move":Vector2(-60, -110),
+		"scale":[0.1, 0.36], "gain":1.0, "mix":true, "erode":true, "fout":0.45}],
+	"warp":[{"tex":"gear_circle.png", "t":[0, 0.7], "scale":[0.05, 0.34], "spin":3.0, "color":"ffffff", "gain":1.0, "mix":true, "fout":0.5},
+		{"tex":"ring_white.png", "t":[0.1, 0.6], "scale":[0.1, 0.5], "gain":1.4, "fout":0.3}],
+	"howl":[{"tex":"sound_rings.png", "t":[0, 0.6], "scale":[0.08, 0.5], "gain":1.5, "fout":0.4}],
+	"reticle":[{"tex":"reticle.png", "t":[0, 0.5], "scale":[0.5, 0.26], "spin":2.5, "color":"ffffff", "gain":1.5, "fout":0.6}],
+	"bolt":[{"tex":"glow_orb.png", "t":[0, 0.4], "scale":[0.24, 0.24], "gain":2.2, "fin":0.0, "fout":1.0}],
+	"beam":[{"tex":"light_pillar.png", "t":[0, 1.2], "pivot":Vector2(0, -256), "scale":[Vector2(0.4, 0.62), Vector2(0.4, 0.62)], "gain":1.3, "fin":0.0, "fout":1.0},
+		{"tex":"heal_cross.png", "t":[0, 1.2], "copies":3, "spread":Vector2(18, 0), "move":Vector2(0, -220), "scale":[0.05, 0.03], "color":"fff4d6", "gain":1.6, "fout":0.6}],
+	"aura_wet":[{"tex":"water_drop.png", "t":[0, 0.9], "at":Vector2(0, -60), "copies":4, "spread":Vector2(24, 0), "move":Vector2(0, 120), "scale":[0.1, 0.085], "color":"ffffff", "gain":1.3, "fout":0.7}],
+	"aura_heated":[{"tex":"flame.png", "t":[0, 1.0], "at":Vector2(0, 54), "copies":2, "spread":Vector2(88, 0), "move":Vector2(0, -90), "pivot":Vector2(0, -200),
+		"scale":[Vector2(0.14, 0.12), Vector2(0.11, 0.26)], "color":"ffffff", "gain":1.6, "fout":0.6, "erode":true},
+		{"tex":"flame.png", "t":[0, 1.0], "at":Vector2(0, 30), "copies":2, "spread":Vector2(60, 0), "move":Vector2(0, -80), "pivot":Vector2(0, -200),
+		"scale":[Vector2(0.1, 0.09), Vector2(0.08, 0.2)], "color":"ffffff", "gain":1.6, "fout":0.6, "erode":true}],
+	"aura_corroded":[{"tex":"bubble.png", "t":[0, 1.4], "at":Vector2(0, 34), "copies":5, "spread":Vector2(20, 0), "move":Vector2(0, -80), "scale":[0.07, 0.13], "gain":1.5, "fout":0.75}],
+	"aura_marked":[{"tex":"reticle.png", "t":[0, 2.0], "scale":[0.3, 0.3], "spin":1.2, "color":"ffffff", "gain":1.3, "fin":0.0, "fout":1.0}],
+	"aura_sealed":[{"tex":"copper_band.png", "t":[0, 2.0], "at":Vector2(0, -6), "scale":[0.4, 0.4], "color":"ffffff", "gain":1.2, "fin":0.0, "fout":1.0},
+		{"tex":"copper_band.png", "t":[0, 2.0], "at":Vector2(0, 26), "scale":[0.38, 0.38], "color":"ffffff", "gain":1.2, "fin":0.0, "fout":1.0}],
+	"aura_staggered":[{"tex":"star.png", "t":[0, 1.6], "copies":3, "orbit":Vector2(38, 11), "at":Vector2(0, -14), "spin":4.0, "scale":[0.12, 0.12], "color":"ffffff", "gain":1.4, "fin":0.0, "fout":1.0}],
+	"aura_haste":[{"tex":"chevron.png", "t":[0, 0.7], "at":Vector2(-52, 40), "copies":2, "move":Vector2(0, -120), "scale":[0.12, 0.09], "gain":1.6, "fout":0.6},
+		{"tex":"chevron.png", "t":[0, 0.7], "at":Vector2(52, 40), "copies":2, "move":Vector2(0, -120), "scale":[0.12, 0.09], "gain":1.6, "fout":0.6}],
+}
+
 # Every kind a skill, enemy role or status may name; tests check data against this.
 static func kinds() -> Array:
 	return DURATION.keys() + LOOPS
 
+# ---- presets (data/vfx_presets.json, edited and saved from the VFX Sandbox; gameplay spawns through the same path)
+const PRESET_PATH := "res://data/vfx_presets.json"
+const PARAMS := {"scale":1.0, "speed":1.0, "opacity":1.0, "density":1.0, "tint":""}
+static var presets: Dictionary = {}
+static var _presets_loaded := false
+
+static func preset(kind: String) -> Dictionary:
+	if not _presets_loaded:
+		_presets_loaded = true
+		if FileAccess.file_exists(PRESET_PATH):
+			var parsed: Variant = JSON.parse_string(FileAccess.get_file_as_string(PRESET_PATH))
+			if parsed is Dictionary: presets = parsed
+	var merged := PARAMS.duplicate()
+	merged.merge(presets.get(kind, {}), true)
+	return merged
+
+static func reload_presets() -> void:
+	presets.clear()
+	_presets_loaded = false
+
+# Writes only values that differ from PARAMS. Returns the FileAccess error when the path is read-only (exported game).
+static func save_presets(path: String = PRESET_PATH) -> Error:
+	var out := {}
+	for kind in presets:
+		var changed := {}
+		for key in presets[kind]:
+			if PARAMS.has(key) and presets[kind][key] != PARAMS[key]: changed[key] = presets[kind][key]
+		if not changed.is_empty(): out[kind] = changed
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	if file == null: return FileAccess.get_open_error()
+	file.store_string(JSON.stringify(out, "\t", true))
+	return OK
+
+# ---- shared resources
+static var _textures: Dictionary = {}
+static var _add: CanvasItemMaterial
+static var _mix: CanvasItemMaterial
+static var _noise: NoiseTexture2D
+const ADD_SHADER := preload("res://combat/vfx_add.gdshader")
+const MIX_SHADER := preload("res://combat/vfx_mix.gdshader")
+
+static func _texture(name: String) -> Texture2D:
+	if not _textures.has(name):
+		if name == "@soft" or name == "@spark":
+			var gradient := Gradient.new()
+			gradient.colors = PackedColorArray([Color(1, 1, 1, 1), Color(1, 1, 1, 0.35), Color(1, 1, 1, 0)])
+			gradient.offsets = PackedFloat32Array([0.0, 0.3 if name == "@spark" else 0.35, 1.0])
+			var radial := GradientTexture2D.new()
+			radial.gradient = gradient
+			radial.fill = GradientTexture2D.FILL_RADIAL
+			radial.fill_from = Vector2(0.5, 0.5)
+			radial.fill_to = Vector2(1.0, 0.5)
+			radial.width = 32 if name == "@spark" else 256
+			radial.height = radial.width
+			_textures[name] = radial
+		else:
+			_textures[name] = load(DIR + name)
+	return _textures[name]
+
+static func _shared() -> void:
+	if _add != null: return
+	_add = CanvasItemMaterial.new()
+	_add.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	_mix = CanvasItemMaterial.new()
+	var noise := FastNoiseLite.new()
+	noise.frequency = 0.035
+	_noise = NoiseTexture2D.new()
+	_noise.width = 128
+	_noise.height = 128
+	_noise.seamless = true
+	_noise.noise = noise
+
+# Draws through both layer shaders and every particle preset, nearly invisible, at combat start so their pipelines
+# compile before the first hit (a cold shader cache otherwise stalls the first use: 815 ms measured on M1 for one shader).
+static func prewarm(parent: Node) -> void:
+	_shared()
+	for shader in [ADD_SHADER, MIX_SHADER]:
+		var probe := Sprite2D.new()
+		probe.texture = _texture("@spark")
+		probe.modulate = Color(1, 1, 1, 0.01)
+		probe.scale = Vector2.ONE * 0.05
+		probe.material = ShaderMaterial.new()
+		probe.material.shader = shader
+		probe.material.set_shader_parameter("noise", _noise)
+		parent.add_child(probe)
+		parent.get_tree().create_timer(0.1).timeout.connect(probe.queue_free)
+	# Particle process shaders compile per feature set (align, box emission, ...): run one of each preset unseen.
+	for kind_name in ["hit", "fire", "splash", "smash", "heal"]:
+		var fx := ToonFx.spawn(parent, kind_name, Vector2(8, 8), false, 0.05)
+		fx.modulate.a = 0.004
+
+# ---- instance
 var kind: String = "hit"
+var speed: float = 1.0  # playback rate from the preset
 var tint: Color = Color("efbb71")
 var size: float = 1.0
 var direction: float = 1.0  # +1: effects travel/face right
-var clock: float = 0.0
 var loop: bool = false
-var rays: Array = []    # [angle, length scale, width scale]
-var sparks: Array = []  # [angle, speed, size]
 var reach := Vector2(240, 0)  # zap: end point relative to the start
-var jag: Array = []           # zap/thunder: zigzag offsets, re-rolled while it flickers
-var rng := RandomNumberGenerator.new()
+var clock: float = 0.0:
+	set(value):
+		clock = value
+		if is_inside_tree(): _pose()
+var layers: Array = []  # [Sprite2D, layer dict, copy index, copy count]
 
 static func spawn(parent: Node, kind: String, point: Vector2, flip: bool = false, size: float = 1.0, tint: Color = Color(0, 0, 0, 0)) -> ToonFx:
-	var fx := ToonFx.new()
-	fx.kind = kind
-	fx.size = size
-	fx.direction = -1.0 if flip else 1.0
-	fx.loop = kind in LOOPS
-	if tint.a > 0.0:
-		fx.tint = tint
-	elif TINTS.has(kind):
-		fx.tint = Color(TINTS[kind])
-	fx.position = point
-	fx._seed()
-	parent.add_child(fx)
-	return fx
+	return ToonFx.new().setup(parent, kind, point, flip, size, tint)
 
-func _seed() -> void:
-	rng.randomize()
-	var count := 10 if kind == "crit" else 7
-	for i in count:
-		rays.append([TAU * i / count + rng.randf_range(-0.25, 0.25), rng.randf_range(0.7, 1.15), rng.randf_range(0.8, 1.2)])
-	for i in (10 if kind == "crit" else 6):
-		# Sparks fly away from the attacker, in a cone, then fall.
-		sparks.append([rng.randf_range(-1.0, 0.6), rng.randf_range(160.0, 320.0), rng.randf_range(3.0, 6.0)])
+func setup(parent: Node, kind_name: String, point: Vector2, flip: bool, scale_by: float, color: Color) -> ToonFx:
+	_shared()
+	var p := preset(kind_name)
+	kind = kind_name
+	size = scale_by * float(p.scale)
+	speed = float(p.speed)
+	modulate.a = float(p.opacity)
+	direction = -1.0 if flip else 1.0
+	loop = kind in LOOPS
+	if color.a > 0.0:
+		tint = color
+	elif not String(p.tint).is_empty():
+		tint = Color(p.tint)
+	elif TINTS.has(kind):
+		tint = Color(TINTS[kind])
+	position = point
+	parent.add_child(self)
+	for spec in RECIPES.get(kind, []):
+		if spec.has("burst"): _burst(spec, float(p.density))
+		else:
+			var copies: int = spec.get("copies", 1)
+			for i in copies: layers.append([_sprite(spec), spec, i, copies])
+	_pose()
+	return self
+
+func _sprite(spec: Dictionary) -> Sprite2D:
+	var sprite := Sprite2D.new()
+	sprite.texture = _texture(spec.tex)
+	var frames: Vector2i = spec.get("frames", Vector2i.ONE)
+	sprite.hframes = frames.x
+	sprite.vframes = frames.y
+	sprite.offset = spec.get("pivot", Vector2.ZERO)
+	if spec.get("erode", false):
+		sprite.material = ShaderMaterial.new()
+		sprite.material.shader = MIX_SHADER if spec.get("mix", false) else ADD_SHADER
+		sprite.material.set_shader_parameter("noise", _noise)
+	else:
+		sprite.material = _mix if spec.get("mix", false) else _add
+	var hue: String = spec.get("color", "tint")
+	sprite.set_meta("color", tint if hue == "tint" else Color(hue))
+	add_child(sprite)
+	return sprite
 
 func _process(delta: float) -> void:
-	clock += delta
-	if kind in ["zap", "thunder", "zap_hit"] and int(clock * 30.0) != int((clock - delta) * 30.0): jag.clear()
-	if not loop and clock >= DURATION.get(kind, 0.4):
+	clock += delta * speed
+	if not loop and clock >= DURATION.get(kind, 0.5):
 		queue_free()
-		return
-	queue_redraw()
-
-func _draw() -> void:
-	var t: float = clock / DURATION.get(kind, 1.0)
-	match kind:
-		"hit": _impact(t, 1.0)
-		"crit": _impact(t, 1.45)
-		"block": _block(t)
-		"heal": _heal(t)
-		"bolt": _bolt()
-		"beam": _beam()
-		"thrust": _thrust(t)
-		"slash2": _slash(t, 2, 1.0)
-		"cleave": _slash(t, 1, 1.5)
-		"smash": _smash(t)
-		"zap": _zap(t, Vector2.ZERO, reach, 7)
-		"zap_hit": _zap_hit(t)
-		"thunder": _thunder(t)
-		"cloud": _cloud(t)
-		"fire": _fire(t)
-		"splash": _splash(t)
-		"snare": _snare(t)
-		"reticle": _reticle(t, false)
-		"bite": _bite(t)
-		"howl": _rings(t, 3, 90.0)
-		"muzzle": _impact(t, 0.6)
-		"charge": _charge(t)
-		"dome": _dome(t)
-		"haste": _haste(t, false)
-		"steam": _steam(t, 1.0)
-		"warp": _warp(t)
-		"aura_wet": _aura_wet()
-		"aura_heated": _aura_heated()
-		"aura_corroded": _aura_corroded()
-		"aura_marked": _reticle(0.0, true)
-		"aura_sealed": _aura_sealed()
-		"aura_staggered": _aura_staggered()
-		"aura_haste": _haste(fmod(clock, 0.6) / 0.6, true)
 
 static func _ease_out(t: float) -> float:
 	return 1.0 - pow(1.0 - clampf(t, 0.0, 1.0), 3.0)
 
-# Fill with the toon outline around it, the way the 3D figures read.
-func _shape(points: PackedVector2Array, color: Color, outline: float = 3.0) -> void:
-	if points.size() < 3: return
-	var ring := points.duplicate()
-	ring.append(points[0])
-	draw_polyline(ring, Color(OUTLINE, color.a), outline * size, true)
-	# Shapes that start from zero size are degenerate on their first frame; skip the fill rather than error.
-	if not Geometry2D.triangulate_polygon(points).is_empty(): draw_colored_polygon(points, color)
+# Every layer is a pure function of clock (sandbox scrubbing and fixed-clock captures rely on it).
+func _pose() -> void:
+	var period: float = PERIOD.get(kind, 0.0)
+	for entry in layers:
+		var sprite: Sprite2D = entry[0]
+		var spec: Dictionary = entry[1]
+		var index: int = entry[2]
+		var count: int = entry[3]
+		var window: Array = spec.t
+		var length: float = maxf(0.001, float(window[1]) - float(window[0]))
+		var t := clock
+		if loop and period > 0.0:
+			t = fposmod(clock + period * index / count, period)
+		var u := (t - float(window[0])) / length
+		sprite.visible = u >= 0.0 and u < 1.0
+		if not sprite.visible: continue
+		var e := _ease_out(u)
+		var spread: Vector2 = spec.get("spread", Vector2.ZERO) * (index - (count - 1) * 0.5)
+		var at: Vector2 = spec.get("at", Vector2.ZERO) + spread + spec.get("move", Vector2.ZERO) * e
+		if spec.has("orbit"):
+			var a: float = t * float(spec.get("spin", 1.0)) + TAU * index / count
+			at += Vector2(cos(a), sin(a)) * spec.orbit
+		var scales: Array = spec.get("scale", [1.0, 1.0])
+		var s0: Vector2 = scales[0] if scales[0] is Vector2 else Vector2.ONE * float(scales[0])
+		var s1: Vector2 = scales[1] if scales[1] is Vector2 else Vector2.ONE * float(scales[1])
+		var sc := s0.lerp(s1, e)
+		sc.y *= float(spec.get("squash", 1.0)) * (-1.0 if spec.get("flipv", false) else 1.0)
+		sc.x *= direction
+		sprite.rotation = (float(spec.get("rot", 0.0)) + (0.0 if spec.has("orbit") else float(spec.get("spin", 0.0)) * t)) * direction
+		if spec.get("sky", false):
+			# Lightning: bottom of the frame at this layer's point, top above the stage top.
+			sprite.offset = Vector2(0, -256)
+			sc.y = (position.y + at.y * size + 40.0) / 512.0 / size
+		if spec.get("span", false):
+			sprite.rotation = reach.angle()
+			at = Vector2(reach.length() * 0.5 / size, 0).rotated(reach.angle())
+			at.x *= direction
+			sc = Vector2(reach.length() / 512.0 / size, 0.6)
+		sprite.position = Vector2(at.x * direction, at.y) * size
+		sprite.scale = sc * size
+		if sprite.hframes * sprite.vframes > 1:
+			sprite.frame = int(t * float(spec.get("fps", 20.0)) + index * 3) % (sprite.hframes * sprite.vframes)
+		var fin: float = spec.get("fin", 0.06)
+		var fout: float = spec.get("fout", 0.6)
+		var alpha := clampf(u / fin, 0.0, 1.0) if fin > 0.0 else 1.0
+		var leave := clampf((u - fout) / maxf(0.001, 1.0 - fout), 0.0, 1.0) if fout < 1.0 else 0.0
+		var color: Color = sprite.get_meta("color")
+		var gain: float = spec.get("gain", 1.8)
+		if sprite.material is ShaderMaterial:
+			sprite.material.set_shader_parameter("dissolve", leave)
+			sprite.modulate = Color(color.r * gain, color.g * gain, color.b * gain, alpha)
+		else:
+			sprite.modulate = Color(color.r * gain, color.g * gain, color.b * gain, alpha * (1.0 - leave))
 
-func _spike(angle: float, inner: float, outer: float, width: float, color: Color) -> void:
-	var d := Vector2.from_angle(angle)
-	var n := d.orthogonal() * width
-	_shape(PackedVector2Array([d * inner + n, d * outer, d * inner - n, d * (inner * 0.6)]), color)
-
-func _diamond(at: Vector2, radius: float, color: Color) -> void:
-	_shape(PackedVector2Array([at + Vector2(0, -radius), at + Vector2(radius * 0.7, 0), at + Vector2(0, radius), at + Vector2(-radius * 0.7, 0)]), color, 2.0)
-
-func _impact(t: float, power: float) -> void:
-	var e := _ease_out(t)
-	var fade := 1.0 - clampf((t - 0.45) / 0.55, 0.0, 1.0)
-	var s := size * power
-	if kind == "crit":
-		# Shockwave ring behind the burst.
-		draw_arc(Vector2.ZERO, (24.0 + 60.0 * e) * s, 0.0, TAU, 40, Color(OUTLINE, fade), (9.0 - 6.0 * e) * s + 3.0, true)
-		draw_arc(Vector2.ZERO, (24.0 + 60.0 * e) * s, 0.0, TAU, 40, Color(Color("ffe2a0"), fade), (9.0 - 6.0 * e) * s, true)
-	for ray in rays:
-		var reach: float = (22.0 + 26.0 * e) * ray[1] * s
-		_spike(ray[0], (6.0 + 16.0 * e) * s, reach, (7.0 * (1.0 - e) + 1.5) * ray[2] * s, Color(tint.lightened(0.15), fade))
-	for spark in sparks:
-		var angle: float = spark[0]
-		var travel: float = spark[1] * clock
-		var at := Vector2(cos(angle) * travel * direction, sin(angle) * travel + 260.0 * clock * clock) * s
-		_diamond(at, spark[2] * s * (1.0 - t * 0.6), Color(Color("ffd37a"), fade))
-	# White-hot core that pops then shrinks.
-	var core := (16.0 + 6.0 * sin(minf(t * 3.0, 1.0) * PI)) * (1.0 - e * 0.8) * s
-	draw_circle(Vector2.ZERO, core + 3.0 * size, Color(OUTLINE, fade))
-	draw_circle(Vector2.ZERO, core, Color(Color("fff4d6"), fade))
-
-func _block(t: float) -> void:
-	var e := _ease_out(t)
-	var fade := 1.0 - clampf((t - 0.5) / 0.5, 0.0, 1.0)
-	var radius := (52.0 + 12.0 * e) * size
-	var centre := Vector2(-18.0 * direction, 0.0) * size
-	var facing := 0.0 if direction > 0.0 else PI
-	var half := deg_to_rad(58.0)
-	# Hex-plated barrier arc facing the attacker, flashing bright then thinning out.
-	var outer := PackedVector2Array()
-	var inner := PackedVector2Array()
-	for i in 13:
-		var a: float = facing - half + 2.0 * half * i / 12.0
-		outer.append(centre + Vector2.from_angle(a) * radius)
-		inner.insert(0, centre + Vector2.from_angle(a) * (radius - (20.0 - 12.0 * e) * size))
-	var plate := outer + inner
-	_shape(plate, Color(tint.lerp(Color.WHITE, 0.6 * (1.0 - e)), 0.9 * fade))
-	for i in range(1, 4):
-		var a: float = facing - half + 2.0 * half * i / 4.0
-		draw_line(centre + Vector2.from_angle(a) * (radius - 10.0 * size), centre + Vector2.from_angle(a) * radius, Color(OUTLINE, fade), 2.0 * size)
-	for spark in sparks:
-		var angle: float = facing + spark[0] * 1.4
-		var at: Vector2 = centre + Vector2.from_angle(angle) * (radius + spark[1] * clock * 0.5)
-		_diamond(at, spark[2] * size * 0.8, Color(Color("dff6ff"), fade))
-
-func _heal(t: float) -> void:
-	var e := _ease_out(t)
-	var fade := 1.0 - clampf((t - 0.55) / 0.45, 0.0, 1.0)
-	# Ring on the floor, then plus marks rising off it.
-	var ring := Vector2(70.0, 20.0) * (0.4 + 0.6 * e) * size
-	var points := PackedVector2Array()
-	for i in 32:
-		points.append(Vector2(cos(TAU * i / 32.0) * ring.x, sin(TAU * i / 32.0) * ring.y))
-	points.append(points[0])
-	draw_polyline(points, Color(OUTLINE, fade), 7.0 * size, true)
-	draw_polyline(points, Color(tint, fade), 4.0 * size, true)
-	for i in 5:
-		var rise: float = clampf(t * 1.4 - i * 0.12, 0.0, 1.0)
-		if rise <= 0.0: continue
-		var at := Vector2((i - 2) * 24.0, -20.0 - 120.0 * _ease_out(rise)) * size
-		var arm := 9.0 * size * (1.0 - rise * 0.4)
-		var w := 3.5 * size
-		var plus := PackedVector2Array([at + Vector2(-w, -arm), at + Vector2(w, -arm), at + Vector2(w, -w), at + Vector2(arm, -w), at + Vector2(arm, w), at + Vector2(w, w),
-			at + Vector2(w, arm), at + Vector2(-w, arm), at + Vector2(-w, w), at + Vector2(-arm, w), at + Vector2(-arm, -w), at + Vector2(-w, -w)])
-		_shape(plus, Color(tint.lightened(0.3), fade * (1.0 - rise * 0.5)), 2.5)
-
-func _bolt() -> void:
-	# Glowing slug along +x with a tapering trail; the caller rotates the node to its flight line.
-	for i in range(3, 0, -1):
-		var back := -14.0 * i * size
-		_shape(PackedVector2Array([Vector2(back - 12.0 * size, 0), Vector2(back + 8.0 * size, -7.0 * size / i), Vector2(back + 14.0 * size, 0), Vector2(back + 8.0 * size, 7.0 * size / i)]), Color(tint, 0.5 / i), 2.0)
-	var head := PackedVector2Array()
-	for i in 16:
-		var a := TAU * i / 16.0
-		head.append(Vector2(cos(a) * 16.0, sin(a) * 8.0) * size)
-	_shape(head, tint)
-	draw_circle(Vector2(4.0, 0) * size, 4.5 * size, Color("fff4d6"))
-
-func _beam() -> void:
-	# Column of light from the floor with motes rising through it.
-	var pulse := 0.75 + 0.25 * sin(clock * 9.0)
-	var w := 26.0 * size * pulse
-	var h := 300.0 * size
-	draw_polygon(PackedVector2Array([Vector2(-w, 0), Vector2(w, 0), Vector2(w * 0.4, -h), Vector2(-w * 0.4, -h)]),
-		PackedColorArray([Color(tint, 0.55), Color(tint, 0.55), Color(tint, 0.0), Color(tint, 0.0)]))
-	for i in 6:
-		var rise := fmod(clock * 0.8 + i / 6.0, 1.0)
-		_diamond(Vector2(sin(i * 2.3 + clock * 3.0) * w * 0.6, -rise * h * 0.8), 4.0 * size, Color(Color("fff4d6"), 1.0 - rise))
-
-func _fade(t: float, from: float = 0.55) -> float:
-	return 1.0 - clampf((t - from) / (1.0 - from), 0.0, 1.0)
-
-func _crescent(centre: Vector2, radius: float, from_angle: float, sweep: float, thick: float, color: Color) -> void:
-	var outer := PackedVector2Array()
-	var inner := PackedVector2Array()
-	for i in 15:
-		var k := i / 14.0
-		var a := from_angle + sweep * k
-		var w := thick * (0.1 + 0.9 * sin(k * PI))  # tapered at both tips, never zero (keeps the polygon simple)
-		outer.append(centre + Vector2.from_angle(a) * (radius + w * 0.5))
-		inner.insert(0, centre + Vector2.from_angle(a) * (radius - w * 0.5))
-	_shape(outer + inner, color, 2.5)
-
-func _puff(at: Vector2, radius: float, color: Color) -> void:
-	draw_circle(at, radius + 2.5 * size, Color(OUTLINE, color.a))
-	draw_circle(at, radius, color)
-	draw_circle(at + Vector2(-radius * 0.3, -radius * 0.3), radius * 0.35, Color(Color.WHITE, color.a * 0.35))
-
-func _thrust(t: float) -> void:
-	# A piercing streak driving through the target, then brass gear shards.
-	var e := _ease_out(t / 0.6)
-	var fade := _fade(t, 0.4)
-	var tip := (40.0 + 80.0 * e) * direction * size
-	var tail := (-90.0 + 60.0 * e) * direction * size
-	_shape(PackedVector2Array([Vector2(tail, 0), Vector2(tip * 0.6, -15.0 * size * (1.0 - e * 0.5)), Vector2(tip, 0), Vector2(tip * 0.6, 15.0 * size * (1.0 - e * 0.5))]), Color(Color("fff4d6"), fade))
-	_impact(t, 0.7)
-
-func _slash(t: float, count: int, power: float) -> void:
-	# Crescent blade arcs, one after another, crossing over the target.
-	for i in count:
-		var local := clampf((t - i * 0.28) / 0.55, 0.0, 1.0)
-		if local <= 0.0: continue
-		var e := _ease_out(local)
-		var fade := 1.0 - clampf((local - 0.5) / 0.5, 0.0, 1.0)
-		var flip := 1.0 if i % 2 == 0 else -1.0
-		var start := (-2.2 if flip > 0 else 2.2) + (0.0 if direction > 0 else PI)
-		_crescent(Vector2(-20.0 * direction, -10.0 * flip) * size, 62.0 * power * size, start, (1.9 * e + 0.2) * flip * direction, 16.0 * power * size, Color(tint, fade))
-	if t > 0.2: _impact(t - 0.2, 0.7 * power)
-
-func _smash(t: float) -> void:
-	# Heavy blow: shock ellipse on the floor line, cracks fanning out, dust kicked up.
-	var e := _ease_out(t)
-	var fade := _fade(t)
-	var floor_y := 46.0 * size
-	draw_arc(Vector2(0, floor_y), (30.0 + 110.0 * e) * size, PI, TAU, 24, Color(OUTLINE, fade), 9.0 * size)
-	draw_arc(Vector2(0, floor_y), (30.0 + 110.0 * e) * size, PI, TAU, 24, Color(tint, fade), 5.0 * size)
-	for ray in rays:
-		var a: float = PI + 0.35 + ray[1] * 2.4
-		var crack := PackedVector2Array([Vector2(0, floor_y)])
-		for k in 4:
-			crack.append(Vector2(0, floor_y) + Vector2.from_angle(a + sin(k * 2.1 + ray[0]) * 0.25) * (k + 1) * 20.0 * e * size)
-		draw_polyline(crack, Color(OUTLINE, fade), 4.0 * size)
-	for i in 6:
-		var at := Vector2((i - 2.5) * 34.0 * e, floor_y - 30.0 * e - 10.0 * sin(i)) * size
-		_puff(at, (10.0 + 6.0 * e) * size, Color(Color("b9a58a"), fade * 0.85))
-	_impact(t, 1.3)
-
-func _jagged(from: Vector2, to: Vector2, segments: int, amplitude: float) -> PackedVector2Array:
-	if jag.size() != segments:
-		jag.clear()
-		for i in segments: jag.append(rng.randf_range(-1.0, 1.0))
-	var points := PackedVector2Array([from])
-	var normal := (to - from).orthogonal().normalized()
-	for i in range(1, segments):
-		points.append(from.lerp(to, float(i) / segments) + normal * float(jag[i]) * amplitude)
-	points.append(to)
-	return points
-
-func _zap(t: float, from: Vector2, to: Vector2, segments: int) -> void:
-	var fade := _fade(t, 0.5)
-	var points := _jagged(from, to, segments, 18.0 * size)
-	draw_polyline(points, Color(OUTLINE, fade), 9.0 * size)
-	draw_polyline(points, Color(tint, fade), 5.0 * size)
-	draw_polyline(points, Color(Color.WHITE, fade), 2.0 * size)
-
-func _zap_hit(t: float) -> void:
-	var fade := _fade(t, 0.4)
-	for ray in rays:
-		var to: Vector2 = Vector2.from_angle(ray[0]) * (30.0 + 30.0 * ray[1]) * size * (0.6 + 0.4 * t)
-		var mid: Vector2 = to * 0.5 + to.orthogonal() * 0.25 * sin(clock * 40.0 + ray[0] * 5.0)
-		var points := PackedVector2Array([Vector2.ZERO, mid, to])
-		draw_polyline(points, Color(OUTLINE, fade), 7.0 * size)
-		draw_polyline(points, Color(tint, fade), 3.5 * size)
-	draw_circle(Vector2.ZERO, 14.0 * (1.0 - t * 0.6) * size, Color(Color.WHITE, fade))
-
-func _thunder(t: float) -> void:
-	# A bolt from above straight onto the target, then the burst.
-	if t < 0.55: _zap(t / 0.55 * 0.5, Vector2(rng.randf_range(-6, 6), -520.0) * size, Vector2.ZERO, 10)
-	_zap_hit(t)
-	_rings(t, 2, 80.0)
-
-func _cloud(t: float) -> void:
-	# Chemical fog billowing out and thinning, with a few popping bubbles.
-	var e := _ease_out(t)
-	var fade := _fade(t, 0.5)
-	for i in 7:
-		var a := TAU * i / 7.0 + 0.4
-		var at := Vector2(cos(a) * 46.0, sin(a) * 22.0 - 10.0) * e * size
-		_puff(at, (18.0 + 10.0 * e + 4.0 * sin(i * 1.7)) * size, Color(tint.darkened(0.15 * (i % 2)), fade * 0.8))
-	for spark in sparks:
-		var at := Vector2(cos(spark[0] * 3.0) * 40.0, -spark[1] * 0.25 * t) * size
-		draw_arc(at, spark[2] * size, 0.0, TAU, 10, Color(tint.lightened(0.4), fade), 2.0 * size)
-
-func _flame(at: Vector2, height: float, width: float, color: Color) -> void:
-	_shape(PackedVector2Array([at + Vector2(-width, 0), at + Vector2(-width * 0.6, -height * 0.45), at + Vector2(0, -height),
-		at + Vector2(width * 0.6, -height * 0.45), at + Vector2(width, 0), at + Vector2(0, width * 0.6)]), color, 2.5)
-
-func _fire(t: float) -> void:
-	# Flame tongues bursting up around the target, embers drifting off.
-	var e := _ease_out(t / 0.5)
-	var fade := _fade(t, 0.5)
-	for i in 5:
-		var x := (i - 2) * 22.0 * size
-		var flick := 0.8 + 0.2 * sin(clock * 30.0 + i * 1.9)
-		_flame(Vector2(x, 30.0 * size), (40.0 + 30.0 * (1.0 - abs(i - 2) / 2.0)) * e * flick * size, 13.0 * size, Color(tint, fade))
-		_flame(Vector2(x, 30.0 * size), (22.0 + 16.0 * (1.0 - abs(i - 2) / 2.0)) * e * flick * size, 6.0 * size, Color(Color("ffe08a"), fade))
-	for spark in sparks:
-		_diamond(Vector2(cos(spark[0] * 4.0) * 40.0, 10.0 - spark[1] * 0.4 * t) * size, spark[2] * 0.7 * size, Color(Color("ffd37a"), fade))
-
-func _splash(t: float) -> void:
-	# Water burst: droplets thrown in arcs, a ring on the floor.
-	var fade := _fade(t)
-	for spark in sparks:
-		var a: float = -PI * 0.5 + spark[0] * 1.6
-		var travel: float = spark[1] * 0.7 * clock
-		var at := Vector2(cos(a) * travel, sin(a) * travel + 420.0 * clock * clock) * size
-		var r: float = spark[2] * 1.1 * size
-		_shape(PackedVector2Array([at + Vector2(0, -r * 1.8), at + Vector2(r, 0), at + Vector2(0, r), at + Vector2(-r, 0)]), Color(tint, fade), 2.0)
-	var ring := (20.0 + 60.0 * _ease_out(t)) * size
-	draw_arc(Vector2(0, 40.0 * size), ring, 0.0, TAU, 28, Color(OUTLINE, fade), 6.0 * size)
-	draw_arc(Vector2(0, 40.0 * size), ring, 0.0, TAU, 28, Color(tint, fade), 3.0 * size)
-
-func _snare(t: float) -> void:
-	# Copper clamp bands snapping shut around the target.
-	var e := _ease_out(t / 0.5)
-	var fade := _fade(t, 0.6)
-	for i in 2:
-		var gap := (1.0 - e) * 50.0 * size
-		var y := (i * 34.0 - 20.0) * size
-		_crescent(Vector2(-gap, y), 44.0 * size, PI * 0.55, PI * 0.9, 12.0 * size, Color(tint, fade))
-		_crescent(Vector2(gap, y), 44.0 * size, -PI * 0.45, PI * 0.9, 12.0 * size, Color(tint, fade))
-	if e >= 1.0:
-		for i in 4: _diamond(Vector2((i - 1.5) * 24.0, -50.0) * size, 4.0 * size, Color(Color("ffe2a0"), fade))
-
-func _reticle(t: float, steady: bool) -> void:
-	# Brass-ringed crosshair locking on (shrinks onto the target), or held turning while Marked.
-	var e := 1.0 if steady else _ease_out(t / 0.6)
-	var fade := 1.0 if steady else _fade(t, 0.6)
-	var r := (70.0 - 34.0 * e) * size
-	var spin := clock * (1.2 if steady else 4.0)
-	draw_arc(Vector2.ZERO, r, 0.0, TAU, 32, Color(OUTLINE, fade), 7.0 * size)
-	draw_arc(Vector2.ZERO, r, 0.0, TAU, 32, Color(tint, fade), 3.5 * size)
-	for i in 4:
-		var a := spin + i * PI * 0.5
-		var d := Vector2.from_angle(a)
-		_shape(PackedVector2Array([d * (r - 10.0 * size), d * (r + 12.0 * size) + d.orthogonal() * 6.0 * size, d * (r + 12.0 * size) - d.orthogonal() * 6.0 * size]), Color(tint, fade), 2.0)
-
-func _bite(t: float) -> void:
-	# Two rows of fangs snapping together.
-	var e := _ease_out(t / 0.45)
-	var fade := _fade(t, 0.5)
-	var open := (1.0 - e) * 46.0 * size
-	for row in [-1.0, 1.0]:
-		for i in 4:
-			var x := (i - 1.5) * 28.0 * size
-			var base: float = row * (open + 8.0 * size)
-			_shape(PackedVector2Array([Vector2(x - 13.0 * size, base), Vector2(x + 13.0 * size, base), Vector2(x, base - row * 32.0 * size)]), Color(tint, fade), 3.0)
-	if e >= 1.0: _impact(t - 0.45, 0.6)
-
-func _rings(t: float, count: int, spread: float) -> void:
-	for i in count:
-		var local := clampf(t * 1.4 - i * 0.18, 0.0, 1.0)
-		if local <= 0.0: continue
-		var r := (20.0 + spread * _ease_out(local)) * size
-		var fade := 1.0 - local
-		draw_arc(Vector2.ZERO, r, 0.0, TAU, 36, Color(OUTLINE, fade), 7.0 * size)
-		draw_arc(Vector2.ZERO, r, 0.0, TAU, 36, Color(tint, fade), 3.5 * size)
-
-func _charge(t: float) -> void:
-	# Energy gathering into the hand: motes and a ring pulled inward.
-	var fade := _fade(t, 0.7)
-	var pull := 1.0 - _ease_out(t)
-	draw_arc(Vector2.ZERO, (14.0 + 50.0 * pull) * size, 0.0, TAU, 28, Color(tint, fade * 0.9), 3.0 * size)
-	for ray in rays:
-		_diamond(Vector2.from_angle(ray[0] + t * 2.0) * (12.0 + 70.0 * pull * ray[1]) * size, 4.0 * size, Color(tint.lightened(0.4), fade))
-	draw_circle(Vector2.ZERO, (6.0 + 8.0 * t) * size, Color(Color.WHITE, fade))
-
-func _hex_ring(radius: float, color: Color, width: float) -> void:
-	var points := PackedVector2Array()
-	for i in 7:
-		points.append(Vector2.from_angle(deg_to_rad(-90.0 + i * 60.0)) * radius)
-	draw_polyline(points, Color(OUTLINE, color.a), width + 3.0 * size, true)
-	draw_polyline(points, color, width, true)
-
-func _dome(t: float) -> void:
-	# Hex-plated barrier blooming around the caster, then settling transparent.
-	var e := _ease_out(t / 0.5)
-	var fade := _fade(t, 0.6)
-	var r := 95.0 * e * size
-	draw_circle(Vector2.ZERO, r, Color(tint, 0.16 * fade))
-	_hex_ring(r, Color(tint, fade), 4.0 * size)
-	for i in 6:
-		var at := Vector2.from_angle(deg_to_rad(-90.0 + i * 60.0)) * r * 0.55
-		draw_arc(at, r * 0.2, 0.0, TAU, 6, Color(tint.lightened(0.3), fade * 0.6), 2.0 * size)
-
-func _haste(t: float, steady: bool) -> void:
-	# Chevrons streaming upward past the figure.
-	for i in 3:
-		var local := fmod(t + i / 3.0, 1.0)
-		var fade := (1.0 - local) * (0.8 if steady else 1.0)
-		var y := (40.0 - 140.0 * local) * size
-		for side in [-1.0, 1.0]:
-			var x: float = side * 52.0 * size
-			_shape(PackedVector2Array([Vector2(x - 12.0 * size, y + 8.0 * size), Vector2(x, y - 6.0 * size), Vector2(x + 12.0 * size, y + 8.0 * size), Vector2(x, y)]), Color(tint, fade), 2.0)
-
-func _steam(t: float, power: float) -> void:
-	# Pressure vented as white plumes billowing up and out from the boiler.
-	var fade := _fade(t, 0.45)
-	for i in 6:
-		var local := clampf(t * 1.3 - i * 0.07, 0.0, 1.0)
-		var at := Vector2((-30.0 - 40.0 * local) * direction + sin(i * 2.0) * 16.0, -20.0 - 120.0 * local - i * 6.0) * size * power
-		_puff(at, (10.0 + 22.0 * local) * size * power, Color(tint, fade * 0.85))
-
-func _warp(t: float) -> void:
-	# Deploying a drone: a spinning gear ring and a flash at its centre.
-	var e := _ease_out(t / 0.6)
-	var fade := _fade(t, 0.6)
-	var r := 40.0 * e * size
-	var teeth := PackedVector2Array()
-	for i in 24:
-		var a := TAU * i / 24.0 + clock * 3.0
-		teeth.append(Vector2.from_angle(a) * (r + (8.0 if i % 2 == 0 else 0.0) * size))
-	_shape(teeth, Color(Color("c8a25a"), fade))
-	draw_circle(Vector2.ZERO, r * 0.55, Color(tint, fade))
-	_rings(t, 1, 70.0)
-
-func _aura_wet() -> void:
-	for i in 4:
-		var local := fmod(clock * 0.9 + i * 0.25, 1.0)
-		var at := Vector2((i - 1.5) * 22.0, -60.0 + 110.0 * local) * size
-		var r := 6.5 * size
-		_shape(PackedVector2Array([at + Vector2(0, -r * 1.8), at + Vector2(r, 0), at + Vector2(0, r), at + Vector2(-r, 0)]), Color(tint, 1.0 - local), 1.5)
-
-func _aura_heated() -> void:
-	draw_circle(Vector2.ZERO, 50.0 * size, Color(tint, 0.14 + 0.06 * sin(clock * 6.0)))
-	for i in 6:
-		var local := fmod(clock * 0.7 + i / 6.0, 1.0)
-		_flame(Vector2(sin(i * 2.4) * 34.0, 40.0 - 90.0 * local) * size, 16.0 * size * (1.0 - local), 5.0 * size, Color(tint, 1.0 - local))
-
-func _aura_corroded() -> void:
-	for i in 5:
-		var local := fmod(clock * 0.6 + i * 0.2, 1.0)
-		var at := Vector2(sin(i * 1.9) * 34.0, 30.0 - 70.0 * local) * size
-		draw_arc(at, (5.0 + 6.0 * local) * size, 0.0, TAU, 12, Color(OUTLINE, 1.0 - local), 5.0 * size)
-		draw_arc(at, (5.0 + 6.0 * local) * size, 0.0, TAU, 12, Color(tint, 1.0 - local), 2.5 * size)
-
-func _aura_sealed() -> void:
-	# Copper band turning around the waist.
-	var spin := clock * 1.5
-	for i in 3:
-		_crescent(Vector2.ZERO, 50.0 * size, spin + i * TAU / 3.0, 1.3, 9.0 * size, Color(tint, 0.9))
-
-func _aura_staggered() -> void:
-	# Little stars circling over the head.
-	for i in 3:
-		var a := clock * 4.0 + i * TAU / 3.0
-		var at := Vector2(cos(a) * 34.0, sin(a) * 10.0) * size
-		var star := PackedVector2Array()
-		for k in 10:
-			star.append(at + Vector2.from_angle(-PI * 0.5 + k * PI / 5.0) * (11.0 if k % 2 == 0 else 4.5) * size)
-		_shape(star, Color(tint, 0.95), 2.0)
+# One-shot GPU particle bursts. They run on real time (not `clock`); their lifetime fits inside the effect's.
+func _burst(spec: Dictionary, density: float) -> void:
+	var hue: String = spec.get("color", "tint")
+	var color: Color = tint if hue == "tint" else Color(hue)
+	var particles := GPUParticles2D.new()
+	particles.amount = maxi(1, roundi(int(spec.get("n", 12)) * density))
+	particles.one_shot = true
+	particles.explosiveness = 0.95
+	var at: Vector2 = spec.get("at", Vector2.ZERO)
+	particles.position = Vector2(at.x * direction, at.y) * size
+	particles.material = _add
+	particles.texture = _texture("@spark")
+	var m := ParticleProcessMaterial.new()
+	m.particle_flag_disable_z = true
+	match spec.burst:
+		"sparks":
+			# Streaks thrown away from the attacker, falling.
+			particles.lifetime = 0.45
+			m.direction = Vector3(direction, -0.6, 0)
+			m.spread = 70.0
+			m.initial_velocity_min = 220.0
+			m.initial_velocity_max = 620.0
+			m.gravity = Vector3(0, 1300, 0)
+			m.particle_flag_align_y = true
+			m.scale_min = 0.25
+			m.scale_max = 0.55
+			particles.scale = Vector2(0.35, 1.0)
+		"embers":
+			particles.lifetime = 0.7
+			m.direction = Vector3(0, -1, 0)
+			m.spread = 40.0
+			m.initial_velocity_min = 60.0
+			m.initial_velocity_max = 200.0
+			m.gravity = Vector3(0, -80, 0)
+			m.scale_min = 0.2
+			m.scale_max = 0.45
+		"drops":
+			particles.lifetime = 0.6
+			particles.texture = _texture("water_drop.png")
+			particles.material = _mix
+			m.direction = Vector3(0, -1, 0)
+			m.spread = 55.0
+			m.initial_velocity_min = 180.0
+			m.initial_velocity_max = 420.0
+			m.gravity = Vector3(0, 1100, 0)
+			m.scale_min = 0.02
+			m.scale_max = 0.045
+		"debris":
+			particles.lifetime = 0.55
+			particles.material = _mix
+			m.direction = Vector3(0, -1, 0)
+			m.spread = 70.0
+			m.initial_velocity_min = 140.0
+			m.initial_velocity_max = 380.0
+			m.gravity = Vector3(0, 1200, 0)
+			m.scale_min = 0.18
+			m.scale_max = 0.4
+		"motes":
+			particles.lifetime = 0.7
+			m.direction = Vector3(0, -1, 0)
+			m.spread = 25.0
+			m.initial_velocity_min = 60.0
+			m.initial_velocity_max = 160.0
+			m.gravity = Vector3(0, -40, 0)
+			m.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_BOX
+			m.emission_box_extents = Vector3(40, 10, 0)
+			m.scale_min = 0.2
+			m.scale_max = 0.4
+	var shrink := CurveTexture.new()
+	shrink.curve = Curve.new()
+	shrink.curve.add_point(Vector2(0, 1))
+	shrink.curve.add_point(Vector2(1, 0))
+	m.scale_curve = shrink
+	var gain := 2.2 if particles.material == _add else 1.0
+	var ramp := Gradient.new()
+	ramp.colors = PackedColorArray([Color(gain, gain, gain), Color(color.r * gain, color.g * gain, color.b * gain), Color(color.r, color.g, color.b, 0.0)])
+	ramp.offsets = PackedFloat32Array([0.0, 0.3, 1.0])
+	var ramp_texture := GradientTexture1D.new()
+	ramp_texture.gradient = ramp
+	m.color_ramp = ramp_texture
+	particles.process_material = m
+	add_child(particles)
+	particles.emitting = true

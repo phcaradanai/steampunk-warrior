@@ -40,7 +40,7 @@ func _initialize() -> void:
 		await create_timer(0.5).timeout
 		if not out.is_empty():
 			await RenderingServer.frame_post_draw
-			root.get_texture().get_image().save_png("%s/boss_B06_phase%d.png" % [out, step[1]])
+			Captures.frame(root).save_png("%s/boss_B06_phase%d.png" % [out, step[1]])
 	check(seen[0] != seen[1] and seen[1] != seen[2] and seen[0] != seen[2], "rendered B06 state differs per phase")
 	check(seen[1][2] and not seen[0][2] and not seen[2][2], "smoke emits only in phase 1")
 	boss.hp = int(boss.max_hp * 0.9)

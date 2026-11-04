@@ -12,7 +12,7 @@ func check(value: bool, label: String) -> void:
 func shot(name: String) -> void:
 	if output.is_empty() or DisplayServer.get_name() == "headless": return
 	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png("%s/%s.png" % [output, name])
+	Captures.frame(root).save_png("%s/%s.png" % [output, name])
 
 func _initialize() -> void:
 	await process_frame

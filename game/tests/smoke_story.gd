@@ -13,7 +13,7 @@ func shot(name: String) -> void:
 	if output.is_empty() or DisplayServer.get_name() == "headless": return
 	for _i in 6: await process_frame
 	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png("%s/%s.png" % [output, name])
+	Captures.frame(root).save_png("%s/%s.png" % [output, name])
 
 func page_text(scene) -> String:
 	var view = scene.find_child("StoryScreen",true,false)

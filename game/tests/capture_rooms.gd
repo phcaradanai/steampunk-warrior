@@ -18,7 +18,7 @@ func _initialize() -> void:
 		scene._show_world()
 		await create_timer(0.3).timeout
 		await RenderingServer.frame_post_draw
-		root.get_texture().get_image().save_png("%s/room_%s.png" % [output, room.id])
+		Captures.frame(root).save_png("%s/room_%s.png" % [output, room.id])
 	# One enemy turn per theme so the enemy dash is visible too.
 	for id in ["E10","E14","E22","E26","E29","E33"]:
 		var encounter := catalog.get_entry("encounters",id)
@@ -34,7 +34,7 @@ func _initialize() -> void:
 			if scene.combat_view.feedback.playing > 0 and i > 8: break
 		await create_timer(0.18).timeout
 		await RenderingServer.frame_post_draw
-		root.get_texture().get_image().save_png("%s/fight_%s.png" % [output, id])
+		Captures.frame(root).save_png("%s/fight_%s.png" % [output, id])
 		scene.combat_view.paused = true
 	print("room captures done")
 	quit(0)

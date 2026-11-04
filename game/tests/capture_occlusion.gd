@@ -28,6 +28,6 @@ func _initialize() -> void:
 			scene.world.player.position = Vector2(rect[0]+rect[2]*0.5,feet)
 			await create_timer(0.25).timeout
 			await RenderingServer.frame_post_draw
-			root.get_texture().get_image().save_png("%s/%s_%s.png" % [output,id,spot])
+			Captures.frame(root).save_png("%s/%s_%s.png" % [output,id,spot])
 	print("occlusion captures done")
 	quit(0)

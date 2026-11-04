@@ -49,4 +49,4 @@ func _figure(parent: Control, items: Array, ids: Array, x: int, y: int) -> Hero3
 
 func _shot(output: String, label: String) -> void:
 	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png("%s/%s.png" % [output, label])
+	Captures.frame(root).save_png("%s/%s.png" % [output, label])

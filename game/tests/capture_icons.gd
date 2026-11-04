@@ -51,6 +51,6 @@ func _initialize() -> void:
 
 func capture(label: String) -> void:
 	await RenderingServer.frame_post_draw
-	var image := root.get_texture().get_image()
+	var image := Captures.frame(root)
 	image.save_png(output.path_join(label + ".png"))
 	print("Captured ",label," ",image.get_size())

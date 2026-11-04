@@ -21,6 +21,6 @@ func _initialize() -> void:
 		sheet.add_child(label)
 	await create_timer(1.0).timeout
 	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png(OS.get_environment("CAPTURE_DIR") + "/roster.png")
+	Captures.frame(root).save_png(OS.get_environment("CAPTURE_DIR") + "/roster.png")
 	print("roster captured ", ids.size())
 	quit(0)

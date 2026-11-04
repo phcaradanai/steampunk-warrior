@@ -27,7 +27,7 @@ func _initialize() -> void:
 			if scene.combat_view.feedback.playing > 0 and i > 8: break
 		await create_timer(0.18).timeout
 		await RenderingServer.frame_post_draw
-		root.get_texture().get_image().save_png("%s/fight_%s.png" % [output, id])
+		Captures.frame(root).save_png("%s/fight_%s.png" % [output, id])
 		scene.combat_view.paused = true
 	print("late foe captures done")
 	quit(0)

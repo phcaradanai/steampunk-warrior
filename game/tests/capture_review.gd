@@ -90,4 +90,4 @@ func shot(label: String) -> void:
 	await process_frame
 	await process_frame
 	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png("%s/%s.png" % [out,label])
+	Captures.frame(root).save_png("%s/%s.png" % [out,label])

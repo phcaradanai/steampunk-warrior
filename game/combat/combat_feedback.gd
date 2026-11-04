@@ -76,7 +76,7 @@ func _dash_spot(actor: ActorPortrait, target: ActorPortrait, side: float) -> Vec
 	var edge := half*side
 	if target.hero is Creature3D and target.hero.size.y > 0.0:
 		# Stage3D frames model y in 2.0 world units, so the frame height gives pixels per unit.
-		var span: Vector2 = target.hero.extent_x() * (target.hero.size.y / target.hero.camera.size)
+		var span: Vector2 = target.hero.extent_x() * (target.hero.size.y / Stage3D.FRAME)
 		edge = span.y if side > 0 else span.x
 	# Stop a weapon's reach short of the edge so the weapon, not the torso, makes contact.
 	var reach := edge + float(actor.get_meta("body",actor.size.x))*0.28*side

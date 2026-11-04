@@ -4,6 +4,13 @@ extends Control
 
 # The OpenGL fallback is far slower per viewport: no MSAA and throttled redraws there. Mobile path is unchanged.
 static var compat: bool = RenderingServer.get_current_rendering_method() == "gl_compatibility"
+# World units the control's height spans (model y -0.15 to 1.85); pixels per unit = size.y / FRAME.
+const FRAME := 2.0
+# Extra render area past the control's edges, as a fraction of its size (side applies left and right alike),
+# so swings, capes and tall weapons draw past the frame instead of being cut at it.
+const BLEED_SIDE := 0.5
+const BLEED_TOP := 0.35
+const BLEED_BOTTOM := 0.1
 var viewport: SubViewport
 var camera: Camera3D
 var facing_left: bool = false
@@ -42,20 +49,23 @@ func _init() -> void:
 	viewport.add_child(fill)
 	camera = Camera3D.new()
 	camera.projection = Camera3D.PROJECTION_ORTHOGONAL
-	camera.size = 2.0
-	camera.position = Vector3(0, 0.85, 10)
+	camera.size = FRAME * (1.0 + BLEED_TOP + BLEED_BOTTOM)
+	camera.position = Vector3(0, 0.85 + FRAME * 0.5 * (BLEED_TOP - BLEED_BOTTOM), 10)
 	viewport.add_child(camera)
 
 # Render at physical pixels (window stretch x canvas scale) so the figure stays crisp on retina and when scaled up.
 func _sync_resolution() -> void:
 	if not is_inside_tree(): return
 	var oversample := clampf(get_global_transform_with_canvas().get_scale().x * get_viewport().get_final_transform().get_scale().x, 2.0, 4.0)
-	var target := Vector2i((size * oversample).round())
+	var target := Vector2i((_bleed_rect().size * oversample).round())
 	if target.x > 0 and target.y > 0 and viewport.size != target:
 		viewport.size = target
 
+func _bleed_rect() -> Rect2:
+	return Rect2(-size * Vector2(BLEED_SIDE, BLEED_TOP), size * Vector2(1.0 + 2.0 * BLEED_SIDE, 1.0 + BLEED_TOP + BLEED_BOTTOM))
+
 func _draw() -> void:
-	draw_texture_rect(viewport.get_texture(), Rect2(Vector2.ZERO, size), false)
+	draw_texture_rect(viewport.get_texture(), _bleed_rect(), false)
 
 var _tick: int = randi() % 8
 

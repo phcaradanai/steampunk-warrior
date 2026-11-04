@@ -50,7 +50,7 @@ func _initialize() -> void:
 	var hero: ActorPortrait = view.portraits.hero
 	var foe: ActorPortrait = view.portraits.enemy0
 	var spot: Vector2 = view.feedback._dash_spot(hero, foe, -1.0)
-	var ppu: float = queen.size.y / queen.camera.size
+	var ppu: float = queen.size.y / Stage3D.FRAME
 	var front: float = foe.position.x + foe.size.x * 0.5 + queen.extent_x().x * ppu
 	check(spot.x + hero.size.x * 0.5 < front, "dash stops left of B06 front edge (%.0f vs %.0f)" % [spot.x + hero.size.x * 0.5, front])
 	check(spot.x + hero.size.x * 0.5 > front - 400.0, "dash does not stop absurdly far from B06 (%.0f vs %.0f)" % [spot.x + hero.size.x * 0.5, front])

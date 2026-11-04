@@ -465,23 +465,12 @@ func _open_modal(title: String, allow_close: bool = true, compact: bool = false)
 		# Esc already closes through _unhandled_input; a shortcut here would also fire on the opening key's release.
 		UIBuilder.icon_button(head,"close","ปิด / กลับ  [Esc]",_close_modal.bind(false),"CloseModal",44)
 	modal_notice = UIBuilder.label(layout,"\n".join([save_warning,reward_notice]).strip_edges(),15,Color("95c5b1"))
-	var scroll := ScrollContainer.new()
-	scroll.follow_focus = true
-	scroll.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	scroll.custom_minimum_size.y = 80 if compact else 520
-	layout.add_child(scroll)
 	modal_body = VBoxContainer.new()
 	modal_body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	modal_body.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	modal_body.add_theme_constant_override("separation",8)
-	scroll.add_child(modal_body)
+	layout.add_child(modal_body)
 	_focus_modal.call_deferred()
-	if compact: _fit_compact_modal(scroll)
-
-# Content is added right after _open_modal returns; this runs deferred (same frame), sizes the scroll to it, panel stays centred by anchors.
-func _fit_compact_modal(scroll: ScrollContainer) -> void:
-	await get_tree().process_frame # wrapped labels only report their real height once the panel has a width
-	if is_instance_valid(scroll) and scroll.is_inside_tree():
-		scroll.custom_minimum_size.y = clampf(modal_body.get_combined_minimum_size().y,80.0,648.0-120.0)
 
 func _close_modal(force: bool = false) -> void:
 	if modal_locked and not force:
@@ -592,8 +581,8 @@ func _modal_split() -> Array:
 	right.add_child(detail)
 	return [left,detail]
 
-func _tile(parent: Node, icon: Texture2D, tip: String, caption: String, picked: bool, callback: Callable, id: String = "", tier: int = 0) -> Button:
-	var tile := UIBuilder.icon_button(parent,"bag",tip,callback,id,76,caption)
+func _tile(parent: Node, icon: Texture2D, tip: String, caption: String, picked: bool, callback: Callable, id: String = "", tier: int = 0, side: float = 76.0) -> Button:
+	var tile := UIBuilder.icon_button(parent,"bag",tip,callback,id,side,caption)
 	tile.icon = icon
 	var style: StyleBoxFlat = tile.get_theme_stylebox("normal").duplicate()
 	style.set_corner_radius_all(12)
@@ -610,6 +599,22 @@ func _grid(parent: Node, title: String, columns: int = 8) -> GridContainer:
 	grid.add_theme_constant_override("v_separation",8)
 	parent.add_child(grid)
 	return grid
+
+var modal_pages: Dictionary = {}
+
+# No scrolling anywhere: long lists show one page at a time. Returns the [from, to) slice for the current page.
+func _page(parent: Node, key: String, total: int, per_page: int, redraw: Callable) -> Array:
+	var pages := maxi(1,ceili(float(total)/per_page))
+	var page := clampi(int(modal_pages.get(key,0)),0,pages-1)
+	modal_pages[key] = page
+	if pages > 1:
+		var row := HBoxContainer.new()
+		row.add_theme_constant_override("separation",8)
+		parent.add_child(row)
+		UIBuilder.button(row,"ก่อนหน้า",func(): modal_pages[key] = page-1; redraw.call(),"PagePrev_"+key).disabled = page == 0
+		UIBuilder.label(row,"หน้า %d / %d" % [page+1,pages],15,Color("a7b9ac")).autowrap_mode = TextServer.AUTOWRAP_OFF
+		UIBuilder.button(row,"ถัดไป",func(): modal_pages[key] = page+1; redraw.call(),"PageNext_"+key).disabled = page == pages-1
+	return [page*per_page,mini(total,(page+1)*per_page)]
 
 func _pick(choice: Dictionary, shop: bool) -> void:
 	inv_pick = choice
@@ -655,17 +660,18 @@ func _show_inventory() -> void:
 	for slot in ["weapon","shield","head","suit"]:
 		var item := catalog.get_entry("items",p.equipment.get(slot,""))
 		var picked: bool = inv_pick.get("from","") == "slot" and inv_pick.key == slot
-		if item.is_empty(): _tile(slots,load("res://art/icons/%s.svg" % slot),"ช่อง%s ว่าง" % {"weapon":"อาวุธ","shield":"โล่","head":"หมวก","suit":"ชุด"}[slot],"ว่าง",false,func(): pass).disabled = true
-		else: _tile(slots,UIBuilder.item_icon(item),_owned(item).name+"\n"+UIBuilder.item_description(_owned(item)),"",picked,_pick.bind({"from":"slot","key":slot},false),"Slot_"+slot,int(item.tier))
-	var bag := _grid(left,"กระเป๋า %d / 24" % p.items.size())
+		if item.is_empty(): _tile(slots,load("res://art/icons/%s.svg" % slot),"ช่อง%s ว่าง" % {"weapon":"อาวุธ","shield":"โล่","head":"หมวก","suit":"ชุด"}[slot],"ว่าง",false,func(): pass,"",0,60).disabled = true
+		else: _tile(slots,UIBuilder.item_icon(item),_owned(item).name+"\n"+UIBuilder.item_description(_owned(item)),"",picked,_pick.bind({"from":"slot","key":slot},false),"Slot_"+slot,int(item.tier),60)
+	var bag := _grid(left,"กระเป๋า %d / 24" % p.items.size(),10)
 	for i in p.items.size():
 		var item := catalog.get_entry("items",p.items[i])
-		_tile(bag,UIBuilder.item_icon(item),_owned(item).name+"\n"+UIBuilder.item_description(_owned(item)),"Lv%d" % item.required_level,inv_pick.get("from","") == "bag" and inv_pick.key == i,_pick.bind({"from":"bag","key":i},false),"Bag_%d" % i,int(item.tier))
+		_tile(bag,UIBuilder.item_icon(item),_owned(item).name+"\n"+UIBuilder.item_description(_owned(item)),"Lv%d" % item.required_level,inv_pick.get("from","") == "bag" and inv_pick.key == i,_pick.bind({"from":"bag","key":i},false),"Bag_%d" % i,int(item.tier),60)
 	if session.state.room_id == "R01":
-		var stash := _grid(left,"คลังโรงซ่อม %d" % p.stash.size())
-		for i in p.stash.size():
+		var stash := _grid(left,"คลังโรงซ่อม %d" % p.stash.size(),10)
+		var shown := _page(left,"stash",p.stash.size(),10,_show_inventory)
+		for i in range(shown[0],shown[1]):
 			var item := catalog.get_entry("items",p.stash[i])
-			_tile(stash,UIBuilder.item_icon(item),_owned(item).name+"\n"+UIBuilder.item_description(_owned(item)),"",inv_pick.get("from","") == "stash" and inv_pick.key == i,_pick.bind({"from":"stash","key":i},false),"Stash_%d" % i,int(item.tier))
+			_tile(stash,UIBuilder.item_icon(item),_owned(item).name+"\n"+UIBuilder.item_description(_owned(item)),"",inv_pick.get("from","") == "stash" and inv_pick.key == i,_pick.bind({"from":"stash","key":i},false),"Stash_%d" % i,int(item.tier),60)
 	if inv_pick.is_empty():
 		UIBuilder.label(detail,"กระเป๋าว่าง",18)
 		return
@@ -753,7 +759,7 @@ func _show_skills() -> void:
 	var panes := _modal_split()
 	var left: VBoxContainer = panes[0]
 	var detail: VBoxContainer = panes[1]
-	var attributes := _grid(left,"ค่าสถานะ (กดเพื่อเพิ่ม)",4)
+	var attributes := _grid(detail,"ค่าสถานะ (กดเพื่อเพิ่ม)",4)
 	var names: Dictionary = {"VIT":["heal","ความทนทาน · เพิ่ม HP"],"STR":["weapon","กำลัง · เพิ่มพลังโจมตีกายภาพ"],"INT":["electric","เทคโนโลยี · เพิ่มพลังสกิลเทคและการฮีล"],"AGI":["energy","ความคล่อง · เพิ่มความเร็วในลำดับเทิร์น"]}
 	for attribute in ["VIT","STR","INT","AGI"]:
 		var tile := _tile(attributes,load("res://art/icons/%s.svg" % names[attribute][0]),names[attribute][1],"%s %d" % [attribute,p.base_attributes[attribute]],false,_grow.bind("allocate_attribute",{"attribute":attribute}),"Attr_"+attribute)
@@ -769,10 +775,8 @@ func _show_skills() -> void:
 			var rank: int = int(p.skill_ranks.get(skill.id,0))
 			var tile := _tile(row,UIBuilder.skill_icon(skill),skill.name,"%d/10" % rank,skill.id == skill_pick,func():
 				skill_pick = skill.id
-				_show_skills(),"Skill_"+skill.id,5 if rank >= 10 else 2 if rank > 0 else 0)
+				_show_skills(),"Skill_"+skill.id,5 if rank >= 10 else 2 if rank > 0 else 0,64)
 			if rank == 0: tile.modulate = Color(1,1,1,0.55)
-	if session.state.room_id == "R01":
-		UIBuilder.button(left,"คืนแต้มสกิลฟรี (คงสกิลเริ่มอาชีพ)",_grow.bind("respec",{}),"Respec")
 	# Prerequisite links, drawn over the board once the tiles have their final positions.
 	var links := Control.new()
 	links.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -806,6 +810,8 @@ func _show_skills() -> void:
 	var learn := UIBuilder.button(detail,"เรียน +1  (ใช้ 1 แต้ม)",_grow.bind("learn_skill",{"skill_id":skill.id}),"Learn_"+skill.id)
 	learn.disabled = not check.ok
 	learn.tooltip_text = check.get("reason","") if not check.ok else "เพิ่มระดับเป็น %d/10" % (rank+1)
+	if session.state.room_id == "R01":
+		UIBuilder.button(detail,"คืนแต้มสกิลฟรี (คงสกิลเริ่มอาชีพ)",_grow.bind("respec",{}),"Respec")
 
 func _grow(kind: String, payload: Dictionary) -> void:
 	if _commit(kind,payload).ok:
@@ -1281,9 +1287,17 @@ func _restore_focus(reference: WeakRef) -> void:
 func _show_settings() -> void:
 	_open_modal("ตั้งค่า · Enter ยืนยัน · Esc กลับ")
 	settings_modal = true
+	var columns := HBoxContainer.new()
+	columns.add_theme_constant_override("separation",24)
+	modal_body.add_child(columns)
+	var left := VBoxContainer.new()
+	var right := VBoxContainer.new()
+	for column in [left,right]:
+		column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		columns.add_child(column)
 	for key in ["master","music","sfx"]:
 		var row := HBoxContainer.new()
-		modal_body.add_child(row)
+		left.add_child(row)
 		var title: String = {"master":"เสียงรวม","music":"ดนตรี","sfx":"เสียงเอฟเฟกต์"}[key]
 		UIBuilder.label(row,title,18).custom_minimum_size.x = 190
 		var slider := HSlider.new()
@@ -1298,34 +1312,34 @@ func _show_settings() -> void:
 		var toggle := CheckButton.new()
 		toggle.text = {"reduced_shake":"ลดการสั่นหน้าจอ","reduced_flash":"ลดแสงกะพริบ","instant_text":"แสดงบทคุยทันที"}[key]
 		toggle.button_pressed = settings.options[key]
-		modal_body.add_child(toggle)
+		left.add_child(toggle)
 		toggle.toggled.connect(_set_toggle.bind(key))
-	UIBuilder.label(modal_body,"ความเร็วบทคุย",18)
+	UIBuilder.label(left,"ความเร็วบทคุย",18)
 	var speed := HSlider.new()
 	speed.min_value = 1
 	speed.max_value = 120
 	speed.step = 1
 	speed.value = settings.options.text_speed
 	speed.custom_minimum_size.y = 36
-	modal_body.add_child(speed)
+	left.add_child(speed)
 	speed.value_changed.connect(func(value:float):settings.set_option("text_speed",int(value)))
 	var modes := OptionButton.new()
 	modes.add_item("หน้าต่าง")
 	modes.add_item("เต็มหน้าจอ")
 	modes.select(1 if settings.options.window_mode == "fullscreen" else 0)
-	modal_body.add_child(modes)
+	left.add_child(modes)
 	modes.item_selected.connect(func(index:int):settings.set_option("window_mode","fullscreen" if index==1 else "windowed"))
 	var sizes := OptionButton.new()
 	for size in ["960x540","1280x720","1920x1080"]:
 		sizes.add_item(size)
 	sizes.select(["960x540","1280x720","1920x1080"].find(settings.options.window_size))
-	modal_body.add_child(sizes)
+	left.add_child(sizes)
 	sizes.item_selected.connect(func(index:int):settings.set_option("window_size",["960x540","1280x720","1920x1080"][index]))
-	UIBuilder.label(modal_body,"ปุ่มเล่น · คลิกคำสั่งแล้วกดปุ่มใหม่",20)
+	UIBuilder.label(right,"ปุ่มเล่น · คลิกคำสั่งแล้วกดปุ่มใหม่",20)
 	var names: Dictionary = {"move_left":"เดินซ้าย","move_right":"เดินขวา","move_up":"เดินขึ้น","move_down":"เดินลง","interact":"โต้ตอบ"}
 	for action in InputSettings.DEFAULT_BINDINGS:
-		UIBuilder.button(modal_body,names[action]+" · "+settings.binding_label(action),_capture_binding.bind(action),"Rebind_"+action)
-	UIBuilder.button(modal_body,"คืนค่าเริ่มต้นทั้งหมด",_restore_settings)
+		UIBuilder.button(right,names[action]+" · "+settings.binding_label(action),_capture_binding.bind(action),"Rebind_"+action)
+	UIBuilder.button(right,"คืนค่าเริ่มต้นทั้งหมด",_restore_settings)
 
 func _set_volume(value: float, key: String) -> void:
 	settings.set_option(key,value)
@@ -1367,9 +1381,12 @@ func _show_backlog() -> void:
 	_open_modal("ประวัติบทคุย · การเดินทางครั้งนี้")
 	if backlog.is_empty():
 		UIBuilder.label(modal_body,"ยังไม่มีบทคุยที่อ่าน",20)
-	for line in backlog:
-		UIBuilder.label(modal_body,line.speaker,18,Color("d5ba7e"))
-		UIBuilder.label(modal_body,line.text,18)
+	# Newest first, one page at a time.
+	var shown := _page(modal_body,"backlog",backlog.size(),6,_show_backlog)
+	for i in range(shown[0],shown[1]):
+		var line: Dictionary = backlog[backlog.size()-1-i]
+		UIBuilder.label(modal_body,line.speaker,16,Color("d5ba7e"))
+		UIBuilder.label(modal_body,line.text,17)
 
 func _show_text_instant() -> void:
 	if dialogue_tween != null and dialogue_tween.is_valid():

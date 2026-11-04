@@ -21,6 +21,7 @@ func run(t) -> bool:
 	_clip_smoothness(t)
 	_npc_roles(t)
 	_item_icons(t)
+	_combat_vfx(t)
 	# Hero gear comes from each item's `model`; skill clips exist in the GLB.
 	var items: Array = JSON.parse_string(FileAccess.get_file_as_string("res://data/items.json"))
 	var families := {}
@@ -90,3 +91,23 @@ func _npc_roles(t) -> void:
 		for extra in spec.get("extras", []): roles += 1 if Hero3D.BOSS_EXTRAS.has(extra) else 0
 		t.check(roles >= 2, "%s has >=2 role extras in the table" % id)
 	t.check(Roster3D.PEOPLE.NPC04.extras.has("baton"), "Valk carries a baton")
+
+# Every active skill, enemy basic attack and shown status names effects that ToonFx can draw.
+func _combat_vfx(t) -> void:
+	var kinds: Array = ToonFx.kinds()
+	var skills: Array = JSON.parse_string(FileAccess.get_file_as_string("res://data/skills.json"))
+	for skill in skills:
+		if skill.kind != "active": continue
+		var vfx: Dictionary = skill.get("vfx", {})
+		t.check(not vfx.is_empty(), "skill %s has a vfx recipe" % skill.id)
+		for part in ["cast", "travel", "impact"]:
+			var names: Variant = vfx.get(part, [])
+			for name in (names if names is Array else [names]):
+				t.check(name in kinds, "skill %s %s effect %s exists" % [skill.id, part, name])
+	for role in CombatFeedback.ROLE_ATTACK_VFX:
+		t.check(CombatFeedback.ROLE_ATTACK_VFX[role] in kinds, "role %s attack effect exists" % role)
+	for kind in CombatFeedback.ACTION_VFX:
+		t.check(CombatFeedback.ACTION_VFX[kind].cast in kinds, "action %s effect exists" % kind)
+	for status in CombatView.STATUS_NAMES:
+		if status == "Guard": continue  # shown by the guard pose and dome cast instead
+		t.check(CombatFeedback.STATUS_AURAS.has(status) and CombatFeedback.STATUS_AURAS[status][0] in kinds, "status %s has a looping aura" % status)

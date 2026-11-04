@@ -314,6 +314,7 @@ func _plates_when_idle() -> void:
 func _plates() -> void:
 	# Between strikes the resolver is authoritative again (FP, pressure, statuses, deaths without a blow).
 	_sync_shown()
+	if is_instance_valid(feedback): feedback.sync_auras(controller.state.actors, portraits)
 	for actor in controller.state.actors:
 		_show_phase(actor.id, int(actor.hp))
 		if actor.hp <= 0 and portraits.has(actor.id): _fall(portraits[actor.id])

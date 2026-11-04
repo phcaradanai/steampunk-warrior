@@ -4,6 +4,12 @@ extends Control
 const STAB_SKILLS := ["S01","S02","S03","S05","S07","S13","S16"]
 # Melee moves cross the arena to the target; the rest fire from where the actor stands.
 const MELEE_SKILLS := ["S01","S02","S07","S16"]
+# Basic attacks by enemy role (skills carry their own `vfx` in skills.json); other actions by kind.
+const ROLE_ATTACK_VFX := {"bite":"bite", "charge":"smash", "quick":"slash2", "howl":"bite", "stagger":"smash"}
+const ACTION_VFX := {"guard":{"cast":"dome"}, "vent":{"cast":"steam"}, "focus_potion":{"cast":"charge"}}
+# Statuses shown as a looping effect on the figure, at a height given as in _anchor (0 = frame top, 1 = feet).
+const STATUS_AURAS := {"Wet":["aura_wet",0.45], "Heated":["aura_heated",0.6], "Corroded":["aura_corroded",0.65],
+	"Marked":["aura_marked",0.45], "Sealed":["aura_sealed",0.6], "Staggered":["aura_staggered",0.22], "Haste":["aura_haste",0.6]}
 const DASH := 0.36
 const HOLD := 0.12
 const RETURN := 0.42
@@ -13,6 +19,9 @@ var clock: float = 0.0
 var trauma: float = 0.0
 var shake_offset := Vector2.ZERO
 var playing: int = 0
+# The effect recipe of the action being played; its damage and heal events use it on impact.
+var current_vfx: Dictionary = {}
+var auras: Dictionary = {}  # "actor_id:Status" -> [ToonFx, ActorPortrait, height]
 # impact_landed carries the event so the view can move HP on the contact frame; impacted is a plain cue for tests and audio.
 signal impact_landed(event: Dictionary)
 signal impacted(target_id: String)
@@ -26,6 +35,9 @@ func _process(delta: float) -> void:
 	shake_offset = Vector2(sin(clock*83),cos(clock*71))*trauma*3 if shake_enabled else Vector2.ZERO
 	var stage := get_parent().get("stage") as Control
 	if stage != null: stage.position = Vector2(0,CombatView.STAGE_TOP) + shake_offset*2
+	for key in auras:
+		var aura: Array = auras[key]
+		if is_instance_valid(aura[0]) and is_instance_valid(aura[1]): aura[0].position = _anchor(aura[1], aura[2]) + aura[1].motion_offset
 
 # Plays one resolved turn: approach, strike, impacts on the contact frame, then step back.
 func play_events(events: Array, portraits: Dictionary, options: Dictionary) -> void:
@@ -46,6 +58,10 @@ func play_events(events: Array, portraits: Dictionary, options: Dictionary) -> v
 			if target != null and melee and is_inside_tree():
 				await _dash(actor, target)
 				mover = actor
+			current_vfx = _vfx_for(payload)
+			var casts: Variant = current_vfx.get("cast", [])
+			for cast in (casts if casts is Array else [casts]):
+				ToonFx.spawn(self, cast, _anchor(actor, 0.55), actor.mirror, 1.0, _tint(cast))
 			_strike(actor, payload)
 			_sound(event)
 			# Damage, numbers and the target's flinch wait for the blow to actually land in the clip.
@@ -117,10 +133,18 @@ func _strike(actor: ActorPortrait, payload: Dictionary) -> void:
 		lean.tween_property(actor,"motion_offset",Vector2(-16 if actor.mirror else 16,-6),.08).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		lean.tween_property(actor,"motion_offset",Vector2.ZERO,.2).set_trans(Tween.TRANS_SINE)
 
-func _projectile(actor: ActorPortrait, target: ActorPortrait, payload: Dictionary) -> void:
+func _projectile(actor: ActorPortrait, target: ActorPortrait, _payload: Dictionary) -> void:
 	var from := _anchor(actor, 0.45)
 	var to := _anchor(target, 0.45)
-	var bolt := VfxSprite.spawn(self, "bolt-steam" if payload.get("skill_id","") in ["S04","S06","S15"] else "bolt-brass", from, false, 2.0)
+	var travel: String = current_vfx.get("travel", "bolt" if current_vfx.is_empty() else "")
+	if travel.is_empty(): return
+	if travel == "zap":
+		# Lightning is instant: the arc spans the gap and flickers out.
+		var arc := ToonFx.spawn(self, "zap", from, false, 1.0, _tint("zap"))
+		arc.reach = to - from
+		if is_inside_tree(): await get_tree().create_timer(.1).timeout
+		return
+	var bolt := ToonFx.spawn(self, travel, from, false, 1.0, _tint(travel))
 	bolt.rotation = (to-from).angle()
 	var flight := create_tween()
 	flight.tween_property(bolt,"position",to,.18)
@@ -148,13 +172,17 @@ func _impact(event: Dictionary, portraits: Dictionary) -> void:
 	var color := Color("83dcb3") if event.type == "heal" else Color("80cde1") if payload.get("shielded",false) else Color("efbb71")
 	var source: ActorPortrait = portraits.get(payload.get("source_id",""))
 	var from_right: bool = source != null and source != target and source.position.x > target.position.x
+	var impact: String = current_vfx.get("impact", "hit")
+	if source == null and payload.get("type","") == "Heated": impact = "fire"
 	if event.type == "heal":
-		VfxSprite.spawn(self, "heal-aoe", _anchor(target, 1.0), false, 2.0)
+		ToonFx.spawn(self, "heal", _anchor(target, 1.0))
 	elif payload.get("shielded",false):
-		# The shield sheet faces an attacker on its right; the spark sheets fly off to the right.
-		VfxSprite.spawn(self, "shield-block", _anchor(target, 1.0), not from_right)
+		# The barrier faces the attacker; impact sparks fly away from it.
+		ToonFx.spawn(self, "block", point, not from_right)
+	elif impact in ["hit", "crit"]:
+		ToonFx.spawn(self, "crit" if (heavy or impact == "crit") and flash_enabled else "hit", point, from_right)
 	else:
-		VfxSprite.spawn(self, "crit-hit" if heavy and flash_enabled else "hit-spark", point, from_right)
+		ToonFx.spawn(self, impact, point, from_right, 1.0, _tint(impact))
 	trauma = 1.0 if event.type == "damage" else trauma
 	if flash_enabled:
 		# Whole-figure flash so the blow reads at a glance, then fade back.
@@ -214,7 +242,7 @@ func play_loot(source: ActorPortrait, gold: int, item: Dictionary, options: Dict
 		icon.position = origin-icon.size*0.5
 		icon.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		add_child(icon)
-		var beam := VfxSprite.spawn(self, "loot-beam", Vector2(origin.x, floor_y), false, 2.0)
+		var beam := ToonFx.spawn(self, "beam", Vector2(origin.x, floor_y))
 		beam.create_tween().tween_callback(beam.queue_free).set_delay(1.3)
 		var pop := icon.create_tween()
 		pop.tween_property(icon,"position:y",origin.y-110,.3).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
@@ -239,6 +267,45 @@ func _label(text: String, font_size: int, color: Color) -> Label:
 
 # skills.json `clip` names the hero action; a gun in hand turns the basic attack into a shot.
 static var _clips: Dictionary = {}
+static var _skill_vfx: Dictionary = {}
+
+func _vfx_for(payload: Dictionary) -> Dictionary:
+	if payload.kind == "skill":
+		_hero_action(payload)  # loads the skills table
+		return _skill_vfx.get(payload.skill_id, {})
+	if payload.kind == "attack":
+		var role := ""
+		var controller = get_parent().get("controller")
+		if controller != null:
+			for actor in controller.state.actors:
+				if actor.id == payload.actor_id: role = actor.get("role", "")
+		return {"impact":ROLE_ATTACK_VFX.get(role, "hit")}
+	return ACTION_VFX.get(payload.kind, {})
+
+func _tint(kind: String) -> Color:
+	var hex: String = current_vfx.get("tint", "")
+	# A skill's tint colours its charge, travel and impact; kinds whose colour carries meaning keep their own.
+	if hex.is_empty() or kind in ["muzzle", "dome", "steam", "warp", "haste"]:
+		return Color(0, 0, 0, 0)
+	return Color(hex)
+
+# Looping status effects follow their figure; added and removed to match the resolver's statuses.
+func sync_auras(actors: Array, portraits: Dictionary) -> void:
+	var wanted := {}
+	for actor in actors:
+		if actor.hp <= 0 or not portraits.has(actor.id): continue
+		for status in actor.get("statuses", {}):
+			if STATUS_AURAS.has(status): wanted[actor.id + ":" + status] = [portraits[actor.id], STATUS_AURAS[status]]
+	for key in auras.keys():
+		if not wanted.has(key) or not is_instance_valid(auras[key][0]):
+			if is_instance_valid(auras[key][0]): auras[key][0].queue_free()
+			auras.erase(key)
+	for key in wanted:
+		if auras.has(key): continue
+		var portrait: ActorPortrait = wanted[key][0]
+		var spec: Array = wanted[key][1]
+		var fx := ToonFx.spawn(self, spec[0], _anchor(portrait, spec[1]), portrait.mirror, 0.9)
+		auras[key] = [fx, portrait, spec[1]]
 
 func _hero_action(payload: Dictionary, hero: Stage3D = null) -> String:
 	if payload.kind == "attack": return "shoot" if hero != null and hero.get("weapon_model") == "gun" else "attack"
@@ -246,4 +313,5 @@ func _hero_action(payload: Dictionary, hero: Stage3D = null) -> String:
 	if _clips.is_empty():
 		for skill in JSON.parse_string(FileAccess.get_file_as_string("res://data/skills.json")):
 			if skill.has("clip"): _clips[skill.id] = skill.clip
+			if skill.has("vfx"): _skill_vfx[skill.id] = skill.vfx
 	return _clips.get(payload.skill_id, "skill_stab" if payload.skill_id in STAB_SKILLS else "skill_steam")

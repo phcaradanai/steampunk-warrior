@@ -10,6 +10,7 @@
     "required_level": 1,
     "branch": "combat",
     "icon": "weapon_sword",
+    "vfx": {"impact": "thrust"},
     "parents": [],
     "rank_cap": 10,
     "effects": {
@@ -31,6 +32,7 @@
     "required_level": 5,
     "branch": "combat",
     "icon": "weapon_claw",
+    "vfx": {"impact": "slash2"},
     "parents": [
       "S01"
     ],
@@ -54,6 +56,7 @@
     "required_level": 1,
     "branch": "combat",
     "icon": "weapon_pistol",
+    "vfx": {"cast": "muzzle", "travel": "bolt", "impact": "reticle", "tint": "efbb71"},
     "parents": [],
     "rank_cap": 10,
     "effects": {
@@ -76,6 +79,7 @@
     "required_level": 1,
     "branch": "tech",
     "icon": "electric",
+    "vfx": {"cast": "charge", "travel": "zap", "impact": "zap_hit"},
     "parents": [],
     "rank_cap": 10,
     "effects": {
@@ -96,6 +100,7 @@
     "required_level": 5,
     "branch": "combat",
     "icon": "weapon_carbine",
+    "vfx": {"cast": "muzzle", "travel": "bolt", "impact": "hit", "tint": "efbb71"},
     "parents": [
       "S03"
     ],
@@ -118,6 +123,7 @@
     "required_level": 10,
     "branch": "tech",
     "icon": "weapon_arcgun",
+    "vfx": {"cast": "charge", "travel": "zap", "impact": "zap_hit"},
     "parents": [
       "S04"
     ],
@@ -140,6 +146,7 @@
     "required_level": 10,
     "branch": "combat",
     "icon": "weapon_hammer",
+    "vfx": {"impact": "smash"},
     "parents": [
       "S01",
       "S02"
@@ -164,6 +171,7 @@
     "required_level": 5,
     "branch": "tech",
     "icon": "vent",
+    "vfx": {"cast": "charge", "travel": "bolt", "impact": "cloud", "tint": "9fd65a"},
     "parents": [
       "S04"
     ],
@@ -188,6 +196,7 @@
     "required_level": 1,
     "branch": "support",
     "icon": "heal",
+    "vfx": {"impact": "heal"},
     "parents": [],
     "rank_cap": 10,
     "effects": {
@@ -207,6 +216,7 @@
     "required_level": 5,
     "branch": "support",
     "icon": "potion_fp",
+    "vfx": {"cast": "haste"},
     "parents": [
       "S09"
     ],
@@ -229,6 +239,7 @@
     "required_level": 5,
     "branch": "support",
     "icon": "shield_round",
+    "vfx": {"cast": "dome"},
     "parents": [
       "S09"
     ],
@@ -250,6 +261,7 @@
     "required_level": 10,
     "branch": "tech",
     "icon": "drone",
+    "vfx": {"cast": "warp"},
     "parents": [
       "S04",
       "S11"
@@ -274,6 +286,7 @@
     "required_level": 10,
     "branch": "combat",
     "icon": "weapon_rifle",
+    "vfx": {"cast": "muzzle", "travel": "bolt", "impact": "crit", "tint": "efbb71"},
     "parents": [
       "S03",
       "S05"
@@ -298,6 +311,7 @@
     "required_level": 10,
     "branch": "tech",
     "icon": "heat",
+    "vfx": {"cast": "charge", "travel": "bolt", "impact": "fire", "tint": "ff8a3a"},
     "parents": [
       "S04",
       "S08"
@@ -323,6 +337,7 @@
     "required_level": 15,
     "branch": "tech",
     "icon": "energy",
+    "vfx": {"cast": "charge", "impact": "thunder"},
     "parents": [
       "S06",
       "S14"
@@ -347,6 +362,7 @@
     "required_level": 10,
     "branch": "combat",
     "icon": "fight",
+    "vfx": {"impact": "cleave"},
     "parents": [
       "S02",
       "S10"
@@ -432,6 +448,7 @@
     "required_level": 1,
     "branch": "support",
     "icon": "wet",
+    "vfx": {"cast": "charge", "travel": "bolt", "impact": "splash", "tint": "6fc3ec"},
     "parents": [],
     "rank_cap": 10,
     "effects": {
@@ -454,6 +471,7 @@
     "required_level": 10,
     "branch": "support",
     "icon": "shield_organic",
+    "vfx": {"cast": "charge", "travel": "bolt", "impact": "snare", "tint": "c8823a"},
     "parents": [
       "S09",
       "S20"
@@ -479,6 +497,7 @@
     "required_level": 15,
     "branch": "support",
     "icon": "shield_arc",
+    "vfx": {"cast": ["steam", "dome"]},
     "parents": [
       "S11",
       "S20"

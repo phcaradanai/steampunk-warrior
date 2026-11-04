@@ -198,6 +198,7 @@ static func item_icon(item: Dictionary) -> Texture2D:
 	return texture
 
 static func skill_icon(skill: Dictionary) -> Texture2D:
+	if skill.has("icon"): return load("res://art/icons/%s.svg" % skill.icon)
 	var effects: Dictionary = skill.effects
 	var icon: String = {"physical":"weapon","electric":"electric","thermal":"heat","chemical":"wet"}.get(effects.get("damage_type",""),"gear")
 	if effects.has("heal"): icon = "heal"

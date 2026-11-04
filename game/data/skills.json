@@ -8,6 +8,8 @@
     "pressure_delta": 8,
     "effect": "1.25ATK physical;shielddamage x1.5",
     "required_level": 1,
+    "branch": "combat",
+    "icon": "weapon_sword",
     "parents": [],
     "rank_cap": 10,
     "effects": {
@@ -27,6 +29,8 @@
     "pressure_delta": 12,
     "effect": "2 hits x0.70ATK physical",
     "required_level": 5,
+    "branch": "combat",
+    "icon": "weapon_claw",
     "parents": [
       "S01"
     ],
@@ -48,6 +52,8 @@
     "pressure_delta": 6,
     "effect": "1.10ATK physical + Marked2",
     "required_level": 1,
+    "branch": "combat",
+    "icon": "weapon_pistol",
     "parents": [],
     "rank_cap": 10,
     "effects": {
@@ -68,6 +74,8 @@
     "pressure_delta": 10,
     "effect": "1.25TECH electric",
     "required_level": 1,
+    "branch": "tech",
+    "icon": "electric",
     "parents": [],
     "rank_cap": 10,
     "effects": {
@@ -86,6 +94,8 @@
     "pressure_delta": 14,
     "effect": "0.85ATK physical each",
     "required_level": 5,
+    "branch": "combat",
+    "icon": "weapon_carbine",
     "parents": [
       "S03"
     ],
@@ -106,6 +116,8 @@
     "pressure_delta": 16,
     "effect": "0.95TECH electric each",
     "required_level": 10,
+    "branch": "tech",
+    "icon": "weapon_arcgun",
     "parents": [
       "S04"
     ],
@@ -126,6 +138,8 @@
     "pressure_delta": 18,
     "effect": "1.80ATK physical ignores50%armor",
     "required_level": 10,
+    "branch": "combat",
+    "icon": "weapon_hammer",
     "parents": [
       "S01",
       "S02"
@@ -148,6 +162,8 @@
     "pressure_delta": 12,
     "effect": "0.70TECH chemical + Corroded2",
     "required_level": 5,
+    "branch": "tech",
+    "icon": "vent",
     "parents": [
       "S04"
     ],
@@ -170,6 +186,8 @@
     "pressure_delta": 0,
     "effect": "heal 1.30TECH",
     "required_level": 1,
+    "branch": "support",
+    "icon": "heal",
     "parents": [],
     "rank_cap": 10,
     "effects": {
@@ -187,6 +205,8 @@
     "pressure_delta": 5,
     "effect": "initiative+20 for2turns",
     "required_level": 5,
+    "branch": "support",
+    "icon": "potion_fp",
     "parents": [
       "S09"
     ],
@@ -207,6 +227,8 @@
     "pressure_delta": 10,
     "effect": "barrier 1.50TECH",
     "required_level": 5,
+    "branch": "support",
+    "icon": "shield_round",
     "parents": [
       "S09"
     ],
@@ -226,6 +248,8 @@
     "pressure_delta": 20,
     "effect": "one drone 3turns;0.50TECH hit afterowner",
     "required_level": 10,
+    "branch": "tech",
+    "icon": "drone",
     "parents": [
       "S04",
       "S11"
@@ -248,6 +272,8 @@
     "pressure_delta": 18,
     "effect": "1.50ATK;Marked target x1.5 then consume",
     "required_level": 10,
+    "branch": "combat",
+    "icon": "weapon_rifle",
     "parents": [
       "S03",
       "S05"
@@ -270,6 +296,8 @@
     "pressure_delta": 22,
     "effect": "1.60TECH thermal + Heated2",
     "required_level": 10,
+    "branch": "tech",
+    "icon": "heat",
     "parents": [
       "S04",
       "S08"
@@ -293,6 +321,8 @@
     "pressure_delta": 25,
     "effect": "2.10TECH electric;Wet adds Staggered1",
     "required_level": 15,
+    "branch": "tech",
+    "icon": "energy",
     "parents": [
       "S06",
       "S14"
@@ -315,6 +345,8 @@
     "pressure_delta": 15,
     "effect": "1.50ATK;HP<=35% x1.5",
     "required_level": 10,
+    "branch": "combat",
+    "icon": "fight",
     "parents": [
       "S02",
       "S10"
@@ -337,6 +369,8 @@
     "pressure_delta": 0,
     "effect": "maxHP+2% perrank",
     "required_level": 1,
+    "branch": "support",
+    "icon": "suit_heavy",
     "parents": [],
     "rank_cap": 10,
     "effects": {
@@ -354,6 +388,8 @@
     "pressure_delta": 0,
     "effect": "maxFP+2% perrank",
     "required_level": 5,
+    "branch": "tech",
+    "icon": "pipe",
     "parents": [
       "S04"
     ],
@@ -373,6 +409,8 @@
     "pressure_delta": 0,
     "effect": "initiative+1 perrank",
     "required_level": 5,
+    "branch": "combat",
+    "icon": "hand",
     "parents": [
       "S03"
     ],
@@ -392,6 +430,8 @@
     "pressure_delta": 6,
     "effect": "0.50TECH chemical + Wet2",
     "required_level": 1,
+    "branch": "support",
+    "icon": "wet",
     "parents": [],
     "rank_cap": 10,
     "effects": {
@@ -412,6 +452,8 @@
     "pressure_delta": 10,
     "effect": "1.00TECH chemical + Sealed2",
     "required_level": 10,
+    "branch": "support",
+    "icon": "shield_organic",
     "parents": [
       "S09",
       "S20"
@@ -435,6 +477,8 @@
     "pressure_delta": -40,
     "effect": "removeHeated;barrier0.50TECH;cooldown2",
     "required_level": 15,
+    "branch": "support",
+    "icon": "shield_arc",
     "parents": [
       "S11",
       "S20"

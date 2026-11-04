@@ -768,35 +768,12 @@ func _show_skills() -> void:
 	var actor := session.progression.derive(p,catalog.data)
 	actor["class_id"] = p.class_id
 	var resolver := CombatResolver.new()
-	# Skill tree rows by unlock level, read left to right like a mobile talent board.
-	for level in [1,5,10,15]:
-		var row := _grid(left,"เลเวล %d" % level,8)
-		for skill in catalog.data.skills.filter(func(s): return int(s.required_level) == level):
-			var rank: int = int(p.skill_ranks.get(skill.id,0))
-			var tile := _tile(row,UIBuilder.skill_icon(skill),skill.name,"%d/10" % rank,skill.id == skill_pick,func():
-				skill_pick = skill.id
-				_show_skills(),"Skill_"+skill.id,5 if rank >= 10 else 2 if rank > 0 else 0,64)
-			if rank == 0: tile.modulate = Color(1,1,1,0.55)
-	# Prerequisite links, drawn over the board once the tiles have their final positions.
-	var links := Control.new()
-	links.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	links.top_level = true
-	left.add_child(links)
-	links.draw.connect(func():
-		# Only the picked skill's chain: what it needs (amber) and what it unlocks (blue). All links at once tangle.
-		for skill in catalog.data.skills:
-			for parent_id in skill.parents:
-				if skill.id != skill_pick and parent_id != skill_pick: continue
-				var child = modal_body.find_child("Skill_"+skill.id,true,false)
-				var parent = modal_body.find_child("Skill_"+parent_id,true,false)
-				if child == null or parent == null: continue
-				var a: Vector2 = parent.get_global_rect().get_center()
-				var b: Vector2 = child.get_global_rect().get_center()
-				links.draw_line(a,b,Color(0,0,0,0.5),7.0)
-				links.draw_line(a,b,Color("e3b858") if skill.id == skill_pick else Color("80cde1"),3.0)
-				links.draw_circle(b,5,Color("e3b858") if skill.id == skill_pick else Color("80cde1")))
-	links.set_deferred("size",get_viewport_rect().size)
-	(func(): await get_tree().process_frame; if is_instance_valid(links): links.queue_redraw()).call_deferred()
+	# Branch columns of hexagon nodes, rows by unlock level, linked to their prerequisites.
+	left.add_child(SkillTree.new().setup(catalog.data.skills,p.skill_ranks,skill_pick,
+		func(id): return session.progression.learn_skill(p,id).ok,
+		func(id):
+			skill_pick = id
+			_show_skills()))
 	var skill := catalog.get_entry("skills",skill_pick)
 	var rank: int = int(p.skill_ranks.get(skill.id,0))
 	UIBuilder.label(detail,skill.name,22,Color("f1d9a0"))

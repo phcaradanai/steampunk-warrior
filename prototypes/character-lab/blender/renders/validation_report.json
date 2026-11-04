@@ -19,8 +19,8 @@
   "style": "SD (Super-Deformed ~2.2-head) Steampunk Warrior",
   "geometry_qa": {
     "meshes_checked": 22,
-    "total_vertices": 15392,
-    "total_triangles": 29736,
+    "total_vertices": 15344,
+    "total_triangles": 29648,
     "degenerate_faces": 0,
     "unapplied_transforms": 0,
     "missing_uv_meshes": [],

@@ -7,6 +7,14 @@
 ```bash
 /Applications/Blender.app/Contents/MacOS/Blender --background --python blender/build_vesper.py
 ```
+ตรวจท่าทางหลังแก้ (มุมข้อศอก/เข่าทุกท่า, อุปกรณ์ทะลุตัว, ระดับเท้า) และภาพเทียบท่าจากมุมกล้องในเกม:
+```bash
+/Applications/Blender.app/Contents/MacOS/Blender --background vesper_warrior.blend --python blender/rig_audit.py -- --json audit.json
+```
+```bash
+/Applications/Blender.app/Contents/MacOS/Blender --background vesper_warrior.blend --python blender/pose_sheet.py -- --out sheet.png
+```
+`build_vesper.py` ส่งออก GLB ไว้ที่ `prototypes/character-lab/` เท่านั้น ต้องคัดลอกไปทับ `game/art/characters/vesper_warrior.glb` เอง
 ศัตรู N01 หนูกัดท่อ สร้างจากสคริปต์ (ส่งออก `game/art/characters/rat.glb` และภาพเทียบใน `blender/renders/rat_*.png`):
 ```bash
 /Applications/Blender.app/Contents/MacOS/Blender --background --python blender/build_rat.py

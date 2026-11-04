@@ -363,7 +363,7 @@ BONE_REST_POS = {
     "Shoulder_R":  (0.00, -0.24, 0.92),
     "Elbow_R":     (0.00, -0.26, 0.74),
     "Hand_R":      (0.02, -0.26, 0.56),
-    "WeaponMount": (0.07, -0.26, 0.55),
+    "WeaponMount": (0.04, -0.26, 0.52),  # centre of the fist, below the forearm cuff
     "Shoulder_L":  (0.00,  0.24, 0.92),
     "Elbow_L":     (0.00,  0.26, 0.74),
     "Hand_L":      (0.02,  0.26, 0.56),
@@ -599,9 +599,10 @@ def build_vesper_meshes(arm_obj, char_col, equip_col):
             segments=12,
         )
         body.add_cylinder(0.056, 0.12, wpos(f"Elbow_{s_tag}", 0, 0, 0.01), rot_deg=(90, 0, 0), mat="Mat_Brass", bone=f"Elbow_{s_tag}")
-        body.add_box((0.14, 0.14, 0.17), wpos(f"Elbow_{s_tag}", 0.01, 0, -0.09), mat="Mat_Steel", bone=f"Elbow_{s_tag}", bevel=0.014, taper_top_x=0.82, taper_top_y=0.82)
+        # Gauntlet ends at the wrist cuff, just overlapping the fist, so a held weapon's grip clears it.
+        body.add_box((0.14, 0.14, 0.14), wpos(f"Elbow_{s_tag}", 0.01, 0, -0.075), mat="Mat_Steel", bone=f"Elbow_{s_tag}", bevel=0.014, taper_top_x=0.82, taper_top_y=0.82)
         body.add_box((0.15, 0.15, 0.036), wpos(f"Elbow_{s_tag}", 0.01, 0, -0.03), mat="Mat_Brass", bone=f"Elbow_{s_tag}", bevel=0.006)
-        body.add_box((0.155, 0.155, 0.038), wpos(f"Elbow_{s_tag}", 0.01, 0, -0.16), mat="Mat_Brass", bone=f"Elbow_{s_tag}", bevel=0.006)
+        body.add_box((0.155, 0.155, 0.038), wpos(f"Elbow_{s_tag}", 0.01, 0, -0.135), mat="Mat_Brass", bone=f"Elbow_{s_tag}", bevel=0.006)
         # Chunky Leather-Gloved Fist with Brass Knuckle Plate (Hand_R / Hand_L)
         body.add_box((0.115, 0.11, 0.105), wpos(f"Hand_{s_tag}", 0.015, 0, -0.02), mat="Mat_LeatherDark", bone=f"Hand_{s_tag}", bevel=0.014)
         body.add_box((0.12, 0.115, 0.035), wpos(f"Hand_{s_tag}", 0.02, 0, 0.01), mat="Mat_Brass", bone=f"Hand_{s_tag}", bevel=0.006)
@@ -680,16 +681,17 @@ def build_vesper_meshes(arm_obj, char_col, equip_col):
     # --------------------------------------------------------------------------
     # 4. OVERSIZED HEROIC SD WEAPONS (Weapon_0, Weapon_1, Weapon_2)
     # --------------------------------------------------------------------------
+    # Grip, pommel and cog guard sized to sit within the fist's reach so they never cut into the forearm cuff.
     w0 = MeshPartBuilder("Weapon_0")
-    w0.add_sphere(0.046, (1, 1, 1), wpos("WeaponMount", 0, 0, -0.15), mat="Mat_Brass", bone="WeaponMount")
-    w0.add_cylinder(0.030, 0.18, wpos("WeaponMount", 0, 0, -0.04), mat="Mat_LeatherDark", bone="WeaponMount")
-    w0.add_box((0.12, 0.18, 0.06), wpos("WeaponMount", 0, 0, 0.07), mat="Mat_Brass", bone="WeaponMount", bevel=0.01)
-    w0.add_cylinder(0.10, 0.05, wpos("WeaponMount", 0, 0, 0.09), rot_deg=(90, 0, 0), mat="Mat_Brass", bone="WeaponMount", segments=12)
-    for i in range(10):
-        ang = i * math.tau / 10.0
+    w0.add_sphere(0.040, (1, 1, 1), wpos("WeaponMount", 0, 0, -0.10), mat="Mat_Brass", bone="WeaponMount")
+    w0.add_cylinder(0.030, 0.13, wpos("WeaponMount", 0, 0, -0.015), mat="Mat_LeatherDark", bone="WeaponMount")
+    w0.add_box((0.06, 0.18, 0.05), wpos("WeaponMount", 0, 0, 0.09), mat="Mat_Brass", bone="WeaponMount", bevel=0.01)
+    w0.add_cylinder(0.068, 0.05, wpos("WeaponMount", 0, 0, 0.10), rot_deg=(90, 0, 0), mat="Mat_Brass", bone="WeaponMount", segments=12)
+    for i in range(8):
+        ang = i * math.tau / 8.0
         w0.add_box(
-            (0.034, 0.054, 0.034),
-            wpos("WeaponMount", math.cos(ang) * 0.105, 0, 0.09 + math.sin(ang) * 0.105),
+            (0.026, 0.054, 0.026),
+            wpos("WeaponMount", math.cos(ang) * 0.072, 0, 0.10 + math.sin(ang) * 0.072),
             rot_deg=(0, math.degrees(ang), 0),
             mat="Mat_Brass",
             bone="WeaponMount",
@@ -702,8 +704,8 @@ def build_vesper_meshes(arm_obj, char_col, equip_col):
     w0.build_object(arm_obj, equip_col)
 
     w1 = MeshPartBuilder("Weapon_1")
-    w1.add_cylinder(0.032, 0.84, wpos("WeaponMount", 0, 0, 0.28), mat="Mat_LeatherDark", bone="WeaponMount")
-    w1.add_cylinder(0.045, 0.07, wpos("WeaponMount", 0, 0, -0.14), mat="Mat_Brass", bone="WeaponMount")
+    w1.add_cylinder(0.032, 0.78, wpos("WeaponMount", 0, 0, 0.31), mat="Mat_LeatherDark", bone="WeaponMount")
+    w1.add_cylinder(0.045, 0.06, wpos("WeaponMount", 0, 0, -0.08), mat="Mat_Brass", bone="WeaponMount")
     w1.add_cylinder(0.040, 0.12, wpos("WeaponMount", 0, 0, 0.16), mat="Mat_Brass", bone="WeaponMount")
     w1.add_box((0.38, 0.22, 0.25), wpos("WeaponMount", 0.02, 0, 0.72), mat="Mat_DarkIron", bone="WeaponMount", bevel=0.022)
     w1.add_cylinder(0.115, 0.07, wpos("WeaponMount", 0.22, 0, 0.72), rot_deg=(0, 90, 0), mat="Mat_Brass", bone="WeaponMount")
@@ -715,7 +717,7 @@ def build_vesper_meshes(arm_obj, char_col, equip_col):
 
     # Weapon_2 = gun family (roster gear 2): grip at the hand, boiler tank under a long barrel, glowing muzzle coil.
     w2 = MeshPartBuilder("Weapon_2")
-    w2.add_box((0.07, 0.05, 0.20), wpos("WeaponMount", -0.01, 0, -0.03), rot_deg=(0, 10, 0), mat="Mat_LeatherDark", bone="WeaponMount", bevel=0.010)
+    w2.add_box((0.07, 0.05, 0.15), wpos("WeaponMount", -0.01, 0, -0.005), rot_deg=(0, 10, 0), mat="Mat_LeatherDark", bone="WeaponMount", bevel=0.010)
     w2.add_box((0.13, 0.075, 0.30), wpos("WeaponMount", 0.02, 0, 0.19), mat="Mat_Brass", bone="WeaponMount", bevel=0.012)
     w2.add_box((0.05, 0.05, 0.10), wpos("WeaponMount", 0.015, 0, 0.065), mat="Mat_DarkIron", bone="WeaponMount", bevel=0.006)
     w2.add_cylinder(0.034, 0.58, wpos("WeaponMount", 0.04, 0, 0.62), mat="Mat_Steel", bone="WeaponMount", segments=12)
@@ -730,8 +732,8 @@ def build_vesper_meshes(arm_obj, char_col, equip_col):
 
     # Weapon_4 = polearm family (gear 4; 3 stays "none" for NPCs): long shaft, tapered spear head, brass collar and coil.
     w4 = MeshPartBuilder("Weapon_4")
-    w4.add_cylinder(0.030, 1.30, wpos("WeaponMount", 0, 0, 0.55), mat="Mat_LeatherDark", bone="WeaponMount")
-    w4.add_cylinder(0.044, 0.07, wpos("WeaponMount", 0, 0, -0.10), mat="Mat_Brass", bone="WeaponMount")
+    w4.add_cylinder(0.030, 1.26, wpos("WeaponMount", 0, 0, 0.57), mat="Mat_LeatherDark", bone="WeaponMount")
+    w4.add_cylinder(0.044, 0.06, wpos("WeaponMount", 0, 0, -0.06), mat="Mat_Brass", bone="WeaponMount")
     w4.add_cylinder(0.040, 0.10, wpos("WeaponMount", 0, 0, 0.14), mat="Mat_Brass", bone="WeaponMount")
     for i in range(4):
         w4.add_cylinder(0.046, 0.022, wpos("WeaponMount", 0, 0, 0.78 + i * 0.045), mat="Mat_Copper", bone="WeaponMount")
@@ -744,8 +746,8 @@ def build_vesper_meshes(arm_obj, char_col, equip_col):
 
     # Weapon_5 = staff family (gear 5): shaft with a brass cage holding a glowing core, copper coil below.
     w5 = MeshPartBuilder("Weapon_5")
-    w5.add_cylinder(0.028, 1.12, wpos("WeaponMount", 0, 0, 0.46), mat="Mat_Wood", bone="WeaponMount")
-    w5.add_cylinder(0.042, 0.07, wpos("WeaponMount", 0, 0, -0.10), mat="Mat_Brass", bone="WeaponMount")
+    w5.add_cylinder(0.028, 1.08, wpos("WeaponMount", 0, 0, 0.48), mat="Mat_Wood", bone="WeaponMount")
+    w5.add_cylinder(0.042, 0.06, wpos("WeaponMount", 0, 0, -0.06), mat="Mat_Brass", bone="WeaponMount")
     w5.add_cylinder(0.038, 0.10, wpos("WeaponMount", 0, 0, 0.14), mat="Mat_Brass", bone="WeaponMount")
     for i in range(5):
         w5.add_cylinder(0.042, 0.02, wpos("WeaponMount", 0, 0, 0.70 + i * 0.05), mat="Mat_Copper", bone="WeaponMount")
@@ -912,10 +914,29 @@ def build_target_dummy(prop_col):
 # ==============================================================================
 # 7. NATURAL CHARACTER ANIMATION, CINEMATIC ACTING & MECHANICAL MOTION
 # ==============================================================================
+# 2D rig units (x forward, y down): one unit = 0.22 m thigh / 28 units.
+UNIT_M = 0.22 / 28.0
+LEG_REACH = 56.0      # thigh + shin, units; the bind pose stands the legs straight at this length
+STANCE_HEIGHT = 52.5  # hip-to-ankle height of the ready stance (~25-35 deg knee bend with the feet apart)
+# Human joint ranges in this rig's 2D plane (angles measured from straight down, + = forward).
+SHOULDER_RANGE = (math.radians(-45.0), math.radians(190.0))  # no reaching back past ~45 deg
+ELBOW_RANGE = (math.radians(4.0), math.radians(128.0))       # elbows only fold forward, never fully shut
+# Blade vs forearm in a fist (0 = in line with the forearm, 180 = lying back along it toward the elbow):
+# ~90 neutral, ulnar deviation lines the blade up with the arm to ~25 for a thrust or full-extension slash,
+# radial deviation cocks it back to ~110.
+GRIP_RANGE = (math.radians(55.0), math.radians(110.0))  # below ~55 the butt tucks under the forearm cuff
+
+
+def wrap_angle(a, low=-math.pi):
+    """Angle mapped into [low, low + 2pi)."""
+    return (a - low) % math.tau + low
+
+
 def ik_2bone_angles(root_xy, target_xy, seg_len, bend_sign):
     dx = target_xy[0] - root_xy[0]
     dy = target_xy[1] - root_xy[1]
-    dist = max(0.01, min(math.hypot(dx, dy), seg_len * 2.0 - 0.01))
+    # Never fold the chain shut: a target closer than ~0.42 of full reach pins the bend at ~130 deg.
+    dist = max(seg_len * 0.84, min(math.hypot(dx, dy), seg_len * 2.0 - 0.01))
     ux, uy = dx / dist, dy / dist
     mid_x = root_xy[0] + ux * dist * 0.5
     mid_y = root_xy[1] + uy * dist * 0.5
@@ -925,13 +946,198 @@ def ik_2bone_angles(root_xy, target_xy, seg_len, bend_sign):
     u1x, u1y = jx - root_xy[0], jy - root_xy[1]
     u2x, u2y = target_xy[0] - jx, target_xy[1] - jy
     ang1 = math.atan2(u1x, u1y)
-    ang2 = math.atan2(u2x, u2y) - ang1
+    ang2 = wrap_angle(math.atan2(u2x, u2y) - ang1)
     return ang1, ang2
+
+
+def arm_ik(root_xy, target_xy, seg_len):
+    """Two-bone arm IK held inside human shoulder and elbow ranges; returns (upper, elbow) angles."""
+    upper, elbow = ik_2bone_angles(root_xy, target_xy, seg_len, 1.0)
+    upper = wrap_angle(upper, math.radians(-90.0))
+    clamped = min(max(upper, SHOULDER_RANGE[0]), SHOULDER_RANGE[1])
+    if clamped != upper:
+        # Shoulder at its limit: point the forearm at the target from where the elbow now sits.
+        ex = root_xy[0] + math.sin(clamped) * seg_len
+        ey = root_xy[1] + math.cos(clamped) * seg_len
+        elbow = wrap_angle(math.atan2(target_xy[0] - ex, target_xy[1] - ey) - clamped)
+        upper = clamped
+    return upper, min(max(elbow, ELBOW_RANGE[0]), ELBOW_RANGE[1])
+
+
+def grip_blade(blade, forearm):
+    """Blade angle (from up, + forward) nudged into the wrist's range against the forearm (from down, + forward),
+    always on the thumb side so the weapon never flips over in the fist."""
+    rel = wrap_angle(math.pi - blade - forearm)
+    if rel < 0.0:
+        # Asked for the palm side: take the nearer edge of the thumb-side band.
+        rel = GRIP_RANGE[0] if rel > -math.pi * 0.5 else GRIP_RANGE[1]
+    rel = min(max(rel, GRIP_RANGE[0]), GRIP_RANGE[1])
+    return math.pi - forearm - rel
+
+
+# Sole corners relative to the ankle (m, x forward, z up): heel, ball, toe tip.
+SOLE_CORNERS = ((-0.10, -0.085), (0.11, -0.085), (0.20, -0.06))
+def sole_drop(pitch):
+    """How far (m) the lowest sole corner sinks below its bind height when the foot pitches (+ = toe up)."""
+    c, s = math.cos(pitch), math.sin(pitch)
+    return max(0.0, max(z - (x * s + z * c) for x, z in SOLE_CORNERS))
+
+
+# Weapon grip solved in 3D on the real meshes: every weapon family against the body, suits, helmets and shields.
+GRIP_TURN = math.radians(35.0)  # most the wrist turns the weapon in one frame
+GRIP_SEARCH = (math.radians(45.0), math.radians(120.0))
+WEAPON_TILT = 0.12  # local X roll of the weapon: + leans the blade toward -Y, out from the right side of the body
+GRIP_EXEMPT = ("Hand_R", "WeaponMount")  # the fist that holds it
+
+
+class GripSolver:
+    def __init__(self, arm_obj):
+        import numpy as np
+        from mathutils.bvhtree import BVHTree
+        self.np, self.BVHTree = np, BVHTree
+        self.arm = arm_obj
+        self.weapons = []
+        wm = arm_obj.data.bones["WeaponMount"]
+        to_local = wm.matrix_local.inverted()
+        for obj in arm_obj.children:
+            if obj.type == 'MESH' and obj.name.startswith("Weapon_"):
+                me = obj.data
+                co = [to_local @ (obj.matrix_world @ v.co) for v in me.vertices]
+                self.weapons.append((obj.name, co, [tuple(p.vertices) for p in me.polygons]))
+        self.obstacles = [o for o in arm_obj.children if o.type == 'MESH' and not o.name.startswith("Weapon_")]
+        self.rel = None
+
+    def _obstacle_tree(self):
+        depsgraph = bpy.context.evaluated_depsgraph_get()
+        verts, polys = [], []
+        for obj in self.obstacles:
+            exempt = {g.index for g in obj.vertex_groups if g.name in GRIP_EXEMPT}
+            ev = obj.evaluated_get(depsgraph)
+            me = ev.to_mesh()
+            mw = obj.matrix_world
+            base = len(verts)
+            weights = obj.data.vertices
+            keep = [not (len(v.groups) and max(v.groups, key=lambda g: g.weight).group in exempt) for v in weights]
+            verts.extend(mw @ v.co for v in me.vertices)
+            for p in me.polygons:
+                if all(keep[i] for i in p.vertices):
+                    polys.append(tuple(base + i for i in p.vertices))
+            ev.to_mesh_clear()
+        return self.BVHTree.FromPolygons(verts, polys)
+
+    def _hits(self, tree, mount):
+        total = 0
+        for _name, co, polys in self.weapons:
+            world = [mount @ v for v in co]
+            total += len(tree.overlap(self.BVHTree.FromPolygons(world, polys)))
+        return total
+
+    def solve(self, rots, step):
+        """Pick the WeaponMount roll that keeps a square grip, moves at most GRIP_TURN per frame and touches
+        nothing but the fist; writes it into rots (the pose must already be applied for this frame)."""
+        bpy.context.view_layer.update()
+        pb = self.arm.pose.bones
+        forearm = rots["Torso"][2] + rots["Shoulder_R"][2] + rots["Elbow_R"][2]
+        chain = forearm + rots["Hand_R"][2]
+        want = wrap_angle(math.pi + rots["WeaponMount"][2] + chain - forearm)
+        if want < 0.0:
+            want = GRIP_RANGE[0] if want > -math.pi * 0.5 else GRIP_RANGE[1]
+        want = min(max(want, GRIP_RANGE[0]), GRIP_RANGE[1])
+        hand = pb["Hand_R"]
+        wm = pb["WeaponMount"]
+        rest = hand.bone.matrix_local.inverted() @ wm.bone.matrix_local
+        tree = self._obstacle_tree()
+        turn = GRIP_TURN * step
+        low, high = GRIP_SEARCH
+        if self.rel is not None:
+            low, high = max(low, self.rel - turn), min(high, self.rel + turn)
+        best, best_score = want, None
+        steps = max(1, int(round(math.degrees(high - low) / 4.0)))
+        for i in range(steps + 1):
+            rel = low + (high - low) * i / steps
+            band = 0.0 if GRIP_RANGE[0] <= rel <= GRIP_RANGE[1] else 0.5
+            w = math.pi - forearm - rel
+            basis = Euler((WEAPON_TILT, 0.0, -w - chain), 'XYZ').to_matrix().to_4x4()
+            hits = self._hits(tree, self.arm.matrix_world @ hand.matrix @ rest @ basis)
+            steady = 0.0 if self.rel is None else abs(rel - self.rel)
+            score = abs(rel - want) + steady + band + (0.0 if hits == 0 else 3.0 + hits * 0.02)
+            if best_score is None or score < best_score:
+                best, best_score = rel, score
+        self.rel = best
+        rots["WeaponMount"] = (WEAPON_TILT, 0.0, -(math.pi - forearm - best) - chain)
+        return rots
+
+
+class ShieldSolver:
+    """Eases every shield variant out from the forearm (world +Y, the left side) by the least distance that
+    clears the body, suit, helmet and boiler; the shield arm's own hand and forearm may touch it."""
+    OFFSETS = [i * 0.01 for i in range(9)]  # metres outward, up to 8 cm
+    STEP = 0.03                             # most it slides per keyed frame
+    EXEMPT = ("Hand_L", "Elbow_L", "ShieldMount")
+
+    def __init__(self, arm_obj):
+        from mathutils.bvhtree import BVHTree
+        self.BVHTree = BVHTree
+        self.arm = arm_obj
+        sm = arm_obj.data.bones["ShieldMount"]
+        to_local = sm.matrix_local.inverted()
+        self.shields = []
+        for obj in arm_obj.children:
+            if obj.type == 'MESH' and obj.name.startswith("Shield_"):
+                me = obj.data
+                self.shields.append(([to_local @ (obj.matrix_world @ v.co) for v in me.vertices], [tuple(p.vertices) for p in me.polygons]))
+        self.obstacles = [o for o in arm_obj.children if o.type == 'MESH' and not o.name.startswith(("Shield_", "Weapon_"))]
+        self.offset = None
+
+    def _tree(self):
+        depsgraph = bpy.context.evaluated_depsgraph_get()
+        verts, polys = [], []
+        for obj in self.obstacles:
+            exempt = {g.index for g in obj.vertex_groups if g.name in self.EXEMPT}
+            keep = [not (len(v.groups) and max(v.groups, key=lambda g: g.weight).group in exempt) for v in obj.data.vertices]
+            ev = obj.evaluated_get(depsgraph)
+            me = ev.to_mesh()
+            base = len(verts)
+            verts.extend(obj.matrix_world @ v.co for v in me.vertices)
+            polys.extend(tuple(base + i for i in p.vertices) for p in me.polygons if all(keep[i] for i in p.vertices))
+            ev.to_mesh_clear()
+        return self.BVHTree.FromPolygons(verts, polys)
+
+    def solve(self, locs, rots, step):
+        bpy.context.view_layer.update()
+        pb = self.arm.pose.bones["ShieldMount"]
+        tree = self._tree()
+        base = self.arm.matrix_world @ pb.matrix
+        best, best_score = 0.0, None
+        for off in self.OFFSETS:
+            if self.offset is not None and abs(off - self.offset) > self.STEP * step + 1e-6:
+                continue
+            mount = Matrix.Translation((0.0, off, 0.0)) @ base
+            hits = sum(len(tree.overlap(self.BVHTree.FromPolygons([mount @ v for v in co], polys))) for co, polys in self.shields)
+            score = off * 10.0 + (0.0 if self.offset is None else abs(off - self.offset) * 5.0) + (0.0 if hits == 0 else 3.0 + hits * 0.02)
+            if best_score is None or score < best_score:
+                best, best_score = off, score
+        self.offset = best
+        if best > 0.0:
+            pb.matrix = self.arm.matrix_world.inverted() @ Matrix.Translation((0.0, best, 0.0)) @ base
+            bpy.context.view_layer.update()
+            locs["ShieldMount"] = tuple(pb.location)
+        return locs
+
+
+def arc_blend(a, b, t):
+    """Hand offsets (from the shoulder) blended along an arc around the shoulder, as a swinging arm moves,
+    instead of a straight line that cuts in past the shoulder and folds the elbow shut."""
+    ra, rb = math.hypot(a[0], a[1]), math.hypot(b[0], b[1])
+    aa, ab = math.atan2(a[0], a[1]), math.atan2(b[0], b[1])
+    ang = aa + wrap_angle(ab - aa) * t
+    rad = ra + (rb - ra) * t
+    return [math.sin(ang) * rad, math.cos(ang) * rad]
 
 
 # Keyframed poses for the skill-type clips: t -> (hand dx, dy from shoulder anchor, weapon angle, wrist,
 # off-hand dx, dy from the far shoulder, torso lean, torso twist, crouch (m), recoil kick, hip lift (m)).
-REST_POSE = (22.0, 31.0, 0.72, 0.0, -28.0, 30.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+REST_POSE = (21.0, 40.0, 0.72, 0.0, -19.0, 46.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 CLIP_KEYS = {
     # Raise, hold the aim, fire at 0.46 (muzzle flips up, torso kicks back), settle, lower.
     "Shoot": [(0.0, REST_POSE), (0.22, (42.0, 4.0, 1.55, -0.12, 22.0, 8.0, 6.0, 0.10, 0.02, 0.0, 0.0)),
@@ -940,19 +1146,19 @@ CLIP_KEYS = {
               (0.60, (42.0, 5.0, 1.60, -0.12, 22.0, 8.0, 5.0, 0.10, 0.02, 0.1, 0.0)),
               (0.78, (40.0, 6.0, 1.55, -0.10, 22.0, 8.0, 4.0, 0.08, 0.02, 0.0, 0.0)), (1.0, REST_POSE)],
     # Gather at the chest, charge both hands overhead, sweep forward to release at 0.58.
-    "Cast": [(0.0, REST_POSE), (0.18, (14.0, 6.0, 0.40, 0.10, 14.0, 6.0, -5.0, -0.08, 0.03, 0.0, 0.0)),
+    "Cast": [(0.0, REST_POSE), (0.18, (18.0, 14.0, 0.40, 0.10, 14.0, 12.0, -5.0, -0.08, 0.03, 0.0, 0.0)),
              (0.50, (18.0, -30.0, 0.30, 0.20, 10.0, -28.0, -9.0, -0.18, 0.04, 0.0, 0.0)),
              (0.58, (44.0, 0.0, 1.45, -0.20, 30.0, 2.0, 14.0, 0.30, 0.03, 0.15, 0.0)),
              (0.72, (44.0, 4.0, 1.40, -0.20, 30.0, 6.0, 10.0, 0.25, 0.03, 0.0, 0.0)), (1.0, REST_POSE)],
     # Hunch over, press the injector against the chest at 0.42, then open the arms and stand tall in a glow.
-    "Heal": [(0.0, REST_POSE), (0.30, (-9.0, 10.0, 0.10, 0.50, 6.0, 12.0, 8.0, -0.10, 0.03, 0.0, 0.0)),
-             (0.46, (-9.0, 10.0, 0.10, 0.50, 6.0, 12.0, 9.0, -0.10, 0.03, 0.0, 0.0)),
-             (0.64, (26.0, -16.0, 0.50, 0.0, -22.0, -14.0, -7.0, 0.0, 0.0, 0.0, 0.035)),
-             (0.82, (26.0, -14.0, 0.50, 0.0, -22.0, -12.0, -6.0, 0.0, 0.0, 0.0, 0.03)), (1.0, REST_POSE)],
+    "Heal": [(0.0, REST_POSE), (0.30, (10.0, 20.0, 0.10, 0.50, 8.0, 16.0, 8.0, -0.10, 0.03, 0.0, 0.0)),
+             (0.46, (10.0, 20.0, 0.10, 0.50, 8.0, 16.0, 9.0, -0.10, 0.03, 0.0, 0.0)),
+             (0.64, (30.0, -20.0, 0.50, 0.0, 6.0, -26.0, -7.0, 0.0, 0.0, 0.0, 0.035)),
+             (0.82, (30.0, -18.0, 0.50, 0.0, 6.0, -24.0, -6.0, 0.0, 0.0, 0.0, 0.03)), (1.0, REST_POSE)],
     # Brace in a crouch with fists to the chest, burst upward at 0.5 with arms thrown open.
-    "Buff": [(0.0, REST_POSE), (0.36, (8.0, 14.0, 0.30, 0.0, 8.0, 14.0, 10.0, 0.0, 0.07, 0.0, 0.0)),
-             (0.50, (30.0, -26.0, 0.35, -0.20, -16.0, -30.0, -12.0, -0.10, 0.0, 0.0, 0.03)),
-             (0.74, (30.0, -22.0, 0.35, -0.20, -16.0, -26.0, -9.0, -0.08, 0.0, 0.0, 0.02)), (1.0, REST_POSE)],
+    "Buff": [(0.0, REST_POSE), (0.36, (12.0, 20.0, 0.30, 0.0, 8.0, 18.0, 10.0, 0.0, 0.07, 0.0, 0.0)),
+             (0.50, (30.0, -26.0, 0.35, -0.20, 2.0, -32.0, -12.0, -0.10, 0.0, 0.0, 0.03)),
+             (0.74, (30.0, -22.0, 0.35, -0.20, 2.0, -28.0, -9.0, -0.08, 0.0, 0.0, 0.02)), (1.0, REST_POSE)],
 }
 CLIP_CONTACT = {"Shoot": 0.46, "Cast": 0.58, "Heal": 0.46, "Buff": 0.50}
 
@@ -1058,9 +1264,12 @@ def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0, swing=None):
         torso_twist += cp[7]
 
     rots = {}
+    body_z = idle_breath + walk_bounce + run_bounce + jump_z + down_drop
+    # Bind pose has straight legs; the ready stance sits the hip lower so the knees bend with the feet on the floor.
+    hip_height = STANCE_HEIGHT + body_z / UNIT_M
     locs = {
         "Root": (0.0, 0.0, 0.0),
-        "Hip": (-recoil * 0.05, cog_shift_y, idle_breath + walk_bounce + run_bounce + jump_z + down_drop),
+        "Hip": (-recoil * 0.05, cog_shift_y, (STANCE_HEIGHT - LEG_REACH) * UNIT_M + body_z),
     }
     rots["Root"] = (0.0, 0.0, 0.0)
     rots["Hip"] = (pelvic_list, hip_yaw, 0.0)
@@ -1129,7 +1338,7 @@ def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0, swing=None):
         rots[f"Brow_{s_tag}"] = (-side * brow_tilt, 0.0, 0.0)
 
     # 6. Legs, Contact Constraints & Heel-to-Toe Foot Roll
-    hip_2d = (0.0, -53.0)
+    hip_2d = (0.0, -hip_height)
     for s_tag, side in (("R", 1), ("L", -1)):
         l_phase = phase + (math.pi if side == -1 else 0.0)
         leg_root = (hip_2d[0] + side * 4.5, hip_2d[1])
@@ -1155,14 +1364,16 @@ def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0, swing=None):
         elif mode == "Down":
             fx, fy = side * 16.0 - 10.0, 2.0
 
-        ankle = (fx - 1.0, fy - 5.0 - hip_drop * 100.0)
-        t_ang, s_ang = ik_2bone_angles(leg_root, ankle, 28.0, -1.0)
+        # Ankles target the floor (y = 0); in jump flight they ride up with the body.
         lift_ratio = max(0.0, min(1.0, -fy / max(1.0, lift_amp)))
-
         # Heel-Strike to Toe-Off Foot Roll Mechanics
         heel_strike = max(0.0, math.cos(l_phase)) * (1.0 - lift_ratio) * 0.22 * loco
         push_off = max(0.0, -math.cos(l_phase)) * (1.0 - lift_ratio) * 0.28 * loco
-        f_ang = -(t_ang + s_ang) - lift_ratio * 0.38 - heel_strike + push_off
+        foot_pitch = -lift_ratio * 0.38 - heel_strike + push_off
+        # A rolling foot pivots on its heel or ball, so the ankle rises by however far the roll would sink the sole.
+        ankle = (fx - 1.0, fy - max(0.0, jump_z) / UNIT_M - sole_drop(foot_pitch) / UNIT_M)
+        t_ang, s_ang = ik_2bone_angles(leg_root, ankle, 28.0, -1.0)
+        f_ang = -(t_ang + s_ang) + foot_pitch
         toe_ang = -push_off * 1.15 + lift_ratio * 0.18
 
         rots[f"Thigh_{s_tag}"] = (0.04 * side, 0.0, t_ang)
@@ -1173,49 +1384,51 @@ def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0, swing=None):
         # Secondary Belt Pouch / Tasset Outward Flare & Overlapping Bounce
         pouch_flare = max(0.0, -t_ang) * 0.35 + (0.12 if mode in ("Attack", "Jump_Land") else 0.0)
         pouch_swing = math.sin(l_phase - 0.55) * 0.14 * loco
-        rots[f"Pouch_{s_tag}"] = (-side * pouch_flare, 0.0, pouch_swing)
+        rots[f"Pouch_{s_tag}"] = (-side * pouch_flare, 0.0, pouch_swing + t_ang * 0.5)
 
     # 7. Front Arm, Wrist Follow-Through & Weapon Arc
-    sh_2d = (hip_2d[0] + torso_lean, hip_2d[1] - 49.0)
+    sh_2d = (torso_lean, -53.0 - 49.0)
     arm_root = (sh_2d[0] + 13.0, sh_2d[1] + 4.0)
-    hand = [arm_root[0] + 22.0, arm_root[1] + 31.0 + math.sin(phase - 0.25) * 1.6]
+    hand = [arm_root[0] + 21.0, arm_root[1] + 40.0 + math.sin(phase - 0.25) * 1.6]
     w_angle = 0.72
     wrist_Snap = 0.0
 
     if loco > 0.5:
         sw_amp = 17.5 if run > 0.5 else 12.0
         sw = -math.cos(phase) * sw_amp
-        hand = [arm_root[0] + 19.0 + sw, arm_root[1] + (25.0 if run > 0.5 else 30.0) - abs(sw) * 0.22]
+        hand = [arm_root[0] + 19.0 + sw, arm_root[1] + (34.0 if run > 0.5 else 39.0) - abs(sw) * 0.25]
         w_angle = 0.66 - math.cos(phase - 0.3) * 0.18
         wrist_Snap = math.sin(phase - 0.4) * 0.12
     elif mode == "Jump_Land":
-        hand = [arm_root[0] + 16.0, arm_root[1] + 20.0 - jump_z * 35.0]
+        hand = [arm_root[0] + 18.0, arm_root[1] + 36.0 - jump_z * 30.0]
         w_angle = 0.55 - jump_z * 0.8
     elif mode == "Turn_Look":
-        hand = [arm_root[0] + 20.0 + math.sin(phase) * 4.0, arm_root[1] + 28.0]
+        hand = [arm_root[0] + 20.0 + math.sin(phase) * 3.0, arm_root[1] + 39.0]
         w_angle = 0.62 + math.sin(phase - 0.3) * 0.15
 
     # Strike pose per move at strength c; wind-up, swing and recovery all blend between fixed poses so the
     # hand never passes through the shoulder and the blade never flips (no elbow snap, no spinning wrist).
     def strike_pose(c):
         if mode == "Skill_Stab":
-            return (38.0 * c, 4.0 * c, 1.55, -0.22)
-        return (34.0 * c, 22.0 * c, 1.92, -0.32)
-    windup_pose = (-6.0, -28.0, -0.95, 0.28)
-    rest_pose = (22.0, 31.0, 0.72, 0.0)
+            return (44.0 * c, 8.0 * c, 1.55, -0.22)
+        return (38.0 * c, 26.0 * c, 1.92, -0.32)
+    # Blade raised up in front of the face, not cocked back through the head and boiler.
+    windup_pose = (24.0, -30.0, -0.15, 0.20)
+    rest_pose = REST_POSE[:4]
     pose = None
+    def blend(a, b, t):
+        return arc_blend(a, b, t) + [a[i] + (b[i] - a[i]) * t for i in range(2, 4)]
     if swing is not None:
         p = swing * swing * (3.0 - 2.0 * swing)
         goal = strike_pose(min(1.2, 1.0 if mode == "Attack" else 1.1))
-        pose = [windup_pose[i] + (goal[i] - windup_pose[i]) * p for i in range(4)]
+        pose = blend(windup_pose, goal, p)
     elif strike < 0.0:
         w = min(1.0, -strike / 0.75)
-        pose = [rest_pose[i] + (windup_pose[i] - rest_pose[i]) * w for i in range(4)]
+        pose = blend(rest_pose, windup_pose, w)
     elif strike > 0.0:
         c = min(1.2, strike)
         goal = strike_pose(c)
-        k = min(1.0, c)
-        pose = [rest_pose[i] + (goal[i] - rest_pose[i]) * k for i in range(2)] + [rest_pose[i] + (goal[i] - rest_pose[i]) * k for i in range(2, 4)]
+        pose = blend(rest_pose, goal, min(1.0, c))
         if c > 1.0:
             pose[0], pose[1] = goal[0], goal[1]
     if pose is not None:
@@ -1223,72 +1436,76 @@ def compute_vesper_pose(mode, t_norm, strike=0.0, recoil=0.0, swing=None):
         w_angle = pose[2]
         wrist_Snap = pose[3]
     if mode == "Guard":
-        hand = [arm_root[0] + 8.0, arm_root[1] + 18.0]
+        hand = [arm_root[0] + 20.0, arm_root[1] + 26.0]
         w_angle = 0.15
     elif mode == "Hit":
-        hand = [arm_root[0] - 8.0 * recoil, arm_root[1] + 18.0 - 10.0 * recoil]
+        hand = [arm_root[0] + 12.0 - 12.0 * recoil, arm_root[1] + 38.0 - 6.0 * recoil]
         w_angle = -0.35 * recoil
     elif mode == "Down":
-        hand = [arm_root[0] + 18.0, arm_root[1] + 22.0]
+        hand = [arm_root[0] + 20.0, arm_root[1] + 38.0]
         w_angle = 1.45
 
     if cp is not None:
         hand = [arm_root[0] + cp[0], arm_root[1] + cp[1]]
         w_angle = cp[2]
         wrist_Snap = cp[3]
-    dx, dy = hand[0] - arm_root[0], hand[1] - arm_root[1]
-    dlen = math.hypot(dx, dy)
-    if dlen > 47.5:
-        hand = [arm_root[0] + dx * 47.5 / dlen, arm_root[1] + dy * 47.5 / dlen]
-    u_ang, f_ang = ik_2bone_angles(arm_root, hand, 24.0, 1.0)
+    u_ang, f_ang = arm_ik(arm_root, hand, 24.0)
+    # Square grip here; build_vesper_actions then turns it in 3D until no weapon family touches the body.
+    w_angle = grip_blade(w_angle, u_ang + f_ang)
     sh_r_ang = u_ang - torso_pitch
     el_r_ang = f_ang
     world_arm_z = torso_pitch + sh_r_ang + el_r_ang + wrist_Snap
-    rots["Shoulder_R"] = (0.22, 0.0, sh_r_ang)
+    # Local X rolls about the forward axis toward +Y: the arms carry slightly out from the body, not into it.
+    rots["Shoulder_R"] = (-0.12, 0.0, sh_r_ang)
     rots["Elbow_R"] = (0.0, 0.0, el_r_ang)
     rots["Hand_R"] = (0.0, 0.0, wrist_Snap)
-    rots["WeaponMount"] = (-0.12, 0.0, -w_angle - world_arm_z)
+    rots["WeaponMount"] = (WEAPON_TILT, 0.0, -w_angle - world_arm_z)
 
     # 8. Back Arm, Wrist & Shield
     back_root = (sh_2d[0] - 13.0, sh_2d[1] + 2.0)
     b_sw = math.cos(phase) * (12.0 if run > 0.5 else 7.5) * loco
-    b_hand = [sh_2d[0] - 28.0 + b_sw, sh_2d[1] + (24.0 if run > 0.5 else 30.0)]
+    b_hand = [sh_2d[0] - 19.0 + b_sw, sh_2d[1] + (40.0 if run > 0.5 else 46.0)]
     if mode == "Guard":
         b_hand = [sh_2d[0] + 24.0 - recoil * 5.0, sh_2d[1] + 4.0]
     elif swing is not None:
         q = swing * swing * (3.0 - 2.0 * swing)
-        b_hand = [sh_2d[0] + 14.0 - 32.0 * q, sh_2d[1] - 6.0 + 26.0 * q]
+        b_hand = [sh_2d[0] + 14.0 - 26.0 * q, sh_2d[1] - 6.0 + 38.0 * q]
     elif strike < 0.0:
         # Blend instead of switching at a threshold, so the guard arm doesn't snap when the wind-up starts.
         w = min(1.0, -strike / 0.75)
         b_hand = [b_hand[0] + (sh_2d[0] + 14.0 - b_hand[0]) * w, b_hand[1] + (sh_2d[1] - 6.0 - b_hand[1]) * w]
     elif strike > 0.0:
         k = min(1.0, strike)
-        b_hand = [b_hand[0] + (sh_2d[0] - 18.0 - b_hand[0]) * k, b_hand[1] + (sh_2d[1] + 20.0 - b_hand[1]) * k]
+        b_hand = [b_hand[0] + (sh_2d[0] - 12.0 - b_hand[0]) * k, b_hand[1] + (sh_2d[1] + 34.0 - b_hand[1]) * k]
     elif mode == "Hit":
-        b_hand = [sh_2d[0] - 22.0, sh_2d[1] + 12.0]
+        b_hand = [sh_2d[0] - 14.0, sh_2d[1] + 32.0]
     if cp is not None:
         b_hand = [sh_2d[0] + cp[4], sh_2d[1] + cp[5]]
-    bu_ang, bf_ang = ik_2bone_angles(back_root, b_hand, 24.0, 1.0)
+    bu_ang, bf_ang = arm_ik(back_root, b_hand, 24.0)
     sh_l_ang = bu_ang - torso_pitch
     el_l_ang = bf_ang
-    rots["Shoulder_L"] = (0.38 if mode == "Guard" else -0.20, 0.0, sh_l_ang)
+    rots["Shoulder_L"] = (0.38 if mode == "Guard" else 0.12, 0.0, sh_l_ang)
     rots["Elbow_L"] = (0.0, 0.0, el_l_ang)
     rots["Hand_L"] = (0.0, 0.0, -wrist_Snap * 0.5)
     if mode == "Guard":
-        locs["ShieldMount"] = (0.16, -0.06, 0.24)
+        locs["ShieldMount"] = (0.16, 0.02, 0.06)
         rots["ShieldMount"] = (0.0, 0.45, -sh_l_ang - el_l_ang)
     else:
-        locs["ShieldMount"] = (0.0, 0.0, 0.0)
+        locs["ShieldMount"] = (0.0, 0.05, -0.05)
         rots["ShieldMount"] = (0.0, -0.25, 0.35)
 
     return locs, rots
 
 
-def apply_pose_to_armature(arm_obj, locs, rots, frame=None):
+def apply_pose_to_armature(arm_obj, locs, rots, frame=None, previous=None):
     for bname, pb in arm_obj.pose.bones.items():
         pb.location = locs.get(bname, (0.0, 0.0, 0.0))
-        pb.rotation_euler = rots.get(bname, (0.0, 0.0, 0.0))
+        rot = rots.get(bname, (0.0, 0.0, 0.0))
+        if previous is not None:
+            # Same orientation, nearest turn to the last key: no 360-degree spin between keys.
+            rot = tuple(a + math.tau * round((previous.get(bname, rot)[i] - a) / math.tau) for i, a in enumerate(rot))
+            previous[bname] = rot
+        pb.rotation_euler = rot
         if frame is not None:
             pb.keyframe_insert(data_path="location", frame=frame)
             pb.keyframe_insert(data_path="rotation_euler", frame=frame)
@@ -1340,10 +1557,16 @@ def build_vesper_actions(arm_obj, dummy_obj):
             frames.append(end_f)
 
         start_locs, start_rots = None, None
-        for f in frames:
+        keyed = {}
+        grip = GripSolver(arm_obj)
+        shield = ShieldSolver(arm_obj)
+        # Loops run the grip/shield solvers once unkeyed first, so frame 1 starts from the state the cycle ends in
+        # and the forced end key (a copy of frame 1) doesn't pop.
+        warmup = [(True, x) for x in frames[:-1]] if is_cyclic else []
+        for warm, f in warmup + [(False, x) for x in frames]:
             t_norm = (f - 1) / float(end_f - 1)
-            if is_cyclic and f == end_f and start_locs is not None:
-                apply_pose_to_armature(arm_obj, start_locs, start_rots, frame=f)
+            if not warm and is_cyclic and f == end_f and start_locs is not None:
+                apply_pose_to_armature(arm_obj, start_locs, start_rots, frame=f, previous=keyed)
                 continue
 
             strike = 0.0
@@ -1373,9 +1596,14 @@ def build_vesper_actions(arm_obj, dummy_obj):
                 recoil = min(1.0, t_norm / 0.55)
 
             locs, rots = compute_vesper_pose(act_name, t_norm, strike=strike, recoil=recoil, swing=swing)
+            apply_pose_to_armature(arm_obj, locs, rots)
+            grip.solve(rots, step)
+            shield.solve(locs, rots, step)
+            if warm:
+                continue
+            apply_pose_to_armature(arm_obj, locs, rots, frame=f, previous=keyed)
             if f == 1:
-                start_locs, start_rots = locs, rots
-            apply_pose_to_armature(arm_obj, locs, rots, frame=f)
+                start_locs, start_rots = locs, dict(keyed)
 
         smooth_action_fcurves(act)
         track = arm_obj.animation_data.nla_tracks.new()

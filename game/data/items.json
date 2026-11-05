@@ -8,12 +8,12 @@
     "price": 35,
     "required_level": 1,
     "bonuses": {
-      "attack": 7,
+      "attack": 9,
       "tech": 1,
       "initiative": 0
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายกายภาพ] มีดช่างเหล็กกล้า ปรับสมดุลคมดาบสำหรับฟันและแทงระยะประชิด",
     "model": "blade"
   },
   {
@@ -26,11 +26,11 @@
     "required_level": 1,
     "bonuses": {
       "attack": 1,
-      "tech": 7,
+      "tech": 9,
       "initiative": 0
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายเวท] กระบองเชื่อมต่อท่อไอ เร่งประจุพลังงานเทคโนโลยี",
     "model": "blunt"
   },
   {
@@ -42,13 +42,14 @@
     "price": 45,
     "required_level": 1,
     "bonuses": {
-      "attack": 5,
-      "tech": 5,
-      "initiative": 1,
-      "accuracy": 15
+      "attack": 6,
+      "tech": 6,
+      "barrier": 18,
+      "max_hp": 10,
+      "initiative": 1
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายยื้อ] ปืนยิงหมุดเสริมโครงสร้าง เสริมพลังชีวิตและกางสนามโล่ป้องกัน",
     "model": "gun"
   },
   {
@@ -60,12 +61,13 @@
     "price": 40,
     "required_level": 1,
     "bonuses": {
-      "attack": 9,
+      "attack": 12,
       "tech": 0,
-      "initiative": -2
+      "initiative": -2,
+      "pierce": 26
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายกายภาพ] ดาบฟันเฟืองน้ำหนักมาก ฟันทะลวงเกราะกายภาพอย่างรุนแรง",
     "model": "blade"
   },
   {
@@ -78,12 +80,12 @@
     "required_level": 1,
     "bonuses": {
       "attack": 0,
-      "tech": 9,
+      "tech": 12,
       "initiative": -2,
-      "focus": 20
+      "focus": 26
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายเวท] ค้อนอัดแรงดันลูกสูบ ทรงพลังด้วยการเจาะทะลวงต้านทานเวท",
     "model": "blunt"
   },
   {
@@ -95,13 +97,14 @@
     "price": 30,
     "required_level": 1,
     "bonuses": {
-      "attack": 3,
-      "tech": 3,
-      "initiative": 4,
-      "pierce": 20
+      "attack": 5,
+      "tech": 5,
+      "barrier": 14,
+      "evasion": 8,
+      "initiative": 5
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายยื้อ] หอกท่อทองแดงน้ำหนักเบา ช่วยกางโล่และเพิ่มความคล่องตัวในการหลบหลีก",
     "model": "polearm"
   },
   {
@@ -113,13 +116,13 @@
     "price": 170,
     "required_level": 6,
     "bonuses": {
-      "attack": 14,
-      "tech": 2,
+      "attack": 18,
+      "tech": 3,
       "initiative": 0,
-      "pierce": 35
+      "pierce": 46
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายกายภาพ] ประแจกลหนักแน่น เสริมแรงกระแทกและเจาะเกราะศัตรู",
     "model": "blunt"
   },
   {
@@ -131,13 +134,13 @@
     "price": 170,
     "required_level": 6,
     "bonuses": {
-      "attack": 2,
-      "tech": 14,
+      "attack": 3,
+      "tech": 18,
       "initiative": 0,
-      "accuracy": 20
+      "accuracy": 26
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายเวท] ปืนยิงประจุไอเอเธอร์ ยิงแม่นยำและเสริมพลังเทคโนโลยี",
     "model": "gun"
   },
   {
@@ -151,10 +154,12 @@
     "bonuses": {
       "attack": 10,
       "tech": 10,
+      "barrier": 28,
+      "max_hp": 18,
       "initiative": 1
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายยื้อ] เลื่อยไอน้ำสะสมแรงดัน เสริมพลังชีวิตและสร้างสนามโล่ยื้อการต่อสู้",
     "model": "blade"
   },
   {
@@ -166,13 +171,13 @@
     "price": 190,
     "required_level": 6,
     "bonuses": {
-      "attack": 18,
+      "attack": 23,
       "tech": 0,
       "initiative": -2,
-      "pierce": 45
+      "pierce": 59
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายกายภาพ] หอกเหล็กกล้าเจาะเกราะ ทะลวงแนวรับศัตรูด้วยแรงปะทะหนักหน่วง",
     "model": "polearm"
   },
   {
@@ -185,12 +190,12 @@
     "required_level": 6,
     "bonuses": {
       "attack": 0,
-      "tech": 18,
+      "tech": 23,
       "initiative": -2,
-      "accuracy": 20
+      "focus": 45
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายเวท] ปืนฉีดสารเคมีเข้มข้น ทำลายพลังต้านทานเวทของเป้าหมาย",
     "model": "gun"
   },
   {
@@ -202,13 +207,13 @@
     "price": 455,
     "required_level": 11,
     "bonuses": {
-      "attack": 21,
-      "tech": 3,
+      "attack": 27,
+      "tech": 4,
       "initiative": 0,
-      "pierce": 80
+      "pierce": 104
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายกายภาพ] ทวนรางเหล็กกล้าทะลวงเกราะ ฟันทะลุการป้องกันกายภาพชั้นหนา",
     "model": "polearm"
   },
   {
@@ -220,13 +225,13 @@
     "price": 455,
     "required_level": 11,
     "bonuses": {
-      "attack": 3,
-      "tech": 21,
+      "attack": 4,
+      "tech": 27,
       "initiative": 0,
-      "focus": 70
+      "focus": 91
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายเวท] ค้อนเหนี่ยวนำแม่เหล็กไฟฟ้า เจาะต้านทานและระเบิดคลื่นเทคโนโลยี",
     "model": "blunt"
   },
   {
@@ -240,10 +245,12 @@
     "bonuses": {
       "attack": 15,
       "tech": 15,
+      "barrier": 46,
+      "max_hp": 28,
       "initiative": 1
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายยื้อ] ดาบซึมซับเขม่าเตาหลอม เสริมความทนทานชีวิตและโล่ป้องกัน",
     "model": "blade"
   },
   {
@@ -255,13 +262,13 @@
     "price": 510,
     "required_level": 11,
     "bonuses": {
-      "attack": 27,
+      "attack": 35,
       "tech": 0,
       "initiative": -2,
-      "accuracy": 30
+      "accuracy": 39
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายกายภาพ] ปืนแรงดันความแม่นยำสูง โจมตีกายภาพหนักหน่วงและตรงเป้า",
     "model": "gun"
   },
   {
@@ -274,12 +281,12 @@
     "required_level": 11,
     "bonuses": {
       "attack": 0,
-      "tech": 27,
+      "tech": 35,
       "initiative": -2,
-      "focus": 70
+      "focus": 91
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายเวท] กรงเล็บกลถ่ายเทพลังงาน เจาะลึกทะลุผ่านค่าต้านทานเวท",
     "model": "blade"
   },
   {
@@ -291,13 +298,13 @@
     "price": 965,
     "required_level": 16,
     "bonuses": {
-      "attack": 28,
-      "tech": 4,
+      "attack": 36,
+      "tech": 5,
       "initiative": 0,
-      "pierce": 100
+      "pierce": 130
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายกายภาพ] ขวานเหล็กหลอมหนักหน่วง จามทะลวงเกราะของศัตรูสายถึก",
     "model": "blunt"
   },
   {
@@ -309,13 +316,13 @@
     "price": 965,
     "required_level": 16,
     "bonuses": {
-      "attack": 4,
-      "tech": 28,
+      "attack": 5,
+      "tech": 36,
       "initiative": 0,
-      "accuracy": 30
+      "accuracy": 39
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายเวท] ปืนยิงประกายสายฟ้าอาร์ก เสริมพลังเทคโนโลยีและความแม่นยำ",
     "model": "gun"
   },
   {
@@ -329,10 +336,12 @@
     "bonuses": {
       "attack": 20,
       "tech": 20,
+      "barrier": 68,
+      "max_hp": 42,
       "initiative": 1
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายยื้อ] เคียวกลั่นพลังชีวิตรากแก้ว เสริม HP สูงสุดและโล่หนาเพื่อยื้อแดนรบ",
     "model": "blade"
   },
   {
@@ -344,13 +353,13 @@
     "price": 1085,
     "required_level": 16,
     "bonuses": {
-      "attack": 36,
+      "attack": 47,
       "tech": 0,
       "initiative": -2,
-      "pierce": 130
+      "pierce": 169
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายกายภาพ] หอกควบแน่นแรงดันไอน้ำขั้นสูงสุด ทะลวงเกราะกายภาพอย่างเด็ดขาด",
     "model": "polearm"
   },
   {
@@ -363,12 +372,12 @@
     "required_level": 16,
     "bonuses": {
       "attack": 0,
-      "tech": 36,
+      "tech": 47,
       "initiative": -2,
-      "focus": 120
+      "focus": 156
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายเวท] ดาบสลักวงจรบันทึก เจาะทะลุค่าต้านทานเวทมนตร์ของศัตรูชั้นยอด",
     "model": "blade"
   },
   {
@@ -380,13 +389,13 @@
     "price": 1705,
     "required_level": 21,
     "bonuses": {
-      "attack": 35,
-      "tech": 5,
+      "attack": 46,
+      "tech": 7,
       "initiative": 0,
-      "accuracy": 40
+      "accuracy": 52
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายกายภาพ] ปืนกลั่นกระสุนความหนาแน่นสูง พลังโจมตีกายภาพและความแม่นยำสูงสุด",
     "model": "gun"
   },
   {
@@ -398,13 +407,13 @@
     "price": 1705,
     "required_level": 21,
     "bonuses": {
-      "attack": 5,
-      "tech": 35,
+      "attack": 7,
+      "tech": 46,
       "initiative": 0,
-      "focus": 140
+      "focus": 182
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายเวท] ค้อนสกัดผลึกเอเธอร์ พลังเทคโนโลยีและเจาะต้านทานเวทขั้นสูงสุด",
     "model": "blunt"
   },
   {
@@ -418,10 +427,12 @@
     "bonuses": {
       "attack": 25,
       "tech": 25,
+      "barrier": 90,
+      "max_hp": 56,
       "initiative": 1
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายยื้อ] ดาบพิทักษ์ใจกลางเมืองจักรกล พลังชีวิตและสนามโล่มหาศาลสำหรับสายยื้อ",
     "model": "blade"
   },
   {
@@ -433,13 +444,13 @@
     "price": 2495,
     "required_level": 21,
     "bonuses": {
-      "attack": 45,
+      "attack": 59,
       "tech": 0,
       "initiative": -2,
-      "pierce": 150
+      "pierce": 195
     },
     "special": "",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายกายภาพ] คทาเสริมใยชีวกล พลังทุบทำลายล้างกายภาพและเจาะเกราะทะลุปรุโปร่ง",
     "model": "staff"
   },
   {
@@ -452,12 +463,12 @@
     "required_level": 21,
     "bonuses": {
       "attack": 0,
-      "tech": 45,
+      "tech": 59,
       "initiative": -2,
-      "focus": 120
+      "focus": 156
     },
     "special": "vent_breaker",
-    "description": "อาวุธสำหรับปรับสมดุลการโจมตีและเทคโนโลยี",
+    "description": "[สายเวท] ปืนเอเธอร์ย้อนเฟสมิติ พลังเวทเทคโนโลยีและเจาะต้านทานระดับสูงสุด",
     "model": "gun"
   },
   {
@@ -469,13 +480,13 @@
     "price": 30,
     "required_level": 1,
     "bonuses": {
-      "barrier": 27,
-      "armor": 3,
-      "resist": 2,
+      "barrier": 35,
+      "armor": 4,
+      "resist": 3,
       "initiative": 0
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "description": "[สายยื้อ] ฝาท่อโลหะหนา ยกบังรับแรงกระแทกและสร้างสนามโล่เริ่มต้น",
     "model": "light"
   },
   {
@@ -487,13 +498,13 @@
     "price": 30,
     "required_level": 1,
     "bonuses": {
-      "barrier": 35,
-      "armor": 2,
+      "barrier": 46,
+      "armor": 3,
       "resist": 1,
       "initiative": -1
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "description": "[สายยื้อ] แผ่นเหล็กยึดหมุด โล่หนาพิเศษเพื่อดูดซับแรงกระแทกมหาศาล",
     "model": "plate"
   },
   {
@@ -505,14 +516,14 @@
     "price": 25,
     "required_level": 1,
     "bonuses": {
-      "barrier": 23,
+      "barrier": 30,
       "armor": 1,
-      "resist": 5,
+      "resist": 7,
       "initiative": 1,
-      "evasion": 4
+      "evasion": 5
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "description": "[สายเวท] โล่เคลือบทองเหลืองสะท้อนเวท เสริมต้านทานเวทและการหลบหลีก",
     "model": "light"
   },
   {
@@ -524,13 +535,13 @@
     "price": 30,
     "required_level": 1,
     "bonuses": {
-      "barrier": 24,
-      "armor": 5,
-      "resist": 3,
+      "barrier": 31,
+      "armor": 7,
+      "resist": 4,
       "initiative": -2
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "description": "[สายกายภาพ] แผ่นกันชนรถไฟ เกราะกายภาพหนาพิเศษเพื่อต้านทานการโจมตีหนัก",
     "model": "tower"
   },
   {
@@ -542,14 +553,14 @@
     "price": 145,
     "required_level": 6,
     "bonuses": {
-      "barrier": 39,
-      "armor": 6,
-      "resist": 4,
+      "barrier": 51,
+      "armor": 8,
+      "resist": 5,
       "initiative": 0,
-      "evasion": 8
+      "evasion": 10
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "description": "[สายยื้อ] โล่กลไกสปริงซับแรง ป้องกันสมดุลและเพิ่มอัตราการหลบหลีก",
     "model": "light"
   },
   {
@@ -561,13 +572,13 @@
     "price": 165,
     "required_level": 6,
     "bonuses": {
-      "barrier": 55,
-      "armor": 4,
-      "resist": 2,
+      "barrier": 72,
+      "armor": 5,
+      "resist": 3,
       "initiative": -1
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "description": "[สายยื้อ] โล่เฟืองซ้อนกลไก สนามโล่บาเรียหนาแน่นเพื่อการยื้อการต่อสู้",
     "model": "plate"
   },
   {
@@ -579,13 +590,13 @@
     "price": 135,
     "required_level": 6,
     "bonuses": {
-      "barrier": 31,
-      "armor": 2,
-      "resist": 10,
+      "barrier": 40,
+      "armor": 3,
+      "resist": 13,
       "initiative": 1
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "description": "[สายเวท] โล่ขดลวดเหนี่ยวนำ สลายประจุเวทมนตร์และเพิ่มค่าต้านทานสูง",
     "model": "tower"
   },
   {
@@ -597,14 +608,14 @@
     "price": 380,
     "required_level": 11,
     "bonuses": {
-      "barrier": 51,
-      "armor": 9,
-      "resist": 6,
+      "barrier": 66,
+      "armor": 12,
+      "resist": 8,
       "initiative": 0,
-      "evasion": 10
+      "evasion": 13
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "description": "[สายยื้อ] โล่ระบายม่านไอน้ำ บดบังสายตาช่วยหลบหลีกและกางสนามโล่ทนทาน",
     "model": "light"
   },
   {
@@ -616,13 +627,13 @@
     "price": 440,
     "required_level": 11,
     "bonuses": {
-      "barrier": 75,
-      "armor": 6,
-      "resist": 3,
+      "barrier": 98,
+      "armor": 8,
+      "resist": 4,
       "initiative": -1
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "description": "[สายยื้อ] โล่โครงสร้างผลึกเรือนกระจก บาเรียหนาพิเศษรองรับความเสียหายต่อเนื่อง",
     "model": "light"
   },
   {
@@ -634,13 +645,13 @@
     "price": 355,
     "required_level": 11,
     "bonuses": {
-      "barrier": 39,
-      "armor": 3,
-      "resist": 15,
+      "barrier": 51,
+      "armor": 4,
+      "resist": 20,
       "initiative": 1
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "description": "[สายเวท] โล่บุฉนวนกันความร้อนและไฟฟ้า ป้องกันการโจมตีทางเวทมนตร์อย่างชะงัด",
     "model": "plate"
   },
   {
@@ -652,13 +663,13 @@
     "price": 425,
     "required_level": 11,
     "bonuses": {
-      "barrier": 42,
-      "armor": 15,
-      "resist": 9,
+      "barrier": 55,
+      "armor": 20,
+      "resist": 12,
       "initiative": -2
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "description": "[สายกายภาพ] โล่เหล็กกล้าคนงานเหมือง เกราะหนาต้านแรงกระแทกกายภาพระดับสูง",
     "model": "plate"
   },
   {
@@ -670,14 +681,14 @@
     "price": 830,
     "required_level": 16,
     "bonuses": {
-      "barrier": 63,
-      "armor": 12,
-      "resist": 8,
+      "barrier": 82,
+      "armor": 16,
+      "resist": 10,
       "initiative": 0,
-      "evasion": 14
+      "evasion": 18
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "description": "[สายยื้อ] โล่แผ่นกระจายประจุ สนามโล่และอัตราหลบหลีกสำหรับการรบยืดเยื้อ",
     "model": "light"
   },
   {
@@ -689,13 +700,13 @@
     "price": 955,
     "required_level": 16,
     "bonuses": {
-      "barrier": 95,
-      "armor": 8,
-      "resist": 4,
+      "barrier": 124,
+      "armor": 10,
+      "resist": 5,
       "initiative": -1
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "description": "[สายยื้อ] โล่ถักทอจากรากไม้ชีวกล บาเรียมหาศาลต้านทานการบุกทะลวง",
     "model": "plate"
   },
   {
@@ -707,13 +718,13 @@
     "price": 765,
     "required_level": 16,
     "bonuses": {
-      "barrier": 47,
-      "armor": 4,
-      "resist": 20,
+      "barrier": 61,
+      "armor": 5,
+      "resist": 26,
       "initiative": 1
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "description": "[สายเวท] โล่แร่ทนไฟเตาหลอม ต้านทานเวทมนตร์และพลังงานความร้อนขั้นสูง",
     "model": "tower"
   },
   {
@@ -725,13 +736,13 @@
     "price": 1460,
     "required_level": 21,
     "bonuses": {
-      "barrier": 75,
-      "armor": 15,
-      "resist": 10,
+      "barrier": 98,
+      "armor": 20,
+      "resist": 13,
       "initiative": 0
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "description": "[สายกายภาพ] โล่หุ้มเกราะบันทึกประวัติศาสตร์ เกราะกายภาพแข็งแกร่งรับมือสายตีหนัก",
     "model": "plate"
   },
   {
@@ -743,13 +754,13 @@
     "price": 1695,
     "required_level": 21,
     "bonuses": {
-      "barrier": 115,
-      "armor": 10,
-      "resist": 5,
+      "barrier": 150,
+      "armor": 13,
+      "resist": 7,
       "initiative": -1
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "description": "[สายยื้อ] โล่สนามพลังงานปฏิกรณ์ บาเรียระดับสูงสุดในเกมเพื่อยื้อต้านทุกการโจมตี",
     "model": "tower"
   },
   {
@@ -761,14 +772,14 @@
     "price": 1345,
     "required_level": 21,
     "bonuses": {
-      "barrier": 55,
-      "armor": 5,
-      "resist": 25,
+      "barrier": 72,
+      "armor": 7,
+      "resist": 33,
       "initiative": 1,
-      "evasion": 18
+      "evasion": 23
     },
     "special": "",
-    "description": "โล่รับแรงกระแทกก่อนถึงร่างกาย",
+    "description": "[สายเวท] โล่เยื่อชีวภาพสลายพลังงาน ค่าต้านทานเวทและอัตราหลบหลีกระดับสูง",
     "model": "light"
   },
   {
@@ -780,13 +791,13 @@
     "price": 20,
     "required_level": 1,
     "bonuses": {
-      "max_fp": 5,
-      "initiative": 3,
-      "resist": 2,
-      "accuracy": 10
+      "max_fp": 7,
+      "initiative": 4,
+      "resist": 3,
+      "accuracy": 13
     },
     "special": "",
-    "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
+    "description": "[สายกายภาพ] แว่นเลนส์ปรับโฟกัส ช่วยเล็งจุดตายและเพิ่มความแม่นยำกายภาพ"
   },
   {
     "id": "H02",
@@ -797,12 +808,13 @@
     "price": 25,
     "required_level": 1,
     "bonuses": {
-      "max_fp": 7,
-      "initiative": 2,
-      "resist": 3
+      "max_fp": 9,
+      "initiative": 3,
+      "resist": 4,
+      "max_hp": 10
     },
     "special": "",
-    "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
+    "description": "[สายยื้อ] หมวกนิรภัยคนงาน เสริมพลังชีวิตและพลังงานเพื่อความทนทาน"
   },
   {
     "id": "H03",
@@ -813,13 +825,13 @@
     "price": 105,
     "required_level": 6,
     "bonuses": {
-      "max_fp": 10,
-      "initiative": 3,
-      "resist": 4,
-      "focus": 25
+      "max_fp": 13,
+      "initiative": 4,
+      "resist": 5,
+      "focus": 33
     },
     "special": "",
-    "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
+    "description": "[สายเวท] หน้ากากกรองไอระเหย ช่วยรวมสมาธิเจาะทะลวงต้านทานเวท"
   },
   {
     "id": "H04",
@@ -830,13 +842,13 @@
     "price": 135,
     "required_level": 6,
     "bonuses": {
-      "max_fp": 14,
-      "initiative": 2,
-      "resist": 6,
-      "accuracy": 30
+      "max_fp": 18,
+      "initiative": 3,
+      "resist": 8,
+      "accuracy": 39
     },
     "special": "",
-    "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
+    "description": "[สายกายภาพ] แว่นเลนส์ขยายระยะไกล ตรวจจับเป้าหมาย เพิ่มความแม่นยำสูง"
   },
   {
     "id": "H05",
@@ -847,12 +859,13 @@
     "price": 280,
     "required_level": 11,
     "bonuses": {
-      "max_fp": 15,
-      "initiative": 3,
-      "resist": 6
+      "max_fp": 20,
+      "initiative": 4,
+      "resist": 8,
+      "max_hp": 20
     },
     "special": "",
-    "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
+    "description": "[สายยื้อ] หมวกคลื่นสนามแม่เหล็ก เสริมพลังชีวิตและค่าต้านทานของร่างกาย"
   },
   {
     "id": "H06",
@@ -863,13 +876,13 @@
     "price": 360,
     "required_level": 11,
     "bonuses": {
-      "max_fp": 21,
-      "initiative": 2,
-      "resist": 9,
-      "focus": 50
+      "max_fp": 27,
+      "initiative": 3,
+      "resist": 12,
+      "focus": 65
     },
     "special": "",
-    "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
+    "description": "[สายเวท] หน้ากากสกัดไอน้ำยา เสริมค่าพลังงานและการเจาะต้านทานเวท"
   },
   {
     "id": "H07",
@@ -880,13 +893,13 @@
     "price": 585,
     "required_level": 16,
     "bonuses": {
-      "max_fp": 20,
-      "initiative": 3,
-      "resist": 8,
-      "accuracy": 45
+      "max_fp": 26,
+      "initiative": 4,
+      "resist": 10,
+      "accuracy": 59
     },
     "special": "",
-    "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
+    "description": "[สายกายภาพ] หมวกตรวจจับการสั่นสะเทือน เพิ่มความแม่นยำในการโจมตีกายภาพ"
   },
   {
     "id": "H08",
@@ -897,12 +910,13 @@
     "price": 775,
     "required_level": 16,
     "bonuses": {
-      "max_fp": 28,
-      "initiative": 2,
-      "resist": 12
+      "max_fp": 36,
+      "initiative": 3,
+      "resist": 16,
+      "max_hp": 32
     },
     "special": "",
-    "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
+    "description": "[สายยื้อ] หมวกช่างหลอมเหล็กทนความร้อนสูง เสริมพลังชีวิตสูงสุดและ FP อย่างมาก"
   },
   {
     "id": "H09",
@@ -913,13 +927,13 @@
     "price": 1020,
     "required_level": 21,
     "bonuses": {
-      "max_fp": 25,
-      "initiative": 3,
-      "resist": 10,
-      "accuracy": 60
+      "max_fp": 33,
+      "initiative": 4,
+      "resist": 13,
+      "accuracy": 78
     },
     "special": "",
-    "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
+    "description": "[สายกายภาพ] กระบังตาอ่านพิกัดศัตรู แม่นยำสูงสุดเพื่อจัดการศัตรูสายหลบหลีก"
   },
   {
     "id": "H10",
@@ -930,13 +944,13 @@
     "price": 1380,
     "required_level": 21,
     "bonuses": {
-      "max_fp": 35,
-      "initiative": 2,
-      "resist": 15,
-      "focus": 60
+      "max_fp": 46,
+      "initiative": 3,
+      "resist": 20,
+      "focus": 78
     },
     "special": "",
-    "description": "อุปกรณ์มองเห็นและป้องกันไอเอเธอร์"
+    "description": "[สายเวท] หมวกเชื่อมต่อโครงข่ายพลังงาน เจาะต้านทานเวทและค่า FP สูงสุดในเกม"
   },
   {
     "id": "A01",
@@ -947,12 +961,12 @@
     "price": 30,
     "required_level": 1,
     "bonuses": {
-      "max_hp": 12,
-      "armor": 4,
-      "resist": 3
+      "max_hp": 16,
+      "armor": 5,
+      "resist": 4
     },
     "special": "",
-    "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
+    "description": "[สายกายภาพ] เสื้อผ้าใบหนาเสริมแผ่นรอง เกราะป้องกันและพลังชีวิตพื้นฐาน"
   },
   {
     "id": "A02",
@@ -963,13 +977,13 @@
     "price": 30,
     "required_level": 1,
     "bonuses": {
-      "max_hp": 8,
-      "armor": 2,
-      "resist": 6,
-      "evasion": 6
+      "max_hp": 10,
+      "armor": 3,
+      "resist": 8,
+      "evasion": 8
     },
     "special": "",
-    "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
+    "description": "[สายเวท] เสื้อเกราะเส้นใยฉนวน ต้านทานเวทมนตร์และเพิ่มอัตราหลบหลีก"
   },
   {
     "id": "A03",
@@ -980,12 +994,12 @@
     "price": 155,
     "required_level": 6,
     "bonuses": {
-      "max_hp": 24,
-      "armor": 8,
-      "resist": 6
+      "max_hp": 31,
+      "armor": 10,
+      "resist": 8
     },
     "special": "",
-    "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
+    "description": "[สายกายภาพ] เสื้อบุเกราะแผ่นเหล็กรถไฟ เกราะกายภาพหนาต้านการกระแทก"
   },
   {
     "id": "A04",
@@ -996,13 +1010,13 @@
     "price": 145,
     "required_level": 6,
     "bonuses": {
-      "max_hp": 16,
-      "armor": 4,
-      "resist": 12,
-      "evasion": 14
+      "max_hp": 21,
+      "armor": 5,
+      "resist": 16,
+      "evasion": 18
     },
     "special": "",
-    "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
+    "description": "[สายเวท] ชุดเคลือบสารต้านประจุไฟฟ้า ป้องกันเวทมนตร์และเพิ่มความคล่องตัว"
   },
   {
     "id": "A05",
@@ -1013,12 +1027,13 @@
     "price": 410,
     "required_level": 11,
     "bonuses": {
-      "max_hp": 36,
-      "armor": 12,
-      "resist": 9
+      "max_hp": 52,
+      "armor": 16,
+      "resist": 12,
+      "barrier": 15
     },
     "special": "",
-    "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
+    "description": "[สายยื้อ] ชุดเสริมเกราะแพทย์สนาม พลังชีวิตและเกราะสูงพร้อมสนามโล่เสริม"
   },
   {
     "id": "A06",
@@ -1029,13 +1044,13 @@
     "price": 390,
     "required_level": 11,
     "bonuses": {
-      "max_hp": 24,
-      "armor": 6,
-      "resist": 18,
-      "evasion": 22
+      "max_hp": 31,
+      "armor": 8,
+      "resist": 23,
+      "evasion": 29
     },
     "special": "",
-    "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
+    "description": "[สายเวท] ชุดกรองไอพิษและสารเคมี ค่าต้านทานเวทและการหลบหลีกสูง"
   },
   {
     "id": "A07",
@@ -1046,12 +1061,13 @@
     "price": 870,
     "required_level": 16,
     "bonuses": {
-      "max_hp": 48,
-      "armor": 16,
-      "resist": 12
+      "max_hp": 68,
+      "armor": 21,
+      "resist": 16,
+      "barrier": 25
     },
     "special": "",
-    "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
+    "description": "[สายยื้อ] ชุดเกราะหลอมแร่หนาพิเศษ พลังชีวิตสูงมากและมีสนามโล่ดูดซับแรงกระแทก"
   },
   {
     "id": "A08",
@@ -1062,13 +1078,13 @@
     "price": 830,
     "required_level": 16,
     "bonuses": {
-      "max_hp": 32,
-      "armor": 8,
-      "resist": 24,
-      "evasion": 30
+      "max_hp": 42,
+      "armor": 10,
+      "resist": 31,
+      "evasion": 39
     },
     "special": "",
-    "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
+    "description": "[สายเวท] เกราะถักทอเส้นใยสะท้อนพลังงาน ต้านทานเวทและการหลบหลีกระดับสูง"
   },
   {
     "id": "A09",
@@ -1079,11 +1095,12 @@
     "price": 1950,
     "required_level": 21,
     "bonuses": {
-      "max_hp": 60,
-      "armor": 20,
-      "resist": 15
+      "max_hp": 90,
+      "armor": 26,
+      "resist": 20,
+      "barrier": 40
     },
     "special": "condensate_barrier",
-    "description": "เสื้อป้องกันสำหรับคนทำงานนอกกำแพง"
+    "description": "[สายยื้อ] เกราะชีวะผสานเทคโนโลยีจักรกล พลังชีวิตมหาศาลและโล่บาเรียสูงสุดเพื่อยืนหยัดยื้อทุกสนามรบ"
   }
 ]

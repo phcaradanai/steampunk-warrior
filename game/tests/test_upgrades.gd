@@ -36,7 +36,8 @@ func run(t) -> bool:
 		t.check(result.ok and result.state.upgrades.W07 == level + 1 and result.state.currency == player.currency - cost,"upgrade +%d charges exact cost" % (level + 1))
 		player = result.state
 		spent += cost
-	t.check(progression.derive(player,catalog.data).attack == base_attack + int(roundf(14.0 * Progression.UPGRADE_RATE * 3.0)) and base_attack + 5 == progression.derive(player,catalog.data).attack,"+3 adds the percentage of base bonus to derived attack")
+	var up_gain: int = int(roundf(float(weapon.bonuses.attack) * Progression.UPGRADE_RATE * 3.0))
+	t.check(progression.derive(player,catalog.data).attack == base_attack + up_gain and base_attack + up_gain == progression.derive(player,catalog.data).attack,"+3 adds the percentage of base bonus to derived attack")
 	var capped := service.transact(player,{"kind":"upgrade","item_id":"W07","room_id":shop},catalog.data)
 	t.check(not capped.ok and capped.state == player,"+3 is the cap")
 	t.check(not service.transact(player,{"kind":"upgrade","item_id":"W07","room_id":"R03"},catalog.data).ok,"upgrade only at a shop room")

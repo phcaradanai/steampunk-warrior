@@ -73,9 +73,6 @@ func start(encounter_id: String, progress: Dictionary, seed_value: int = 1, pipe
 	var room := _entry("rooms",encounter.room)
 	if not room.get("hazard","").is_empty() and WorldController.hazard_active(encounter.room,progress.world_flags):
 		_actor("hero").statuses[room.hazard] = {"turns":2}
-		if room.hazard == "Wet":
-			for enemy in state.actors:
-				if enemy.side == "enemy": enemy.statuses.Wet = {"turns":2}
 	return _result(true)
 
 func start_training(tier_id: String, progress: Dictionary, seed_value: int = 1) -> Dictionary:

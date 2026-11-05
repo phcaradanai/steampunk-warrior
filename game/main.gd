@@ -760,7 +760,7 @@ func _show_skills() -> void:
 	var left: VBoxContainer = panes[0]
 	var detail: VBoxContainer = panes[1]
 	var attributes := _grid(detail,"ค่าสถานะ (กดเพื่อเพิ่ม)",4)
-	var names: Dictionary = {"VIT":["heal","ความทนทาน · เพิ่ม HP"],"STR":["weapon","กำลัง · เพิ่มพลังโจมตีกายภาพ"],"INT":["electric","เทคโนโลยี · เพิ่มพลังสกิลเทคและการฮีล"],"AGI":["energy","ความคล่อง · เพิ่มความเร็วในลำดับเทิร์น"]}
+	var names: Dictionary = {"VIT":["heal","ความทนทาน · เพิ่ม HP (ช่วยรับมือศัตรูสายหมัดหนัก)"],"STR":["weapon","กำลัง · เพิ่มพลังโจมตีกายภาพ (ผลกับสกิลสายต่อสู้)"],"INT":["electric","เทคโนโลยี · เพิ่มพลังเทคและ FP (ผลกับสกิลสายเทค/เวทและการฮีล)"],"AGI":["energy","ความคล่อง · เพิ่มลำดับเทิร์นและแม่นยำ (ช่วยตีโดนสายหลบไว)"]}
 	for attribute in ["VIT","STR","INT","AGI"]:
 		var tile := _tile(attributes,load("res://art/icons/%s.svg" % names[attribute][0]),names[attribute][1],"%s %d" % [attribute,p.base_attributes[attribute]],false,_grow.bind("allocate_attribute",{"attribute":attribute}),"Attr_"+attribute)
 		tile.disabled = p.attribute_points <= 0
@@ -992,7 +992,7 @@ func _settle_attributes(levels: int) -> void:
 	var tiles := HBoxContainer.new()
 	tiles.add_theme_constant_override("separation",16)
 	modal_body.add_child(tiles)
-	var names: Dictionary = {"VIT":["heal","ความทนทาน · HP สูงสุด +6"],"STR":["weapon","กำลัง · โจมตีกายภาพ +2"],"INT":["electric","เทคโนโลยี · เทค +2, FP สูงสุด +4"],"AGI":["energy","ความคล่อง · ความเร็วลำดับเทิร์น +1"]}
+	var names: Dictionary = {"VIT":["heal","ความทนทาน · HP สูงสุด +6\n(ช่วยทนรับดาเมจทุกสาย)"],"STR":["weapon","กำลัง · โจมตีกายภาพ +2\n(ผลกับสกิลสายต่อสู้)"],"INT":["electric","เทคโนโลยี · เทค +2, FP สูงสุด +4\n(ผลกับสกิลสายเทคและการฮีล)"],"AGI":["energy","ความคล่อง · ลำดับเทิร์น +1, แม่นยำ +2\n(ช่วยตีศัตรูสายหลบไว)"]}
 	for attribute in ["VIT","STR","INT","AGI"]:
 		var cell := VBoxContainer.new()
 		cell.custom_minimum_size.x = 200

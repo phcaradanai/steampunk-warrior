@@ -3,80 +3,80 @@
     "id": "C01",
     "name": "ทหารหม้อน้ำ",
     "starter_skill": "S01",
-    "VIT": 12,
-    "STR": 8,
-    "INT": 5,
-    "AGI": 5,
+    "VIT": 14,
+    "STR": 9,
+    "INT": 6,
+    "AGI": 6,
     "trait": "เริ่มทุกการต่อสู้ด้วยโล่ 20",
     "attributes": {
-      "VIT": 12,
-      "STR": 8,
-      "INT": 5,
-      "AGI": 5
+      "VIT": 14,
+      "STR": 9,
+      "INT": 6,
+      "AGI": 6
     }
   },
   {
     "id": "C02",
     "name": "มือปืนรางเหล็ก",
     "starter_skill": "S03",
-    "VIT": 8,
-    "STR": 7,
-    "INT": 6,
-    "AGI": 9,
+    "VIT": 9,
+    "STR": 8,
+    "INT": 7,
+    "AGI": 11,
     "trait": "โจมตีเป้าหมายที่ถูกหมายหัวแรงขึ้น 10%",
     "attributes": {
-      "VIT": 8,
-      "STR": 7,
-      "INT": 6,
-      "AGI": 9
+      "VIT": 9,
+      "STR": 8,
+      "INT": 7,
+      "AGI": 11
     }
   },
   {
     "id": "C03",
     "name": "วิศวกรอาร์ก",
     "starter_skill": "S04",
-    "VIT": 8,
-    "STR": 5,
-    "INT": 12,
-    "AGI": 5,
+    "VIT": 9,
+    "STR": 6,
+    "INT": 14,
+    "AGI": 6,
     "trait": "ทุกสกิลใช้ FP น้อยลง 1 (ขั้นต่ำ 1)",
     "attributes": {
-      "VIT": 8,
-      "STR": 5,
-      "INT": 12,
-      "AGI": 5
+      "VIT": 9,
+      "STR": 6,
+      "INT": 14,
+      "AGI": 6
     }
   },
   {
     "id": "C04",
     "name": "หมอสนามเขม่า",
     "starter_skill": "S09",
-    "VIT": 10,
+    "VIT": 12,
     "STR": 5,
-    "INT": 10,
-    "AGI": 5,
+    "INT": 12,
+    "AGI": 6,
     "trait": "การฮีลฟื้นมากขึ้น 20%",
     "attributes": {
-      "VIT": 10,
+      "VIT": 12,
       "STR": 5,
-      "INT": 10,
-      "AGI": 5
+      "INT": 12,
+      "AGI": 6
     }
   },
   {
     "id": "C05",
     "name": "นักชีวกลเอเธอร์",
     "starter_skill": "S20",
-    "VIT": 9,
-    "STR": 6,
-    "INT": 9,
-    "AGI": 6,
+    "VIT": 10,
+    "STR": 7,
+    "INT": 11,
+    "AGI": 7,
     "trait": "สถานะเปียกและเกราะผุที่ตนใส่ให้ศัตรู อยู่นานขึ้นอีก 1 เทิร์น",
     "attributes": {
-      "VIT": 9,
-      "STR": 6,
-      "INT": 9,
-      "AGI": 6
+      "VIT": 10,
+      "STR": 7,
+      "INT": 11,
+      "AGI": 7
     }
   }
 ]

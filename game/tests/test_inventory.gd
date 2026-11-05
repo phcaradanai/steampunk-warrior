@@ -25,7 +25,7 @@ func run(t) -> bool:
 	for _i in range(100):
 		result = service.transact(player,{"kind":"equip","index":0},catalog.data)
 		player = result.state
-	t.check(player.base_attributes == original_base and progression.derive(player,catalog.data).attack == 22,"100equipment swaps do not drift base or derived stats")
+	t.check(player.base_attributes == original_base and progression.derive(player,catalog.data).attack == 24,"100equipment swaps do not drift base or derived stats")
 	result = service.transact(player,{"kind":"sell","index":0},catalog.data)
 	t.check(result.ok and result.state.currency == 12,"sale rounds down35x0.35 to12")
 	player.items = ["W26"]

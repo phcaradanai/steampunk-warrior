@@ -74,7 +74,7 @@ func run(t) -> bool:
 	action.skill = catalog.get_entry("skills","S04")
 	result = resolver.apply_action(state,action,rng)
 	damage = 500 - int(result.state.actors[1].hp)
-	t.check(damage >= 148 and damage <= 164,"Wet multiplies electric damage by1.25")
+	t.check(damage >= 102 and damage <= 114,"Wet multiplies electric damage by1.35")
 	state = fixture()
 	state.actors[0].statuses = {"Sealed":{"turns":2}}
 	state.actors[0].hp = 10

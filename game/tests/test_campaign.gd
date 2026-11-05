@@ -5,7 +5,7 @@ var session: GameSession
 var catalog: ContentCatalog
 var policy: WorldController
 var technical: bool
-const UPGRADE_RESERVE := 10
+const UPGRADE_RESERVE := 11
 # Starter-gear run: never buys, equips or upgrades gear (potions still bought).
 var starter_only := false
 
@@ -36,8 +36,10 @@ func prepare(destination: String) -> bool:
 	for encounter in catalog.data.encounters:
 		if encounter.room != destination: continue
 		for id in encounter.enemies: traits[catalog.get_entry("enemies",id).get("trait","")] = true
-	var weights := {"accuracy":4.0 if traits.has("evasive") else 0.3,"evasion":0.8,
-		"pierce":1.2 if traits.has("armored") and not technical else 0.2,"focus":1.2 if traits.has("warded") and technical else 0.2}
+	var weights := {"accuracy":4.0 if traits.has("evasive") else 0.3,"evasion":1.2 if traits.has("striker") else 0.8,
+		"pierce":1.5 if (traits.has("armored") or traits.has("shielded")) and not technical else (0.8 if not technical else 0.2),"focus":1.5 if traits.has("warded") and technical else 0.4,
+		"armor":2.0 if traits.has("striker") else 0.8,"resist":2.0 if traits.has("caster") else 0.8,
+		"barrier":1.5 if (traits.has("striker") or traits.has("shielded")) else 0.5}
 	# Visit only already unlocked shops and use earned currency.
 	for shop in ["R02","R05","R07","R09","R11"]:
 		if int(shop.substr(1)) > int(destination.substr(1)): continue
@@ -92,7 +94,8 @@ func choose_action(c: CombatController) -> Dictionary:
 	var enemy: Dictionary = {}
 	for other in c.state.actors:
 		if other.side == "enemy" and other.hp > 0:
-			enemy = other
+			if enemy.is_empty() or other.id == "root" or other.hp < enemy.hp:
+				enemy = other
 			if other.id == "root": break
 	var kind := "attack"
 	var skill := ""
@@ -106,11 +109,11 @@ func choose_action(c: CombatController) -> Dictionary:
 	var healing: int = c.resolver.skill_preview(hero,catalog.get_entry("skills","S09"),int(c.learned.get("S09",1))).heal
 	if dangerous and c.learned.has("S11") and hero.fp >= 10 and hero.barrier <= 0 and hero.pressure <= 90 and not enemy.intent.get("skill",{}).get("effects",{}).get("hits",1) > 1:
 		kind = "skill"; skill = "S11"
-	elif hero.hp < hero.max_hp*0.58 and hero.potions.life > 0 and (not c.learned.has("S09") or healing < hero.max_hp*0.35):
+	elif hero.hp < hero.max_hp*0.58 and hero.potions.life > 0 and not hero.statuses.has("Sealed") and (not c.learned.has("S09") or healing < hero.max_hp*0.35):
 		kind = "life_potion"
 	elif hero.hp < hero.max_hp*0.58 and c.learned.has("S09") and hero.fp >= 8 and not hero.statuses.has("Sealed"):
 		kind = "skill"; skill = "S09"
-	elif hero.hp < hero.max_hp*0.45 and hero.potions.life > 0:
+	elif hero.hp < hero.max_hp*0.45 and hero.potions.life > 0 and not hero.statuses.has("Sealed"):
 		kind = "life_potion"
 	elif dangerous:
 		kind = "guard"

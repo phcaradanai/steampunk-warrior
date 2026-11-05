@@ -260,10 +260,10 @@ func _damage(source: Dictionary, target: Dictionary, effects: Dictionary, rank_s
 		raw *= float(effects.get("marked_multiplier", 1.0))
 		if source.get("class_id", "") == "C02":
 			raw *= 1.1
-	if float(source.hp) / maxf(1.0, float(source.max_hp)) <= 0.35:
+	if float(source.hp) / maxf(1.0, float(source.max_hp)) <= 0.50:
 		raw *= float(effects.get("low_hp_multiplier", 1.0))
 	if type == "electric" and statuses.has("Wet"):
-		raw *= 1.25
+		raw *= 1.35
 	var amount := maxi(1, int(floor(raw * defended(source, target, type, effects) * rng.randf_range(0.95, 1.05))))
 	if statuses.has("Guard"):
 		amount = maxi(1, int(floor(amount * 0.5)))

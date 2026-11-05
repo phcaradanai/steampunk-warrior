@@ -132,16 +132,20 @@ static func skill_description(skill: Dictionary, preview: Dictionary, rank: int)
 		var names: Dictionary = {"max_hp":"HPสูงสุด","max_fp":"FPสูงสุด","initiative":"ลำดับเทิร์น"}
 		var percent: bool = preview.passive in ["max_hp","max_fp"]
 		lines.append("%s +%s%s" % [names.get(preview.passive,""),str(int(round(preview.passive_total * (100 if percent else 1)))),"%" if percent else ""])
+		var passive_hints: Dictionary = {"max_hp":"สเกลสนับสนุน: ความทนทาน — เสริมพลังชีวิตสูงสุด","max_fp":"สเกลสนับสนุน: เทคโนโลยี — เสริมค่าพลังงานสูงสุด","initiative":"สเกลสนับสนุน: ความคล่อง — เสริมความเร็วลำดับเทิร์น"}
+		if passive_hints.has(preview.passive): lines.append(passive_hints[preview.passive])
 		return "\n".join(lines)
 	lines.append("ระดับ %d · FP %d · แรงดัน %+d" % [rank,preview.fp_cost,preview.pressure_delta])
 	if preview.damage_max > 0:
 		lines.append("ความเสียหายพื้นฐาน %d–%d ×%d (ก่อนเกราะและสถานะ)" % [preview.damage_min,preview.damage_max,preview.hits])
+		var scales: Dictionary = {"physical":"กำลัง (โจมตีกายภาพ)","electric":"เทคโนโลยี (เวทสายฟ้า)","thermal":"เทคโนโลยี (เวทความร้อน)","chemical":"เทคโนโลยี (เวทสารเคมี)"}
+		lines.append("สเกลพลังตาม: %s" % scales.get(preview.damage_type,"เทคโนโลยี"))
 	if preview.heal > 0:
-		lines.append("ฟื้น HP %d" % preview.heal)
+		lines.append("ฟื้น HP %d  ·  สเกลตาม: เทคโนโลยี" % preview.heal)
 	if preview.barrier > 0:
-		lines.append("สร้างโล่ %d" % preview.barrier)
+		lines.append("สร้างโล่ %d  ·  สเกลตาม: เทคโนโลยี" % preview.barrier)
 	if preview.drone_max > 0:
-		lines.append("โดรนโจมตีพื้นฐาน %d–%d ต่อคำสั่ง" % [preview.drone_min,preview.drone_max])
+		lines.append("โดรนโจมตีพื้นฐาน %d–%d ต่อคำสั่ง  ·  สเกลตาม: เทคโนโลยี" % [preview.drone_min,preview.drone_max])
 	var statuses: Dictionary = {"Wet":"เปียก","Heated":"ร้อนจัด","Corroded":"เกราะผุ","Marked":"ถูกหมายหัว","Staggered":"เสียจังหวะ","Sealed":"ปิดการฟื้นฟู","Haste":"เร่งจังหวะ"}
 	if not preview.status.is_empty():
 		lines.append("%s %dเทิร์น" % [statuses.get(preview.status,preview.status),preview.duration])
